@@ -190,6 +190,12 @@
       display: block;
       image-rendering: -webkit-optimize-contrast;
       image-rendering: high-quality;
+      transform: translate3d(0, 0, 0);
+      -webkit-transform: translate3d(0, 0, 0);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      will-change: transform;
+      filter: contrast(1.08) brightness(1.03) saturate(1.06);
     }
 
     .hero-left-vignette {
@@ -753,10 +759,15 @@
     }
 
     function resizeCanvas() {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = Math.min(window.devicePixelRatio || 1, 2.5);
       const width = window.innerWidth;
       const height = window.innerHeight;
 
+      // Lock CSS layout size to exact viewport pixels
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+
+      // Set physical canvas pixel buffer with High-DPI precision
       canvas.width = Math.round(width * dpr);
       canvas.height = Math.round(height * dpr);
 
@@ -776,6 +787,10 @@
       const canvasW = canvas.width;
       const canvasH = canvas.height;
       const isMobile = window.innerWidth < 768;
+
+      // Enforce highest quality bicubic interpolation on every frame render
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
 
       if (!isMobile) {
         // =========================================================================
