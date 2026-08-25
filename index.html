@@ -707,174 +707,334 @@
       </div>
     </section>
 
-    <!-- 2. OUR CORE SERVICES -->
+    <!-- 2. OUR CORE SERVICES (REDESIGNED) -->
     <section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-background relative z-20 border-t border-outline-variant/10" id="core-services">
       <div class="max-w-container-max mx-auto">
-        <div class="flex flex-col md:flex-row justify-between items-end mb-16">
+        <!-- Section Header -->
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-16 gap-6">
           <div class="max-w-2xl">
-            <div class="inline-flex items-center space-x-2 bg-surface-container-high border border-tertiary/20 px-3.5 py-1.5 rounded-full mb-4">
+            <div class="inline-flex items-center space-x-2 bg-surface-container-high border border-tertiary/25 px-4 py-1.5 rounded-full mb-4 shadow-sm">
               <span class="material-symbols-outlined text-tertiary text-[18px]">build</span>
               <span class="font-label-caps text-xs text-tertiary uppercase tracking-widest font-semibold">Our Core Services</span>
             </div>
-            <h2 class="font-display-lg text-3xl md:text-5xl text-primary mb-4 leading-tight">
-              Complete Car Services Under One Roof
+            <h2 class="font-display-lg text-3xl md:text-5xl text-primary mb-4 leading-tight font-bold">
+              Complete Car Services <br class="hidden sm:inline" /><span class="text-gradient-gold">Under One Roof</span>
             </h2>
-            <p class="font-body-md text-on-surface-variant text-base md:text-lg">
+            <p class="font-body-md text-on-surface-variant text-base md:text-lg leading-relaxed">
               From regular oil service and computer scanning to major engine overhauls, dent repair, and custom upgrades — we take care of all your car needs with expert care.
             </p>
           </div>
-          <a class="inline-flex items-center space-x-2 text-tertiary font-label-caps text-label-caps uppercase hover:text-primary transition-colors mt-6 md:mt-0 font-bold" href="services.html">
-            <span>View All Services</span>
-            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+          <a class="inline-flex items-center space-x-2 px-5 py-3 rounded-xl bg-surface-container-high border border-outline-variant/25 hover:border-tertiary text-tertiary hover:text-primary font-label-caps text-xs uppercase font-bold transition-all duration-300 shadow-md group" href="services.html">
+            <span>Explore All 7 Categories</span>
+            <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
           </a>
         </div>
 
-        <!-- 6 Interactive Service Cards Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <!-- 1. Mechanical Repairs -->
-          <div class="bg-surface-container-low rounded-2xl p-8 shimmer-border glow-hover transition-all duration-300 flex flex-col justify-between group">
+        <!-- 6 Redesigned Luxury Service Matrix Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7">
+          
+          <!-- Card 1: Mechanical & Engine Repairs -->
+          <div class="group relative bg-gradient-to-b from-surface-container-low/95 via-surface-container/70 to-surface-container-low/90 rounded-2xl p-7 md:p-8 border border-outline-variant/20 hover:border-tertiary/50 hover:shadow-[0_16px_40px_rgba(202,160,86,0.14)] transition-all duration-300 flex flex-col justify-between overflow-hidden">
+            <!-- Sliding Top Accent -->
+            <div class="absolute top-0 left-0 h-1 w-14 bg-tertiary/40 group-hover:w-full group-hover:bg-tertiary transition-all duration-500 rounded-t-2xl"></div>
+            <!-- Large Numeral Watermark -->
+            <div class="absolute top-3 right-5 font-stats-number text-6xl md:text-7xl font-black text-outline-variant/10 group-hover:text-tertiary/15 transition-colors pointer-events-none select-none">
+              01
+            </div>
+
             <div>
-              <div class="w-14 h-14 rounded-xl bg-surface-container flex items-center justify-center mb-6 group-hover:bg-tertiary/20 transition-colors border border-outline-variant/15">
-                <span class="material-symbols-outlined text-tertiary text-[32px]">settings</span>
+              <div class="flex items-center justify-between mb-6 relative z-10">
+                <div class="w-14 h-14 rounded-2xl bg-surface-container-high border border-tertiary/25 flex items-center justify-center group-hover:scale-110 group-hover:bg-tertiary/20 group-hover:border-tertiary transition-all duration-300 shadow-lg">
+                  <span class="material-symbols-outlined text-tertiary text-[28px]">settings</span>
+                </div>
+                <span class="text-[11px] font-label-caps font-semibold uppercase px-3 py-1 rounded-full bg-tertiary/10 text-tertiary border border-tertiary/20 tracking-wider">
+                  Expert Workmanship
+                </span>
               </div>
-              <h3 class="font-headline-md text-2xl text-primary mb-3 font-semibold group-hover:text-tertiary transition-colors">Mechanical & Engine Repairs</h3>
+
+              <h3 class="font-headline-md text-xl md:text-2xl text-primary font-bold mb-3 group-hover:text-tertiary transition-colors leading-snug">
+                Mechanical & Engine Repairs
+              </h3>
               <p class="font-body-md text-on-surface-variant text-sm leading-relaxed mb-6">
                 Complete engine rebuilds, clutch and gearbox repair, suspension noise fixing, power steering work, and high-performance brake replacements.
               </p>
             </div>
-            <div>
-              <div class="flex flex-wrap gap-2 mb-6 pt-4 border-t border-outline-variant/10 text-xs font-label-caps text-on-surface-variant uppercase">
-                <span class="bg-surface-container px-2.5 py-1 rounded-md">Engine Repair</span>
-                <span class="bg-surface-container px-2.5 py-1 rounded-md">Gearbox & Clutch</span>
-                <span class="bg-surface-container px-2.5 py-1 rounded-md">Brakes & Suspension</span>
+
+            <div class="relative z-10 pt-4 border-t border-outline-variant/15">
+              <div class="flex flex-wrap gap-1.5 mb-5 text-[11px] font-label-caps uppercase">
+                <span class="bg-surface-container-high/90 border border-outline-variant/20 px-2.5 py-1 rounded-md text-on-surface">Engine Repair</span>
+                <span class="bg-surface-container-high/90 border border-outline-variant/20 px-2.5 py-1 rounded-md text-on-surface">Gearbox & Clutch</span>
+                <span class="bg-surface-container-high/90 border border-outline-variant/20 px-2.5 py-1 rounded-md text-on-surface">Brakes & Suspension</span>
               </div>
-              <a class="text-tertiary text-xs font-label-caps uppercase inline-flex items-center space-x-1 group-hover:underline font-bold" href="services.html#cat-mechanical">
-                <span>Learn More</span>
-                <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
-              </a>
+              <div class="flex items-center justify-between">
+                <a class="text-tertiary text-xs font-label-caps uppercase inline-flex items-center space-x-1.5 font-bold hover:text-primary transition-colors group-hover:translate-x-0.5" href="services.html#cat-mechanical">
+                  <span>Service Details</span>
+                  <span class="material-symbols-outlined text-[15px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                </a>
+                <a href="https://wa.me/917757030387?text=Hi%20Sohail%2C%20I%20need%20an%20inquiry%20for%20Mechanical%20%26%20Engine%20Repairs." target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-1 text-[11px] font-label-caps uppercase px-3 py-1.5 rounded-lg bg-surface-container border border-outline-variant/30 hover:border-whatsapp hover:bg-whatsapp/15 hover:text-whatsapp text-on-surface-variant font-semibold transition-colors" title="Quick WhatsApp quote">
+                  <span class="text-xs">💬</span>
+                  <span>Quick Quote</span>
+                </a>
+              </div>
             </div>
           </div>
 
-          <!-- 2. Diagnostics -->
-          <div class="bg-surface-container-low rounded-2xl p-8 shimmer-border glow-hover transition-all duration-300 flex flex-col justify-between group">
+          <!-- Card 2: Computer Scanning & Diagnostics -->
+          <div class="group relative bg-gradient-to-b from-surface-container-low/95 via-surface-container/70 to-surface-container-low/90 rounded-2xl p-7 md:p-8 border border-outline-variant/20 hover:border-tertiary/50 hover:shadow-[0_16px_40px_rgba(202,160,86,0.14)] transition-all duration-300 flex flex-col justify-between overflow-hidden">
+            <!-- Sliding Top Accent -->
+            <div class="absolute top-0 left-0 h-1 w-14 bg-tertiary/40 group-hover:w-full group-hover:bg-tertiary transition-all duration-500 rounded-t-2xl"></div>
+            <!-- Large Numeral Watermark -->
+            <div class="absolute top-3 right-5 font-stats-number text-6xl md:text-7xl font-black text-outline-variant/10 group-hover:text-tertiary/15 transition-colors pointer-events-none select-none">
+              02
+            </div>
+
             <div>
-              <div class="w-14 h-14 rounded-xl bg-surface-container flex items-center justify-center mb-6 group-hover:bg-tertiary/20 transition-colors border border-outline-variant/15">
-                <span class="material-symbols-outlined text-tertiary text-[32px]">troubleshoot</span>
+              <div class="flex items-center justify-between mb-6 relative z-10">
+                <div class="w-14 h-14 rounded-2xl bg-surface-container-high border border-tertiary/25 flex items-center justify-center group-hover:scale-110 group-hover:bg-tertiary/20 group-hover:border-tertiary transition-all duration-300 shadow-lg">
+                  <span class="material-symbols-outlined text-tertiary text-[28px]">troubleshoot</span>
+                </div>
+                <span class="text-[11px] font-label-caps font-semibold uppercase px-3 py-1 rounded-full bg-tertiary/10 text-tertiary border border-tertiary/20 tracking-wider">
+                  Zero Guesswork
+                </span>
               </div>
-              <h3 class="font-headline-md text-2xl text-primary mb-3 font-semibold group-hover:text-tertiary transition-colors">Computer Scanning & Diagnostics</h3>
+
+              <h3 class="font-headline-md text-xl md:text-2xl text-primary font-bold mb-3 group-hover:text-tertiary transition-colors leading-snug">
+                Computer Scanning & Diagnostics
+              </h3>
               <p class="font-body-md text-on-surface-variant text-sm leading-relaxed mb-6">
                 Advanced computer scanning to quickly find check engine lights, sensor issues, battery health problems, and electrical faults without any guesswork.
               </p>
             </div>
-            <div>
-              <div class="flex flex-wrap gap-2 mb-6 pt-4 border-t border-outline-variant/10 text-xs font-label-caps text-on-surface-variant uppercase">
-                <span class="bg-surface-container px-2.5 py-1 rounded-md">Computer Scan</span>
-                <span class="bg-surface-container px-2.5 py-1 rounded-md">Electrical Wiring</span>
-                <span class="bg-surface-container px-2.5 py-1 rounded-md">Sensor Check</span>
+
+            <div class="relative z-10 pt-4 border-t border-outline-variant/15">
+              <div class="flex flex-wrap gap-1.5 mb-5 text-[11px] font-label-caps uppercase">
+                <span class="bg-surface-container-high/90 border border-outline-variant/20 px-2.5 py-1 rounded-md text-on-surface">Computer Scan</span>
+                <span class="bg-surface-container-high/90 border border-outline-variant/20 px-2.5 py-1 rounded-md text-on-surface">Electrical Wiring</span>
+                <span class="bg-surface-container-high/90 border border-outline-variant/20 px-2.5 py-1 rounded-md text-on-surface">Sensor Check</span>
               </div>
-              <a class="text-tertiary text-xs font-label-caps uppercase inline-flex items-center space-x-1 group-hover:underline font-bold" href="services.html#cat-diagnostics">
-                <span>Learn More</span>
-                <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
-              </a>
+              <div class="flex items-center justify-between">
+                <a class="text-tertiary text-xs font-label-caps uppercase inline-flex items-center space-x-1.5 font-bold hover:text-primary transition-colors group-hover:translate-x-0.5" href="services.html#cat-diagnostics">
+                  <span>Service Details</span>
+                  <span class="material-symbols-outlined text-[15px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                </a>
+                <a href="https://wa.me/917757030387?text=Hi%20Sohail%2C%20I%20need%20Computer%20Scanning%20%26%20Diagnostics%20for%20my%20car." target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-1 text-[11px] font-label-caps uppercase px-3 py-1.5 rounded-lg bg-surface-container border border-outline-variant/30 hover:border-whatsapp hover:bg-whatsapp/15 hover:text-whatsapp text-on-surface-variant font-semibold transition-colors" title="Quick WhatsApp quote">
+                  <span class="text-xs">💬</span>
+                  <span>Quick Quote</span>
+                </a>
+              </div>
             </div>
           </div>
 
-          <!-- 3. Performance Upgrades -->
-          <div class="bg-surface-container-low rounded-2xl p-8 shimmer-border glow-hover transition-all duration-300 flex flex-col justify-between group">
+          <!-- Card 3: Performance & Tuning -->
+          <div class="group relative bg-gradient-to-b from-surface-container-low/95 via-surface-container/70 to-surface-container-low/90 rounded-2xl p-7 md:p-8 border border-outline-variant/20 hover:border-tertiary/50 hover:shadow-[0_16px_40px_rgba(202,160,86,0.14)] transition-all duration-300 flex flex-col justify-between overflow-hidden">
+            <!-- Sliding Top Accent -->
+            <div class="absolute top-0 left-0 h-1 w-14 bg-tertiary/40 group-hover:w-full group-hover:bg-tertiary transition-all duration-500 rounded-t-2xl"></div>
+            <!-- Large Numeral Watermark -->
+            <div class="absolute top-3 right-5 font-stats-number text-6xl md:text-7xl font-black text-outline-variant/10 group-hover:text-tertiary/15 transition-colors pointer-events-none select-none">
+              03
+            </div>
+
             <div>
-              <div class="w-14 h-14 rounded-xl bg-surface-container flex items-center justify-center mb-6 group-hover:bg-tertiary/20 transition-colors border border-outline-variant/15">
-                <span class="material-symbols-outlined text-tertiary text-[32px]">speed</span>
+              <div class="flex items-center justify-between mb-6 relative z-10">
+                <div class="w-14 h-14 rounded-2xl bg-surface-container-high border border-tertiary/25 flex items-center justify-center group-hover:scale-110 group-hover:bg-tertiary/20 group-hover:border-tertiary transition-all duration-300 shadow-lg">
+                  <span class="material-symbols-outlined text-tertiary text-[28px]">speed</span>
+                </div>
+                <span class="text-[11px] font-label-caps font-semibold uppercase px-3 py-1 rounded-full bg-tertiary/10 text-tertiary border border-tertiary/20 tracking-wider">
+                  Power & Response
+                </span>
               </div>
-              <h3 class="font-headline-md text-2xl text-primary mb-3 font-semibold group-hover:text-tertiary transition-colors">Performance & Tuning</h3>
+
+              <h3 class="font-headline-md text-xl md:text-2xl text-primary font-bold mb-3 group-hover:text-tertiary transition-colors leading-snug">
+                Performance & Tuning
+              </h3>
               <p class="font-body-md text-on-surface-variant text-sm leading-relaxed mb-6">
                 Stage 1 & Stage 2 ECU remapping for more pickup and power, custom sporty exhaust systems, cold air intakes, and turbo tuning.
               </p>
             </div>
-            <div>
-              <div class="flex flex-wrap gap-2 mb-6 pt-4 border-t border-outline-variant/10 text-xs font-label-caps text-on-surface-variant uppercase">
-                <span class="bg-surface-container px-2.5 py-1 rounded-md">ECU Remapping</span>
-                <span class="bg-surface-container px-2.5 py-1 rounded-md">Sports Exhaust</span>
-                <span class="bg-surface-container px-2.5 py-1 rounded-md">Air Intakes</span>
+
+            <div class="relative z-10 pt-4 border-t border-outline-variant/15">
+              <div class="flex flex-wrap gap-1.5 mb-5 text-[11px] font-label-caps uppercase">
+                <span class="bg-surface-container-high/90 border border-outline-variant/20 px-2.5 py-1 rounded-md text-on-surface">ECU Remapping</span>
+                <span class="bg-surface-container-high/90 border border-outline-variant/20 px-2.5 py-1 rounded-md text-on-surface">Sports Exhaust</span>
+                <span class="bg-surface-container-high/90 border border-outline-variant/20 px-2.5 py-1 rounded-md text-on-surface">Air Intakes</span>
               </div>
-              <a class="text-tertiary text-xs font-label-caps uppercase inline-flex items-center space-x-1 group-hover:underline font-bold" href="services.html#cat-performance">
-                <span>Learn More</span>
-                <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
-              </a>
+              <div class="flex items-center justify-between">
+                <a class="text-tertiary text-xs font-label-caps uppercase inline-flex items-center space-x-1.5 font-bold hover:text-primary transition-colors group-hover:translate-x-0.5" href="services.html#cat-performance">
+                  <span>Service Details</span>
+                  <span class="material-symbols-outlined text-[15px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                </a>
+                <a href="https://wa.me/917757030387?text=Hi%20Sohail%2C%20I%27d%20like%20to%20ask%20about%20Performance%20Tuning%20%26%20ECU%20Remap." target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-1 text-[11px] font-label-caps uppercase px-3 py-1.5 rounded-lg bg-surface-container border border-outline-variant/30 hover:border-whatsapp hover:bg-whatsapp/15 hover:text-whatsapp text-on-surface-variant font-semibold transition-colors" title="Quick WhatsApp quote">
+                  <span class="text-xs">💬</span>
+                  <span>Quick Quote</span>
+                </a>
+              </div>
             </div>
           </div>
 
-          <!-- 4. Car Modification -->
-          <div class="bg-surface-container-low rounded-2xl p-8 shimmer-border glow-hover transition-all duration-300 flex flex-col justify-between group">
+          <!-- Card 4: Car Modification & Styling -->
+          <div class="group relative bg-gradient-to-b from-surface-container-low/95 via-surface-container/70 to-surface-container-low/90 rounded-2xl p-7 md:p-8 border border-outline-variant/20 hover:border-tertiary/50 hover:shadow-[0_16px_40px_rgba(202,160,86,0.14)] transition-all duration-300 flex flex-col justify-between overflow-hidden">
+            <!-- Sliding Top Accent -->
+            <div class="absolute top-0 left-0 h-1 w-14 bg-tertiary/40 group-hover:w-full group-hover:bg-tertiary transition-all duration-500 rounded-t-2xl"></div>
+            <!-- Large Numeral Watermark -->
+            <div class="absolute top-3 right-5 font-stats-number text-6xl md:text-7xl font-black text-outline-variant/10 group-hover:text-tertiary/15 transition-colors pointer-events-none select-none">
+              04
+            </div>
+
             <div>
-              <div class="w-14 h-14 rounded-xl bg-surface-container flex items-center justify-center mb-6 group-hover:bg-tertiary/20 transition-colors border border-outline-variant/15">
-                <span class="material-symbols-outlined text-tertiary text-[32px]">auto_fix_high</span>
+              <div class="flex items-center justify-between mb-6 relative z-10">
+                <div class="w-14 h-14 rounded-2xl bg-surface-container-high border border-tertiary/25 flex items-center justify-center group-hover:scale-110 group-hover:bg-tertiary/20 group-hover:border-tertiary transition-all duration-300 shadow-lg">
+                  <span class="material-symbols-outlined text-tertiary text-[28px]">auto_fix_high</span>
+                </div>
+                <span class="text-[11px] font-label-caps font-semibold uppercase px-3 py-1 rounded-full bg-tertiary/10 text-tertiary border border-tertiary/20 tracking-wider">
+                  Custom Styling
+                </span>
               </div>
-              <h3 class="font-headline-md text-2xl text-primary mb-3 font-semibold group-hover:text-tertiary transition-colors">Car Modification & Styling</h3>
+
+              <h3 class="font-headline-md text-xl md:text-2xl text-primary font-bold mb-3 group-hover:text-tertiary transition-colors leading-snug">
+                Car Modification & Styling
+              </h3>
               <p class="font-body-md text-on-surface-variant text-sm leading-relaxed mb-6">
                 Custom body kits, sporty spoilers, alloy wheels, suspension lowering or lifting, LED & projector headlights, and bespoke interior customization.
               </p>
             </div>
-            <div>
-              <div class="flex flex-wrap gap-2 mb-6 pt-4 border-t border-outline-variant/10 text-xs font-label-caps text-on-surface-variant uppercase">
-                <span class="bg-surface-container px-2.5 py-1 rounded-md">Body Kits</span>
-                <span class="bg-surface-container px-2.5 py-1 rounded-md">Alloy Wheels</span>
-                <span class="bg-surface-container px-2.5 py-1 rounded-md">LED & Lighting</span>
+
+            <div class="relative z-10 pt-4 border-t border-outline-variant/15">
+              <div class="flex flex-wrap gap-1.5 mb-5 text-[11px] font-label-caps uppercase">
+                <span class="bg-surface-container-high/90 border border-outline-variant/20 px-2.5 py-1 rounded-md text-on-surface">Body Kits</span>
+                <span class="bg-surface-container-high/90 border border-outline-variant/20 px-2.5 py-1 rounded-md text-on-surface">Alloy Wheels</span>
+                <span class="bg-surface-container-high/90 border border-outline-variant/20 px-2.5 py-1 rounded-md text-on-surface">LED & Lighting</span>
               </div>
-              <a class="text-tertiary text-xs font-label-caps uppercase inline-flex items-center space-x-1 group-hover:underline font-bold" href="services.html#cat-modification">
-                <span>Learn More</span>
-                <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
-              </a>
+              <div class="flex items-center justify-between">
+                <a class="text-tertiary text-xs font-label-caps uppercase inline-flex items-center space-x-1.5 font-bold hover:text-primary transition-colors group-hover:translate-x-0.5" href="services.html#cat-modification">
+                  <span>Service Details</span>
+                  <span class="material-symbols-outlined text-[15px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                </a>
+                <a href="https://wa.me/917757030387?text=Hi%20Sohail%2C%20I%20want%20Car%20Modification%20%26%20Styling%20for%20my%20car." target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-1 text-[11px] font-label-caps uppercase px-3 py-1.5 rounded-lg bg-surface-container border border-outline-variant/30 hover:border-whatsapp hover:bg-whatsapp/15 hover:text-whatsapp text-on-surface-variant font-semibold transition-colors" title="Quick WhatsApp quote">
+                  <span class="text-xs">💬</span>
+                  <span>Quick Quote</span>
+                </a>
+              </div>
             </div>
           </div>
 
-          <!-- 5. Body & Paint -->
-          <div class="bg-surface-container-low rounded-2xl p-8 shimmer-border glow-hover transition-all duration-300 flex flex-col justify-between group">
+          <!-- Card 5: Denting, Painting & Detailing -->
+          <div class="group relative bg-gradient-to-b from-surface-container-low/95 via-surface-container/70 to-surface-container-low/90 rounded-2xl p-7 md:p-8 border border-outline-variant/20 hover:border-tertiary/50 hover:shadow-[0_16px_40px_rgba(202,160,86,0.14)] transition-all duration-300 flex flex-col justify-between overflow-hidden">
+            <!-- Sliding Top Accent -->
+            <div class="absolute top-0 left-0 h-1 w-14 bg-tertiary/40 group-hover:w-full group-hover:bg-tertiary transition-all duration-500 rounded-t-2xl"></div>
+            <!-- Large Numeral Watermark -->
+            <div class="absolute top-3 right-5 font-stats-number text-6xl md:text-7xl font-black text-outline-variant/10 group-hover:text-tertiary/15 transition-colors pointer-events-none select-none">
+              05
+            </div>
+
             <div>
-              <div class="w-14 h-14 rounded-xl bg-surface-container flex items-center justify-center mb-6 group-hover:bg-tertiary/20 transition-colors border border-outline-variant/15">
-                <span class="material-symbols-outlined text-tertiary text-[32px]">brush</span>
+              <div class="flex items-center justify-between mb-6 relative z-10">
+                <div class="w-14 h-14 rounded-2xl bg-surface-container-high border border-tertiary/25 flex items-center justify-center group-hover:scale-110 group-hover:bg-tertiary/20 group-hover:border-tertiary transition-all duration-300 shadow-lg">
+                  <span class="material-symbols-outlined text-tertiary text-[28px]">brush</span>
+                </div>
+                <span class="text-[11px] font-label-caps font-semibold uppercase px-3 py-1 rounded-full bg-tertiary/10 text-tertiary border border-tertiary/20 tracking-wider">
+                  Showroom Finish
+                </span>
               </div>
-              <h3 class="font-headline-md text-2xl text-primary mb-3 font-semibold group-hover:text-tertiary transition-colors">Denting, Painting & Detailing</h3>
+
+              <h3 class="font-headline-md text-xl md:text-2xl text-primary font-bold mb-3 group-hover:text-tertiary transition-colors leading-snug">
+                Denting, Painting & Detailing
+              </h3>
               <p class="font-body-md text-on-surface-variant text-sm leading-relaxed mb-6">
                 Scratch & dent removal, factory color-matched spray booth painting, deep interior cleaning, 9H Ceramic Coating, and Paint Protection Film (PPF).
               </p>
             </div>
-            <div>
-              <div class="flex flex-wrap gap-2 mb-6 pt-4 border-t border-outline-variant/10 text-xs font-label-caps text-on-surface-variant uppercase">
-                <span class="bg-surface-container px-2.5 py-1 rounded-md">Dent & Scratch</span>
-                <span class="bg-surface-container px-2.5 py-1 rounded-md">Color Match Paint</span>
-                <span class="bg-surface-container px-2.5 py-1 rounded-md">9H Ceramic & PPF</span>
+
+            <div class="relative z-10 pt-4 border-t border-outline-variant/15">
+              <div class="flex flex-wrap gap-1.5 mb-5 text-[11px] font-label-caps uppercase">
+                <span class="bg-surface-container-high/90 border border-outline-variant/20 px-2.5 py-1 rounded-md text-on-surface">Dent & Scratch</span>
+                <span class="bg-surface-container-high/90 border border-outline-variant/20 px-2.5 py-1 rounded-md text-on-surface">Color Match Paint</span>
+                <span class="bg-surface-container-high/90 border border-outline-variant/20 px-2.5 py-1 rounded-md text-on-surface">9H Ceramic & PPF</span>
               </div>
-              <a class="text-tertiary text-xs font-label-caps uppercase inline-flex items-center space-x-1 group-hover:underline font-bold" href="services.html#cat-detailing">
-                <span>Learn More</span>
-                <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
-              </a>
+              <div class="flex items-center justify-between">
+                <a class="text-tertiary text-xs font-label-caps uppercase inline-flex items-center space-x-1.5 font-bold hover:text-primary transition-colors group-hover:translate-x-0.5" href="services.html#cat-detailing">
+                  <span>Service Details</span>
+                  <span class="material-symbols-outlined text-[15px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                </a>
+                <a href="https://wa.me/917757030387?text=Hi%20Sohail%2C%20I%20want%20a%20quote%20for%20Denting%2C%20Painting%20or%20Ceramic%20Coating." target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-1 text-[11px] font-label-caps uppercase px-3 py-1.5 rounded-lg bg-surface-container border border-outline-variant/30 hover:border-whatsapp hover:bg-whatsapp/15 hover:text-whatsapp text-on-surface-variant font-semibold transition-colors" title="Quick WhatsApp quote">
+                  <span class="text-xs">💬</span>
+                  <span>Quick Quote</span>
+                </a>
+              </div>
             </div>
           </div>
 
-          <!-- 6. Routine Maintenance -->
-          <div class="bg-surface-container-low rounded-2xl p-8 shimmer-border glow-hover transition-all duration-300 flex flex-col justify-between group">
+          <!-- Card 6: Regular Periodic Service -->
+          <div class="group relative bg-gradient-to-b from-surface-container-low/95 via-surface-container/70 to-surface-container-low/90 rounded-2xl p-7 md:p-8 border border-outline-variant/20 hover:border-tertiary/50 hover:shadow-[0_16px_40px_rgba(202,160,86,0.14)] transition-all duration-300 flex flex-col justify-between overflow-hidden">
+            <!-- Sliding Top Accent -->
+            <div class="absolute top-0 left-0 h-1 w-14 bg-tertiary/40 group-hover:w-full group-hover:bg-tertiary transition-all duration-500 rounded-t-2xl"></div>
+            <!-- Large Numeral Watermark -->
+            <div class="absolute top-3 right-5 font-stats-number text-6xl md:text-7xl font-black text-outline-variant/10 group-hover:text-tertiary/15 transition-colors pointer-events-none select-none">
+              06
+            </div>
+
             <div>
-              <div class="w-14 h-14 rounded-xl bg-surface-container flex items-center justify-center mb-6 group-hover:bg-tertiary/20 transition-colors border border-outline-variant/15">
-                <span class="material-symbols-outlined text-tertiary text-[32px]">check_circle</span>
+              <div class="flex items-center justify-between mb-6 relative z-10">
+                <div class="w-14 h-14 rounded-2xl bg-surface-container-high border border-tertiary/25 flex items-center justify-center group-hover:scale-110 group-hover:bg-tertiary/20 group-hover:border-tertiary transition-all duration-300 shadow-lg">
+                  <span class="material-symbols-outlined text-tertiary text-[28px]">verified</span>
+                </div>
+                <span class="text-[11px] font-label-caps font-semibold uppercase px-3 py-1 rounded-full bg-tertiary/10 text-tertiary border border-tertiary/20 tracking-wider">
+                  50-Point Safety Check
+                </span>
               </div>
-              <h3 class="font-headline-md text-2xl text-primary mb-3 font-semibold group-hover:text-tertiary transition-colors">Regular Periodic Service</h3>
+
+              <h3 class="font-headline-md text-xl md:text-2xl text-primary font-bold mb-3 group-hover:text-tertiary transition-colors leading-snug">
+                Regular Periodic Service
+              </h3>
               <p class="font-body-md text-on-surface-variant text-sm leading-relaxed mb-6">
                 Engine oil and filter change, AC cooling service, brake pad inspection, battery testing, coolant top-up, and comprehensive 50-point safety checkup.
               </p>
             </div>
-            <div>
-              <div class="flex flex-wrap gap-2 mb-6 pt-4 border-t border-outline-variant/10 text-xs font-label-caps text-on-surface-variant uppercase">
-                <span class="bg-surface-container px-2.5 py-1 rounded-md">Oil & Filter</span>
-                <span class="bg-surface-container px-2.5 py-1 rounded-md">AC Servicing</span>
-                <span class="bg-surface-container px-2.5 py-1 rounded-md">50-Point Check</span>
+
+            <div class="relative z-10 pt-4 border-t border-outline-variant/15">
+              <div class="flex flex-wrap gap-1.5 mb-5 text-[11px] font-label-caps uppercase">
+                <span class="bg-surface-container-high/90 border border-outline-variant/20 px-2.5 py-1 rounded-md text-on-surface">Oil & Filter</span>
+                <span class="bg-surface-container-high/90 border border-outline-variant/20 px-2.5 py-1 rounded-md text-on-surface">AC Servicing</span>
+                <span class="bg-surface-container-high/90 border border-outline-variant/20 px-2.5 py-1 rounded-md text-on-surface">50-Point Check</span>
               </div>
-              <a class="text-tertiary text-xs font-label-caps uppercase inline-flex items-center space-x-1 group-hover:underline font-bold" href="services.html#cat-maintenance">
-                <span>Learn More</span>
-                <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
-              </a>
+              <div class="flex items-center justify-between">
+                <a class="text-tertiary text-xs font-label-caps uppercase inline-flex items-center space-x-1.5 font-bold hover:text-primary transition-colors group-hover:translate-x-0.5" href="services.html#cat-maintenance">
+                  <span>Service Details</span>
+                  <span class="material-symbols-outlined text-[15px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                </a>
+                <a href="https://wa.me/917757030387?text=Hi%20Sohail%2C%20I%20want%20to%20book%20Regular%20Periodic%20Service%20for%20my%20car." target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-1 text-[11px] font-label-caps uppercase px-3 py-1.5 rounded-lg bg-surface-container border border-outline-variant/30 hover:border-whatsapp hover:bg-whatsapp/15 hover:text-whatsapp text-on-surface-variant font-semibold transition-colors" title="Quick WhatsApp quote">
+                  <span class="text-xs">💬</span>
+                  <span>Quick Quote</span>
+                </a>
+              </div>
             </div>
           </div>
+
         </div>
+
+        <!-- Consultation & Immediate Help Action Bar -->
+        <div class="mt-12 md:mt-14 bg-gradient-to-r from-surface-container-low via-surface-container to-surface-container-low rounded-2xl p-6 md:p-8 border border-outline-variant/20 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl relative overflow-hidden">
+          <div class="absolute -right-10 -bottom-10 w-48 h-48 rounded-full bg-tertiary/5 blur-3xl pointer-events-none"></div>
+          <div class="flex items-center space-x-4 relative z-10">
+            <div class="w-13 h-13 rounded-2xl bg-tertiary/15 border border-tertiary/30 flex items-center justify-center text-tertiary flex-shrink-0 p-3 shadow-inner">
+              <span class="material-symbols-outlined text-[28px]">support_agent</span>
+            </div>
+            <div>
+              <h4 class="text-primary font-bold text-base md:text-lg">Need custom advice or urgent inspection for your car?</h4>
+              <p class="text-xs md:text-sm text-on-surface-variant mt-0.5">Speak directly with master technician Sohail Mulani for honest diagnostics and estimates.</p>
+            </div>
+          </div>
+          <div class="flex flex-wrap items-center gap-3 w-full md:w-auto justify-start md:justify-end relative z-10">
+            <a href="tel:+917757030387" class="inline-flex items-center justify-center space-x-2 px-5 py-3 rounded-xl bg-surface-container-high border border-outline-variant/30 hover:border-primary text-primary text-xs font-label-caps uppercase font-bold transition-all duration-300 shadow-sm">
+              <span class="material-symbols-outlined text-[16px]">call</span>
+              <span>Call 7757030387</span>
+            </a>
+            <a href="https://wa.me/917757030387?text=Hi%20Sohail%2C%20I%20would%20like%20to%20get%20a%20free%20quote%20for%20my%20car." target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center space-x-2 px-5 py-3 rounded-xl bg-tertiary hover:bg-tertiary/90 text-on-tertiary text-xs font-label-caps uppercase font-bold transition-all duration-300 shadow-md">
+              <span>Get Free Quote</span>
+              <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+            </a>
+          </div>
+        </div>
+
       </div>
     </section>
 
