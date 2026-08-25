@@ -1096,11 +1096,24 @@
     </section>
 
     <!-- 3. WHY CHOOSE WE CARE (HYBRID AUTO-SCROLL + DRAGGABLE SINGLE-ROW) -->
-    <section class="py-section-gap bg-surface-dim relative z-20 border-t border-outline-variant/10 overflow-hidden" id="why-choose-us">
-      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+    <section class="py-section-gap relative z-20 border-t border-outline-variant/10 overflow-hidden" id="why-choose-us">
+      <!-- Section Atmospheric Background Image & Overlays -->
+      <div class="absolute inset-0 pointer-events-none z-0">
+        <img 
+          src="assets/why-choose-bg.jpg" 
+          alt="We Care Auto Repair Workshop" 
+          class="w-full h-full object-cover object-center opacity-40 md:opacity-45 scale-105"
+          loading="lazy"
+        />
+        <!-- Multi-layer Gradients for Maximum Legibility & Warm Luxury Tone -->
+        <div class="absolute inset-0 bg-gradient-to-b from-[#131313]/95 via-[#131313]/80 to-[#131313]/95"></div>
+        <div class="absolute inset-0 bg-radial-vignette opacity-70"></div>
+      </div>
+
+      <div class="relative z-10 max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 md:mb-12 gap-6">
           <div class="max-w-2xl">
-            <div class="inline-flex items-center space-x-2 bg-surface-container-high border border-tertiary/20 px-3.5 py-1.5 rounded-full mb-4 shadow-sm">
+            <div class="inline-flex items-center space-x-2 bg-surface-container-high/90 backdrop-blur-md border border-tertiary/25 px-3.5 py-1.5 rounded-full mb-4 shadow-sm">
               <span class="material-symbols-outlined text-tertiary text-[18px]">star</span>
               <span class="font-label-caps text-xs text-tertiary uppercase tracking-widest font-semibold">Why Choose WE Care</span>
             </div>
@@ -1134,9 +1147,9 @@
       <!-- Full-Width Single-Row Draggable Slider with Fade Masks -->
       <div class="relative overflow-hidden py-3">
         <!-- Left Edge Fade Gradient -->
-        <div class="pointer-events-none absolute left-0 top-0 bottom-0 w-12 md:w-28 bg-gradient-to-r from-surface-dim to-transparent z-10"></div>
+        <div class="pointer-events-none absolute left-0 top-0 bottom-0 w-12 md:w-28 bg-gradient-to-r from-[#131313] to-transparent z-10"></div>
         <!-- Right Edge Fade Gradient -->
-        <div class="pointer-events-none absolute right-0 top-0 bottom-0 w-12 md:w-28 bg-gradient-to-l from-surface-dim to-transparent z-10"></div>
+        <div class="pointer-events-none absolute right-0 top-0 bottom-0 w-12 md:w-28 bg-gradient-to-l from-[#131313] to-transparent z-10"></div>
 
         <!-- Draggable + Auto-Scrolling Container -->
         <div id="whyChooseSlider" class="overflow-x-auto no-scrollbar flex gap-6 px-6 py-4 cursor-grab active:cursor-grabbing select-none" style="-webkit-overflow-scrolling: touch;">
