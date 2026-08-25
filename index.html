@@ -298,50 +298,6 @@
       border-color: rgba(255, 255, 255, 0.6);
     }
 
-    /* Minimal Loader */
-    .hero-loader {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      z-index: 100;
-      pointer-events: none;
-      transition: opacity 0.4s ease, visibility 0.4s ease;
-    }
-
-    .hero-loader.hidden {
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    .hero-loader-bar {
-      width: 200px;
-      height: 3px;
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 99px;
-      overflow: hidden;
-    }
-
-    .hero-loader-progress {
-      width: 0%;
-      height: 100%;
-      background: #e9c349;
-      box-shadow: 0 0 10px rgba(233, 195, 73, 0.5);
-      transition: width 0.1s ease;
-    }
-
-    .hero-loader-text {
-      font-size: 11px;
-      letter-spacing: 2px;
-      color: rgba(229, 226, 225, 0.6);
-      text-transform: uppercase;
-      font-family: 'Geist', monospace;
-    }
-
     /* Scroll Indicator Cue */
     .scroll-cue {
       position: absolute;
@@ -407,7 +363,7 @@
         overflow: hidden;
       }
       .hero-overlay-content {
-        top: 72px; /* Permanently placed on upper side of hero section */
+        top: 115px; /* Comfortable spacing below topNav header so first line is 100% visible */
         left: 50%;
         transform: translateX(-50%);
         width: 92%;
@@ -524,14 +480,6 @@
       </div>
     </div>
   </nav>
-
-  <!-- Minimal Loader -->
-  <div class="hero-loader" id="hero-loader">
-    <div class="hero-loader-bar">
-      <div class="hero-loader-progress" id="hero-loader-progress"></div>
-    </div>
-    <div class="hero-loader-text" id="hero-loader-text">Loading 0%</div>
-  </div>
 
   <main>
     <!-- ==========================================================================
@@ -702,9 +650,6 @@
     const canvas = document.getElementById('hero-canvas');
     const ctx = canvas.getContext('2d', { alpha: false });
     const scrollTrack = document.getElementById('hero-scroll-track');
-    const loader = document.getElementById('hero-loader');
-    const loaderProgress = document.getElementById('hero-loader-progress');
-    const loaderText = document.getElementById('hero-loader-text');
     
     const heroOverlay = document.getElementById('hero-overlay-content');
     const heroDesc = document.getElementById('hero-desc');
@@ -732,7 +677,7 @@
       return `assets/frames-mobile/ezgif-frame-${padNum}.jpg`;
     }
 
-    function preloadDesktopImages(onProgress) {
+    function preloadDesktopImages() {
       if (desktopPreloaded) return;
       desktopPreloaded = true;
       for (let i = 1; i <= totalDesktopFrames; i++) {
@@ -742,7 +687,6 @@
 
         img.onload = () => {
           desktopLoaded++;
-          if (onProgress) onProgress(desktopLoaded, totalDesktopFrames);
         };
 
         img.onerror = () => {
@@ -750,7 +694,6 @@
           img.src = `ezgif-frame-${padNum}.jpg`;
           img.onload = () => {
             desktopLoaded++;
-            if (onProgress) onProgress(desktopLoaded, totalDesktopFrames);
           };
         };
 
@@ -758,7 +701,7 @@
       }
     }
 
-    function preloadMobileImages(onProgress) {
+    function preloadMobileImages() {
       if (mobilePreloaded) return;
       mobilePreloaded = true;
       for (let i = 1; i <= totalMobileFrames; i++) {
@@ -768,7 +711,6 @@
 
         img.onload = () => {
           mobileLoaded++;
-          if (onProgress) onProgress(mobileLoaded, totalMobileFrames);
         };
 
         img.onerror = () => {
@@ -776,7 +718,6 @@
           img.src = `assets/frames-mobile/ezgif-frame-${padNum}.jpg`;
           img.onload = () => {
             mobileLoaded++;
-            if (onProgress) onProgress(mobileLoaded, totalMobileFrames);
           };
         };
 
@@ -786,22 +727,10 @@
 
     function initPreload() {
       const isMobile = window.innerWidth < 768;
-      const onProgress = (loaded, total) => {
-        const pct = Math.floor((loaded / total) * 100);
-        if (loaderProgress) loaderProgress.style.width = pct + '%';
-        if (loaderText) loaderText.textContent = `Loading ${pct}%`;
-
-        if (loaded >= total) {
-          setTimeout(() => {
-            if (loader) loader.classList.add('hidden');
-          }, 200);
-        }
-      };
-
       if (isMobile) {
-        preloadMobileImages(onProgress);
+        preloadMobileImages();
       } else {
-        preloadDesktopImages(onProgress);
+        preloadDesktopImages();
       }
     }
 
@@ -960,10 +889,10 @@
         }
       } else {
         // =========================================================================
-        // MOBILE: PERMANENTLY PLACED ON TOP SIDE OF HERO SECTION (ZERO TEXT ANIMATION)
+        // MOBILE: PERMANENTLY PLACED ON UPPER SIDE OF HERO SECTION (COMFORTABLY BELOW NAV)
         // =========================================================================
         heroOverlay.style.left = '50%';
-        heroOverlay.style.top = '72px';
+        heroOverlay.style.top = '115px';
         heroOverlay.style.transform = 'translateX(-50%)';
         heroOverlay.style.maxWidth = '340px';
         heroOverlay.style.textAlign = 'center';
