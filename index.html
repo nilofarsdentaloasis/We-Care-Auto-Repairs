@@ -559,79 +559,749 @@
     </section>
 
     <!-- ==========================================================================
-         HOME PAGE OVERVIEW & ATELIER HIGHLIGHT
-         Only scrolls into view AFTER the 144th frame is reached!
+         HOME PAGE COMPREHENSIVE SECTIONS (Below Locked Hero Track)
          ========================================================================== -->
-    <section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-surface-dim relative z-20 border-t border-outline-variant/10">
+
+    <!-- 1. WHO WE ARE SECTION -->
+    <section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-surface-dim relative z-20 border-t border-outline-variant/10" id="who-we-are">
       <div class="max-w-container-max mx-auto">
-        <div class="flex flex-col md:flex-row justify-between items-end mb-margin-desktop">
+        <div class="flex flex-col lg:flex-row justify-between items-start gap-12 mb-16">
           <div class="max-w-2xl">
-            <div class="flex items-center space-x-2 mb-stack-sm">
-              <span class="material-symbols-outlined text-tertiary">verified</span>
-              <span class="font-label-caps text-label-caps text-tertiary uppercase">Bespoke Excellence</span>
+            <div class="inline-flex items-center space-x-2 bg-surface-container-high border border-tertiary/20 px-3.5 py-1.5 rounded-full mb-4">
+              <span class="material-symbols-outlined text-tertiary text-[18px]">verified</span>
+              <span class="font-label-caps text-xs text-tertiary uppercase tracking-widest font-semibold">Who We Are</span>
             </div>
-            <h2 class="font-headline-md text-headline-md text-primary mb-stack-sm">Crafted for Discerning Motorists</h2>
-            <p class="font-body-md text-body-md text-on-surface-variant">
-              From telemetry diagnostics to complete aerodynamic stage builds, explore our tailored capabilities across our dedicated atelier departments.
+            <h2 class="font-display-lg text-3xl md:text-5xl text-primary mb-6 leading-tight">
+              Engineering Mastery Meets Bespoke Automotive Care
+            </h2>
+            <p class="font-body-md text-on-surface-variant text-base md:text-lg leading-relaxed mb-6">
+              At <span class="text-primary font-semibold">We Care Auto Repairs</span>, we view every vehicle as an intricate masterpiece of mechanical and electronic engineering. Founded on an unyielding dedication to technical precision, our atelier brings together master guild technicians, manufacturer-certified diagnostic equipment, and track-proven performance methodologies.
+            </p>
+            <p class="font-body-md text-on-surface-variant text-sm md:text-base leading-relaxed">
+              Whether optimizing factory tolerances for daily luxury cruising or executing full stage engine rebuilds for high-speed endurance, we treat your vehicle with the meticulous scrutiny it deserves.
             </p>
           </div>
-          <a class="inline-flex items-center space-x-2 text-tertiary font-label-caps text-label-caps uppercase hover:text-primary transition-colors mt-4 md:mt-0" href="services.html">
-            <span>View All Services</span>
-            <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
-          </a>
-        </div>
 
-        <!-- Quick 3-Column Highlights -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter mb-margin-desktop">
-          <div class="bg-surface-container-low rounded-xl p-stack-lg shimmer-border glow-hover transition-all duration-300">
-            <span class="material-symbols-outlined text-tertiary text-[36px] mb-stack-sm">troubleshoot</span>
-            <h3 class="font-headline-md text-[24px] text-primary mb-stack-sm font-semibold">180-Point Diagnostic Scan</h3>
-            <p class="font-body-md text-on-surface-variant text-sm mb-stack-md">
-              Proprietary optical and ECU telemetry analysis to evaluate engine health, ignition timing, and drivetrain tolerances.
-            </p>
-            <a class="text-tertiary text-xs font-label-caps uppercase inline-flex items-center space-x-1" href="services.html">
-              <span>Read More</span>
-              <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
-            </a>
-          </div>
-
-          <div class="bg-surface-container-low rounded-xl p-stack-lg shimmer-border glow-hover transition-all duration-300">
-            <span class="material-symbols-outlined text-tertiary text-[36px] mb-stack-sm">speed</span>
-            <h3 class="font-headline-md text-[24px] text-primary mb-stack-sm font-semibold">Stage 1 & 2 ECU Tuning</h3>
-            <p class="font-body-md text-on-surface-variant text-sm mb-stack-md">
-              Custom dyno calibrations programmed specifically for your engine displacement, intercooler, and exhaust setup.
-            </p>
-            <a class="text-tertiary text-xs font-label-caps uppercase inline-flex items-center space-x-1" href="services.html">
-              <span>Read More</span>
-              <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
-            </a>
-          </div>
-
-          <div class="bg-surface-container-low rounded-xl p-stack-lg shimmer-border glow-hover transition-all duration-300">
-            <span class="material-symbols-outlined text-tertiary text-[36px] mb-stack-sm">auto_fix_high</span>
-            <h3 class="font-headline-md text-[24px] text-primary mb-stack-sm font-semibold">Bespoke Aero & Ceramic</h3>
-            <p class="font-body-md text-on-surface-variant text-sm mb-stack-md">
-              Autoclave carbon fiber components, satin dual-tone wraps, and 9H ceramic shield protection for track endurance.
-            </p>
-            <a class="text-tertiary text-xs font-label-caps uppercase inline-flex items-center space-x-1" href="services.html">
-              <span>Read More</span>
-              <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
-            </a>
+          <!-- Feature Highlight Box -->
+          <div class="w-full lg:max-w-md bg-surface-container rounded-2xl p-8 shimmer-border shadow-2xl relative overflow-hidden">
+            <div class="absolute -top-12 -right-12 w-40 h-40 bg-tertiary/10 rounded-full blur-3xl pointer-events-none"></div>
+            <span class="font-label-caps text-xs text-tertiary tracking-widest uppercase mb-2 block font-bold">Atelier Standard</span>
+            <h3 class="font-headline-md text-xl md:text-2xl text-primary mb-4 font-semibold">Dealer-Level Precision, Independent Devotion</h3>
+            <ul class="space-y-3.5 text-sm text-on-surface-variant">
+              <li class="flex items-center space-x-3">
+                <span class="material-symbols-outlined text-tertiary text-[20px] shrink-0">check_circle</span>
+                <span>Dedicated clean-room engine assembly & diagnostics</span>
+              </li>
+              <li class="flex items-center space-x-3">
+                <span class="material-symbols-outlined text-tertiary text-[20px] shrink-0">check_circle</span>
+                <span>Direct access to master technicians and digital bay logs</span>
+              </li>
+              <li class="flex items-center space-x-3">
+                <span class="material-symbols-outlined text-tertiary text-[20px] shrink-0">check_circle</span>
+                <span>100% genuine OEM & TUV-certified parts guarantee</span>
+              </li>
+            </ul>
+            <div class="mt-8 pt-6 border-t border-outline-variant/15 flex items-center justify-between">
+              <span class="text-xs text-on-surface-variant font-label-caps uppercase">Location: Bay 4, Tech Park</span>
+              <a class="text-tertiary font-label-caps text-xs uppercase inline-flex items-center space-x-1 hover:text-primary transition-colors font-bold" href="about.html">
+                <span>Our Story</span>
+                <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+              </a>
+            </div>
           </div>
         </div>
 
-        <!-- Call to Action Banner -->
-        <div class="bg-surface-container rounded-2xl p-stack-lg md:p-12 shimmer-border flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-6">
-          <div>
-            <h3 class="font-headline-md text-headline-md text-primary mb-2">Ready for Your Transformation?</h3>
-            <p class="font-body-md text-on-surface-variant max-w-xl">
-              Schedule a dedicated inspection slot with our master technicians in Bay 4.
+        <!-- 4-Stat Telemetry Cards Grid -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+          <div class="bg-surface-container-low rounded-xl p-6 shimmer-border glow-hover transition-all duration-300">
+            <span class="font-stats-number text-3xl md:text-5xl text-tertiary font-bold block mb-1">15+</span>
+            <span class="font-label-caps text-xs text-primary uppercase tracking-wider block font-semibold">Years Experience</span>
+            <span class="text-xs text-on-surface-variant mt-1 block">Proven master engineering since 2011</span>
+          </div>
+          <div class="bg-surface-container-low rounded-xl p-6 shimmer-border glow-hover transition-all duration-300">
+            <span class="font-stats-number text-3xl md:text-5xl text-tertiary font-bold block mb-1">50+</span>
+            <span class="font-label-caps text-xs text-primary uppercase tracking-wider block font-semibold">Brands Serviced</span>
+            <span class="text-xs text-on-surface-variant mt-1 block">European luxury & domestic icons</span>
+          </div>
+          <div class="bg-surface-container-low rounded-xl p-6 shimmer-border glow-hover transition-all duration-300">
+            <span class="font-stats-number text-3xl md:text-5xl text-tertiary font-bold block mb-1">12.5k+</span>
+            <span class="font-label-caps text-xs text-primary uppercase tracking-wider block font-semibold">Vehicles Mastered</span>
+            <span class="text-xs text-on-surface-variant mt-1 block">Completed with zero warranty return</span>
+          </div>
+          <div class="bg-surface-container-low rounded-xl p-6 shimmer-border glow-hover transition-all duration-300">
+            <span class="font-stats-number text-3xl md:text-5xl text-tertiary font-bold block mb-1">99.4%</span>
+            <span class="font-label-caps text-xs text-primary uppercase tracking-wider block font-semibold">Satisfaction Rate</span>
+            <span class="text-xs text-on-surface-variant mt-1 block">Verified client reviews & telemetry</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. OUR CORE SERVICES (6 PILLARS) -->
+    <section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-background relative z-20 border-t border-outline-variant/10" id="core-services">
+      <div class="max-w-container-max mx-auto">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16">
+          <div class="max-w-2xl">
+            <div class="inline-flex items-center space-x-2 bg-surface-container-high border border-tertiary/20 px-3.5 py-1.5 rounded-full mb-4">
+              <span class="material-symbols-outlined text-tertiary text-[18px]">build</span>
+              <span class="font-label-caps text-xs text-tertiary uppercase tracking-widest font-semibold">Our Core Services</span>
+            </div>
+            <h2 class="font-display-lg text-3xl md:text-5xl text-primary mb-4 leading-tight">
+              Specialized Disciplines Engineered for Performance
+            </h2>
+            <p class="font-body-md text-on-surface-variant text-base md:text-lg">
+              From telemetry diagnostics and mechanical rebuilding to carbon aerodynamics and routine maintenance, our specialized workshop bays are equipped for every automotive discipline.
             </p>
           </div>
-          <a class="bg-tertiary text-on-tertiary px-8 py-4 rounded-full font-label-caps text-label-caps uppercase btn-hover inline-flex items-center space-x-2 shrink-0" href="contact.html">
-            <span>Book Appointment</span>
-            <span class="material-symbols-outlined text-[18px]">calendar_month</span>
+          <a class="inline-flex items-center space-x-2 text-tertiary font-label-caps text-label-caps uppercase hover:text-primary transition-colors mt-6 md:mt-0 font-bold" href="services.html">
+            <span>View All Capabilities</span>
+            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
           </a>
+        </div>
+
+        <!-- 6 Interactive Service Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- 1. Mechanical Repairs -->
+          <div class="bg-surface-container-low rounded-2xl p-8 shimmer-border glow-hover transition-all duration-300 flex flex-col justify-between group">
+            <div>
+              <div class="w-14 h-14 rounded-xl bg-surface-container flex items-center justify-center mb-6 group-hover:bg-tertiary/20 transition-colors border border-outline-variant/15">
+                <span class="material-symbols-outlined text-tertiary text-[32px]">settings</span>
+              </div>
+              <h3 class="font-headline-md text-2xl text-primary mb-3 font-semibold group-hover:text-tertiary transition-colors">Mechanical Repairs</h3>
+              <p class="font-body-md text-on-surface-variant text-sm leading-relaxed mb-6">
+                Complete internal combustion engine overhauls, dual-clutch transmission rebuilding, differential service, active suspension kinematics, and high-performance brake upgrades.
+              </p>
+            </div>
+            <div>
+              <div class="flex flex-wrap gap-2 mb-6 pt-4 border-t border-outline-variant/10 text-xs font-label-caps text-on-surface-variant uppercase">
+                <span class="bg-surface-container px-2.5 py-1 rounded-md">Engine Overhaul</span>
+                <span class="bg-surface-container px-2.5 py-1 rounded-md">Transmission</span>
+                <span class="bg-surface-container px-2.5 py-1 rounded-md">Brakes</span>
+              </div>
+              <a class="text-tertiary text-xs font-label-caps uppercase inline-flex items-center space-x-1 group-hover:underline font-bold" href="services.html">
+                <span>Learn More</span>
+                <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- 2. Diagnostics -->
+          <div class="bg-surface-container-low rounded-2xl p-8 shimmer-border glow-hover transition-all duration-300 flex flex-col justify-between group">
+            <div>
+              <div class="w-14 h-14 rounded-xl bg-surface-container flex items-center justify-center mb-6 group-hover:bg-tertiary/20 transition-colors border border-outline-variant/15">
+                <span class="material-symbols-outlined text-tertiary text-[32px]">troubleshoot</span>
+              </div>
+              <h3 class="font-headline-md text-2xl text-primary mb-3 font-semibold group-hover:text-tertiary transition-colors">Diagnostics & Telemetry</h3>
+              <p class="font-body-md text-on-surface-variant text-sm leading-relaxed mb-6">
+                180-point laser and ECU diagnostic scans, real-time CAN-bus data logging, live sensor graphing, ignition timing analysis, and high-voltage hybrid powertrain inspection.
+              </p>
+            </div>
+            <div>
+              <div class="flex flex-wrap gap-2 mb-6 pt-4 border-t border-outline-variant/10 text-xs font-label-caps text-on-surface-variant uppercase">
+                <span class="bg-surface-container px-2.5 py-1 rounded-md">180-Point Scan</span>
+                <span class="bg-surface-container px-2.5 py-1 rounded-md">ECU Telemetry</span>
+                <span class="bg-surface-container px-2.5 py-1 rounded-md">Live Graphing</span>
+              </div>
+              <a class="text-tertiary text-xs font-label-caps uppercase inline-flex items-center space-x-1 group-hover:underline font-bold" href="services.html">
+                <span>Learn More</span>
+                <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- 3. Performance Upgrades -->
+          <div class="bg-surface-container-low rounded-2xl p-8 shimmer-border glow-hover transition-all duration-300 flex flex-col justify-between group">
+            <div>
+              <div class="w-14 h-14 rounded-xl bg-surface-container flex items-center justify-center mb-6 group-hover:bg-tertiary/20 transition-colors border border-outline-variant/15">
+                <span class="material-symbols-outlined text-tertiary text-[32px]">speed</span>
+              </div>
+              <h3 class="font-headline-md text-2xl text-primary mb-3 font-semibold group-hover:text-tertiary transition-colors">Performance Upgrades</h3>
+              <p class="font-body-md text-on-surface-variant text-sm leading-relaxed mb-6">
+                Stage 1 & Stage 2 ECU/TCU custom dyno calibrations, high-flow turbocharger installations, stainless valved exhaust systems, cold-air carbon intakes, and intercooler cooling kits.
+              </p>
+            </div>
+            <div>
+              <div class="flex flex-wrap gap-2 mb-6 pt-4 border-t border-outline-variant/10 text-xs font-label-caps text-on-surface-variant uppercase">
+                <span class="bg-surface-container px-2.5 py-1 rounded-md">Stage 1 & 2 ECU</span>
+                <span class="bg-surface-container px-2.5 py-1 rounded-md">Dyno Calibrations</span>
+                <span class="bg-surface-container px-2.5 py-1 rounded-md">Valved Exhaust</span>
+              </div>
+              <a class="text-tertiary text-xs font-label-caps uppercase inline-flex items-center space-x-1 group-hover:underline font-bold" href="services.html">
+                <span>Learn More</span>
+                <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- 4. Car Modification -->
+          <div class="bg-surface-container-low rounded-2xl p-8 shimmer-border glow-hover transition-all duration-300 flex flex-col justify-between group">
+            <div>
+              <div class="w-14 h-14 rounded-xl bg-surface-container flex items-center justify-center mb-6 group-hover:bg-tertiary/20 transition-colors border border-outline-variant/15">
+                <span class="material-symbols-outlined text-tertiary text-[32px]">auto_fix_high</span>
+              </div>
+              <h3 class="font-headline-md text-2xl text-primary mb-3 font-semibold group-hover:text-tertiary transition-colors">Car Modification</h3>
+              <p class="font-body-md text-on-surface-variant text-sm leading-relaxed mb-6">
+                Autoclave pre-preg carbon fiber widebody aerodynamic kits, front splitters, rear diffusers, bespoke coilover suspension stance, forged track wheel fitment, and custom roll cages.
+              </p>
+            </div>
+            <div>
+              <div class="flex flex-wrap gap-2 mb-6 pt-4 border-t border-outline-variant/10 text-xs font-label-caps text-on-surface-variant uppercase">
+                <span class="bg-surface-container px-2.5 py-1 rounded-md">Carbon Aero</span>
+                <span class="bg-surface-container px-2.5 py-1 rounded-md">Widebody</span>
+                <span class="bg-surface-container px-2.5 py-1 rounded-md">Custom Stance</span>
+              </div>
+              <a class="text-tertiary text-xs font-label-caps uppercase inline-flex items-center space-x-1 group-hover:underline font-bold" href="services.html">
+                <span>Learn More</span>
+                <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- 5. Body & Paint -->
+          <div class="bg-surface-container-low rounded-2xl p-8 shimmer-border glow-hover transition-all duration-300 flex flex-col justify-between group">
+            <div>
+              <div class="w-14 h-14 rounded-xl bg-surface-container flex items-center justify-center mb-6 group-hover:bg-tertiary/20 transition-colors border border-outline-variant/15">
+                <span class="material-symbols-outlined text-tertiary text-[32px]">brush</span>
+              </div>
+              <h3 class="font-headline-md text-2xl text-primary mb-3 font-semibold group-hover:text-tertiary transition-colors">Body & Paint Restoration</h3>
+              <p class="font-body-md text-on-surface-variant text-sm leading-relaxed mb-6">
+                OEM precision color-matched respraying in pressurized downdraft booths, multi-stage paint correction, self-healing Paint Protection Film (PPF), and 9H dual-layer ceramic shield protection.
+              </p>
+            </div>
+            <div>
+              <div class="flex flex-wrap gap-2 mb-6 pt-4 border-t border-outline-variant/10 text-xs font-label-caps text-on-surface-variant uppercase">
+                <span class="bg-surface-container px-2.5 py-1 rounded-md">PPF Shield</span>
+                <span class="bg-surface-container px-2.5 py-1 rounded-md">9H Ceramic</span>
+                <span class="bg-surface-container px-2.5 py-1 rounded-md">Color Match</span>
+              </div>
+              <a class="text-tertiary text-xs font-label-caps uppercase inline-flex items-center space-x-1 group-hover:underline font-bold" href="services.html">
+                <span>Learn More</span>
+                <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- 6. Routine Maintenance -->
+          <div class="bg-surface-container-low rounded-2xl p-8 shimmer-border glow-hover transition-all duration-300 flex flex-col justify-between group">
+            <div>
+              <div class="w-14 h-14 rounded-xl bg-surface-container flex items-center justify-center mb-6 group-hover:bg-tertiary/20 transition-colors border border-outline-variant/15">
+                <span class="material-symbols-outlined text-tertiary text-[32px]">check_circle</span>
+              </div>
+              <h3 class="font-headline-md text-2xl text-primary mb-3 font-semibold group-hover:text-tertiary transition-colors">Routine Maintenance</h3>
+              <p class="font-body-md text-on-surface-variant text-sm leading-relaxed mb-6">
+                Factory-schedule preventative servicing, synthetic fluid exchange, microfilter renewals, brake rotor inspection, spark plug replacements, and digital logbook certification.
+              </p>
+            </div>
+            <div>
+              <div class="flex flex-wrap gap-2 mb-6 pt-4 border-t border-outline-variant/10 text-xs font-label-caps text-on-surface-variant uppercase">
+                <span class="bg-surface-container px-2.5 py-1 rounded-md">Interval Service</span>
+                <span class="bg-surface-container px-2.5 py-1 rounded-md">Synthetic Fluids</span>
+                <span class="bg-surface-container px-2.5 py-1 rounded-md">Logbook Certified</span>
+              </div>
+              <a class="text-tertiary text-xs font-label-caps uppercase inline-flex items-center space-x-1 group-hover:underline font-bold" href="services.html">
+                <span>Learn More</span>
+                <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. WHY CHOOSE WE CARE (5 VALUE PILLARS) -->
+    <section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-surface-dim relative z-20 border-t border-outline-variant/10" id="why-choose-us">
+      <div class="max-w-container-max mx-auto">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <div class="inline-flex items-center space-x-2 bg-surface-container-high border border-tertiary/20 px-3.5 py-1.5 rounded-full mb-4">
+            <span class="material-symbols-outlined text-tertiary text-[18px]">star</span>
+            <span class="font-label-caps text-xs text-tertiary uppercase tracking-widest font-semibold">Why Choose WE Care</span>
+          </div>
+          <h2 class="font-display-lg text-3xl md:text-5xl text-primary mb-4 leading-tight">
+            Uncompromising Technical Standards
+          </h2>
+          <p class="font-body-md text-on-surface-variant text-base md:text-lg">
+            We built our reputation on total transparency, dealer-grade equipment, and uncompromised craftsmanship for every vehicle in our care.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Pillar 1: Certified Technicians -->
+          <div class="bg-surface-container rounded-2xl p-8 shimmer-border glow-hover transition-all duration-300">
+            <div class="w-12 h-12 rounded-xl bg-tertiary/10 flex items-center justify-center mb-5 text-tertiary">
+              <span class="material-symbols-outlined text-[28px]">badge</span>
+            </div>
+            <h3 class="font-headline-md text-xl text-primary mb-2 font-semibold">Certified Master Technicians</h3>
+            <p class="font-body-md text-on-surface-variant text-sm leading-relaxed">
+              Our guild-certified specialists undergo continuous manufacturer masterclass training across internal combustion, twin-turbo, and hybrid drivetrains.
+            </p>
+          </div>
+
+          <!-- Pillar 2: Genuine Parts -->
+          <div class="bg-surface-container rounded-2xl p-8 shimmer-border glow-hover transition-all duration-300">
+            <div class="w-12 h-12 rounded-xl bg-tertiary/10 flex items-center justify-center mb-5 text-tertiary">
+              <span class="material-symbols-outlined text-[28px]">verified_user</span>
+            </div>
+            <h3 class="font-headline-md text-xl text-primary mb-2 font-semibold">100% Genuine OEM Parts</h3>
+            <p class="font-body-md text-on-surface-variant text-sm leading-relaxed">
+              We source directly from authorized European and global factory suppliers, ensuring full warranty protection and strict metallurgical tolerances.
+            </p>
+          </div>
+
+          <!-- Pillar 3: Transparent Pricing -->
+          <div class="bg-surface-container rounded-2xl p-8 shimmer-border glow-hover transition-all duration-300">
+            <div class="w-12 h-12 rounded-xl bg-tertiary/10 flex items-center justify-center mb-5 text-tertiary">
+              <span class="material-symbols-outlined text-[28px]">receipt_long</span>
+            </div>
+            <h3 class="font-headline-md text-xl text-primary mb-2 font-semibold">Transparent Digital Pricing</h3>
+            <p class="font-body-md text-on-surface-variant text-sm leading-relaxed">
+              Every job begins with a line-by-line digitized proposal. Zero surprise add-ons or unauthorized repairs. You approve every step beforehand.
+            </p>
+          </div>
+
+          <!-- Pillar 4: Fast Turnaround -->
+          <div class="bg-surface-container rounded-2xl p-8 shimmer-border glow-hover transition-all duration-300">
+            <div class="w-12 h-12 rounded-xl bg-tertiary/10 flex items-center justify-center mb-5 text-tertiary">
+              <span class="material-symbols-outlined text-[28px]">schedule</span>
+            </div>
+            <h3 class="font-headline-md text-xl text-primary mb-2 font-semibold">Expedited Turnaround</h3>
+            <p class="font-body-md text-on-surface-variant text-sm leading-relaxed">
+              Dedicated bay allocation and prioritized supply chain logistics ensure your automobile is returned in peak condition without unnecessary delay.
+            </p>
+          </div>
+
+          <!-- Pillar 5: Modern Equipment -->
+          <div class="bg-surface-container rounded-2xl p-8 shimmer-border glow-hover transition-all duration-300">
+            <div class="w-12 h-12 rounded-xl bg-tertiary/10 flex items-center justify-center mb-5 text-tertiary">
+              <span class="material-symbols-outlined text-[28px]">precision_manufacturing</span>
+            </div>
+            <h3 class="font-headline-md text-xl text-primary mb-2 font-semibold">Modern State-of-the-Art Equipment</h3>
+            <p class="font-body-md text-on-surface-variant text-sm leading-relaxed">
+              Equipped with optical 3D chassis alignment rigs, all-wheel dynos, acoustic stethoscope probes, and pressurized clean-room assembly bays.
+            </p>
+          </div>
+
+          <!-- Pillar 6: Dedicated Bay Telemetry -->
+          <div class="bg-surface-container rounded-2xl p-8 shimmer-border glow-hover transition-all duration-300">
+            <div class="w-12 h-12 rounded-xl bg-tertiary/10 flex items-center justify-center mb-5 text-tertiary">
+              <span class="material-symbols-outlined text-[28px]">photo_camera</span>
+            </div>
+            <h3 class="font-headline-md text-xl text-primary mb-2 font-semibold">Live Bay Photo & Video Logs</h3>
+            <p class="font-body-md text-on-surface-variant text-sm leading-relaxed">
+              Receive live photographic and telemetry progress reports straight to your phone so you can inspect your build at every milestone.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. FEATURED PROJECTS (PORTFOLIO & TRANSFORMATIONS) -->
+    <section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-background relative z-20 border-t border-outline-variant/10" id="featured-projects">
+      <div class="max-w-container-max mx-auto">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16">
+          <div class="max-w-2xl">
+            <div class="inline-flex items-center space-x-2 bg-surface-container-high border border-tertiary/20 px-3.5 py-1.5 rounded-full mb-4">
+              <span class="material-symbols-outlined text-tertiary text-[18px]">car_repair</span>
+              <span class="font-label-caps text-xs text-tertiary uppercase tracking-widest font-semibold">Featured Projects</span>
+            </div>
+            <h2 class="font-display-lg text-3xl md:text-5xl text-primary mb-4 leading-tight">
+              Recent Transformations & Performance Builds
+            </h2>
+            <p class="font-body-md text-on-surface-variant text-base md:text-lg">
+              Explore before & after transformations, custom aerodynamic stage builds, and heavy-duty drivetrain restorations completed in Bay 4.
+            </p>
+          </div>
+          <a class="inline-flex bg-tertiary text-on-tertiary px-6 py-3 rounded-full font-label-caps text-label-caps uppercase btn-hover items-center space-x-2 mt-6 md:mt-0 font-bold shrink-0" href="contact.html">
+            <span>Commission Your Build</span>
+            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Project 1: BMW M4 Competition -->
+          <div class="bg-surface-container rounded-2xl p-8 shimmer-border glow-hover transition-all duration-300 relative overflow-hidden flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-center mb-4">
+                <span class="bg-tertiary/15 text-tertiary text-xs font-label-caps px-3 py-1 rounded-full uppercase font-bold border border-tertiary/30">Stage 2 Performance Build</span>
+                <span class="text-xs text-on-surface-variant font-mono">01 / 04</span>
+              </div>
+              <h3 class="font-headline-md text-2xl text-primary mb-3 font-semibold">BMW M4 Competition (G82)</h3>
+              <p class="font-body-md text-on-surface-variant text-sm leading-relaxed mb-6">
+                Full Stage 2 ECU & TCU dyno remap, catless downpipes, custom valved titanium exhaust, autoclave carbon fiber front splitter & rear GT diffuser, and paint protection wrap.
+              </p>
+            </div>
+            <div class="pt-6 border-t border-outline-variant/15">
+              <div class="grid grid-cols-3 gap-4 text-center">
+                <div class="bg-surface-container-low p-3 rounded-xl">
+                  <span class="font-stats-number text-lg text-tertiary font-bold block">+140 WHP</span>
+                  <span class="text-[10px] font-label-caps uppercase text-on-surface-variant">Dyno Gain</span>
+                </div>
+                <div class="bg-surface-container-low p-3 rounded-xl">
+                  <span class="font-stats-number text-lg text-primary font-bold block">650 WHP</span>
+                  <span class="text-[10px] font-label-caps uppercase text-on-surface-variant">Total Output</span>
+                </div>
+                <div class="bg-surface-container-low p-3 rounded-xl">
+                  <span class="font-stats-number text-lg text-tertiary font-bold block">100% Pre-Preg</span>
+                  <span class="text-[10px] font-label-caps uppercase text-on-surface-variant">Carbon Aero</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 2: Porsche 911 GT3 -->
+          <div class="bg-surface-container rounded-2xl p-8 shimmer-border glow-hover transition-all duration-300 relative overflow-hidden flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-center mb-4">
+                <span class="bg-tertiary/15 text-tertiary text-xs font-label-caps px-3 py-1 rounded-full uppercase font-bold border border-tertiary/30">Track Suspension & 9H Armor</span>
+                <span class="text-xs text-on-surface-variant font-mono">02 / 04</span>
+              </div>
+              <h3 class="font-headline-md text-2xl text-primary mb-3 font-semibold">Porsche 911 GT3 (992)</h3>
+              <p class="font-body-md text-on-surface-variant text-sm leading-relaxed mb-6">
+                Chassis kinematics corner-weighting on laser alignment bench, PCCB carbon ceramic brake caliper rebuild, high-temp fluid flush, and dual-layer 9H ceramic shield application.
+              </p>
+            </div>
+            <div class="pt-6 border-t border-outline-variant/15">
+              <div class="grid grid-cols-3 gap-4 text-center">
+                <div class="bg-surface-container-low p-3 rounded-xl">
+                  <span class="font-stats-number text-lg text-tertiary font-bold block">50/50</span>
+                  <span class="text-[10px] font-label-caps uppercase text-on-surface-variant">Corner Balance</span>
+                </div>
+                <div class="bg-surface-container-low p-3 rounded-xl">
+                  <span class="font-stats-number text-lg text-primary font-bold block">9H Shield</span>
+                  <span class="text-[10px] font-label-caps uppercase text-on-surface-variant">Ceramic Armor</span>
+                </div>
+                <div class="bg-surface-container-low p-3 rounded-xl">
+                  <span class="font-stats-number text-lg text-tertiary font-bold block">Track Spec</span>
+                  <span class="text-[10px] font-label-caps uppercase text-on-surface-variant">Geometry</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 3: Mercedes-AMG C63 S -->
+          <div class="bg-surface-container rounded-2xl p-8 shimmer-border glow-hover transition-all duration-300 relative overflow-hidden flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-center mb-4">
+                <span class="bg-tertiary/15 text-tertiary text-xs font-label-caps px-3 py-1 rounded-full uppercase font-bold border border-tertiary/30">BiTurbo Engine Overhaul</span>
+                <span class="text-xs text-on-surface-variant font-mono">03 / 04</span>
+              </div>
+              <h3 class="font-headline-md text-2xl text-primary mb-3 font-semibold">Mercedes-AMG C63 S (W205)</h3>
+              <p class="font-body-md text-on-surface-variant text-sm leading-relaxed mb-6">
+                4.0L V8 M177 twin-turbocharger rebuild, high-pressure fuel pump upgrade, transmission mechatronics refresh, and custom dyno torque mapping for responsive street power.
+              </p>
+            </div>
+            <div class="pt-6 border-t border-outline-variant/15">
+              <div class="grid grid-cols-3 gap-4 text-center">
+                <div class="bg-surface-container-low p-3 rounded-xl">
+                  <span class="font-stats-number text-lg text-tertiary font-bold block">820 Nm</span>
+                  <span class="text-[10px] font-label-caps uppercase text-on-surface-variant">Peak Torque</span>
+                </div>
+                <div class="bg-surface-container-low p-3 rounded-xl">
+                  <span class="font-stats-number text-lg text-primary font-bold block">M177 V8</span>
+                  <span class="text-[10px] font-label-caps uppercase text-on-surface-variant">Full Rebuild</span>
+                </div>
+                <div class="bg-surface-container-low p-3 rounded-xl">
+                  <span class="font-stats-number text-lg text-tertiary font-bold block">MCT 9G</span>
+                  <span class="text-[10px] font-label-caps uppercase text-on-surface-variant">Refreshed</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 4: Mahindra XUV700 & Tata Safari -->
+          <div class="bg-surface-container rounded-2xl p-8 shimmer-border glow-hover transition-all duration-300 relative overflow-hidden flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-center mb-4">
+                <span class="bg-tertiary/15 text-tertiary text-xs font-label-caps px-3 py-1 rounded-full uppercase font-bold border border-tertiary/30">Overland Stance & Remap</span>
+                <span class="text-xs text-on-surface-variant font-mono">04 / 04</span>
+              </div>
+              <h3 class="font-headline-md text-2xl text-primary mb-3 font-semibold">Mahindra XUV700 / Tata Safari</h3>
+              <p class="font-body-md text-on-surface-variant text-sm leading-relaxed mb-6">
+                Overland suspension lift kit, all-terrain forged wheels, heavy-duty underbody terrain armor plates, auxiliary laser lighting array, and Stage 1 diesel torque tuning.
+              </p>
+            </div>
+            <div class="pt-6 border-t border-outline-variant/15">
+              <div class="grid grid-cols-3 gap-4 text-center">
+                <div class="bg-surface-container-low p-3 rounded-xl">
+                  <span class="font-stats-number text-lg text-tertiary font-bold block">+85 Nm</span>
+                  <span class="text-[10px] font-label-caps uppercase text-on-surface-variant">Low-End Torque</span>
+                </div>
+                <div class="bg-surface-container-low p-3 rounded-xl">
+                  <span class="font-stats-number text-lg text-primary font-bold block">+2.5"</span>
+                  <span class="text-[10px] font-label-caps uppercase text-on-surface-variant">Ground Clearance</span>
+                </div>
+                <div class="bg-surface-container-low p-3 rounded-xl">
+                  <span class="font-stats-number text-lg text-tertiary font-bold block">Armor Shield</span>
+                  <span class="text-[10px] font-label-caps uppercase text-on-surface-variant">Underbody</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. HOW WE WORK (5-STEP PROCESS) -->
+    <section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-surface-dim relative z-20 border-t border-outline-variant/10" id="how-we-work">
+      <div class="max-w-container-max mx-auto">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <div class="inline-flex items-center space-x-2 bg-surface-container-high border border-tertiary/20 px-3.5 py-1.5 rounded-full mb-4">
+            <span class="material-symbols-outlined text-tertiary text-[18px]">account_tree</span>
+            <span class="font-label-caps text-xs text-tertiary uppercase tracking-widest font-semibold">How We Work</span>
+          </div>
+          <h2 class="font-display-lg text-3xl md:text-5xl text-primary mb-4 leading-tight">
+            Our 5-Step Precision Engineering Process
+          </h2>
+          <p class="font-body-md text-on-surface-variant text-base md:text-lg">
+            Every vehicle entrusted to our atelier follows an exacting, digitized 5-stage procedure ensuring perfection from intake to delivery.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-4 relative">
+          <!-- Step 1 -->
+          <div class="bg-surface-container rounded-2xl p-6 shimmer-border flex flex-col justify-between relative group hover:border-tertiary/40 transition-colors">
+            <div>
+              <span class="font-mono text-3xl font-bold text-tertiary/40 mb-3 block group-hover:text-tertiary transition-colors">01</span>
+              <h3 class="font-headline-md text-lg text-primary mb-2 font-semibold">Inspection</h3>
+              <p class="font-body-md text-on-surface-variant text-xs leading-relaxed">
+                Comprehensive 180-point intake audit, optical chassis inspection, and baseline diagnostic telemetry check.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="bg-surface-container rounded-2xl p-6 shimmer-border flex flex-col justify-between relative group hover:border-tertiary/40 transition-colors">
+            <div>
+              <span class="font-mono text-3xl font-bold text-tertiary/40 mb-3 block group-hover:text-tertiary transition-colors">02</span>
+              <h3 class="font-headline-md text-lg text-primary mb-2 font-semibold">Diagnosis</h3>
+              <p class="font-body-md text-on-surface-variant text-xs leading-relaxed">
+                In-depth sensor graphing and electronic fault isolation to pinpoint exact root causes with zero guesswork.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="bg-surface-container rounded-2xl p-6 shimmer-border flex flex-col justify-between relative group hover:border-tertiary/40 transition-colors">
+            <div>
+              <span class="font-mono text-3xl font-bold text-tertiary/40 mb-3 block group-hover:text-tertiary transition-colors">03</span>
+              <h3 class="font-headline-md text-lg text-primary mb-2 font-semibold">Estimate</h3>
+              <p class="font-body-md text-on-surface-variant text-xs leading-relaxed">
+                Itemized digital proposal with genuine OEM parts breakdown. No wrenches turn without your explicit sign-off.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="bg-surface-container rounded-2xl p-6 shimmer-border flex flex-col justify-between relative group hover:border-tertiary/40 transition-colors">
+            <div>
+              <span class="font-mono text-3xl font-bold text-tertiary/40 mb-3 block group-hover:text-tertiary transition-colors">04</span>
+              <h3 class="font-headline-md text-lg text-primary mb-2 font-semibold">Repair</h3>
+              <p class="font-body-md text-on-surface-variant text-xs leading-relaxed">
+                Master guild technicians execute mechanical and tuning work with calibrated tools and clean-bay precision.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 5 -->
+          <div class="bg-surface-container rounded-2xl p-6 shimmer-border flex flex-col justify-between relative group hover:border-tertiary/40 transition-colors">
+            <div>
+              <span class="font-mono text-3xl font-bold text-tertiary/40 mb-3 block group-hover:text-tertiary transition-colors">05</span>
+              <h3 class="font-headline-md text-lg text-primary mb-2 font-semibold">Delivery</h3>
+              <p class="font-body-md text-on-surface-variant text-xs leading-relaxed">
+                Dyno verification, rigorous road testing, complimentary detailing, and complete digital report handover.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. CUSTOMER REVIEWS SECTION -->
+    <section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-background relative z-20 border-t border-outline-variant/10" id="reviews">
+      <div class="max-w-container-max mx-auto">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <div class="inline-flex items-center space-x-2 bg-surface-container-high border border-tertiary/20 px-3.5 py-1.5 rounded-full mb-4">
+            <span class="material-symbols-outlined text-tertiary text-[18px]">rate_review</span>
+            <span class="font-label-caps text-xs text-tertiary uppercase tracking-widest font-semibold">Customer Reviews</span>
+          </div>
+          <h2 class="font-display-lg text-3xl md:text-5xl text-primary mb-4 leading-tight">
+            Verified Client Endorsements
+          </h2>
+          <p class="font-body-md text-on-surface-variant text-base md:text-lg">
+            Hear from performance enthusiasts, luxury collectors, and daily motorists who trust their vehicles to We Care Auto Repairs.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Review 1 -->
+          <div class="bg-surface-container rounded-2xl p-8 shimmer-border glow-hover transition-all duration-300 flex flex-col justify-between">
+            <div>
+              <div class="flex text-tertiary mb-4 space-x-1">
+                <span class="material-symbols-outlined text-[20px] fill-current">star</span>
+                <span class="material-symbols-outlined text-[20px] fill-current">star</span>
+                <span class="material-symbols-outlined text-[20px] fill-current">star</span>
+                <span class="material-symbols-outlined text-[20px] fill-current">star</span>
+                <span class="material-symbols-outlined text-[20px] fill-current">star</span>
+              </div>
+              <p class="font-body-md text-on-surface text-sm leading-relaxed mb-6 italic">
+                "The Stage 2 ECU tuning and carbon aero package installed by We Care transformed my M4 into an absolute track weapon. The live telemetry updates and transparent pricing make them unmatched in the industry."
+              </p>
+            </div>
+            <div class="pt-4 border-t border-outline-variant/10 flex items-center justify-between">
+              <div>
+                <span class="text-sm font-semibold text-primary block">Vikramaditya S.</span>
+                <span class="text-xs text-on-surface-variant font-label-caps uppercase">BMW M4 Competition</span>
+              </div>
+              <span class="material-symbols-outlined text-tertiary text-[20px]">verified</span>
+            </div>
+          </div>
+
+          <!-- Review 2 -->
+          <div class="bg-surface-container rounded-2xl p-8 shimmer-border glow-hover transition-all duration-300 flex flex-col justify-between">
+            <div>
+              <div class="flex text-tertiary mb-4 space-x-1">
+                <span class="material-symbols-outlined text-[20px] fill-current">star</span>
+                <span class="material-symbols-outlined text-[20px] fill-current">star</span>
+                <span class="material-symbols-outlined text-[20px] fill-current">star</span>
+                <span class="material-symbols-outlined text-[20px] fill-current">star</span>
+                <span class="material-symbols-outlined text-[20px] fill-current">star</span>
+              </div>
+              <p class="font-body-md text-on-surface text-sm leading-relaxed mb-6 italic">
+                "Took my E-Class in for a stubborn transmission and air suspension fault that the dealership misdiagnosed twice. We Care isolated the root cause within 2 hours and finished the repair ahead of schedule."
+              </p>
+            </div>
+            <div class="pt-4 border-t border-outline-variant/10 flex items-center justify-between">
+              <div>
+                <span class="text-sm font-semibold text-primary block">Rajesh N.</span>
+                <span class="text-xs text-on-surface-variant font-label-caps uppercase">Mercedes-Benz E-Class</span>
+              </div>
+              <span class="material-symbols-outlined text-tertiary text-[20px]">verified</span>
+            </div>
+          </div>
+
+          <!-- Review 3 -->
+          <div class="bg-surface-container rounded-2xl p-8 shimmer-border glow-hover transition-all duration-300 flex flex-col justify-between">
+            <div>
+              <div class="flex text-tertiary mb-4 space-x-1">
+                <span class="material-symbols-outlined text-[20px] fill-current">star</span>
+                <span class="material-symbols-outlined text-[20px] fill-current">star</span>
+                <span class="material-symbols-outlined text-[20px] fill-current">star</span>
+                <span class="material-symbols-outlined text-[20px] fill-current">star</span>
+                <span class="material-symbols-outlined text-[20px] fill-current">star</span>
+              </div>
+              <p class="font-body-md text-on-surface text-sm leading-relaxed mb-6 italic">
+                "Their 9H ceramic coating and routine maintenance standards are extraordinary. The team is courteous, highly knowledgeable, and the car drives better than the day I bought it from the showroom."
+              </p>
+            </div>
+            <div class="pt-4 border-t border-outline-variant/10 flex items-center justify-between">
+              <div>
+                <span class="text-sm font-semibold text-primary block">Ananya M.</span>
+                <span class="text-xs text-on-surface-variant font-label-caps uppercase">Audi RS5 Sportback</span>
+              </div>
+              <span class="material-symbols-outlined text-tertiary text-[20px]">verified</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. BRANDS WE WORK ON -->
+    <section class="py-16 px-margin-mobile md:px-margin-desktop bg-surface-dim relative z-20 border-t border-outline-variant/10" id="brands">
+      <div class="max-w-container-max mx-auto">
+        <div class="text-center max-w-2xl mx-auto mb-10">
+          <span class="font-label-caps text-xs text-tertiary uppercase tracking-widest block font-bold mb-2">Marque Specialization</span>
+          <h2 class="font-headline-md text-2xl md:text-3xl text-primary font-semibold">Brands We Service & Tune</h2>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-3 text-center">
+          <div class="bg-surface-container py-3.5 px-4 rounded-xl border border-outline-variant/15 hover:border-tertiary/40 transition-colors">
+            <span class="font-label-caps text-xs font-bold text-primary tracking-wider uppercase block">BMW</span>
+            <span class="text-[10px] text-on-surface-variant">M & Series</span>
+          </div>
+          <div class="bg-surface-container py-3.5 px-4 rounded-xl border border-outline-variant/15 hover:border-tertiary/40 transition-colors">
+            <span class="font-label-caps text-xs font-bold text-primary tracking-wider uppercase block">Mercedes</span>
+            <span class="text-[10px] text-on-surface-variant">AMG & Maybach</span>
+          </div>
+          <div class="bg-surface-container py-3.5 px-4 rounded-xl border border-outline-variant/15 hover:border-tertiary/40 transition-colors">
+            <span class="font-label-caps text-xs font-bold text-primary tracking-wider uppercase block">Audi</span>
+            <span class="text-[10px] text-on-surface-variant">RS & S Line</span>
+          </div>
+          <div class="bg-surface-container py-3.5 px-4 rounded-xl border border-outline-variant/15 hover:border-tertiary/40 transition-colors">
+            <span class="font-label-caps text-xs font-bold text-primary tracking-wider uppercase block">Toyota</span>
+            <span class="text-[10px] text-on-surface-variant">GR & Hybrid</span>
+          </div>
+          <div class="bg-surface-container py-3.5 px-4 rounded-xl border border-outline-variant/15 hover:border-tertiary/40 transition-colors">
+            <span class="font-label-caps text-xs font-bold text-primary tracking-wider uppercase block">Honda</span>
+            <span class="text-[10px] text-on-surface-variant">Type R & i-VTEC</span>
+          </div>
+          <div class="bg-surface-container py-3.5 px-4 rounded-xl border border-outline-variant/15 hover:border-tertiary/40 transition-colors">
+            <span class="font-label-caps text-xs font-bold text-primary tracking-wider uppercase block">Hyundai</span>
+            <span class="text-[10px] text-on-surface-variant">N Line & Premium</span>
+          </div>
+          <div class="bg-surface-container py-3.5 px-4 rounded-xl border border-outline-variant/15 hover:border-tertiary/40 transition-colors">
+            <span class="font-label-caps text-xs font-bold text-primary tracking-wider uppercase block">Tata</span>
+            <span class="text-[10px] text-on-surface-variant">Safari & Harrier</span>
+          </div>
+          <div class="bg-surface-container py-3.5 px-4 rounded-xl border border-outline-variant/15 hover:border-tertiary/40 transition-colors">
+            <span class="font-label-caps text-xs font-bold text-primary tracking-wider uppercase block">Mahindra</span>
+            <span class="text-[10px] text-on-surface-variant">Thar & XUV700</span>
+          </div>
+          <div class="bg-surface-container py-3.5 px-4 rounded-xl border border-outline-variant/15 hover:border-tertiary/40 transition-colors">
+            <span class="font-label-caps text-xs font-bold text-primary tracking-wider uppercase block">Porsche</span>
+            <span class="text-[10px] text-on-surface-variant">911 & GT Series</span>
+          </div>
+          <div class="bg-surface-container py-3.5 px-4 rounded-xl border border-outline-variant/15 hover:border-tertiary/40 transition-colors">
+            <span class="font-label-caps text-xs font-bold text-primary tracking-wider uppercase block">Jaguar</span>
+            <span class="text-[10px] text-on-surface-variant">F-Type & Sedans</span>
+          </div>
+          <div class="bg-surface-container py-3.5 px-4 rounded-xl border border-outline-variant/15 hover:border-tertiary/40 transition-colors">
+            <span class="font-label-caps text-xs font-bold text-primary tracking-wider uppercase block">Land Rover</span>
+            <span class="text-[10px] text-on-surface-variant">Defender & Range</span>
+          </div>
+          <div class="bg-surface-container py-3.5 px-4 rounded-xl border border-outline-variant/15 hover:border-tertiary/40 transition-colors">
+            <span class="font-label-caps text-xs font-bold text-primary tracking-wider uppercase block">Volkswagen</span>
+            <span class="text-[10px] text-on-surface-variant">GTI & TSI Series</span>
+          </div>
+          <div class="bg-surface-container py-3.5 px-4 rounded-xl border border-outline-variant/15 hover:border-tertiary/40 transition-colors">
+            <span class="font-label-caps text-xs font-bold text-primary tracking-wider uppercase block">Volvo</span>
+            <span class="text-[10px] text-on-surface-variant">Polestar & XC</span>
+          </div>
+          <div class="bg-surface-container py-3.5 px-4 rounded-xl border border-outline-variant/15 hover:border-tertiary/40 transition-colors">
+            <span class="font-label-caps text-xs font-bold text-primary tracking-wider uppercase block">Ford</span>
+            <span class="text-[10px] text-on-surface-variant">Mustang & Eco</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. HIGH-IMPACT CTA BANNER -->
+    <section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-background relative z-20 border-t border-outline-variant/10" id="cta-banner">
+      <div class="max-w-container-max mx-auto">
+        <div class="bg-gradient-to-r from-surface-container via-surface-container-high to-surface-container rounded-3xl p-8 md:p-16 shimmer-border shadow-2xl relative overflow-hidden text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-8">
+          <div class="absolute -bottom-24 -left-24 w-72 h-72 bg-tertiary/10 rounded-full blur-3xl pointer-events-none"></div>
+          
+          <div class="max-w-2xl relative z-10">
+            <div class="inline-flex items-center space-x-2 bg-tertiary/15 border border-tertiary/30 px-3.5 py-1 rounded-full mb-4">
+              <span class="material-symbols-outlined text-tertiary text-[16px]">bolt</span>
+              <span class="font-label-caps text-xs text-tertiary uppercase tracking-widest font-bold">Priority Workshop Slot</span>
+            </div>
+            <h2 class="font-display-lg text-3xl md:text-5xl text-primary mb-4 leading-tight">
+              Ready to Upgrade or Repair Your Vehicle?
+            </h2>
+            <p class="font-body-md text-on-surface-variant text-base md:text-lg">
+              Experience the difference of dedicated master technicians, 180-point optical diagnostics, and genuine OEM excellence in Bay 4.
+            </p>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-4 shrink-0 relative z-10 w-full md:w-auto">
+            <a class="bg-tertiary text-on-tertiary px-8 py-4 rounded-full font-label-caps text-label-caps uppercase btn-hover inline-flex items-center justify-center space-x-2 font-bold shadow-lg" href="contact.html">
+              <span>Book Appointment</span>
+              <span class="material-symbols-outlined text-[18px]">calendar_month</span>
+            </a>
+            <a class="border border-outline-variant/40 hover:border-tertiary text-primary hover:text-tertiary px-8 py-4 rounded-full font-label-caps text-label-caps uppercase transition-colors inline-flex items-center justify-center space-x-2 font-bold" href="services.html">
+              <span>Explore Services</span>
+              <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+            </a>
+          </div>
         </div>
       </div>
     </section>
