@@ -428,9 +428,9 @@
 
   <!-- TopNavBar (Shared Component) -->
   <nav class="fixed top-0 w-full bg-background/90 backdrop-blur-md border-b border-outline-variant/15 z-50 transition-all duration-300" id="topNav">
-    <div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-stack-md max-w-container-max mx-auto">
+    <div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-stack-md md:py-2.5 max-w-container-max mx-auto">
       <a class="inline-flex items-center shrink-0 group" href="index.html" aria-label="We Care Auto Repairs">
-        <img src="assets/logo.png" alt="We Care Auto Repairs" class="h-12 md:h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-105"/>
+        <img src="assets/logo.png" alt="We Care Auto Repairs" class="h-12 md:h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105"/>
       </a>
       
       <!-- Desktop Navigation Menu (Untouched) -->
@@ -440,7 +440,7 @@
         <a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md hover:scale-105 duration-300" href="about.html">About Us</a>
         <a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md hover:scale-105 duration-300" href="contact.html">Contact Us</a>
       </div>
-      <a class="hidden md:inline-flex bg-tertiary text-on-tertiary px-6 py-3 rounded-full font-label-caps text-label-caps uppercase btn-hover items-center space-x-2" href="contact.html">
+      <a class="hidden md:inline-flex bg-tertiary text-on-tertiary px-5 py-2.5 rounded-full font-label-caps text-label-caps uppercase btn-hover items-center space-x-2" href="contact.html">
         <span>Request Appointment</span>
         <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
       </a>
@@ -761,23 +761,23 @@
 
       if (!isMobile) {
         // =========================================================================
-        // DESKTOP: 100% FROZEN & UNTOUCHED (RULE 5)
+        // DESKTOP: Solid Black Background Initial Frame & Seamless Scroll Sequence
         // =========================================================================
         ctx.fillStyle = '#0d0d0d';
         ctx.fillRect(0, 0, canvasW, canvasH);
 
-        const leadInThreshold = 0.04;
-        let activeIndex = 0;
+        const leadInThreshold = 0.04; // Pure black background before scroll starts
 
-        if (progress > leadInThreshold) {
-          const normalized = (progress - leadInThreshold) / (1 - leadInThreshold);
-          activeIndex = Math.min(
-            totalDesktopFrames - 1,
-            Math.max(0, Math.floor(normalized * (totalDesktopFrames - 1)))
-          );
-        } else {
-          activeIndex = 0;
+        if (progress <= leadInThreshold) {
+          // Pure black background as the first frame before animation starts
+          return;
         }
+
+        const normalized = Math.min(1, Math.max(0, (progress - leadInThreshold) / (1 - leadInThreshold)));
+        const activeIndex = Math.min(
+          totalDesktopFrames - 1,
+          Math.floor(normalized * (totalDesktopFrames - 1))
+        );
 
         const img = desktopImages[activeIndex];
         if (!img || !img.complete || img.naturalWidth === 0) return;
@@ -791,8 +791,11 @@
         const offsetX = Math.round((canvasW - renderW) / 2);
         const offsetY = Math.round((canvasH - renderH) / 2);
 
-        ctx.globalAlpha = 1.0;
+        // Smooth fade in from black as scroll begins
+        const fadeInAlpha = Math.min(1, (progress - leadInThreshold) / 0.03);
+        ctx.globalAlpha = fadeInAlpha;
         ctx.drawImage(img, offsetX, offsetY, renderW, renderH);
+        ctx.globalAlpha = 1.0;
       } else {
         // =========================================================================
         // MOBILE: DEDICATED FULL-SCREEN PORTRAIT FRAME SCROLL ANIMATION (210 FRAMES)
@@ -844,15 +847,16 @@
 
       if (!isMobile) {
         // =========================================================================
-        // DESKTOP: 100% FROZEN & UNTOUCHED ORIGINAL TRANSITION (RULE 5)
+        // DESKTOP: Centered on black initial screen -> slides left & slightly lower for maximum readability
         // =========================================================================
         const shiftProgress = Math.min(1, Math.max(0, progress / 0.12));
         const leftPercent = 50 - (46 * shiftProgress);
         const translateX = -50 * (1 - shiftProgress);
         const maxW = 850 - (330 * shiftProgress);
+        const topPercent = 50 + (6.5 * shiftProgress); // Shift slightly lower (from 50% to 56.5%) as it slides to the left
 
         heroOverlay.style.left = `${leftPercent}%`;
-        heroOverlay.style.top = '50%';
+        heroOverlay.style.top = `${topPercent}%`;
         heroOverlay.style.transform = `translate(${translateX}%, -50%)`;
         heroOverlay.style.maxWidth = `${maxW}px`;
 
