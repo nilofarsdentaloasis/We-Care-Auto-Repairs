@@ -1527,341 +1527,366 @@
           </div>
         </div>
 
-        <!-- 3D Turntable Carousel Container (Shows One Car at a Time) -->
+        <!-- 3D Turntable Horizontal Carousel Container -->
         <div id="project-carousel-container" class="relative rounded-3xl bg-surface-container-low border border-tertiary/25 p-6 md:p-10 shadow-2xl overflow-hidden">
           
           <!-- Background Ambient Spotlight -->
           <div class="absolute top-0 left-1/4 w-96 h-96 bg-tertiary/10 rounded-full blur-3xl pointer-events-none"></div>
 
-          <!-- SLIDE 1: BMW M4 Competition -->
-          <div class="featured-project-slide slide-active grid grid-cols-1 lg:grid-cols-12 gap-8 items-center" data-project-idx="0">
-            <!-- LEFT: 3D Round Showroom Turntable Platform with Actual Car Model -->
-            <div class="lg:col-span-7 flex flex-col items-center justify-center relative py-4 md:py-8">
-              
-              <!-- Spotlight Overhead Cone -->
-              <div class="absolute top-0 w-3/4 h-32 bg-gradient-to-b from-tertiary/15 to-transparent blur-xl pointer-events-none rounded-t-full"></div>
-              
-              <!-- Actual Car Image -->
-              <div class="relative z-10 w-full max-w-lg md:max-w-xl mx-auto transition-transform duration-500 hover:scale-105">
-                <img src="assets/brands/cars/bmw.jpg" alt="BMW M4 Competition" class="w-full h-64 md:h-80 object-cover rounded-2xl shadow-2xl border border-outline-variant/20 filter contrast-105">
-                <!-- Under-car Cast Shadow -->
-                <div class="turntable-shadow absolute -bottom-4 left-4 right-4 h-12 rounded-full pointer-events-none"></div>
-              </div>
+          <!-- Horizontal Sliding Track Container -->
+          <div id="project-carousel-track" class="project-carousel-track">
 
-              <!-- 3D Round Showroom Platform (Turntable Plinth) -->
-              <div class="turntable-wrapper w-full max-w-lg md:max-w-xl -mt-10 relative z-0">
-                <div class="turntable-platform w-full h-28 md:h-36 relative flex items-center justify-center">
-                  <!-- Inner Calibration Ring -->
-                  <div class="turntable-grid-ring w-4/5 h-4/5 flex items-center justify-center">
-                    <span class="font-mono text-[9px] text-tertiary/50 uppercase tracking-widest">SHOWROOM TURNTABLE // 360°</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- RIGHT (Top-Right): Basic Details & Performance Specs -->
-            <div class="lg:col-span-5 flex flex-col justify-between">
-              <div>
-                <!-- Project Category Badge -->
-                <div class="flex items-center justify-between mb-3">
-                  <span class="bg-tertiary/15 text-tertiary text-xs font-mono px-3 py-1 rounded-full uppercase font-bold border border-tertiary/30">
-                    STAGE 2 TUNING & CARBON AERO
-                  </span>
-                  <span class="text-xs text-on-surface-variant font-mono font-bold">BUILD #01</span>
-                </div>
-
-                <!-- Car Model Title -->
-                <h3 class="font-display-lg text-2xl md:text-3xl text-primary font-bold mb-3">
-                  2024 BMW M4 Competition (G82)
-                </h3>
+            <!-- SLIDE 1: BMW M4 Competition -->
+            <div class="featured-project-slide grid grid-cols-1 lg:grid-cols-12 gap-8 items-center" data-project-idx="0">
+              <!-- LEFT: 3D Round Showroom Turntable Platform with Actual Car Model -->
+              <div class="lg:col-span-7 flex flex-col items-center justify-center relative py-4 md:py-8">
                 
-                <!-- Brief Overview -->
-                <p class="font-body-md text-on-surface-variant text-xs md:text-sm leading-relaxed mb-6">
-                  Complete Stage 2 dyno optimization with custom catless downpipes, Akrapovič titanium exhaust, dry carbon aero kit, and full 9H dual-layer ceramic paint shield.
-                </p>
-
-                <!-- 3 Performance Stat Cards -->
-                <div class="grid grid-cols-3 gap-3 mb-6">
-                  <div class="bg-surface-container p-3 rounded-xl border border-outline-variant/15 text-center">
-                    <span class="font-stats-number text-base md:text-lg text-tertiary font-bold block">+140 HP</span>
-                    <span class="text-[10px] font-mono uppercase text-on-surface-variant">Power Gain</span>
-                  </div>
-                  <div class="bg-surface-container p-3 rounded-xl border border-outline-variant/15 text-center">
-                    <span class="font-stats-number text-base md:text-lg text-primary font-bold block">650 HP</span>
-                    <span class="text-[10px] font-mono uppercase text-on-surface-variant">Total Output</span>
-                  </div>
-                  <div class="bg-surface-container p-3 rounded-xl border border-outline-variant/15 text-center">
-                    <span class="font-stats-number text-base md:text-lg text-tertiary font-bold block">780 Nm</span>
-                    <span class="text-[10px] font-mono uppercase text-on-surface-variant">Max Torque</span>
-                  </div>
-                </div>
-
-                <!-- Upgrades Checklist -->
-                <div class="space-y-2 mb-6">
-                  <div class="flex items-center space-x-2 text-xs text-primary font-medium">
-                    <span class="material-symbols-outlined text-tertiary text-[16px]">check_circle</span>
-                    <span>Stage 2 ECU Remap & TCU Transmission Tuning</span>
-                  </div>
-                  <div class="flex items-center space-x-2 text-xs text-primary font-medium">
-                    <span class="material-symbols-outlined text-tertiary text-[16px]">check_circle</span>
-                    <span>Akrapovič Lightweight Titanium Quad Exhaust</span>
-                  </div>
-                  <div class="flex items-center space-x-2 text-xs text-primary font-medium">
-                    <span class="material-symbols-outlined text-tertiary text-[16px]">check_circle</span>
-                    <span>Dry Carbon Front Splitter, Canards & Rear Diffuser</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Footer CTA & Location -->
-              <div class="pt-4 border-t border-outline-variant/15 flex items-center justify-between">
-                <span class="text-[11px] font-mono text-on-surface-variant">Chikhali Atelier // Bay 4</span>
-                <a href="contact.html" class="inline-flex items-center space-x-1.5 text-xs font-bold text-tertiary hover:underline">
-                  <span>Book Similar Build</span>
-                  <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- SLIDE 2: Porsche 911 GT3 -->
-          <div class="featured-project-slide slide-hidden-right grid grid-cols-1 lg:grid-cols-12 gap-8 items-center" data-project-idx="1">
-            <!-- LEFT: 3D Round Showroom Turntable Platform with Actual Car Model -->
-            <div class="lg:col-span-7 flex flex-col items-center justify-center relative py-4 md:py-8">
-              <div class="absolute top-0 w-3/4 h-32 bg-gradient-to-b from-tertiary/15 to-transparent blur-xl pointer-events-none rounded-t-full"></div>
-              
-              <div class="relative z-10 w-full max-w-lg md:max-w-xl mx-auto transition-transform duration-500 hover:scale-105">
-                <img src="assets/brands/cars/porsche.jpg" alt="Porsche 911 GT3" class="w-full h-64 md:h-80 object-cover rounded-2xl shadow-2xl border border-outline-variant/20 filter contrast-105">
-                <div class="turntable-shadow absolute -bottom-4 left-4 right-4 h-12 rounded-full pointer-events-none"></div>
-              </div>
-
-              <div class="turntable-wrapper w-full max-w-lg md:max-w-xl -mt-10 relative z-0">
-                <div class="turntable-platform w-full h-28 md:h-36 relative flex items-center justify-center">
-                  <div class="turntable-grid-ring w-4/5 h-4/5 flex items-center justify-center">
-                    <span class="font-mono text-[9px] text-tertiary/50 uppercase tracking-widest">SHOWROOM TURNTABLE // 360°</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- RIGHT (Top-Right): Basic Details & Performance Specs -->
-            <div class="lg:col-span-5 flex flex-col justify-between">
-              <div>
-                <div class="flex items-center justify-between mb-3">
-                  <span class="bg-tertiary/15 text-tertiary text-xs font-mono px-3 py-1 rounded-full uppercase font-bold border border-tertiary/30">
-                    TRACK SUSPENSION & 9H CERAMIC
-                  </span>
-                  <span class="text-xs text-on-surface-variant font-mono font-bold">BUILD #02</span>
-                </div>
-
-                <h3 class="font-display-lg text-2xl md:text-3xl text-primary font-bold mb-3">
-                  Porsche 911 GT3 (992)
-                </h3>
+                <!-- Spotlight Overhead Cone -->
+                <div class="absolute top-0 w-3/4 h-32 bg-gradient-to-b from-tertiary/15 to-transparent blur-xl pointer-events-none rounded-t-full"></div>
                 
-                <p class="font-body-md text-on-surface-variant text-xs md:text-sm leading-relaxed mb-6">
-                  Precision track geometry calibration with 3D laser alignment, KW suspension damping tuning, OEM ceramic composite brake overhaul, and 9H dual shield.
-                </p>
-
-                <div class="grid grid-cols-3 gap-3 mb-6">
-                  <div class="bg-surface-container p-3 rounded-xl border border-outline-variant/15 text-center">
-                    <span class="font-stats-number text-base md:text-lg text-tertiary font-bold block">3D Laser</span>
-                    <span class="text-[10px] font-mono uppercase text-on-surface-variant">Alignment</span>
-                  </div>
-                  <div class="bg-surface-container p-3 rounded-xl border border-outline-variant/15 text-center">
-                    <span class="font-stats-number text-base md:text-lg text-primary font-bold block">510 HP</span>
-                    <span class="text-[10px] font-mono uppercase text-on-surface-variant">4.0L Boxer-6</span>
-                  </div>
-                  <div class="bg-surface-container p-3 rounded-xl border border-outline-variant/15 text-center">
-                    <span class="font-stats-number text-base md:text-lg text-tertiary font-bold block">9H Shield</span>
-                    <span class="text-[10px] font-mono uppercase text-on-surface-variant">Ceramic</span>
-                  </div>
+                <!-- Actual Car Image -->
+                <div class="relative z-10 w-full max-w-lg md:max-w-xl mx-auto transition-transform duration-500 hover:scale-105">
+                  <img src="assets/brands/cars/bmw.jpg" alt="BMW M4 Competition" class="w-full h-64 md:h-80 object-cover rounded-2xl shadow-2xl border border-outline-variant/20 filter contrast-105">
+                  <!-- Under-car Cast Shadow -->
+                  <div class="turntable-shadow absolute -bottom-4 left-4 right-4 h-12 rounded-full pointer-events-none"></div>
                 </div>
 
-                <div class="space-y-2 mb-6">
-                  <div class="flex items-center space-x-2 text-xs text-primary font-medium">
-                    <span class="material-symbols-outlined text-tertiary text-[16px]">check_circle</span>
-                    <span>3D Electronic Multi-Axis Laser Corner Balancing</span>
-                  </div>
-                  <div class="flex items-center space-x-2 text-xs text-primary font-medium">
-                    <span class="material-symbols-outlined text-tertiary text-[16px]">check_circle</span>
-                    <span>High-Temp Motul RBF660 Brake Fluid Flush</span>
-                  </div>
-                  <div class="flex items-center space-x-2 text-xs text-primary font-medium">
-                    <span class="material-symbols-outlined text-tertiary text-[16px]">check_circle</span>
-                    <span>Dual-Layer 9H Ceramic Coat with 3-Year Warranty</span>
+                <!-- 3D Round Showroom Platform (Turntable Plinth) -->
+                <div class="turntable-wrapper w-full max-w-lg md:max-w-xl -mt-10 relative z-0">
+                  <div class="turntable-platform w-full h-28 md:h-36 relative flex items-center justify-center">
+                    <!-- Inner Calibration Ring -->
+                    <div class="turntable-grid-ring w-4/5 h-4/5 flex items-center justify-center">
+                      <span class="font-mono text-[9px] text-tertiary/50 uppercase tracking-widest">SHOWROOM TURNTABLE // 360°</span>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <div class="pt-4 border-t border-outline-variant/15 flex items-center justify-between">
-                <span class="text-[11px] font-mono text-on-surface-variant">Chikhali Atelier // Bay 2</span>
-                <a href="contact.html" class="inline-flex items-center space-x-1.5 text-xs font-bold text-tertiary hover:underline">
-                  <span>Book Track Setup</span>
-                  <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
-                </a>
+              <!-- RIGHT (Top-Right): Basic Details & Performance Specs -->
+              <div class="lg:col-span-5 flex flex-col justify-between">
+                <div>
+                  <!-- Project Category Badge -->
+                  <div class="flex items-center justify-between mb-3">
+                    <span class="bg-tertiary/15 text-tertiary text-xs font-mono px-3 py-1 rounded-full uppercase font-bold border border-tertiary/30">
+                      STAGE 2 TUNING & CARBON AERO
+                    </span>
+                    <span class="text-xs text-on-surface-variant font-mono font-bold">BUILD #01</span>
+                  </div>
+
+                  <!-- Car Model Title -->
+                  <h3 class="font-display-lg text-2xl md:text-3xl text-primary font-bold mb-3">
+                    2024 BMW M4 Competition (G82)
+                  </h3>
+                  
+                  <!-- Brief Overview -->
+                  <p class="font-body-md text-on-surface-variant text-xs md:text-sm leading-relaxed mb-6">
+                    Complete Stage 2 dyno optimization with custom catless downpipes, Akrapovič titanium exhaust, dry carbon aero kit, and full 9H dual-layer ceramic paint shield.
+                  </p>
+
+                  <!-- 3 Performance Stat Cards -->
+                  <div class="grid grid-cols-3 gap-3 mb-6">
+                    <div class="bg-surface-container p-3 rounded-xl border border-outline-variant/15 text-center">
+                      <span class="font-stats-number text-base md:text-lg text-tertiary font-bold block">+140 HP</span>
+                      <span class="text-[10px] font-mono uppercase text-on-surface-variant">Power Gain</span>
+                    </div>
+                    <div class="bg-surface-container p-3 rounded-xl border border-outline-variant/15 text-center">
+                      <span class="font-stats-number text-base md:text-lg text-primary font-bold block">650 HP</span>
+                      <span class="text-[10px] font-mono uppercase text-on-surface-variant">Total Output</span>
+                    </div>
+                    <div class="bg-surface-container p-3 rounded-xl border border-outline-variant/15 text-center">
+                      <span class="font-stats-number text-base md:text-lg text-tertiary font-bold block">780 Nm</span>
+                      <span class="text-[10px] font-mono uppercase text-on-surface-variant">Max Torque</span>
+                    </div>
+                  </div>
+
+                  <!-- Upgrades Checklist -->
+                  <div class="space-y-2 mb-6">
+                    <div class="flex items-center space-x-2 text-xs text-primary font-medium">
+                      <span class="material-symbols-outlined text-tertiary text-[16px]">check_circle</span>
+                      <span>Stage 2 ECU Remap & TCU Transmission Tuning</span>
+                    </div>
+                    <div class="flex items-center space-x-2 text-xs text-primary font-medium">
+                      <span class="material-symbols-outlined text-tertiary text-[16px]">check_circle</span>
+                      <span>Akrapovič Lightweight Titanium Quad Exhaust</span>
+                    </div>
+                    <div class="flex items-center space-x-2 text-xs text-primary font-medium">
+                      <span class="material-symbols-outlined text-tertiary text-[16px]">check_circle</span>
+                      <span>Dry Carbon Front Splitter, Canards & Rear Diffuser</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Footer CTA & Location -->
+                <div class="pt-4 border-t border-outline-variant/15 flex items-center justify-between">
+                  <span class="text-[11px] font-mono text-on-surface-variant">Chikhali Atelier // Bay 4</span>
+                  <a href="contact.html" class="inline-flex items-center space-x-1.5 text-xs font-bold text-tertiary hover:underline">
+                    <span>Book Similar Build</span>
+                    <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
 
-          <!-- SLIDE 3: Mercedes-AMG C63 S -->
-          <div class="featured-project-slide slide-hidden-right grid grid-cols-1 lg:grid-cols-12 gap-8 items-center" data-project-idx="2">
-            <!-- LEFT: 3D Round Showroom Turntable Platform with Actual Car Model -->
-            <div class="lg:col-span-7 flex flex-col items-center justify-center relative py-4 md:py-8">
-              <div class="absolute top-0 w-3/4 h-32 bg-gradient-to-b from-tertiary/15 to-transparent blur-xl pointer-events-none rounded-t-full"></div>
-              
-              <div class="relative z-10 w-full max-w-lg md:max-w-xl mx-auto transition-transform duration-500 hover:scale-105">
-                <img src="assets/brands/cars/mercedes.jpg" alt="Mercedes-AMG C63 S" class="w-full h-64 md:h-80 object-cover rounded-2xl shadow-2xl border border-outline-variant/20 filter contrast-105">
-                <div class="turntable-shadow absolute -bottom-4 left-4 right-4 h-12 rounded-full pointer-events-none"></div>
-              </div>
-
-              <div class="turntable-wrapper w-full max-w-lg md:max-w-xl -mt-10 relative z-0">
-                <div class="turntable-platform w-full h-28 md:h-36 relative flex items-center justify-center">
-                  <div class="turntable-grid-ring w-4/5 h-4/5 flex items-center justify-center">
-                    <span class="font-mono text-[9px] text-tertiary/50 uppercase tracking-widest">SHOWROOM TURNTABLE // 360°</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- RIGHT (Top-Right): Basic Details & Performance Specs -->
-            <div class="lg:col-span-5 flex flex-col justify-between">
-              <div>
-                <div class="flex items-center justify-between mb-3">
-                  <span class="bg-tertiary/15 text-tertiary text-xs font-mono px-3 py-1 rounded-full uppercase font-bold border border-tertiary/30">
-                    V8 BITURBO ENGINE OVERHAUL
-                  </span>
-                  <span class="text-xs text-on-surface-variant font-mono font-bold">BUILD #03</span>
-                </div>
-
-                <h3 class="font-display-lg text-2xl md:text-3xl text-primary font-bold mb-3">
-                  Mercedes-AMG C63 S BiTurbo
-                </h3>
+            <!-- SLIDE 2: Porsche 911 GT3 -->
+            <div class="featured-project-slide grid grid-cols-1 lg:grid-cols-12 gap-8 items-center" data-project-idx="1">
+              <!-- LEFT: 3D Round Showroom Turntable Platform with Actual Car Model -->
+              <div class="lg:col-span-7 flex flex-col items-center justify-center relative py-4 md:py-8">
+                <div class="absolute top-0 w-3/4 h-32 bg-gradient-to-b from-tertiary/15 to-transparent blur-xl pointer-events-none rounded-t-full"></div>
                 
-                <p class="font-body-md text-on-surface-variant text-xs md:text-sm leading-relaxed mb-6">
-                  Full 4.0L V8 twin-turbo engine clean-room rebuild, OEM turbo cartridge replacement, high-pressure fuel pump service, and smooth ECU mapping.
-                </p>
-
-                <div class="grid grid-cols-3 gap-3 mb-6">
-                  <div class="bg-surface-container p-3 rounded-xl border border-outline-variant/15 text-center">
-                    <span class="font-stats-number text-base md:text-lg text-tertiary font-bold block">820 Nm</span>
-                    <span class="text-[10px] font-mono uppercase text-on-surface-variant">Max Torque</span>
-                  </div>
-                  <div class="bg-surface-container p-3 rounded-xl border border-outline-variant/15 text-center">
-                    <span class="font-stats-number text-base md:text-lg text-primary font-bold block">V8 Rebuild</span>
-                    <span class="text-[10px] font-mono uppercase text-on-surface-variant">Clean-Room</span>
-                  </div>
-                  <div class="bg-surface-container p-3 rounded-xl border border-outline-variant/15 text-center">
-                    <span class="font-stats-number text-base md:text-lg text-tertiary font-bold block">MCT 9-Speed</span>
-                    <span class="text-[10px] font-mono uppercase text-on-surface-variant">Gearbox Fixed</span>
-                  </div>
+                <div class="relative z-10 w-full max-w-lg md:max-w-xl mx-auto transition-transform duration-500 hover:scale-105">
+                  <img src="assets/brands/cars/porsche.jpg" alt="Porsche 911 GT3" class="w-full h-64 md:h-80 object-cover rounded-2xl shadow-2xl border border-outline-variant/20 filter contrast-105">
+                  <div class="turntable-shadow absolute -bottom-4 left-4 right-4 h-12 rounded-full pointer-events-none"></div>
                 </div>
 
-                <div class="space-y-2 mb-6">
-                  <div class="flex items-center space-x-2 text-xs text-primary font-medium">
-                    <span class="material-symbols-outlined text-tertiary text-[16px]">check_circle</span>
-                    <span>Complete 4.0L BiTurbo Clean-Room Tear-Down & Reassembly</span>
-                  </div>
-                  <div class="flex items-center space-x-2 text-xs text-primary font-medium">
-                    <span class="material-symbols-outlined text-tertiary text-[16px]">check_circle</span>
-                    <span>OEM BorgWarner Twin-Turbochargers Installed</span>
-                  </div>
-                  <div class="flex items-center space-x-2 text-xs text-primary font-medium">
-                    <span class="material-symbols-outlined text-tertiary text-[16px]">check_circle</span>
-                    <span>12-Month / 10,000 KM Engine Warranty Sign-off</span>
+                <div class="turntable-wrapper w-full max-w-lg md:max-w-xl -mt-10 relative z-0">
+                  <div class="turntable-platform w-full h-28 md:h-36 relative flex items-center justify-center">
+                    <div class="turntable-grid-ring w-4/5 h-4/5 flex items-center justify-center">
+                      <span class="font-mono text-[9px] text-tertiary/50 uppercase tracking-widest">SHOWROOM TURNTABLE // 360°</span>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <div class="pt-4 border-t border-outline-variant/15 flex items-center justify-between">
-                <span class="text-[11px] font-mono text-on-surface-variant">Chikhali Atelier // Bay 1</span>
-                <a href="contact.html" class="inline-flex items-center space-x-1.5 text-xs font-bold text-tertiary hover:underline">
-                  <span>Book Engine Service</span>
-                  <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
-                </a>
+              <!-- RIGHT (Top-Right): Basic Details & Performance Specs -->
+              <div class="lg:col-span-5 flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between mb-3">
+                    <span class="bg-tertiary/15 text-tertiary text-xs font-mono px-3 py-1 rounded-full uppercase font-bold border border-tertiary/30">
+                      TRACK SUSPENSION & 9H CERAMIC
+                    </span>
+                    <span class="text-xs text-on-surface-variant font-mono font-bold">BUILD #02</span>
+                  </div>
+
+                  <h3 class="font-display-lg text-2xl md:text-3xl text-primary font-bold mb-3">
+                    Porsche 911 GT3 (992)
+                  </h3>
+                  
+                  <p class="font-body-md text-on-surface-variant text-xs md:text-sm leading-relaxed mb-6">
+                    Precision track geometry calibration with 3D laser alignment, KW suspension damping tuning, OEM ceramic composite brake overhaul, and 9H dual shield.
+                  </p>
+
+                  <div class="grid grid-cols-3 gap-3 mb-6">
+                    <div class="bg-surface-container p-3 rounded-xl border border-outline-variant/15 text-center">
+                      <span class="font-stats-number text-base md:text-lg text-tertiary font-bold block">3D Laser</span>
+                      <span class="text-[10px] font-mono uppercase text-on-surface-variant">Alignment</span>
+                    </div>
+                    <div class="bg-surface-container p-3 rounded-xl border border-outline-variant/15 text-center">
+                      <span class="font-stats-number text-base md:text-lg text-primary font-bold block">510 HP</span>
+                      <span class="text-[10px] font-mono uppercase text-on-surface-variant">4.0L Boxer-6</span>
+                    </div>
+                    <div class="bg-surface-container p-3 rounded-xl border border-outline-variant/15 text-center">
+                      <span class="font-stats-number text-base md:text-lg text-tertiary font-bold block">9H Shield</span>
+                      <span class="text-[10px] font-mono uppercase text-on-surface-variant">Ceramic</span>
+                    </div>
+                  </div>
+
+                  <div class="space-y-2 mb-6">
+                    <div class="flex items-center space-x-2 text-xs text-primary font-medium">
+                      <span class="material-symbols-outlined text-tertiary text-[16px]">check_circle</span>
+                      <span>3D Electronic Multi-Axis Laser Corner Balancing</span>
+                    </div>
+                    <div class="flex items-center space-x-2 text-xs text-primary font-medium">
+                      <span class="material-symbols-outlined text-tertiary text-[16px]">check_circle</span>
+                      <span>High-Temp Motul RBF660 Brake Fluid Flush</span>
+                    </div>
+                    <div class="flex items-center space-x-2 text-xs text-primary font-medium">
+                      <span class="material-symbols-outlined text-tertiary text-[16px]">check_circle</span>
+                      <span>Dual-Layer 9H Ceramic Coat with 3-Year Warranty</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pt-4 border-t border-outline-variant/15 flex items-center justify-between">
+                  <span class="text-[11px] font-mono text-on-surface-variant">Chikhali Atelier // Bay 2</span>
+                  <a href="contact.html" class="inline-flex items-center space-x-1.5 text-xs font-bold text-tertiary hover:underline">
+                    <span>Book Track Setup</span>
+                    <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
 
-          <!-- SLIDE 4: Mahindra XUV700 & Thar Expedition -->
-          <div class="featured-project-slide slide-hidden-right grid grid-cols-1 lg:grid-cols-12 gap-8 items-center" data-project-idx="3">
-            <!-- LEFT: 3D Round Showroom Turntable Platform with Actual Car Model -->
-            <div class="lg:col-span-7 flex flex-col items-center justify-center relative py-4 md:py-8">
-              <div class="absolute top-0 w-3/4 h-32 bg-gradient-to-b from-tertiary/15 to-transparent blur-xl pointer-events-none rounded-t-full"></div>
-              
-              <div class="relative z-10 w-full max-w-lg md:max-w-xl mx-auto transition-transform duration-500 hover:scale-105">
-                <img src="assets/brands/cars/mahindra.jpg" alt="Mahindra XUV700 Expedition" class="w-full h-64 md:h-80 object-cover rounded-2xl shadow-2xl border border-outline-variant/20 filter contrast-105">
-                <div class="turntable-shadow absolute -bottom-4 left-4 right-4 h-12 rounded-full pointer-events-none"></div>
-              </div>
-
-              <div class="turntable-wrapper w-full max-w-lg md:max-w-xl -mt-10 relative z-0">
-                <div class="turntable-platform w-full h-28 md:h-36 relative flex items-center justify-center">
-                  <div class="turntable-grid-ring w-4/5 h-4/5 flex items-center justify-center">
-                    <span class="font-mono text-[9px] text-tertiary/50 uppercase tracking-widest">SHOWROOM TURNTABLE // 360°</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- RIGHT (Top-Right): Basic Details & Performance Specs -->
-            <div class="lg:col-span-5 flex flex-col justify-between">
-              <div>
-                <div class="flex items-center justify-between mb-3">
-                  <span class="bg-tertiary/15 text-tertiary text-xs font-mono px-3 py-1 rounded-full uppercase font-bold border border-tertiary/30">
-                    SUV EXPEDITION & OFF-ROAD LIFT
-                  </span>
-                  <span class="text-xs text-on-surface-variant font-mono font-bold">BUILD #04</span>
-                </div>
-
-                <h3 class="font-display-lg text-2xl md:text-3xl text-primary font-bold mb-3">
-                  Mahindra XUV700 & Thar Expedition
-                </h3>
+            <!-- SLIDE 3: Mercedes-AMG C63 S -->
+            <div class="featured-project-slide grid grid-cols-1 lg:grid-cols-12 gap-8 items-center" data-project-idx="2">
+              <!-- LEFT: 3D Round Showroom Turntable Platform with Actual Car Model -->
+              <div class="lg:col-span-7 flex flex-col items-center justify-center relative py-4 md:py-8">
+                <div class="absolute top-0 w-3/4 h-32 bg-gradient-to-b from-tertiary/15 to-transparent blur-xl pointer-events-none rounded-t-full"></div>
                 
-                <p class="font-body-md text-on-surface-variant text-xs md:text-sm leading-relaxed mb-6">
-                  Suspension lift kit engineered for rough Pune & Western Ghats terrain, heavy-duty underbody protection, auxiliary matrix LED bars, and low-end diesel torque remap.
-                </p>
-
-                <div class="grid grid-cols-3 gap-3 mb-6">
-                  <div class="bg-surface-container p-3 rounded-xl border border-outline-variant/15 text-center">
-                    <span class="font-stats-number text-base md:text-lg text-tertiary font-bold block">+85 Nm</span>
-                    <span class="text-[10px] font-mono uppercase text-on-surface-variant">Low-End Torque</span>
-                  </div>
-                  <div class="bg-surface-container p-3 rounded-xl border border-outline-variant/15 text-center">
-                    <span class="font-stats-number text-base md:text-lg text-primary font-bold block">+2.5"</span>
-                    <span class="text-[10px] font-mono uppercase text-on-surface-variant">Lift Height</span>
-                  </div>
-                  <div class="bg-surface-container p-3 rounded-xl border border-outline-variant/15 text-center">
-                    <span class="font-stats-number text-base md:text-lg text-tertiary font-bold block">4mm Steel</span>
-                    <span class="text-[10px] font-mono uppercase text-on-surface-variant">Skid Plate</span>
-                  </div>
+                <div class="relative z-10 w-full max-w-lg md:max-w-xl mx-auto transition-transform duration-500 hover:scale-105">
+                  <img src="assets/brands/cars/mercedes.jpg" alt="Mercedes-AMG C63 S" class="w-full h-64 md:h-80 object-cover rounded-2xl shadow-2xl border border-outline-variant/20 filter contrast-105">
+                  <div class="turntable-shadow absolute -bottom-4 left-4 right-4 h-12 rounded-full pointer-events-none"></div>
                 </div>
 
-                <div class="space-y-2 mb-6">
-                  <div class="flex items-center space-x-2 text-xs text-primary font-medium">
-                    <span class="material-symbols-outlined text-tertiary text-[16px]">check_circle</span>
-                    <span>Heavy-Duty Long-Travel Shock Absorber & Spring Lift Kit</span>
-                  </div>
-                  <div class="flex items-center space-x-2 text-xs text-primary font-medium">
-                    <span class="material-symbols-outlined text-tertiary text-[16px]">check_circle</span>
-                    <span>Laser-Cut 4mm Steel Underbody Sump & Gearbox Armor</span>
-                  </div>
-                  <div class="flex items-center space-x-2 text-xs text-primary font-medium">
-                    <span class="material-symbols-outlined text-tertiary text-[16px]">check_circle</span>
-                    <span>Stage 1 Diesel Remap for Improved Low-End Pull & Mileage</span>
+                <div class="turntable-wrapper w-full max-w-lg md:max-w-xl -mt-10 relative z-0">
+                  <div class="turntable-platform w-full h-28 md:h-36 relative flex items-center justify-center">
+                    <div class="turntable-grid-ring w-4/5 h-4/5 flex items-center justify-center">
+                      <span class="font-mono text-[9px] text-tertiary/50 uppercase tracking-widest">SHOWROOM TURNTABLE // 360°</span>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <div class="pt-4 border-t border-outline-variant/15 flex items-center justify-between">
-                <span class="text-[11px] font-mono text-on-surface-variant">Chikhali Atelier // Bay 3</span>
-                <a href="contact.html" class="inline-flex items-center space-x-1.5 text-xs font-bold text-tertiary hover:underline">
-                  <span>Book SUV Upgrade</span>
-                  <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
-                </a>
+              <!-- RIGHT (Top-Right): Basic Details & Performance Specs -->
+              <div class="lg:col-span-5 flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between mb-3">
+                    <span class="bg-tertiary/15 text-tertiary text-xs font-mono px-3 py-1 rounded-full uppercase font-bold border border-tertiary/30">
+                      V8 BITURBO ENGINE OVERHAUL
+                    </span>
+                    <span class="text-xs text-on-surface-variant font-mono font-bold">BUILD #03</span>
+                  </div>
+
+                  <h3 class="font-display-lg text-2xl md:text-3xl text-primary font-bold mb-3">
+                    Mercedes-AMG C63 S BiTurbo
+                  </h3>
+                  
+                  <p class="font-body-md text-on-surface-variant text-xs md:text-sm leading-relaxed mb-6">
+                    Full 4.0L V8 twin-turbo engine clean-room rebuild, OEM turbo cartridge replacement, high-pressure fuel pump service, and smooth ECU mapping.
+                  </p>
+
+                  <div class="grid grid-cols-3 gap-3 mb-6">
+                    <div class="bg-surface-container p-3 rounded-xl border border-outline-variant/15 text-center">
+                      <span class="font-stats-number text-base md:text-lg text-tertiary font-bold block">820 Nm</span>
+                      <span class="text-[10px] font-mono uppercase text-on-surface-variant">Max Torque</span>
+                    </div>
+                    <div class="bg-surface-container p-3 rounded-xl border border-outline-variant/15 text-center">
+                      <span class="font-stats-number text-base md:text-lg text-primary font-bold block">V8 Rebuild</span>
+                      <span class="text-[10px] font-mono uppercase text-on-surface-variant">Clean-Room</span>
+                    </div>
+                    <div class="bg-surface-container p-3 rounded-xl border border-outline-variant/15 text-center">
+                      <span class="font-stats-number text-base md:text-lg text-tertiary font-bold block">MCT 9-Speed</span>
+                      <span class="text-[10px] font-mono uppercase text-on-surface-variant">Gearbox Fixed</span>
+                    </div>
+                  </div>
+
+                  <div class="space-y-2 mb-6">
+                    <div class="flex items-center space-x-2 text-xs text-primary font-medium">
+                      <span class="material-symbols-outlined text-tertiary text-[16px]">check_circle</span>
+                      <span>Complete 4.0L BiTurbo Clean-Room Tear-Down & Reassembly</span>
+                    </div>
+                    <div class="flex items-center space-x-2 text-xs text-primary font-medium">
+                      <span class="material-symbols-outlined text-tertiary text-[16px]">check_circle</span>
+                      <span>OEM BorgWarner Twin-Turbochargers Installed</span>
+                    </div>
+                    <div class="flex items-center space-x-2 text-xs text-primary font-medium">
+                      <span class="material-symbols-outlined text-tertiary text-[16px]">check_circle</span>
+                      <span>12-Month / 10,000 KM Engine Warranty Sign-off</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pt-4 border-t border-outline-variant/15 flex items-center justify-between">
+                  <span class="text-[11px] font-mono text-on-surface-variant">Chikhali Atelier // Bay 1</span>
+                  <a href="contact.html" class="inline-flex items-center space-x-1.5 text-xs font-bold text-tertiary hover:underline">
+                    <span>Book Engine Service</span>
+                    <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
 
+            <!-- SLIDE 4: Mahindra XUV700 & Thar Expedition -->
+            <div class="featured-project-slide grid grid-cols-1 lg:grid-cols-12 gap-8 items-center" data-project-idx="3">
+              <!-- LEFT: 3D Round Showroom Turntable Platform with Actual Car Model -->
+              <div class="lg:col-span-7 flex flex-col items-center justify-center relative py-4 md:py-8">
+                <div class="absolute top-0 w-3/4 h-32 bg-gradient-to-b from-tertiary/15 to-transparent blur-xl pointer-events-none rounded-t-full"></div>
+                
+                <div class="relative z-10 w-full max-w-lg md:max-w-xl mx-auto transition-transform duration-500 hover:scale-105">
+                  <img src="assets/brands/cars/mahindra.jpg" alt="Mahindra XUV700 Expedition" class="w-full h-64 md:h-80 object-cover rounded-2xl shadow-2xl border border-outline-variant/20 filter contrast-105">
+                  <div class="turntable-shadow absolute -bottom-4 left-4 right-4 h-12 rounded-full pointer-events-none"></div>
+                </div>
+
+                <div class="turntable-wrapper w-full max-w-lg md:max-w-xl -mt-10 relative z-0">
+                  <div class="turntable-platform w-full h-28 md:h-36 relative flex items-center justify-center">
+                    <div class="turntable-grid-ring w-4/5 h-4/5 flex items-center justify-center">
+                      <span class="font-mono text-[9px] text-tertiary/50 uppercase tracking-widest">SHOWROOM TURNTABLE // 360°</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- RIGHT (Top-Right): Basic Details & Performance Specs -->
+              <div class="lg:col-span-5 flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between mb-3">
+                    <span class="bg-tertiary/15 text-tertiary text-xs font-mono px-3 py-1 rounded-full uppercase font-bold border border-tertiary/30">
+                      SUV EXPEDITION & OFF-ROAD LIFT
+                    </span>
+                    <span class="text-xs text-on-surface-variant font-mono font-bold">BUILD #04</span>
+                  </div>
+
+                  <h3 class="font-display-lg text-2xl md:text-3xl text-primary font-bold mb-3">
+                    Mahindra XUV700 & Thar Expedition
+                  </h3>
+                  
+                  <p class="font-body-md text-on-surface-variant text-xs md:text-sm leading-relaxed mb-6">
+                    Suspension lift kit engineered for rough Pune & Western Ghats terrain, heavy-duty underbody protection, auxiliary matrix LED bars, and low-end diesel torque remap.
+                  </p>
+
+                  <div class="grid grid-cols-3 gap-3 mb-6">
+                    <div class="bg-surface-container p-3 rounded-xl border border-outline-variant/15 text-center">
+                      <span class="font-stats-number text-base md:text-lg text-tertiary font-bold block">+85 Nm</span>
+                      <span class="text-[10px] font-mono uppercase text-on-surface-variant">Low-End Torque</span>
+                    </div>
+                    <div class="bg-surface-container p-3 rounded-xl border border-outline-variant/15 text-center">
+                      <span class="font-stats-number text-base md:text-lg text-primary font-bold block">+2.5"</span>
+                      <span class="text-[10px] font-mono uppercase text-on-surface-variant">Lift Height</span>
+                    </div>
+                    <div class="bg-surface-container p-3 rounded-xl border border-outline-variant/15 text-center">
+                      <span class="font-stats-number text-base md:text-lg text-tertiary font-bold block">4mm Steel</span>
+                      <span class="text-[10px] font-mono uppercase text-on-surface-variant">Skid Plate</span>
+                    </div>
+                  </div>
+
+                  <div class="space-y-2 mb-6">
+                    <div class="flex items-center space-x-2 text-xs text-primary font-medium">
+                      <span class="material-symbols-outlined text-tertiary text-[16px]">check_circle</span>
+                      <span>Heavy-Duty Long-Travel Shock Absorber & Spring Lift Kit</span>
+                    </div>
+                    <div class="flex items-center space-x-2 text-xs text-primary font-medium">
+                      <span class="material-symbols-outlined text-tertiary text-[16px]">check_circle</span>
+                      <span>Laser-Cut 4mm Steel Underbody Sump & Gearbox Armor</span>
+                    </div>
+                    <div class="flex items-center space-x-2 text-xs text-primary font-medium">
+                      <span class="material-symbols-outlined text-tertiary text-[16px]">check_circle</span>
+                      <span>Stage 1 Diesel Remap for Improved Low-End Pull & Mileage</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pt-4 border-t border-outline-variant/15 flex items-center justify-between">
+                  <span class="text-[11px] font-mono text-on-surface-variant">Chikhali Atelier // Bay 3</span>
+                  <a href="contact.html" class="inline-flex items-center space-x-1.5 text-xs font-bold text-tertiary hover:underline">
+                    <span>Book SUV Upgrade</span>
+                    <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
+
+        <!-- Horizontal Car Model Quick-Selector Pills -->
+        <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
+          <button class="project-nav-pill active-pill px-4 py-2 rounded-full bg-surface-container border border-outline-variant/20 text-xs font-mono font-bold text-on-surface-variant hover:border-tertiary hover:text-tertiary flex items-center space-x-2 transition-all cursor-pointer" data-target-idx="0">
+            <span class="w-2 h-2 rounded-full bg-tertiary"></span>
+            <span>BMW M4 Competition</span>
+          </button>
+          <button class="project-nav-pill px-4 py-2 rounded-full bg-surface-container border border-outline-variant/20 text-xs font-mono font-bold text-on-surface-variant hover:border-tertiary hover:text-tertiary flex items-center space-x-2 transition-all cursor-pointer" data-target-idx="1">
+            <span class="w-2 h-2 rounded-full bg-tertiary"></span>
+            <span>Porsche 911 GT3</span>
+          </button>
+          <button class="project-nav-pill px-4 py-2 rounded-full bg-surface-container border border-outline-variant/20 text-xs font-mono font-bold text-on-surface-variant hover:border-tertiary hover:text-tertiary flex items-center space-x-2 transition-all cursor-pointer" data-target-idx="2">
+            <span class="w-2 h-2 rounded-full bg-tertiary"></span>
+            <span>Mercedes-AMG C63 S</span>
+          </button>
+          <button class="project-nav-pill px-4 py-2 rounded-full bg-surface-container border border-outline-variant/20 text-xs font-mono font-bold text-on-surface-variant hover:border-tertiary hover:text-tertiary flex items-center space-x-2 transition-all cursor-pointer" data-target-idx="3">
+            <span class="w-2 h-2 rounded-full bg-tertiary"></span>
+            <span>Mahindra Expedition</span>
+          </button>
+        </div>
+
       </div>
     </section>
 

@@ -1058,7 +1058,7 @@ button {
 }
 
 /* ==========================================================================
-   FEATURED PROJECTS - 3D ROUND TURNTABLE SHOWCASE & 5S AUTO-SCROLLER
+   FEATURED PROJECTS - 3D ROUND TURNTABLE HORIZONTAL CAROUSEL
    ========================================================================== */
 .turntable-wrapper {
   perspective: 1000px;
@@ -1085,43 +1085,32 @@ button {
   background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.6) 45%, transparent 75%);
 }
 
+.project-carousel-track {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
 .featured-project-slide {
-  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.featured-project-slide.slide-active {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateX(0) scale(1);
-  position: relative;
-  z-index: 10;
-}
-
-.featured-project-slide.slide-hidden-left {
-  opacity: 0;
-  pointer-events: none;
-  transform: translateX(-60px) scale(0.96);
-  position: absolute;
-  top: 0;
-  left: 0;
+  min-width: 100%;
   width: 100%;
-  z-index: 0;
+  flex-shrink: 0;
+  box-sizing: border-box;
 }
 
-.featured-project-slide.slide-hidden-right {
-  opacity: 0;
-  pointer-events: none;
-  transform: translateX(60px) scale(0.96);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 0;
+.project-nav-pill {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.project-carousel-progress {
-  transition: width 5s linear;
+.project-nav-pill.active-pill {
+  background: rgba(251, 191, 36, 0.18) !important;
+  border-color: #fbbf24 !important;
+  color: #fbbf24 !important;
+  box-shadow: 0 0 16px rgba(251, 191, 36, 0.35);
 }
+
 
 
 

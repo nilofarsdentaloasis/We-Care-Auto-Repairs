@@ -357,16 +357,18 @@ function initTimelineRibbonEngine() {
   });
 }
 
-// 7. Featured Projects 3D Round Turntable Single-Car Carousel (Auto-scrolls every 5s from right to left)
+// 7. Featured Projects 3D Round Turntable Horizontal Carousel (Auto-scrolls every 5s from right to left)
 function initFeaturedProjectCarousel() {
   const container = document.getElementById('project-carousel-container');
-  if (!container) return;
+  const track = document.getElementById('project-carousel-track');
+  if (!container || !track) return;
 
-  const slides = container.querySelectorAll('.featured-project-slide');
+  const slides = track.querySelectorAll('.featured-project-slide');
   const prevBtn = document.getElementById('project-prev-btn');
   const nextBtn = document.getElementById('project-next-btn');
   const counterEl = document.getElementById('project-slide-counter');
   const timerFill = document.getElementById('project-timer-fill');
+  const navPills = document.querySelectorAll('.project-nav-pill');
 
   if (!slides.length) return;
 
@@ -379,20 +381,22 @@ function initFeaturedProjectCarousel() {
   let elapsedBeforePause = 0;
 
   function updateSlide(idx) {
-    slides.forEach((slide, i) => {
-      slide.classList.remove('slide-active', 'slide-hidden-left', 'slide-hidden-right');
-      if (i === idx) {
-        slide.classList.add('slide-active');
-      } else if (i < idx) {
-        slide.classList.add('slide-hidden-left');
-      } else {
-        slide.classList.add('slide-hidden-right');
-      }
-    });
+    // Horizontally translate the track
+    track.style.transform = `translateX(-${idx * 100}%)`;
 
+    // Update counter
     if (counterEl) {
       counterEl.textContent = `0${idx + 1} / 0${totalSlides}`;
     }
+
+    // Update Quick-Selector Nav Pills
+    navPills.forEach((pill, i) => {
+      if (i === idx) {
+        pill.classList.add('active-pill');
+      } else {
+        pill.classList.remove('active-pill');
+      }
+    });
   }
 
   function startProgress() {
@@ -425,22 +429,35 @@ function initFeaturedProjectCarousel() {
     rafId = requestAnimationFrame(step);
   }
 
-  function nextSlide(manual = true) {
-    currentIdx = (currentIdx + 1) % totalSlides;
+  function goToSlide(idx, manual = true) {
+    currentIdx = idx;
     updateSlide(currentIdx);
     if (manual && window.WebAudioFX) window.WebAudioFX.playClick();
     startProgress();
   }
 
+  function nextSlide(manual = true) {
+    currentIdx = (currentIdx + 1) % totalSlides;
+    goToSlide(currentIdx, manual);
+  }
+
   function prevSlide() {
     currentIdx = (currentIdx - 1 + totalSlides) % totalSlides;
-    updateSlide(currentIdx);
-    if (window.WebAudioFX) window.WebAudioFX.playClick();
-    startProgress();
+    goToSlide(currentIdx, true);
   }
 
   if (nextBtn) nextBtn.addEventListener('click', () => nextSlide(true));
   if (prevBtn) prevBtn.addEventListener('click', () => prevSlide());
+
+  // Click handler for Quick-Selector Pills
+  navPills.forEach((pill) => {
+    pill.addEventListener('click', () => {
+      const targetIdx = parseInt(pill.getAttribute('data-target-idx'), 10);
+      if (!isNaN(targetIdx)) {
+        goToSlide(targetIdx, true);
+      }
+    });
+  });
 
   // Pause on hover
   container.addEventListener('mouseenter', () => {
