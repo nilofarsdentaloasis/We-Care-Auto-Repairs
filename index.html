@@ -983,11 +983,9 @@
           heroLeftVignette.style.opacity = 0;
         }
 
-        // Text stays there throughout all 210 frames.
-        // Only at the very end after the 210th frame finishes (progress > 0.95), gently fade out as page scrolls up
-        if (progress > 0.95) {
-          const fadeOut = Math.min(1, (progress - 0.95) / 0.05);
-          heroOverlay.style.opacity = (1 - fadeOut);
+        // Hold the entire header still and 100% visible until the last animation frame is finished
+        if (progress >= 0.99) {
+          heroOverlay.style.opacity = Math.max(0, 1 - ((progress - 0.99) / 0.01));
         } else {
           heroOverlay.style.opacity = 1;
         }
@@ -1053,9 +1051,14 @@
       });
     }
 
+    // Top Navigation - held still until the hero scroll track is completely finished
     window.addEventListener('scroll', () => {
       const nav = document.getElementById('topNav');
-      if (window.scrollY > 50) {
+      if (!nav) return;
+      const trackRect = scrollTrack ? scrollTrack.getBoundingClientRect() : null;
+      const isHeroFinished = !trackRect || (trackRect.bottom <= window.innerHeight + 20);
+
+      if (isHeroFinished && window.scrollY > 50) {
         nav.classList.add('bg-surface-container', 'shadow-lg');
         nav.classList.remove('bg-background/90');
       } else {
