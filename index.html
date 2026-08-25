@@ -766,54 +766,87 @@
     function renderFrame(progress) {
       const canvasW = canvas.width;
       const canvasH = canvas.height;
-
-      ctx.fillStyle = '#0d0d0d';
-      ctx.fillRect(0, 0, canvasW, canvasH);
-
-      const leadInThreshold = 0.04;
-      let activeIndex = 0;
-
-      if (progress > leadInThreshold) {
-        const normalized = (progress - leadInThreshold) / (1 - leadInThreshold);
-        activeIndex = Math.min(
-          totalFrames - 1,
-          Math.max(0, Math.floor(normalized * (totalFrames - 1)))
-        );
-      } else {
-        activeIndex = 0;
-      }
-
-      const img = images[activeIndex];
-      if (!img || !img.complete || img.naturalWidth === 0) return;
-
-      const imgW = img.naturalWidth;
-      const imgH = img.naturalHeight;
       const isMobile = window.innerWidth < 768;
-
-      let renderW, renderH, offsetX, offsetY;
 
       if (!isMobile) {
         // =========================================================================
         // DESKTOP: 100% FROZEN & UNTOUCHED (RULE 5)
         // =========================================================================
+        ctx.fillStyle = '#0d0d0d';
+        ctx.fillRect(0, 0, canvasW, canvasH);
+
+        const leadInThreshold = 0.04;
+        let activeIndex = 0;
+
+        if (progress > leadInThreshold) {
+          const normalized = (progress - leadInThreshold) / (1 - leadInThreshold);
+          activeIndex = Math.min(
+            totalFrames - 1,
+            Math.max(0, Math.floor(normalized * (totalFrames - 1)))
+          );
+        } else {
+          activeIndex = 0;
+        }
+
+        const img = images[activeIndex];
+        if (!img || !img.complete || img.naturalWidth === 0) return;
+
+        const imgW = img.naturalWidth;
+        const imgH = img.naturalHeight;
+
         const scale = Math.max(canvasW / imgW, canvasH / imgH);
-        renderW = Math.round(imgW * scale);
-        renderH = Math.round(imgH * scale);
-        offsetX = Math.round((canvasW - renderW) / 2);
-        offsetY = Math.round((canvasH - renderH) / 2);
+        const renderW = Math.round(imgW * scale);
+        const renderH = Math.round(imgH * scale);
+        const offsetX = Math.round((canvasW - renderW) / 2);
+        const offsetY = Math.round((canvasH - renderH) / 2);
+
+        ctx.globalAlpha = 1.0;
+        ctx.drawImage(img, offsetX, offsetY, renderW, renderH);
       } else {
         // =========================================================================
-        // MOBILE: FULL CAR VISIBILITY (RULES 1 & 2)
+        // MOBILE: LUXURY SHOWROOM FOCAL BALANCE - 100% CAR VISIBILITY, ZERO VOID
         // =========================================================================
-        const scale = Math.min(canvasW / imgW, canvasH / imgH);
-        renderW = Math.round(imgW * scale);
-        renderH = Math.round(imgH * scale);
-        offsetX = Math.round((canvasW - renderW) / 2);
-        offsetY = Math.round((canvasH - renderH) / 2);
-      }
+        // 1. Luxury dark radial studio spotlight filling entire screen edge-to-edge
+        const bgGrad = ctx.createRadialGradient(
+          canvasW / 2, canvasH * 0.44, 20,
+          canvasW / 2, canvasH * 0.44, Math.max(canvasW, canvasH) * 0.75
+        );
+        bgGrad.addColorStop(0, '#151922');
+        bgGrad.addColorStop(0.5, '#0b0e14');
+        bgGrad.addColorStop(1, '#05070a');
+        ctx.fillStyle = bgGrad;
+        ctx.fillRect(0, 0, canvasW, canvasH);
 
-      ctx.globalAlpha = 1.0;
-      ctx.drawImage(img, offsetX, offsetY, renderW, renderH);
+        const leadInThreshold = 0.04;
+        let activeIndex = 0;
+
+        if (progress > leadInThreshold) {
+          const normalized = (progress - leadInThreshold) / (1 - leadInThreshold);
+          activeIndex = Math.min(
+            totalFrames - 1,
+            Math.max(0, Math.floor(normalized * (totalFrames - 1)))
+          );
+        } else {
+          activeIndex = 0;
+        }
+
+        const img = images[activeIndex];
+        if (!img || !img.complete || img.naturalWidth === 0) return;
+
+        const imgW = img.naturalWidth;
+        const imgH = img.naturalHeight;
+
+        // Proportional optical scaling: contains entire car (front bumper to rear wing)
+        const scale = (canvasW * 0.98) / imgW;
+        const renderW = Math.round(imgW * scale);
+        const renderH = Math.round(imgH * scale);
+        const offsetX = Math.round((canvasW - renderW) / 2);
+        // Optical vertical balance (44% height) accounting for header and bottom cues
+        const offsetY = Math.round((canvasH - renderH) * 0.44);
+
+        ctx.globalAlpha = 1.0;
+        ctx.drawImage(img, offsetX, offsetY, renderW, renderH);
+      }
     }
 
     function updateHeroTextTransition(progress) {
