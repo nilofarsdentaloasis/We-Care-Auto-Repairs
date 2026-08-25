@@ -28,7 +28,7 @@ class ScrollyCarEngine {
     // Configuration
     this.totalFrames = options.totalFrames || 144;
     this.framePathPattern = options.framePathPattern || 'assets/frames/ezgif-frame-{INDEX}.jpg';
-    this.lerpFactor = options.lerpFactor || 0.12; // Lower = smoother inertia, Higher = snappier
+    this.lerpFactor = options.lerpFactor || (window.innerWidth < 768 ? 0.16 : 0.12); // Responsive touch smoothness
     
     // State
     this.images = [];
@@ -403,20 +403,31 @@ class ScrollyCarEngine {
     const canvasAspect = width / height;
 
     let renderW, renderH, offsetX, offsetY;
+    const isMobile = width < 768;
 
-    // Use responsive fit that fills the showcase while keeping car perfectly centered
-    if (canvasAspect > imgAspect) {
-      // Wide screens
-      renderW = width;
-      renderH = width / imgAspect;
-      offsetX = 0;
-      offsetY = (height - renderH) / 2;
+    if (!isMobile) {
+      // Desktop: 100% untouched cover fit
+      if (canvasAspect > imgAspect) {
+        renderW = width;
+        renderH = width / imgAspect;
+        offsetX = 0;
+        offsetY = (height - renderH) / 2;
+      } else {
+        renderH = height;
+        renderW = height * imgAspect;
+        offsetX = (width - renderW) / 2;
+        offsetY = 0;
+      }
     } else {
-      // Tall / mobile screens
-      renderH = height;
-      renderW = height * imgAspect;
+      // Mobile: Contain entire car so full vehicle is completely visible on mobile
+      const maxScaleW = (width * 0.98) / imgW;
+      const maxScaleH = (height * 0.72) / imgH;
+      const scale = Math.min(maxScaleW, maxScaleH);
+
+      renderW = imgW * scale;
+      renderH = imgH * scale;
       offsetX = (width - renderW) / 2;
-      offsetY = 0;
+      offsetY = (height - renderH) / 2;
     }
 
     this.ctx.fillStyle = '#080b11';

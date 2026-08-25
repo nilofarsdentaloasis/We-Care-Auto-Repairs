@@ -134,9 +134,38 @@
         <span>Request Appointment</span>
         <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
       </a>
-      <div class="md:hidden flex items-center space-x-4">
-        <a class="text-sm font-label-caps text-on-surface-variant uppercase" href="index.html">Home</a>
-        <a class="text-sm font-label-caps text-tertiary uppercase" href="services.html">Services</a>
+      <!-- Mobile Hamburger Toggle Button -->
+      <div class="md:hidden flex items-center space-x-2">
+        <a class="text-xs font-label-caps text-tertiary uppercase bg-surface-container px-3 py-1.5 rounded-full border border-tertiary/30" href="contact.html">Book</a>
+        <button class="text-primary p-2 focus:outline-none flex items-center justify-center rounded-lg bg-surface-container hover:bg-surface-bright transition-colors" id="mobileMenuBtn" aria-label="Toggle Navigation">
+          <span class="material-symbols-outlined text-[24px]" id="mobileMenuIcon">menu</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Menu Drawer -->
+    <div class="md:hidden hidden bg-surface-dim/98 backdrop-blur-2xl border-b border-outline-variant/20 px-6 py-6 transition-all duration-300 shadow-2xl" id="mobileMenu">
+      <div class="flex flex-col space-y-4 font-body-md">
+        <a class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-between py-2 border-b border-outline-variant/10" href="index.html">
+          <span>Home</span>
+          <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+        </a>
+        <a class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-between py-2 border-b border-outline-variant/10" href="services.html">
+          <span>Services</span>
+          <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+        </a>
+        <a class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-between py-2 border-b border-outline-variant/10" href="about.html">
+          <span>About Us</span>
+          <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+        </a>
+        <a class="text-tertiary font-semibold flex items-center justify-between py-2 border-b border-outline-variant/10" href="contact.html">
+          <span>Contact Us</span>
+          <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+        </a>
+        <a class="bg-tertiary text-on-tertiary py-3 px-6 rounded-full font-label-caps text-xs uppercase text-center font-bold tracking-wider flex items-center justify-center space-x-2 mt-2 shadow-lg" href="contact.html">
+          <span>Request Appointment</span>
+          <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+        </a>
       </div>
     </div>
   </nav>
@@ -298,6 +327,30 @@
   </footer>
 
   <script>
+    // Mobile Menu Toggle handler
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileMenuIcon = document.getElementById('mobileMenuIcon');
+    if (mobileMenuBtn && mobileMenu) {
+      mobileMenuBtn.addEventListener('click', () => {
+        const isHidden = mobileMenu.classList.toggle('hidden');
+        if (mobileMenuIcon) {
+          mobileMenuIcon.textContent = isHidden ? 'menu' : 'close';
+        }
+      });
+    }
+
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('topNav');
+      if (window.scrollY > 50) {
+        nav.classList.add('bg-surface-container', 'shadow-lg');
+        nav.classList.remove('bg-background/90');
+      } else {
+        nav.classList.remove('bg-surface-container', 'shadow-lg');
+        nav.classList.add('bg-background/90');
+      }
+    });
+
     // Form submission feedback
     document.getElementById('contact-form')?.addEventListener('submit', (e) => {
       e.preventDefault();

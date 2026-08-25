@@ -390,14 +390,55 @@
       0% { transform: translate(-50%, 0); opacity: 1; }
       100% { transform: translate(-50%, 8px); opacity: 0; }
     }
+
+    /* Mobile Responsive Optimizations - Desktop Unchanged */
+    @media (max-width: 767px) {
+      .hero-scroll-track {
+        height: 420vh; /* Smooth, natural swipe transformation on mobile */
+      }
+      .hero-overlay-content {
+        padding: 0 16px;
+        width: 92%;
+        top: 48%;
+      }
+      .hero-title {
+        font-size: clamp(26px, 7.2vw, 38px);
+        line-height: 1.15;
+        margin-bottom: 12px;
+      }
+      .hero-desc {
+        font-size: 14px;
+        line-height: 22px;
+        margin-bottom: 20px;
+        max-width: 92%;
+      }
+      .hero-cta-group {
+        flex-direction: row;
+        gap: 8px;
+        justify-content: center;
+      }
+      .hero-btn-primary, .hero-btn-secondary {
+        padding: 12px 18px;
+        font-size: 11px;
+        letter-spacing: 0.05em;
+      }
+      .hero-left-vignette {
+        display: none !important;
+      }
+      .scroll-cue {
+        bottom: 1.5rem;
+      }
+    }
   </style>
 </head>
 <body class="bg-background text-on-background font-body-md antialiased selection:bg-tertiary selection:text-on-tertiary">
 
   <!-- TopNavBar (Shared Component) -->
-  <nav class="fixed top-0 w-full bg-background/80 backdrop-blur-md border-b border-outline-variant/15 z-50 transition-all duration-300" id="topNav">
+  <nav class="fixed top-0 w-full bg-background/90 backdrop-blur-md border-b border-outline-variant/15 z-50 transition-all duration-300" id="topNav">
     <div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-stack-md max-w-container-max mx-auto">
       <a class="font-headline-md text-headline-md text-primary tracking-tighter uppercase shrink-0" href="index.html">WE CARE</a>
+      
+      <!-- Desktop Navigation Menu (Untouched) -->
       <div class="hidden md:flex space-x-8 items-center">
         <a class="text-tertiary border-b-2 border-tertiary pb-1 font-body-md text-body-md" href="index.html">Home</a>
         <a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md hover:scale-105 duration-300" href="services.html">Services</a>
@@ -408,10 +449,39 @@
         <span>Request Appointment</span>
         <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
       </a>
-      <!-- Mobile Menu Toggle -->
-      <div class="md:hidden flex items-center space-x-4">
-        <a class="text-sm font-label-caps text-tertiary uppercase" href="services.html">Services</a>
-        <a class="text-sm font-label-caps text-on-surface-variant uppercase" href="contact.html">Contact</a>
+
+      <!-- Mobile Hamburger Toggle Button -->
+      <div class="md:hidden flex items-center space-x-2">
+        <a class="text-xs font-label-caps text-tertiary uppercase bg-surface-container px-3 py-1.5 rounded-full border border-tertiary/30" href="contact.html">Book</a>
+        <button class="text-primary p-2 focus:outline-none flex items-center justify-center rounded-lg bg-surface-container hover:bg-surface-bright transition-colors" id="mobileMenuBtn" aria-label="Toggle Navigation">
+          <span class="material-symbols-outlined text-[24px]" id="mobileMenuIcon">menu</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Menu Drawer -->
+    <div class="md:hidden hidden bg-surface-dim/98 backdrop-blur-2xl border-b border-outline-variant/20 px-6 py-6 transition-all duration-300 shadow-2xl" id="mobileMenu">
+      <div class="flex flex-col space-y-4 font-body-md">
+        <a class="text-tertiary font-semibold flex items-center justify-between py-2 border-b border-outline-variant/10" href="index.html">
+          <span>Home</span>
+          <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+        </a>
+        <a class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-between py-2 border-b border-outline-variant/10" href="services.html">
+          <span>Services</span>
+          <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+        </a>
+        <a class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-between py-2 border-b border-outline-variant/10" href="about.html">
+          <span>About Us</span>
+          <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+        </a>
+        <a class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-between py-2 border-b border-outline-variant/10" href="contact.html">
+          <span>Contact Us</span>
+          <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+        </a>
+        <a class="bg-tertiary text-on-tertiary py-3 px-6 rounded-full font-label-caps text-xs uppercase text-center font-bold tracking-wider flex items-center justify-center space-x-2 mt-2 shadow-lg" href="contact.html">
+          <span>Request Appointment</span>
+          <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+        </a>
       </div>
     </div>
   </nav>
@@ -650,7 +720,7 @@
     }
 
     function resizeCanvas() {
-      const dpr = window.devicePixelRatio || 1;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
       const width = window.innerWidth;
       const height = window.innerHeight;
 
@@ -693,12 +763,28 @@
 
       const imgW = img.naturalWidth;
       const imgH = img.naturalHeight;
-      const scale = Math.max(canvasW / imgW, canvasH / imgH);
+      const isMobile = window.innerWidth < 768;
 
-      const renderW = Math.round(imgW * scale);
-      const renderH = Math.round(imgH * scale);
-      const offsetX = Math.round((canvasW - renderW) / 2);
-      const offsetY = Math.round((canvasH - renderH) / 2);
+      let renderW, renderH, offsetX, offsetY;
+
+      if (!isMobile) {
+        // DESKTOP: 100% UNCHANGED
+        const scale = Math.max(canvasW / imgW, canvasH / imgH);
+        renderW = Math.round(imgW * scale);
+        renderH = Math.round(imgH * scale);
+        offsetX = Math.round((canvasW - renderW) / 2);
+        offsetY = Math.round((canvasH - renderH) / 2);
+      } else {
+        // MOBILE: SHOW ENTIRE CAR ON SCREEN WITHOUT CROPPING
+        const maxScaleW = (canvasW * 0.98) / imgW;
+        const maxScaleH = (canvasH * 0.70) / imgH;
+        const scale = Math.min(maxScaleW, maxScaleH);
+
+        renderW = Math.round(imgW * scale);
+        renderH = Math.round(imgH * scale);
+        offsetX = Math.round((canvasW - renderW) / 2);
+        offsetY = Math.round((canvasH - renderH) / 2);
+      }
 
       ctx.globalAlpha = frameAlpha;
       ctx.drawImage(img, offsetX, offsetY, renderW, renderH);
@@ -713,14 +799,26 @@
 
       if (isMobile) {
         heroOverlay.style.left = '50%';
-        heroOverlay.style.transform = 'translate(-50%, -50%)';
         heroOverlay.style.textAlign = 'center';
         if (heroDesc) {
           heroDesc.style.marginLeft = 'auto';
           heroDesc.style.marginRight = 'auto';
         }
         if (heroCtaGroup) heroCtaGroup.style.justifyContent = 'center';
+
+        // On mobile, gracefully fade out text as soon as user scrolls so entire car is unblocked
+        if (progress > 0.02) {
+          const fadeOut = Math.min(1, (progress - 0.02) / 0.08);
+          heroOverlay.style.opacity = (1 - fadeOut);
+          heroOverlay.style.transform = `translate(-50%, calc(-50% - ${fadeOut * 24}px))`;
+          heroOverlay.style.pointerEvents = fadeOut > 0.8 ? 'none' : 'auto';
+        } else {
+          heroOverlay.style.opacity = 1;
+          heroOverlay.style.transform = 'translate(-50%, -50%)';
+          heroOverlay.style.pointerEvents = 'auto';
+        }
       } else {
+        // DESKTOP: EXACT ORIGINAL BEHAVIOR
         const leftPercent = 50 - (46 * shiftProgress);
         const translateX = -50 * (1 - shiftProgress);
         const maxW = 850 - (330 * shiftProgress);
@@ -744,26 +842,30 @@
           }
           if (heroCtaGroup) heroCtaGroup.style.justifyContent = 'center';
         }
+
+        if (progress > 0.28) {
+          const fadeOutProgress = Math.min(1, (progress - 0.28) / 0.12);
+          heroOverlay.style.opacity = (1 - fadeOutProgress);
+          if (heroLeftVignette) heroLeftVignette.style.opacity = (1 - fadeOutProgress);
+        } else if (progress > 0.01) {
+          heroOverlay.style.opacity = 1;
+        }
       }
 
       if (heroLeftVignette) {
-        if (progress > 0.01) {
-          heroLeftVignette.style.opacity = Math.min(1, (progress - 0.01) / 0.06);
+        if (!isMobile) {
+          if (progress > 0.01) {
+            heroLeftVignette.style.opacity = Math.min(1, (progress - 0.01) / 0.06);
+          } else {
+            heroLeftVignette.style.opacity = 0;
+          }
         } else {
           heroLeftVignette.style.opacity = 0;
         }
       }
 
-      if (progress > 0.28) {
-        const fadeOutProgress = Math.min(1, (progress - 0.28) / 0.12);
-        heroOverlay.style.opacity = (1 - fadeOutProgress);
-        if (heroLeftVignette) heroLeftVignette.style.opacity = (1 - fadeOutProgress);
-      } else if (progress > 0.01) {
-        heroOverlay.style.opacity = 1;
-      }
-
       if (scrollCue) {
-        if (progress > 0.03) {
+        if (progress > 0.02) {
           scrollCue.classList.add('hidden');
         } else {
           scrollCue.classList.remove('hidden');
@@ -782,12 +884,18 @@
     }
 
     window.addEventListener('scroll', updateScrollProgress, { passive: true });
-    window.addEventListener('resize', resizeCanvas, { passive: true });
+    window.addEventListener('resize', () => {
+      resizeCanvas();
+      updateScrollProgress();
+    }, { passive: true });
 
     function animate() {
       const diff = targetProgress - currentProgress;
+      const isMobile = window.innerWidth < 768;
+      const lerpFactor = isMobile ? 0.16 : 0.12;
+
       if (Math.abs(diff) > 0.0001) {
-        currentProgress += diff * 0.12;
+        currentProgress += diff * lerpFactor;
       } else {
         currentProgress = targetProgress;
       }
@@ -803,14 +911,27 @@
     updateScrollProgress();
     requestAnimationFrame(animate);
 
+    // Mobile Menu Toggle handler
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileMenuIcon = document.getElementById('mobileMenuIcon');
+    if (mobileMenuBtn && mobileMenu) {
+      mobileMenuBtn.addEventListener('click', () => {
+        const isHidden = mobileMenu.classList.toggle('hidden');
+        if (mobileMenuIcon) {
+          mobileMenuIcon.textContent = isHidden ? 'menu' : 'close';
+        }
+      });
+    }
+
     window.addEventListener('scroll', () => {
       const nav = document.getElementById('topNav');
       if (window.scrollY > 50) {
         nav.classList.add('bg-surface-container', 'shadow-lg');
-        nav.classList.remove('bg-background/80');
+        nav.classList.remove('bg-background/90');
       } else {
         nav.classList.remove('bg-surface-container', 'shadow-lg');
-        nav.classList.add('bg-background/80');
+        nav.classList.add('bg-background/90');
       }
     });
   </script>
