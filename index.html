@@ -3240,15 +3240,152 @@
       requestAnimationFrame(autoScroll);
     }
 
+    // =========================================================================
+    // MODELS WE WORKED ON: HORIZONTAL REVOLVING CAROUSEL
+    // =========================================================================
+    function initFeaturedProjectCarousel() {
+      const container = document.getElementById('project-carousel-container');
+      const track = document.getElementById('project-carousel-track');
+      if (!container || !track) return;
+
+      const slides = track.querySelectorAll('.featured-project-slide');
+      const prevBtn = document.getElementById('project-prev-btn');
+      const nextBtn = document.getElementById('project-next-btn');
+      const counterEl = document.getElementById('project-slide-counter');
+      const timerFill = document.getElementById('project-timer-fill');
+      const navPills = document.querySelectorAll('.project-nav-pill');
+
+      if (!slides.length) return;
+
+      let currentIdx = 0;
+      const totalSlides = slides.length;
+      const slideDuration = 5000;
+      let timerInterval = null;
+      let startTime = Date.now();
+      let isPaused = false;
+
+      // Ensure track and slide fractional widths
+      track.style.display = 'flex';
+      track.style.flexDirection = 'row';
+      track.style.flexWrap = 'nowrap';
+      track.style.width = (totalSlides * 100) + '%';
+      track.style.transition = 'transform 0.75s cubic-bezier(0.25, 1, 0.5, 1)';
+      track.style.willChange = 'transform';
+
+      slides.forEach((slide) => {
+        slide.style.width = (100 / totalSlides) + '%';
+        slide.style.flex = '0 0 ' + (100 / totalSlides) + '%';
+        slide.style.minWidth = (100 / totalSlides) + '%';
+        slide.style.maxWidth = (100 / totalSlides) + '%';
+        slide.style.boxSizing = 'border-box';
+      });
+
+      function updateSlide(idx) {
+        currentIdx = ((idx % totalSlides) + totalSlides) % totalSlides;
+        const shiftPercent = (currentIdx * 100) / totalSlides;
+        track.style.transform = 'translateX(-' + shiftPercent + '%)';
+
+        if (counterEl) {
+          counterEl.textContent = '0' + (currentIdx + 1) + ' / 0' + totalSlides;
+        }
+
+        navPills.forEach((pill, i) => {
+          if (i === currentIdx) {
+            pill.classList.add('active-pill');
+          } else {
+            pill.classList.remove('active-pill');
+          }
+        });
+      }
+
+      function startTimer() {
+        clearInterval(timerInterval);
+        startTime = Date.now();
+
+        timerInterval = setInterval(() => {
+          if (isPaused) return;
+          const elapsed = Date.now() - startTime;
+          const progress = Math.min(elapsed / slideDuration, 1);
+
+          if (timerFill) {
+            timerFill.style.width = (progress * 100) + '%';
+          }
+
+          if (elapsed >= slideDuration) {
+            updateSlide(currentIdx + 1);
+            startTime = Date.now();
+            if (timerFill) timerFill.style.width = '0%';
+          }
+        }, 50);
+      }
+
+      function goToSlide(idx) {
+        updateSlide(idx);
+        if (timerFill) timerFill.style.width = '0%';
+        startTimer();
+      }
+
+      if (nextBtn) {
+        nextBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          goToSlide(currentIdx + 1);
+        });
+      }
+
+      if (prevBtn) {
+        prevBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          goToSlide(currentIdx - 1);
+        });
+      }
+
+      navPills.forEach((pill) => {
+        pill.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetIdx = parseInt(pill.getAttribute('data-target-idx'), 10);
+          if (!isNaN(targetIdx)) {
+            goToSlide(targetIdx);
+          }
+        });
+      });
+
+      container.addEventListener('mouseenter', () => { isPaused = true; });
+      container.addEventListener('mouseleave', () => { 
+        isPaused = false; 
+        startTime = Date.now(); 
+      });
+
+      // Touch Swipe
+      let touchStartX = 0;
+      container.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].clientX;
+      }, { passive: true });
+
+      container.addEventListener('touchend', (e) => {
+        const diff = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 40) {
+          if (diff > 0) goToSlide(currentIdx + 1);
+          else goToSlide(currentIdx - 1);
+        }
+      }, { passive: true });
+
+      // Initialize
+      updateSlide(0);
+      startTimer();
+    }
+
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', () => {
         initStatsCounters();
         initWhyChooseSlider();
+        initFeaturedProjectCarousel();
       });
     } else {
       initStatsCounters();
       initWhyChooseSlider();
+      initFeaturedProjectCarousel();
     }
   </script>
+  <script src="js/app.js"></script>
 </body>
 </html>
