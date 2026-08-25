@@ -1484,7 +1484,132 @@
       </div>
     </section>
 
-    <!-- 4. SLEEK MINIMALIST CHRONOLOGICAL PROCESS RIBBON -->
+    <!-- 4. MODELS WE WORKED ON - HORIZONTAL REVOLVING CAROUSEL -->
+    <section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-background relative z-20 border-t border-outline-variant/10 overflow-hidden" id="models-worked-on">
+      <div class="max-w-container-max mx-auto relative z-10">
+        
+        <!-- Section Header -->
+        <div class="flex flex-col md:flex-row justify-between items-end mb-10 gap-6">
+          <div class="max-w-2xl">
+            <div class="inline-flex items-center space-x-2 bg-surface-container-high border border-tertiary/20 px-3.5 py-1.5 rounded-full mb-3 shadow-inner">
+              <span class="material-symbols-outlined text-tertiary text-[18px]">directions_car</span>
+              <span class="font-label-caps text-xs text-tertiary uppercase tracking-widest font-bold">Showroom Portfolio</span>
+            </div>
+            <h2 class="font-display-lg text-3xl md:text-5xl text-primary mb-3 leading-tight font-bold">
+              Models We Worked On
+            </h2>
+            <p class="font-body-md text-on-surface-variant text-sm md:text-base">
+              A revolving showcase of actual customer vehicles, high-performance machines, and 4x4 builds serviced and perfected at We Care Auto Repair.
+            </p>
+          </div>
+
+          <!-- Carousel Controls & 5-Second Timer Bar -->
+          <div class="flex flex-col items-end gap-3 shrink-0">
+            <div class="flex items-center space-x-3">
+              <!-- Current Slide Indicator -->
+              <span id="project-slide-counter" class="font-mono text-xs font-bold text-tertiary px-3 py-1.5 rounded-full bg-surface-container border border-outline-variant/20">
+                01 / 06
+              </span>
+              
+              <!-- Prev / Next Navigation Buttons -->
+              <button id="project-prev-btn" class="w-10 h-10 rounded-full bg-surface-container border border-outline-variant/30 text-primary hover:border-tertiary hover:text-tertiary transition-all flex items-center justify-center active:scale-95 group cursor-pointer" aria-label="Previous Model">
+                <span class="material-symbols-outlined text-[20px] group-hover:-translate-x-0.5 transition-transform">arrow_back</span>
+              </button>
+              <button id="project-next-btn" class="w-10 h-10 rounded-full bg-surface-container border border-outline-variant/30 text-primary hover:border-tertiary hover:text-tertiary transition-all flex items-center justify-center active:scale-95 group cursor-pointer" aria-label="Next Model">
+                <span class="material-symbols-outlined text-[20px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+              </button>
+            </div>
+
+            <!-- 5s Auto-Scroll Progress Rail -->
+            <div class="w-40 h-1 bg-surface-container rounded-full overflow-hidden border border-outline-variant/15">
+              <div id="project-timer-fill" class="h-full bg-gradient-to-r from-tertiary to-amber-400 w-0"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Carousel Viewport (Clean Floating Turntable without Outer Box) -->
+        <div id="project-carousel-container" class="relative w-full overflow-hidden py-4" style="overflow: hidden; position: relative; width: 100%;">
+
+          <!-- Horizontal Revolving Sliding Track Container -->
+          <div id="project-carousel-track" class="project-carousel-track relative z-10" style="display: flex; flex-direction: row; flex-wrap: nowrap; width: 100%; transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); will-change: transform;">
+
+            <!-- SLIDE 1: Mercedes -->
+            <div class="featured-project-slide flex flex-col items-center justify-center px-2" data-project-idx="0" style="flex: 0 0 100%; min-width: 100%; max-width: 100%; width: 100%; box-sizing: border-box;">
+              <div class="relative w-full max-w-5xl mx-auto flex items-center justify-center">
+                <img src="assets/projects/mercedes.png" alt="Mercedes-AMG GT - Models We Worked On" class="w-full h-auto max-h-[75vh] object-contain mx-auto transition-transform duration-700 hover:scale-[1.02] drop-shadow-2xl">
+              </div>
+            </div>
+
+            <!-- SLIDE 2: Mahindra Thar -->
+            <div class="featured-project-slide flex flex-col items-center justify-center px-2" data-project-idx="1" style="flex: 0 0 100%; min-width: 100%; max-width: 100%; width: 100%; box-sizing: border-box;">
+              <div class="relative w-full max-w-5xl mx-auto flex items-center justify-center">
+                <img src="assets/projects/mahindra-thar.png" alt="Mahindra Thar 4x4 - Models We Worked On" class="w-full h-auto max-h-[75vh] object-contain mx-auto transition-transform duration-700 hover:scale-[1.02] drop-shadow-2xl">
+              </div>
+            </div>
+
+            <!-- SLIDE 3: Jaguar XF -->
+            <div class="featured-project-slide flex flex-col items-center justify-center px-2" data-project-idx="2" style="flex: 0 0 100%; min-width: 100%; max-width: 100%; width: 100%; box-sizing: border-box;">
+              <div class="relative w-full max-w-5xl mx-auto flex items-center justify-center">
+                <img src="assets/projects/jaguar-xf.png" alt="Jaguar XF - Models We Worked On" class="w-full h-auto max-h-[75vh] object-contain mx-auto transition-transform duration-700 hover:scale-[1.02] drop-shadow-2xl">
+              </div>
+            </div>
+
+            <!-- SLIDE 4: Porsche -->
+            <div class="featured-project-slide flex flex-col items-center justify-center px-2" data-project-idx="3" style="flex: 0 0 100%; min-width: 100%; max-width: 100%; width: 100%; box-sizing: border-box;">
+              <div class="relative w-full max-w-5xl mx-auto flex items-center justify-center">
+                <img src="assets/projects/porsche.png" alt="Porsche - Models We Worked On" class="w-full h-auto max-h-[75vh] object-contain mx-auto transition-transform duration-700 hover:scale-[1.02] drop-shadow-2xl">
+              </div>
+            </div>
+
+            <!-- SLIDE 5: Kia Seltos -->
+            <div class="featured-project-slide flex flex-col items-center justify-center px-2" data-project-idx="4" style="flex: 0 0 100%; min-width: 100%; max-width: 100%; width: 100%; box-sizing: border-box;">
+              <div class="relative w-full max-w-5xl mx-auto flex items-center justify-center">
+                <img src="assets/projects/kia-seltos.png" alt="Kia Seltos - Models We Worked On" class="w-full h-auto max-h-[75vh] object-contain mx-auto transition-transform duration-700 hover:scale-[1.02] drop-shadow-2xl">
+              </div>
+            </div>
+
+            <!-- SLIDE 6: BMW M5 -->
+            <div class="featured-project-slide flex flex-col items-center justify-center px-2" data-project-idx="5" style="flex: 0 0 100%; min-width: 100%; max-width: 100%; width: 100%; box-sizing: border-box;">
+              <div class="relative w-full max-w-5xl mx-auto flex items-center justify-center">
+                <img src="assets/projects/bmw-m5.png" alt="BMW M5 ///M - Models We Worked On" class="w-full h-auto max-h-[75vh] object-contain mx-auto transition-transform duration-700 hover:scale-[1.02] drop-shadow-2xl">
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Horizontal Car Model Quick-Selector Pills -->
+        <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
+          <button class="project-nav-pill active-pill px-4 py-2 rounded-full bg-surface-container border border-outline-variant/20 text-xs font-mono font-bold text-on-surface-variant hover:border-tertiary hover:text-tertiary flex items-center space-x-2 transition-all cursor-pointer" data-target-idx="0">
+            <span class="w-2 h-2 rounded-full bg-tertiary"></span>
+            <span>Mercedes</span>
+          </button>
+          <button class="project-nav-pill px-4 py-2 rounded-full bg-surface-container border border-outline-variant/20 text-xs font-mono font-bold text-on-surface-variant hover:border-tertiary hover:text-tertiary flex items-center space-x-2 transition-all cursor-pointer" data-target-idx="1">
+            <span class="w-2 h-2 rounded-full bg-tertiary"></span>
+            <span>Mahindra Thar</span>
+          </button>
+          <button class="project-nav-pill px-4 py-2 rounded-full bg-surface-container border border-outline-variant/20 text-xs font-mono font-bold text-on-surface-variant hover:border-tertiary hover:text-tertiary flex items-center space-x-2 transition-all cursor-pointer" data-target-idx="2">
+            <span class="w-2 h-2 rounded-full bg-tertiary"></span>
+            <span>Jaguar XF</span>
+          </button>
+          <button class="project-nav-pill px-4 py-2 rounded-full bg-surface-container border border-outline-variant/20 text-xs font-mono font-bold text-on-surface-variant hover:border-tertiary hover:text-tertiary flex items-center space-x-2 transition-all cursor-pointer" data-target-idx="3">
+            <span class="w-2 h-2 rounded-full bg-tertiary"></span>
+            <span>Porsche</span>
+          </button>
+          <button class="project-nav-pill px-4 py-2 rounded-full bg-surface-container border border-outline-variant/20 text-xs font-mono font-bold text-on-surface-variant hover:border-tertiary hover:text-tertiary flex items-center space-x-2 transition-all cursor-pointer" data-target-idx="4">
+            <span class="w-2 h-2 rounded-full bg-tertiary"></span>
+            <span>Kia Seltos</span>
+          </button>
+          <button class="project-nav-pill px-4 py-2 rounded-full bg-surface-container border border-outline-variant/20 text-xs font-mono font-bold text-on-surface-variant hover:border-tertiary hover:text-tertiary flex items-center space-x-2 transition-all cursor-pointer" data-target-idx="5">
+            <span class="w-2 h-2 rounded-full bg-tertiary"></span>
+            <span>BMW M5</span>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 5. SLEEK MINIMALIST CHRONOLOGICAL PROCESS RIBBON -->
     <section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-surface-dim relative z-20 border-t border-outline-variant/10" id="how-we-work">
       <div class="max-w-container-max mx-auto relative z-10">
         
