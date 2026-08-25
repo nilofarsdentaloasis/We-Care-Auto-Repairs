@@ -249,184 +249,112 @@ function initNavbarScroll() {
   }, { passive: true });
 }
 
-// 6. Precision Process Holographic Telemetry Engine
-function initPrecisionProcessEngine() {
+// 6. Sleek Minimalist Chronological Process Ribbon Engine
+function initTimelineRibbonEngine() {
   const section = document.getElementById('how-we-work');
   if (!section) return;
 
-  const pods = section.querySelectorAll('.telemetry-pod[data-stage]');
-  const indicator = document.getElementById('hud-stage-indicator');
-  const centerIcon = document.getElementById('hud-center-icon');
-  const centerMetric = document.getElementById('hud-center-metric');
-  const centerSub = document.getElementById('hud-center-sub');
-  const titleEl = document.getElementById('hud-telemetry-title');
-  const pillEl = document.getElementById('hud-telemetry-pill');
-  const descEl = document.getElementById('hud-telemetry-desc');
-  const busStatusEl = document.getElementById('hud-bus-status');
-  const simBtn = document.getElementById('btn-run-simulation');
+  const cards = section.querySelectorAll('.timeline-card[data-step]');
+  const progressBar = document.getElementById('timeline-progress-bar');
+  const badgeEl = document.getElementById('detail-step-badge');
+  const timeEl = document.getElementById('detail-time-tag');
+  const titleEl = document.getElementById('detail-title');
+  const descEl = document.getElementById('detail-desc');
+  const g1 = document.getElementById('detail-guarantee-1');
+  const g2 = document.getElementById('detail-guarantee-2');
+  const g3 = document.getElementById('detail-guarantee-3');
 
-  if (!pods.length) return;
+  if (!cards.length) return;
 
-  const stageData = {
+  const stepDetails = {
     1: {
-      indicator: 'STAGE 01 // INTAKE & SCAN',
-      icon: 'sensors',
-      metric: '360° LASER',
-      sub: 'TOL: ±0.01mm',
-      title: 'Laser Chassis & Underbody Audit',
-      pill: 'SCANNING 100%',
-      desc: 'Comprehensive bumper-to-bumper check. Calibrated electronic laser measurements for brake disc thickness, suspension geometry, and structural alignment.',
-      busStatus: 'OBD_BUS: LINKED // STAGE 1 ACTIVE'
+      badge: 'STEP 01 OF 05',
+      time: 'Est. Time: 15–30 Mins',
+      title: '1. Comprehensive Laser Inspection & Underbody Audit',
+      desc: 'When your car arrives at our Chikhali workshop, Sohail Mulani and our senior diagnostic technicians perform a rigorous 60-point checkup covering brakes, suspension, tire tread depth, battery health, and electronic modules.',
+      g1: 'Calibrated Laser Measurements',
+      g2: 'WhatsApp Photo Report',
+      g3: 'Zero Guesswork Guarantee',
+      progress: '20%'
     },
     2: {
-      indicator: 'STAGE 02 // ECU & OPTICAL SCAN',
-      icon: 'memory',
-      metric: 'ECU DECODE',
-      sub: 'DTC_STATUS: 0 ERRORS',
-      title: 'Optical Diagnostic & ECU Decoding',
-      pill: 'LIVE TELEMETRY',
-      desc: 'Dealer-grade OBD-II bus scanner interrogates all powertrain, airbag, ABS, and comfort modules to decode exact sensor voltages and fault origins without blind guessing.',
-      busStatus: 'ECU_BUS: ONLINE // STAGE 2 ACTIVE'
+      badge: 'STEP 02 OF 05',
+      time: 'Est. Time: 20–40 Mins',
+      title: '2. ECU & Optical Computer Diagnosis',
+      desc: 'We plug in official dealer-level OBD-II diagnostic scanners to decode all electronic control modules (ECU, ABS, Airbags, BCM). We identify exact root causes and sensor voltage faults without blind trial-and-error.',
+      g1: 'OEM OBD-II Bus Protocol',
+      g2: 'Sensor Telemetry Readout',
+      g3: 'Clear Diagnostic Report',
+      progress: '40%'
     },
     3: {
-      indicator: 'STAGE 03 // TRANSPARENT QUOTE',
-      icon: 'receipt_long',
-      metric: '₹ 0 HIDDEN',
-      sub: 'WHATSAPP DISPATCH',
-      title: '100% Transparent Itemized Quote',
-      pill: 'PRICE LOCK GUARANTEE',
-      desc: 'Itemized digital estimate with genuine part serial numbers, labor breakdown, and clear timeline delivered to your WhatsApp. Work begins only upon your approval.',
-      busStatus: 'QUOTE_LOCK: VERIFIED // STAGE 3 ACTIVE'
+      badge: 'STEP 03 OF 05',
+      time: 'Est. Time: 10–15 Mins',
+      title: '3. Itemized Digital Estimate & Customer Approval',
+      desc: 'We generate an itemized price quotation listing genuine OEM part serial numbers, labor costs, and realistic delivery times. We send it directly to your WhatsApp and only proceed once you give your 100% approval.',
+      g1: '100% Transparent Pricing',
+      g2: 'Genuine OEM Part Numbers',
+      g3: 'Strict Zero-Surprise Policy',
+      progress: '60%'
     },
     4: {
-      indicator: 'STAGE 04 // ATELIER ASSEMBLY',
-      icon: 'precision_manufacturing',
-      metric: '480 Nm LOCK',
-      sub: 'DIGITAL TORQUE SPEC',
-      title: 'Master Mechanical Assembly & Torque Lock',
-      pill: 'OEM CLEAN-ROOM',
-      desc: 'Certified master mechanics assemble 100% genuine factory parts using calibrated digital torque wrenches with real-time WhatsApp photo and video updates.',
-      busStatus: 'TORQUE_SPEC: LOCKED // STAGE 4 ACTIVE'
+      badge: 'STEP 04 OF 05',
+      time: 'Est. Time: Same-Day / As Quoted',
+      title: '4. Master Atelier Repair & Torque Calibration',
+      desc: 'Our master mechanics install original factory spare parts, torquing every bolt to manufacturer specifications using calibrated digital torque wrenches. We send continuous photo and video progress updates to your WhatsApp.',
+      g1: 'Digital Torque Calibration',
+      g2: 'WhatsApp Live Photo Trail',
+      g3: '100% Genuine Spare Parts',
+      progress: '80%'
     },
     5: {
-      indicator: 'STAGE 05 // ROAD & DYNO TEST',
-      icon: 'workspace_premium',
-      metric: '7,500 RPM',
-      sub: 'DYNO TEST PASS',
-      title: 'High-Speed Dyno Road Test & Handover',
-      pill: '12-MO WARRANTY SIGNED',
-      desc: 'High-speed dynamometer calibration, suspension damping test, complimentary foam wash, and delivery with an official 12-Month / 10,000 KM warranty card.',
-      busStatus: 'FINAL_GATE: CLEARED // STAGE 5 ACTIVE'
+      badge: 'STEP 05 OF 05',
+      time: 'Est. Time: 30–45 Mins',
+      title: '5. High-Speed Road Test, Foam Wash & Warranty Handover',
+      desc: 'We conduct a high-speed dynamic road test to verify power delivery, braking responsiveness, and suspension silence. Your car receives a complimentary foam wash before delivery with an official 12-Month service warranty.',
+      g1: 'Dynamic Road & Brake Test',
+      g2: 'Complimentary Foam Wash',
+      g3: '12-Month / 10,000 KM Warranty',
+      progress: '100%'
     }
   };
 
-  let currentStage = 1;
-  let isSimulating = false;
-  let autoCycleTimer = null;
-
-  function setStage(stageNum, playAudio = true) {
-    currentStage = stageNum;
-    const data = stageData[stageNum];
+  function selectStep(stepNum, playAudio = true) {
+    const data = stepDetails[stepNum];
     if (!data) return;
 
-    // Update active class on pods
-    pods.forEach(pod => {
-      const podStage = parseInt(pod.getAttribute('data-stage'), 10);
-      if (podStage === stageNum) {
-        pod.classList.add('active-pod');
+    cards.forEach(card => {
+      const cardStep = parseInt(card.getAttribute('data-step'), 10);
+      const node = card.querySelector('.timeline-node');
+      if (cardStep === stepNum) {
+        card.classList.add('active-card');
+        if (node) node.classList.add('active-node');
       } else {
-        pod.classList.remove('active-pod');
+        card.classList.remove('active-card');
+        if (node) node.classList.remove('active-node');
       }
     });
 
-    // Update HUD elements
-    if (indicator) indicator.textContent = data.indicator;
-    if (centerIcon) centerIcon.innerHTML = `<span class="material-symbols-outlined text-[24px]">${data.icon}</span>`;
-    if (centerMetric) centerMetric.textContent = data.metric;
-    if (centerSub) centerSub.textContent = data.sub;
+    if (progressBar) progressBar.style.width = data.progress;
+    if (badgeEl) badgeEl.textContent = data.badge;
+    if (timeEl) timeEl.innerHTML = `<span class="material-symbols-outlined text-[14px] text-tertiary">schedule</span> <span>${data.time}</span>`;
     if (titleEl) titleEl.textContent = data.title;
-    if (pillEl) pillEl.textContent = data.pill;
     if (descEl) descEl.textContent = data.desc;
-    if (busStatusEl) busStatusEl.textContent = data.busStatus;
+    if (g1) g1.textContent = data.g1;
+    if (g2) g2.textContent = data.g2;
+    if (g3) g3.textContent = data.g3;
 
     if (playAudio && window.WebAudioFX) {
       window.WebAudioFX.playClick();
     }
   }
 
-  // Click handlers for pods
-  pods.forEach(pod => {
-    pod.addEventListener('click', () => {
-      if (isSimulating) return;
-      const stage = parseInt(pod.getAttribute('data-stage'), 10);
-      setStage(stage, true);
-      resetAutoCycle();
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      const step = parseInt(card.getAttribute('data-step'), 10);
+      selectStep(step, true);
     });
   });
-
-  // Auto-cycle stages every 4.5 seconds when visible
-  function startAutoCycle() {
-    stopAutoCycle();
-    autoCycleTimer = setInterval(() => {
-      if (!isSimulating) {
-        const next = currentStage >= 5 ? 1 : currentStage + 1;
-        setStage(next, false);
-      }
-    }, 4500);
-  }
-
-  function stopAutoCycle() {
-    if (autoCycleTimer) {
-      clearInterval(autoCycleTimer);
-      autoCycleTimer = null;
-    }
-  }
-
-  function resetAutoCycle() {
-    stopAutoCycle();
-    startAutoCycle();
-  }
-
-  // Pause on hover
-  section.addEventListener('mouseenter', stopAutoCycle);
-  section.addEventListener('mouseleave', startAutoCycle);
-  startAutoCycle();
-
-  // Run Simulation Button Handler
-  if (simBtn) {
-    simBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      if (isSimulating) return;
-      isSimulating = true;
-      stopAutoCycle();
-
-      simBtn.classList.add('opacity-90', 'scale-95');
-      simBtn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">progress_activity</span> <span>Executing Pipeline...</span>';
-
-      let stageIdx = 1;
-      setStage(1, true);
-
-      const interval = setInterval(() => {
-        stageIdx++;
-        if (stageIdx <= 5) {
-          setStage(stageIdx, true);
-        } else {
-          clearInterval(interval);
-          if (window.WebAudioFX) {
-            window.WebAudioFX.playMilestone();
-          }
-          simBtn.classList.remove('opacity-90', 'scale-95');
-          simBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">verified</span> <span>Simulation Passed!</span>';
-
-          setTimeout(() => {
-            isSimulating = false;
-            simBtn.innerHTML = '<span class="material-symbols-outlined text-[18px] group-hover:rotate-45 transition-transform">play_circle</span> <span>Simulate Atelier Workflow</span>';
-            startAutoCycle();
-          }, 2500);
-        }
-      }, 1200);
-    });
-  }
 }
 
 // Global initialization on DOM ready
@@ -448,6 +376,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initPricingCalculator();
   initBookingModal();
   initNavbarScroll();
-  initPrecisionProcessEngine();
+  initTimelineRibbonEngine();
 });
+
 
