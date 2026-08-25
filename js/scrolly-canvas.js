@@ -419,12 +419,12 @@ class ScrollyCarEngine {
         offsetY = 0;
       }
     } else {
-      // Mobile: Top-align car right below header with 0 blank space above
-      const scale = (width * 0.98) / imgW;
+      // Mobile: Properly visible full vehicle contained and centered
+      const scale = Math.min(width / imgW, height / imgH);
       renderW = imgW * scale;
       renderH = imgH * scale;
       offsetX = (width - renderW) / 2;
-      offsetY = 68;
+      offsetY = (height - renderH) / 2;
     }
 
     this.ctx.fillStyle = '#080b11';
