@@ -380,9 +380,26 @@ function initFeaturedProjectCarousel() {
   let isPaused = false;
   let elapsedBeforePause = 0;
 
+  // Ensure track and slides are styled for exact fractional width
+  track.style.display = 'flex';
+  track.style.flexDirection = 'row';
+  track.style.flexWrap = 'nowrap';
+  track.style.width = `${totalSlides * 100}%`;
+  track.style.transition = 'transform 0.75s cubic-bezier(0.25, 1, 0.5, 1)';
+  track.style.willChange = 'transform';
+
+  slides.forEach((slide) => {
+    slide.style.width = `${100 / totalSlides}%`;
+    slide.style.flex = `0 0 ${100 / totalSlides}%`;
+    slide.style.minWidth = `${100 / totalSlides}%`;
+    slide.style.maxWidth = `${100 / totalSlides}%`;
+    slide.style.boxSizing = 'border-box';
+  });
+
   function updateSlide(idx) {
-    // Horizontally translate the track
-    track.style.transform = `translateX(-${idx * 100}%)`;
+    // Correct translation: shift track by (idx * 100 / totalSlides)% of track width
+    const percentShift = (idx * 100) / totalSlides;
+    track.style.transform = `translateX(-${percentShift}%)`;
 
     // Update counter
     if (counterEl) {
