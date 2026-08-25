@@ -204,38 +204,25 @@
     }
 
     /* ==========================================================================
-       WHY CHOOSE US SINGLE-ROW ANIMATED MARQUEE TRACK & HOVER SURPRISE
+       WHY CHOOSE US SINGLE-ROW DRAGGABLE AUTO-SCROLL SLIDER & TILE GLOW
        ========================================================================== */
-    @keyframes why-choose-flow {
-      0% {
-        transform: translate3d(0, 0, 0);
-      }
-      100% {
-        transform: translate3d(-50%, 0, 0);
-      }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
     }
-
-    .why-choose-track {
-      display: flex;
-      width: max-content;
-      animation: why-choose-flow 32s linear infinite;
-      will-change: transform;
-    }
-
-    .why-choose-wrapper:hover .why-choose-track,
-    .why-choose-track:hover {
-      animation-play-state: paused;
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
     }
 
     .why-choose-tile {
-      width: 330px;
+      width: 320px;
       flex-shrink: 0;
       transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
     }
 
     @media (min-width: 768px) {
       .why-choose-tile {
-        width: 375px;
+        width: 370px;
       }
     }
 
@@ -1108,10 +1095,10 @@
       </div>
     </section>
 
-    <!-- 3. WHY CHOOSE WE CARE (SINGLE-ROW LUXURY ANIMATED MARQUEE) -->
+    <!-- 3. WHY CHOOSE WE CARE (HYBRID AUTO-SCROLL + DRAGGABLE SINGLE-ROW) -->
     <section class="py-section-gap bg-surface-dim relative z-20 border-t border-outline-variant/10 overflow-hidden" id="why-choose-us">
       <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-14 gap-6">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 md:mb-12 gap-6">
           <div class="max-w-2xl">
             <div class="inline-flex items-center space-x-2 bg-surface-container-high border border-tertiary/20 px-3.5 py-1.5 rounded-full mb-4 shadow-sm">
               <span class="material-symbols-outlined text-tertiary text-[18px]">star</span>
@@ -1125,23 +1112,34 @@
             </p>
           </div>
 
-          <!-- Status badge with live pulse indicator -->
-          <div class="inline-flex items-center space-x-2 bg-surface-container-low border border-outline-variant/25 px-4 py-2 rounded-full text-xs font-label-caps uppercase text-on-surface-variant shadow-sm">
-            <span class="w-2 h-2 rounded-full bg-tertiary animate-ping"></span>
-            <span>Live Auto-Scroll • Hover Any Tile to Pause</span>
+          <!-- Interactive Controls: Live Badge + Manual Arrow Buttons -->
+          <div class="flex flex-wrap items-center gap-3">
+            <div class="inline-flex items-center space-x-2 bg-surface-container-low border border-outline-variant/25 px-3.5 py-2 rounded-full text-xs font-label-caps uppercase text-on-surface-variant shadow-sm">
+              <span class="w-2 h-2 rounded-full bg-tertiary animate-ping"></span>
+              <span class="hidden sm:inline">Auto-Scrolls • Drag or Click to Scroll</span>
+              <span class="sm:hidden">Auto & Swipe</span>
+            </div>
+            <div class="flex items-center space-x-2">
+              <button id="whyPrevBtn" type="button" aria-label="Previous Tile" class="w-10 h-10 rounded-xl bg-surface-container border border-outline-variant/30 hover:border-tertiary hover:bg-tertiary/15 text-primary hover:text-tertiary flex items-center justify-center transition-all duration-300 shadow-md active:scale-95 cursor-pointer">
+                <span class="material-symbols-outlined text-[22px]">chevron_left</span>
+              </button>
+              <button id="whyNextBtn" type="button" aria-label="Next Tile" class="w-10 h-10 rounded-xl bg-surface-container border border-outline-variant/30 hover:border-tertiary hover:bg-tertiary/15 text-primary hover:text-tertiary flex items-center justify-center transition-all duration-300 shadow-md active:scale-95 cursor-pointer">
+                <span class="material-symbols-outlined text-[22px]">chevron_right</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Full-Width Single-Row Animated Marquee Carousel with Fade Masks -->
-      <div class="why-choose-wrapper relative overflow-hidden py-4">
+      <!-- Full-Width Single-Row Draggable Slider with Fade Masks -->
+      <div class="relative overflow-hidden py-3">
         <!-- Left Edge Fade Gradient -->
-        <div class="pointer-events-none absolute left-0 top-0 bottom-0 w-16 md:w-36 bg-gradient-to-r from-surface-dim to-transparent z-10"></div>
+        <div class="pointer-events-none absolute left-0 top-0 bottom-0 w-12 md:w-28 bg-gradient-to-r from-surface-dim to-transparent z-10"></div>
         <!-- Right Edge Fade Gradient -->
-        <div class="pointer-events-none absolute right-0 top-0 bottom-0 w-16 md:w-36 bg-gradient-to-l from-surface-dim to-transparent z-10"></div>
+        <div class="pointer-events-none absolute right-0 top-0 bottom-0 w-12 md:w-28 bg-gradient-to-l from-surface-dim to-transparent z-10"></div>
 
-        <!-- Continuous Infinite Track (Set 1 + Set 2) -->
-        <div class="why-choose-track flex gap-6 px-4">
+        <!-- Draggable + Auto-Scrolling Container -->
+        <div id="whyChooseSlider" class="overflow-x-auto no-scrollbar flex gap-6 px-6 py-4 cursor-grab active:cursor-grabbing select-none" style="-webkit-overflow-scrolling: touch;">
           
           <!-- SET 1 -->
           <!-- Tile 1: Experienced Technicians -->
@@ -1306,7 +1304,7 @@
             </div>
           </div>
 
-          <!-- SET 2 (DUPLICATE FOR SEAMLESS INFINITE LOOP) -->
+          <!-- SET 2 (DUPLICATE FOR SEAMLESS RUNWAY & LOOP) -->
           <!-- Tile 1 Duplicate -->
           <div class="why-choose-tile group relative bg-surface-container rounded-2xl p-7 md:p-8 border border-outline-variant/20 flex flex-col justify-between overflow-hidden shadow-xl" aria-hidden="true">
             <div class="tile-pulse-ring"></div>
@@ -2637,10 +2635,146 @@
       setTimeout(checkScroll, 300);
     }
 
+    // =========================================================================
+    // WHY CHOOSE US: HYBRID CONTINUOUS AUTO-SCROLL + DRAGGABLE MANUAL SCROLL
+    // =========================================================================
+    function initWhyChooseSlider() {
+      const slider = document.getElementById('whyChooseSlider');
+      if (!slider) return;
+
+      const prevBtn = document.getElementById('whyPrevBtn');
+      const nextBtn = document.getElementById('whyNextBtn');
+
+      let isDown = false;
+      let startX = 0;
+      let scrollLeftStart = 0;
+      let isPaused = false;
+      let resumeTimeout = null;
+      const speed = 0.75; // Silky auto-scroll speed (pixels per frame)
+
+      function checkInfiniteLoop() {
+        const halfWidth = slider.scrollWidth / 2;
+        if (halfWidth <= 0) return;
+        if (slider.scrollLeft >= halfWidth) {
+          slider.scrollLeft -= halfWidth;
+        } else if (slider.scrollLeft <= 0) {
+          slider.scrollLeft += halfWidth;
+        }
+      }
+
+      function autoScroll() {
+        if (!isPaused && !isDown) {
+          slider.scrollLeft += speed;
+          checkInfiniteLoop();
+        }
+        requestAnimationFrame(autoScroll);
+      }
+
+      function pauseAndScheduleResume(delay = 2500) {
+        isPaused = true;
+        clearTimeout(resumeTimeout);
+        resumeTimeout = setTimeout(() => {
+          if (!isDown) isPaused = false;
+        }, delay);
+      }
+
+      // Mouse drag controls
+      slider.addEventListener('mousedown', (e) => {
+        isDown = true;
+        isPaused = true;
+        clearTimeout(resumeTimeout);
+        slider.classList.add('cursor-grabbing');
+        slider.classList.remove('cursor-grab');
+        startX = e.pageX - slider.offsetLeft;
+        scrollLeftStart = slider.scrollLeft;
+      });
+
+      window.addEventListener('mouseup', () => {
+        if (!isDown) return;
+        isDown = false;
+        slider.classList.remove('cursor-grabbing');
+        slider.classList.add('cursor-grab');
+        pauseAndScheduleResume(2500);
+      });
+
+      slider.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - slider.offsetLeft;
+        const walk = (x - startX) * 1.35;
+        slider.scrollLeft = scrollLeftStart - walk;
+        checkInfiniteLoop();
+      });
+
+      // Hover controls
+      slider.addEventListener('mouseenter', () => {
+        if (!isDown) isPaused = true;
+      });
+
+      slider.addEventListener('mouseleave', () => {
+        if (!isDown) pauseAndScheduleResume(1200);
+      });
+
+      // Touch drag controls
+      let touchStartX = 0;
+      let touchScrollLeft = 0;
+
+      slider.addEventListener('touchstart', (e) => {
+        isPaused = true;
+        clearTimeout(resumeTimeout);
+        if (e.touches.length > 0) {
+          touchStartX = e.touches[0].pageX - slider.offsetLeft;
+          touchScrollLeft = slider.scrollLeft;
+        }
+      }, { passive: true });
+
+      slider.addEventListener('touchmove', (e) => {
+        if (e.touches.length > 0) {
+          const x = e.touches[0].pageX - slider.offsetLeft;
+          const walk = (x - touchStartX) * 1.35;
+          slider.scrollLeft = touchScrollLeft - walk;
+          checkInfiniteLoop();
+        }
+      }, { passive: true });
+
+      slider.addEventListener('touchend', () => {
+        pauseAndScheduleResume(2500);
+      }, { passive: true });
+
+      // Wheel scroll
+      slider.addEventListener('wheel', () => {
+        pauseAndScheduleResume(2500);
+      }, { passive: true });
+
+      // Navigation arrow buttons
+      if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+          slider.scrollBy({ left: -360, behavior: 'smooth' });
+          pauseAndScheduleResume(3500);
+          setTimeout(checkInfiniteLoop, 400);
+        });
+      }
+
+      if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+          slider.scrollBy({ left: 360, behavior: 'smooth' });
+          pauseAndScheduleResume(3500);
+          setTimeout(checkInfiniteLoop, 400);
+        });
+      }
+
+      // Start silky continuous animation
+      requestAnimationFrame(autoScroll);
+    }
+
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initStatsCounters);
+      document.addEventListener('DOMContentLoaded', () => {
+        initStatsCounters();
+        initWhyChooseSlider();
+      });
     } else {
       initStatsCounters();
+      initWhyChooseSlider();
     }
   </script>
 </body>
