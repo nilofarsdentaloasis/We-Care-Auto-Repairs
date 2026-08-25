@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>About Us | We Care Auto Repair</title>
+  <title>About Us | We Care Auto Repairs</title>
   
   <!-- Tailwind CSS & Plugins -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -123,7 +123,9 @@
   <!-- TopNavBar (Shared Component) -->
   <nav class="fixed top-0 w-full bg-background/90 backdrop-blur-md border-b border-outline-variant/15 z-50 transition-all duration-300" id="topNav">
     <div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-stack-md max-w-container-max mx-auto">
-      <a class="font-headline-md text-headline-md text-primary tracking-tighter uppercase shrink-0" href="index.html">WE CARE</a>
+      <a class="inline-flex items-center shrink-0 group" href="index.html" aria-label="We Care Auto Repairs">
+        <img src="assets/logo.png" alt="We Care Auto Repairs" class="h-10 md:h-12 w-auto object-contain rounded transition-transform duration-300 group-hover:scale-105"/>
+      </a>
       <div class="hidden md:flex space-x-8 items-center">
         <a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md hover:scale-105 duration-300" href="index.html">Home</a>
         <a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md hover:scale-105 duration-300" href="services.html">Services</a>
@@ -262,13 +264,15 @@
     <div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
       <div class="col-span-1 md:col-span-2 flex flex-col justify-between mb-stack-lg md:mb-0">
         <div>
-          <h2 class="font-headline-md text-headline-md text-primary mb-stack-sm">WE CARE</h2>
+          <a class="inline-block mb-stack-sm group" href="index.html" aria-label="We Care Auto Repairs">
+            <img src="assets/logo.png" alt="We Care Auto Repairs" class="h-12 md:h-14 w-auto object-contain rounded transition-transform duration-300 group-hover:scale-105"/>
+          </a>
           <p class="font-body-md text-body-md text-on-surface-variant max-w-sm mb-stack-lg">
             Excellence in Engineering. A premier atelier for the modern motorsport enthusiast and luxury motorist.
           </p>
         </div>
         <p class="font-body-md text-body-md text-on-surface-variant text-sm">
-          © 2026 We Care Auto Repair. Excellence in Engineering.
+          © 2026 We Care Auto Repairs. Excellence in Engineering.
         </p>
       </div>
       <div class="col-span-1 flex flex-col space-y-stack-sm">
