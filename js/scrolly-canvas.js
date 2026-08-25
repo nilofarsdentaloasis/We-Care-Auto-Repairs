@@ -418,7 +418,7 @@ class ScrollyCarEngine {
         offsetY = 0;
       }
     } else {
-      const scale = Math.min(width / imgW, (height * 0.78) / imgH);
+      const scale = Math.min(width / imgW, height / imgH);
       renderW = imgW * scale;
       renderH = imgH * scale;
       offsetX = (width - renderW) / 2;

@@ -391,12 +391,17 @@
       100% { transform: translate(-50%, 8px); opacity: 0; }
     }
 
-    /* Mobile Responsive Optimizations - Desktop Unchanged */
+    /* Mobile Responsive Optimizations - Desktop 100% Frozen */
     @media (max-width: 767px) {
       .hero-scroll-track {
-        height: 550vh;
+        height: 240vh; /* Smooth, responsive scroll transformation on mobile */
       }
       .hero-sticky-viewport {
+        position: sticky;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        height: 100dvh;
         align-items: center;
         justify-content: center;
       }
@@ -405,52 +410,55 @@
         left: 50%;
         transform: translate(-50%, -50%);
         width: 90%;
-        max-width: 850px;
+        max-width: 320px;
         padding: 0 12px;
+        box-sizing: border-box;
         text-align: center;
       }
       .hero-eyebrow {
         font-size: 10px;
         line-height: 14px;
         letter-spacing: 0.15em;
-        margin-bottom: 8px;
+        margin-bottom: 6px;
       }
       .hero-title {
-        font-size: clamp(20px, 5.2vw, 28px);
+        font-size: clamp(20px, 5.5vw, 26px);
         line-height: 1.15;
-        margin-bottom: 10px;
+        margin-bottom: 8px;
+        word-break: break-word;
       }
       .hero-desc {
         font-size: 12px;
         line-height: 17px;
-        margin-bottom: 16px;
-        max-width: 240px;
+        margin-bottom: 14px;
+        max-width: 280px;
       }
       .hero-cta-group {
-        flex-direction: column;
-        align-items: center;
-        gap: 8px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 6px;
         justify-content: center;
       }
       .hero-btn-primary, .hero-btn-secondary {
-        padding: 9px 16px;
+        padding: 8px 14px;
         font-size: 10px;
-        letter-spacing: 0.05em;
+        letter-spacing: 0.04em;
         width: fit-content;
       }
       .hero-left-vignette {
-        width: 65vw;
-        max-width: 420px;
+        width: 75vw;
+        max-width: 440px;
         background: linear-gradient(
           to right, 
-          rgba(10, 10, 10, 0.94) 0%, 
+          rgba(10, 10, 10, 0.95) 0%, 
           rgba(10, 10, 10, 0.8) 50%, 
           rgba(10, 10, 10, 0.25) 80%, 
           rgba(10, 10, 10, 0) 100%
         );
       }
       .scroll-cue {
-        bottom: 2rem;
+        bottom: 1.5rem;
       }
     }
   </style>
@@ -762,24 +770,17 @@
       ctx.fillStyle = '#0d0d0d';
       ctx.fillRect(0, 0, canvasW, canvasH);
 
-      if (progress <= 0.001) {
-        return;
-      }
-
       const leadInThreshold = 0.04;
-      let frameAlpha = 1.0;
       let activeIndex = 0;
 
-      if (progress < leadInThreshold) {
-        frameAlpha = progress / leadInThreshold;
-        activeIndex = 0;
-      } else {
+      if (progress > leadInThreshold) {
         const normalized = (progress - leadInThreshold) / (1 - leadInThreshold);
         activeIndex = Math.min(
           totalFrames - 1,
           Math.max(0, Math.floor(normalized * (totalFrames - 1)))
         );
-        frameAlpha = 1.0;
+      } else {
+        activeIndex = 0;
       }
 
       const img = images[activeIndex];
@@ -792,24 +793,27 @@
       let renderW, renderH, offsetX, offsetY;
 
       if (!isMobile) {
-        // DESKTOP: 100% UNCHANGED COVER FIT
+        // =========================================================================
+        // DESKTOP: 100% FROZEN & UNTOUCHED (RULE 5)
+        // =========================================================================
         const scale = Math.max(canvasW / imgW, canvasH / imgH);
         renderW = Math.round(imgW * scale);
         renderH = Math.round(imgH * scale);
         offsetX = Math.round((canvasW - renderW) / 2);
         offsetY = Math.round((canvasH - renderH) / 2);
       } else {
-        // MOBILE: FULL CAR VISIBILITY (CONTAINED SO COMPLETE CAR IS FULLY VISIBLE)
-        const scale = Math.min(canvasW / imgW, (canvasH * 0.78) / imgH);
+        // =========================================================================
+        // MOBILE: FULL CAR VISIBILITY (RULES 1 & 2)
+        // =========================================================================
+        const scale = Math.min(canvasW / imgW, canvasH / imgH);
         renderW = Math.round(imgW * scale);
         renderH = Math.round(imgH * scale);
         offsetX = Math.round((canvasW - renderW) / 2);
         offsetY = Math.round((canvasH - renderH) / 2);
       }
 
-      ctx.globalAlpha = frameAlpha;
-      ctx.drawImage(img, offsetX, offsetY, renderW, renderH);
       ctx.globalAlpha = 1.0;
+      ctx.drawImage(img, offsetX, offsetY, renderW, renderH);
     }
 
     function updateHeroTextTransition(progress) {
@@ -818,58 +822,92 @@
       const isMobile = window.innerWidth < 768;
       const shiftProgress = Math.min(1, Math.max(0, progress / 0.12));
 
-      // Extreme left shift logic: Starts in center (50%), shifts to extreme left (2%) on mobile
-      const targetLeftPercent = isMobile ? 2 : 4;
-      const leftPercent = 50 - ((50 - targetLeftPercent) * shiftProgress);
-      const translateX = -50 * (1 - shiftProgress);
-      const maxW = isMobile ? (850 - (620 * shiftProgress)) : (850 - (330 * shiftProgress));
+      if (!isMobile) {
+        // =========================================================================
+        // DESKTOP: 100% FROZEN & UNTOUCHED ORIGINAL TRANSITION (RULE 5)
+        // =========================================================================
+        const leftPercent = 50 - (46 * shiftProgress);
+        const translateX = -50 * (1 - shiftProgress);
+        const maxW = 850 - (330 * shiftProgress);
 
-      heroOverlay.style.left = `${leftPercent}%`;
-      heroOverlay.style.transform = `translate(${translateX}%, -50%)`;
-      heroOverlay.style.maxWidth = `${maxW}px`;
+        heroOverlay.style.left = `${leftPercent}%`;
+        heroOverlay.style.transform = `translate(${translateX}%, -50%)`;
+        heroOverlay.style.maxWidth = `${maxW}px`;
 
-      if (shiftProgress > 0.25) {
-        heroOverlay.style.textAlign = 'left';
-        if (heroDesc) {
-          heroDesc.style.marginLeft = '0';
-          heroDesc.style.marginRight = 'auto';
-        }
-        if (heroCtaGroup) {
-          heroCtaGroup.style.justifyContent = 'flex-start';
-          heroCtaGroup.style.alignItems = 'flex-start';
-          if (isMobile) heroCtaGroup.style.flexDirection = 'column';
-        }
-      } else {
-        heroOverlay.style.textAlign = 'center';
-        if (heroDesc) {
-          heroDesc.style.marginLeft = 'auto';
-          heroDesc.style.marginRight = 'auto';
-        }
-        if (heroCtaGroup) {
-          heroCtaGroup.style.justifyContent = 'center';
-          heroCtaGroup.style.alignItems = 'center';
-          if (isMobile) heroCtaGroup.style.flexDirection = 'column';
-        }
-      }
-
-      // Left vignette fades in smoothly as scrolling begins
-      if (heroLeftVignette) {
-        if (progress > 0.01) {
-          heroLeftVignette.style.opacity = Math.min(1, (progress - 0.01) / 0.06);
+        if (shiftProgress > 0.25) {
+          heroOverlay.style.textAlign = 'left';
+          if (heroDesc) {
+            heroDesc.style.marginLeft = '0';
+            heroDesc.style.marginRight = '0';
+          }
+          if (heroCtaGroup) heroCtaGroup.style.justifyContent = 'flex-start';
         } else {
-          heroLeftVignette.style.opacity = 0;
+          heroOverlay.style.textAlign = 'center';
+          if (heroDesc) {
+            heroDesc.style.marginLeft = 'auto';
+            heroDesc.style.marginRight = 'auto';
+          }
+          if (heroCtaGroup) heroCtaGroup.style.justifyContent = 'center';
         }
-      }
 
-      // Fade out both text and vignette past progress 0.28
-      if (progress > 0.28) {
-        const fadeOutProgress = Math.min(1, (progress - 0.28) / 0.12);
-        heroOverlay.style.opacity = (1 - fadeOutProgress);
-        if (heroLeftVignette) heroLeftVignette.style.opacity = (1 - fadeOutProgress);
-      } else if (progress > 0.01) {
-        heroOverlay.style.opacity = 1;
+        if (progress > 0.28) {
+          const fadeOutProgress = Math.min(1, (progress - 0.28) / 0.12);
+          heroOverlay.style.opacity = (1 - fadeOutProgress);
+          if (heroLeftVignette) heroLeftVignette.style.opacity = (1 - fadeOutProgress);
+        } else if (progress > 0.01) {
+          heroOverlay.style.opacity = 1;
+        }
+
+        if (heroLeftVignette) {
+          if (progress > 0.01) {
+            heroLeftVignette.style.opacity = Math.min(1, (progress - 0.01) / 0.06);
+          } else {
+            heroLeftVignette.style.opacity = 0;
+          }
+        }
       } else {
-        heroOverlay.style.opacity = 1;
+        // =========================================================================
+        // MOBILE: IDENTICAL LOGIC & ANIMATION, STRICTLY MANAGED SIZES (RULES 2 & 4)
+        // =========================================================================
+        const leftPercent = 50 - (46 * shiftProgress);
+        const translateX = -50 * (1 - shiftProgress);
+        const maxW = 320 - (80 * shiftProgress);
+
+        heroOverlay.style.left = `${leftPercent}%`;
+        heroOverlay.style.transform = `translate(${translateX}%, -50%)`;
+        heroOverlay.style.maxWidth = `${maxW}px`;
+
+        if (shiftProgress > 0.25) {
+          heroOverlay.style.textAlign = 'left';
+          if (heroDesc) {
+            heroDesc.style.marginLeft = '0';
+            heroDesc.style.marginRight = 'auto';
+          }
+          if (heroCtaGroup) heroCtaGroup.style.justifyContent = 'flex-start';
+        } else {
+          heroOverlay.style.textAlign = 'center';
+          if (heroDesc) {
+            heroDesc.style.marginLeft = 'auto';
+            heroDesc.style.marginRight = 'auto';
+          }
+          if (heroCtaGroup) heroCtaGroup.style.justifyContent = 'center';
+        }
+
+        if (heroLeftVignette) {
+          if (progress > 0.01) {
+            heroLeftVignette.style.opacity = Math.min(1, (progress - 0.01) / 0.06);
+          } else {
+            heroLeftVignette.style.opacity = 0;
+          }
+        }
+
+        if (progress > 0.28) {
+          const fadeOutProgress = Math.min(1, (progress - 0.28) / 0.12);
+          heroOverlay.style.opacity = (1 - fadeOutProgress);
+          if (heroLeftVignette) heroLeftVignette.style.opacity = (1 - fadeOutProgress);
+        } else {
+          heroOverlay.style.opacity = 1;
+        }
       }
 
       if (scrollCue) {
