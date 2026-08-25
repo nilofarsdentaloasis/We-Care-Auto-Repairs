@@ -1508,7 +1508,7 @@
             <div class="flex items-center space-x-3">
               <!-- Current Slide Indicator -->
               <span id="project-slide-counter" class="font-mono text-xs font-bold text-tertiary px-3 py-1.5 rounded-full bg-surface-container border border-outline-variant/20">
-                01 / 02
+                01 / 05
               </span>
               
               <!-- Prev / Next Navigation Buttons -->
@@ -1531,19 +1531,40 @@
         <div id="project-carousel-container" class="relative w-full overflow-hidden py-4" style="overflow: hidden; position: relative; width: 100%;">
 
           <!-- Horizontal Revolving Sliding Track Container -->
-          <div id="project-carousel-track" class="project-carousel-track relative z-10" style="display: flex; flex-direction: row; flex-wrap: nowrap; width: 200%; transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); will-change: transform;">
+          <div id="project-carousel-track" class="project-carousel-track relative z-10" style="display: flex; flex-direction: row; flex-wrap: nowrap; width: 500%; transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); will-change: transform;">
 
             <!-- SLIDE 1: Mahindra Scorpio-N -->
-            <div class="featured-project-slide flex flex-col items-center justify-center px-2" data-project-idx="0" style="flex: 0 0 50%; min-width: 50%; max-width: 50%; width: 50%; box-sizing: border-box;">
+            <div class="featured-project-slide flex flex-col items-center justify-center px-2" data-project-idx="0" style="flex: 0 0 20%; min-width: 20%; max-width: 20%; width: 20%; box-sizing: border-box;">
               <div class="relative w-full max-w-5xl mx-auto flex items-center justify-center">
                 <img src="assets/projects/mahindra-scorpio-n.png" alt="Mahindra Scorpio-N - Models We Worked On" class="w-full h-auto max-h-[75vh] object-contain mx-auto transition-transform duration-700 hover:scale-[1.02] drop-shadow-2xl">
               </div>
             </div>
 
-            <!-- SLIDE 2: BMW M5 Competition -->
-            <div class="featured-project-slide flex flex-col items-center justify-center px-2" data-project-idx="1" style="flex: 0 0 50%; min-width: 50%; max-width: 50%; width: 50%; box-sizing: border-box;">
+            <!-- SLIDE 2: Audi A4 -->
+            <div class="featured-project-slide flex flex-col items-center justify-center px-2" data-project-idx="1" style="flex: 0 0 20%; min-width: 20%; max-width: 20%; width: 20%; box-sizing: border-box;">
               <div class="relative w-full max-w-5xl mx-auto flex items-center justify-center">
-                <img src="assets/projects/bmw-m5.png" alt="BMW M5 ///M Competition - Models We Worked On" class="w-full h-auto max-h-[75vh] object-contain mx-auto transition-transform duration-700 hover:scale-[1.02] drop-shadow-2xl">
+                <img src="assets/projects/audi-a4.png" alt="Audi A4 - Models We Worked On" class="w-full h-auto max-h-[75vh] object-contain mx-auto transition-transform duration-700 hover:scale-[1.02] drop-shadow-2xl">
+              </div>
+            </div>
+
+            <!-- SLIDE 3: Kia Seltos -->
+            <div class="featured-project-slide flex flex-col items-center justify-center px-2" data-project-idx="2" style="flex: 0 0 20%; min-width: 20%; max-width: 20%; width: 20%; box-sizing: border-box;">
+              <div class="relative w-full max-w-5xl mx-auto flex items-center justify-center">
+                <img src="assets/projects/kia-seltos.png" alt="Kia Seltos - Models We Worked On" class="w-full h-auto max-h-[75vh] object-contain mx-auto transition-transform duration-700 hover:scale-[1.02] drop-shadow-2xl">
+              </div>
+            </div>
+
+            <!-- SLIDE 4: Volkswagen Polo -->
+            <div class="featured-project-slide flex flex-col items-center justify-center px-2" data-project-idx="3" style="flex: 0 0 20%; min-width: 20%; max-width: 20%; width: 20%; box-sizing: border-box;">
+              <div class="relative w-full max-w-5xl mx-auto flex items-center justify-center">
+                <img src="assets/projects/vw-polo.png" alt="Volkswagen Polo - Models We Worked On" class="w-full h-auto max-h-[75vh] object-contain mx-auto transition-transform duration-700 hover:scale-[1.02] drop-shadow-2xl">
+              </div>
+            </div>
+
+            <!-- SLIDE 5: BMW M5 (White) -->
+            <div class="featured-project-slide flex flex-col items-center justify-center px-2" data-project-idx="4" style="flex: 0 0 20%; min-width: 20%; max-width: 20%; width: 20%; box-sizing: border-box;">
+              <div class="relative w-full max-w-5xl mx-auto flex items-center justify-center">
+                <img src="assets/projects/bmw-m5.png" alt="BMW M5 ///M - Models We Worked On" class="w-full h-auto max-h-[75vh] object-contain mx-auto transition-transform duration-700 hover:scale-[1.02] drop-shadow-2xl">
               </div>
             </div>
 
@@ -1557,6 +1578,18 @@
             <span>Mahindra Scorpio-N</span>
           </button>
           <button class="project-nav-pill px-4 py-2 rounded-full bg-surface-container border border-outline-variant/20 text-xs font-mono font-bold text-on-surface-variant hover:border-tertiary hover:text-tertiary flex items-center space-x-2 transition-all cursor-pointer" data-target-idx="1">
+            <span class="w-2 h-2 rounded-full bg-tertiary"></span>
+            <span>Audi A4</span>
+          </button>
+          <button class="project-nav-pill px-4 py-2 rounded-full bg-surface-container border border-outline-variant/20 text-xs font-mono font-bold text-on-surface-variant hover:border-tertiary hover:text-tertiary flex items-center space-x-2 transition-all cursor-pointer" data-target-idx="2">
+            <span class="w-2 h-2 rounded-full bg-tertiary"></span>
+            <span>Kia Seltos</span>
+          </button>
+          <button class="project-nav-pill px-4 py-2 rounded-full bg-surface-container border border-outline-variant/20 text-xs font-mono font-bold text-on-surface-variant hover:border-tertiary hover:text-tertiary flex items-center space-x-2 transition-all cursor-pointer" data-target-idx="3">
+            <span class="w-2 h-2 rounded-full bg-tertiary"></span>
+            <span>Volkswagen Polo</span>
+          </button>
+          <button class="project-nav-pill px-4 py-2 rounded-full bg-surface-container border border-outline-variant/20 text-xs font-mono font-bold text-on-surface-variant hover:border-tertiary hover:text-tertiary flex items-center space-x-2 transition-all cursor-pointer" data-target-idx="4">
             <span class="w-2 h-2 rounded-full bg-tertiary"></span>
             <span>BMW M5 ///M</span>
           </button>
