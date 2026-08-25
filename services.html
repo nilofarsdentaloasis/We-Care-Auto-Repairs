@@ -116,28 +116,48 @@
       transform: scale(1.02);
       transition: transform 0.2s ease;
     }
+
+    /* Modern Luxury Glassmorphic Header */
+    .glass-header {
+      background: rgba(18, 18, 18, 0.55);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      transition: background 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .glass-header.scrolled {
+      background: rgba(12, 12, 12, 0.82);
+      backdrop-filter: blur(24px) saturate(190%);
+      -webkit-backdrop-filter: blur(24px) saturate(190%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.55);
+    }
   </style>
 </head>
 <body class="bg-background text-on-background font-body-md antialiased selection:bg-tertiary selection:text-on-tertiary">
 
   <!-- TopNavBar (Shared Component) -->
-  <nav class="fixed top-0 w-full bg-background/90 backdrop-blur-md border-b border-outline-variant/15 z-50 transition-all duration-300" id="topNav">
-    <div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-stack-md md:py-2.5 max-w-container-max mx-auto">
-      <a class="inline-flex items-center shrink-0 group" href="index.html" aria-label="We Care Auto Repairs">
+  <nav class="fixed top-0 w-full glass-header z-50 transition-all duration-300" id="topNav">
+    <div class="relative flex justify-between items-center px-margin-mobile md:px-margin-desktop py-stack-md md:py-2.5 max-w-container-max mx-auto">
+      <a class="inline-flex items-center shrink-0 group z-10" href="index.html" aria-label="We Care Auto Repairs">
         <img src="assets/logo.png" alt="We Care Auto Repairs" class="h-12 md:h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105"/>
       </a>
-      <div class="hidden md:flex space-x-8 items-center">
+      
+      <!-- Desktop Navigation Menu (Dead Center Alignment) -->
+      <div class="hidden md:flex absolute left-1/2 -translate-x-1/2 space-x-8 items-center z-10">
         <a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md hover:scale-105 duration-300" href="index.html">Home</a>
         <a class="text-tertiary border-b-2 border-tertiary pb-1 font-body-md text-body-md" href="services.html">Services</a>
         <a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md hover:scale-105 duration-300" href="about.html">About Us</a>
         <a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md hover:scale-105 duration-300" href="contact.html">Contact Us</a>
       </div>
-      <a class="hidden md:inline-flex bg-tertiary text-on-tertiary px-5 py-2.5 rounded-full font-label-caps text-label-caps uppercase btn-hover items-center space-x-2" href="contact.html">
+      <a class="hidden md:inline-flex bg-tertiary text-on-tertiary px-5 py-2.5 rounded-full font-label-caps text-label-caps uppercase btn-hover items-center space-x-2 z-10 shrink-0" href="contact.html">
         <span>Request Appointment</span>
         <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
       </a>
       <!-- Mobile Hamburger Toggle Button -->
-      <div class="md:hidden flex items-center space-x-2">
+      <div class="md:hidden flex items-center space-x-2 z-10">
         <a class="text-xs font-label-caps text-tertiary uppercase bg-surface-container px-3 py-1.5 rounded-full border border-tertiary/30" href="contact.html">Book</a>
         <button class="text-primary p-2 focus:outline-none flex items-center justify-center rounded-lg bg-surface-container hover:bg-surface-bright transition-colors" id="mobileMenuBtn" aria-label="Toggle Navigation">
           <span class="material-symbols-outlined text-[24px]" id="mobileMenuIcon">menu</span>
@@ -382,16 +402,16 @@
       });
     }
 
+    // Top Navigation Glass Scroll Effect
     window.addEventListener('scroll', () => {
       const nav = document.getElementById('topNav');
-      if (window.scrollY > 50) {
-        nav.classList.add('bg-surface-container', 'shadow-lg');
-        nav.classList.remove('bg-background/90');
+      if (!nav) return;
+      if (window.scrollY > 30) {
+        nav.classList.add('scrolled');
       } else {
-        nav.classList.remove('bg-surface-container', 'shadow-lg');
-        nav.classList.add('bg-background/90');
+        nav.classList.remove('scrolled');
       }
-    });
+    }, { passive: true });
   </script>
 </body>
 </html>
