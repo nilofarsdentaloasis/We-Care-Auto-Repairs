@@ -404,41 +404,48 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 100%;
+        width: 90%;
         max-width: 850px;
-        padding: 0 20px;
+        padding: 0 12px;
         text-align: center;
       }
+      .hero-eyebrow {
+        font-size: 10px;
+        line-height: 14px;
+        letter-spacing: 0.15em;
+        margin-bottom: 8px;
+      }
       .hero-title {
-        font-size: clamp(26px, 7vw, 42px);
+        font-size: clamp(20px, 5.2vw, 28px);
         line-height: 1.15;
-        margin-bottom: 16px;
+        margin-bottom: 10px;
       }
       .hero-desc {
-        font-size: 14px;
-        line-height: 22px;
-        margin-bottom: 24px;
-        max-width: 92%;
+        font-size: 12px;
+        line-height: 17px;
+        margin-bottom: 16px;
+        max-width: 240px;
       }
       .hero-cta-group {
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 10px;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
         justify-content: center;
       }
       .hero-btn-primary, .hero-btn-secondary {
-        padding: 12px 20px;
-        font-size: 11px;
-        letter-spacing: 0.06em;
+        padding: 9px 16px;
+        font-size: 10px;
+        letter-spacing: 0.05em;
+        width: fit-content;
       }
       .hero-left-vignette {
-        width: 90vw;
-        max-width: 800px;
+        width: 65vw;
+        max-width: 420px;
         background: linear-gradient(
           to right, 
-          rgba(10, 10, 10, 0.96) 0%, 
-          rgba(10, 10, 10, 0.85) 45%, 
-          rgba(10, 10, 10, 0.35) 75%, 
+          rgba(10, 10, 10, 0.94) 0%, 
+          rgba(10, 10, 10, 0.8) 50%, 
+          rgba(10, 10, 10, 0.25) 80%, 
           rgba(10, 10, 10, 0) 100%
         );
       }
@@ -780,25 +787,13 @@
 
       const imgW = img.naturalWidth;
       const imgH = img.naturalHeight;
-      const isMobile = window.innerWidth < 768;
 
-      let renderW, renderH, offsetX, offsetY;
-
-      if (!isMobile) {
-        // DESKTOP: 100% UNCHANGED COVER FIT
-        const scale = Math.max(canvasW / imgW, canvasH / imgH);
-        renderW = Math.round(imgW * scale);
-        renderH = Math.round(imgH * scale);
-        offsetX = Math.round((canvasW - renderW) / 2);
-        offsetY = Math.round((canvasH - renderH) / 2);
-      } else {
-        // MOBILE: PROPERLY VISIBLE FULL VEHICLE CONTAINED & CENTERED
-        const scale = Math.min(canvasW / imgW, canvasH / imgH);
-        renderW = Math.round(imgW * scale);
-        renderH = Math.round(imgH * scale);
-        offsetX = Math.round((canvasW - renderW) / 2);
-        offsetY = Math.round((canvasH - renderH) / 2);
-      }
+      // Full cover scale removes all black color padding on top/bottom across all screens
+      const scale = Math.max(canvasW / imgW, canvasH / imgH);
+      const renderW = Math.round(imgW * scale);
+      const renderH = Math.round(imgH * scale);
+      const offsetX = Math.round((canvasW - renderW) / 2);
+      const offsetY = Math.round((canvasH - renderH) / 2);
 
       ctx.globalAlpha = frameAlpha;
       ctx.drawImage(img, offsetX, offsetY, renderW, renderH);
@@ -811,11 +806,11 @@
       const isMobile = window.innerWidth < 768;
       const shiftProgress = Math.min(1, Math.max(0, progress / 0.12));
 
-      // Unified left shift logic: Starts in center (50%), shifts to left on scroll
-      const targetLeftPercent = isMobile ? 6 : 4;
+      // Extreme left shift logic: Starts in center (50%), shifts to extreme left (2%) on mobile
+      const targetLeftPercent = isMobile ? 2 : 4;
       const leftPercent = 50 - ((50 - targetLeftPercent) * shiftProgress);
       const translateX = -50 * (1 - shiftProgress);
-      const maxW = isMobile ? (850 - (500 * shiftProgress)) : (850 - (330 * shiftProgress));
+      const maxW = isMobile ? (850 - (620 * shiftProgress)) : (850 - (330 * shiftProgress));
 
       heroOverlay.style.left = `${leftPercent}%`;
       heroOverlay.style.transform = `translate(${translateX}%, -50%)`;
@@ -827,14 +822,22 @@
           heroDesc.style.marginLeft = '0';
           heroDesc.style.marginRight = 'auto';
         }
-        if (heroCtaGroup) heroCtaGroup.style.justifyContent = 'flex-start';
+        if (heroCtaGroup) {
+          heroCtaGroup.style.justifyContent = 'flex-start';
+          heroCtaGroup.style.alignItems = 'flex-start';
+          if (isMobile) heroCtaGroup.style.flexDirection = 'column';
+        }
       } else {
         heroOverlay.style.textAlign = 'center';
         if (heroDesc) {
           heroDesc.style.marginLeft = 'auto';
           heroDesc.style.marginRight = 'auto';
         }
-        if (heroCtaGroup) heroCtaGroup.style.justifyContent = 'center';
+        if (heroCtaGroup) {
+          heroCtaGroup.style.justifyContent = 'center';
+          heroCtaGroup.style.alignItems = 'center';
+          if (isMobile) heroCtaGroup.style.flexDirection = 'column';
+        }
       }
 
       // Left vignette fades in smoothly as scrolling begins

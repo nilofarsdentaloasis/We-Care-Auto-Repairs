@@ -405,26 +405,16 @@ class ScrollyCarEngine {
     let renderW, renderH, offsetX, offsetY;
     const isMobile = width < 768;
 
-    if (!isMobile) {
-      // Desktop: 100% untouched cover fit
-      if (canvasAspect > imgAspect) {
-        renderW = width;
-        renderH = width / imgAspect;
-        offsetX = 0;
-        offsetY = (height - renderH) / 2;
-      } else {
-        renderH = height;
-        renderW = height * imgAspect;
-        offsetX = (width - renderW) / 2;
-        offsetY = 0;
-      }
-    } else {
-      // Mobile: Properly visible full vehicle contained and centered
-      const scale = Math.min(width / imgW, height / imgH);
-      renderW = imgW * scale;
-      renderH = imgH * scale;
-      offsetX = (width - renderW) / 2;
+    if (canvasAspect > imgAspect) {
+      renderW = width;
+      renderH = width / imgAspect;
+      offsetX = 0;
       offsetY = (height - renderH) / 2;
+    } else {
+      renderH = height;
+      renderW = height * imgAspect;
+      offsetX = (width - renderW) / 2;
+      offsetY = 0;
     }
 
     this.ctx.fillStyle = '#080b11';
