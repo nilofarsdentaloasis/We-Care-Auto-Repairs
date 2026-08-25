@@ -417,17 +417,52 @@ class ScrollyCarEngine {
         offsetX = (width - renderW) / 2;
         offsetY = 0;
       }
+      this.ctx.fillStyle = '#080b11';
+      this.ctx.fillRect(0, 0, width, height);
+      this.ctx.drawImage(img, offsetX, offsetY, renderW, renderH);
     } else {
-      const scale = Math.min(width / imgW, height / imgH);
-      renderW = imgW * scale;
-      renderH = imgH * scale;
-      offsetX = (width - renderW) / 2;
-      offsetY = (height - renderH) / 2;
-    }
+      // 1. Studio atmosphere backdrop
+      const bgGrad = this.ctx.createRadialGradient(
+        width / 2, height * 0.44, 20,
+        width / 2, height * 0.44, Math.max(width, height) * 0.75
+      );
+      bgGrad.addColorStop(0, '#161d28');
+      bgGrad.addColorStop(0.45, '#0b0f15');
+      bgGrad.addColorStop(1, '#05070a');
+      this.ctx.fillStyle = bgGrad;
+      this.ctx.fillRect(0, 0, width, height);
 
-    this.ctx.fillStyle = '#080b11';
-    this.ctx.fillRect(0, 0, width, height);
-    this.ctx.drawImage(img, offsetX, offsetY, renderW, renderH);
+      // 2. Pass 1: Ambient background
+      const bgCoverScale = Math.max(width / imgW, height / imgH);
+      const bgW = Math.round(imgW * bgCoverScale);
+      const bgH = Math.round(imgH * bgCoverScale);
+      const bgX = Math.round((width - bgW) / 2);
+      const bgY = Math.round((height - bgH) / 2);
+      this.ctx.globalAlpha = 0.32;
+      this.ctx.drawImage(img, bgX, bgY, bgW, bgH);
+      this.ctx.globalAlpha = 1.0;
+
+      // 3. Pass 2: Foreground Car Frame
+      const fgScale = (width * 0.98) / imgW;
+      const fgW = Math.round(imgW * fgScale);
+      const fgH = Math.round(imgH * fgScale);
+      const fgX = Math.round((width - fgW) / 2);
+      const fgY = Math.round((height - fgH) * 0.44);
+
+      // Floor Shadow
+      const shadowGrad = this.ctx.createRadialGradient(
+        width / 2, fgY + fgH * 0.88, 10,
+        width / 2, fgY + fgH * 0.88, fgW * 0.48
+      );
+      shadowGrad.addColorStop(0, 'rgba(0, 0, 0, 0.85)');
+      shadowGrad.addColorStop(0.6, 'rgba(5, 7, 10, 0.4)');
+      shadowGrad.addColorStop(1, 'rgba(5, 7, 10, 0)');
+      this.ctx.fillStyle = shadowGrad;
+      this.ctx.fillRect(0, fgY + fgH * 0.65, width, fgH * 0.45);
+
+      // Draw complete car
+      this.ctx.drawImage(img, fgX, fgY, fgW, fgH);
+    }
   }
 
   updateHUD(progress, frameIndex) {

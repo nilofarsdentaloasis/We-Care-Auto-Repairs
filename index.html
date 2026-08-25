@@ -804,19 +804,10 @@
         ctx.drawImage(img, offsetX, offsetY, renderW, renderH);
       } else {
         // =========================================================================
-        // MOBILE: LUXURY SHOWROOM FOCAL BALANCE - 100% CAR VISIBILITY, ZERO VOID
+        // MOBILE: DEDICATED TWO-PASS COMPOSITION
+        // Pass 1: Immersive full-bleed studio backdrop (100% viewport coverage, 0 void)
+        // Pass 2: Sharp foreground focal vehicle (100% complete car visible, 0 cropping)
         // =========================================================================
-        // 1. Luxury dark radial studio spotlight filling entire screen edge-to-edge
-        const bgGrad = ctx.createRadialGradient(
-          canvasW / 2, canvasH * 0.44, 20,
-          canvasW / 2, canvasH * 0.44, Math.max(canvasW, canvasH) * 0.75
-        );
-        bgGrad.addColorStop(0, '#151922');
-        bgGrad.addColorStop(0.5, '#0b0e14');
-        bgGrad.addColorStop(1, '#05070a');
-        ctx.fillStyle = bgGrad;
-        ctx.fillRect(0, 0, canvasW, canvasH);
-
         const leadInThreshold = 0.04;
         let activeIndex = 0;
 
@@ -836,16 +827,49 @@
         const imgW = img.naturalWidth;
         const imgH = img.naturalHeight;
 
-        // Proportional optical scaling: contains entire car (front bumper to rear wing)
-        const scale = (canvasW * 0.98) / imgW;
-        const renderW = Math.round(imgW * scale);
-        const renderH = Math.round(imgH * scale);
-        const offsetX = Math.round((canvasW - renderW) / 2);
-        // Optical vertical balance (44% height) accounting for header and bottom cues
-        const offsetY = Math.round((canvasH - renderH) * 0.44);
+        // 1. Fill canvas with luxury showroom ambient gradient
+        const bgGrad = ctx.createRadialGradient(
+          canvasW / 2, canvasH * 0.44, 20,
+          canvasW / 2, canvasH * 0.44, Math.max(canvasW, canvasH) * 0.75
+        );
+        bgGrad.addColorStop(0, '#161d28');
+        bgGrad.addColorStop(0.45, '#0b0f15');
+        bgGrad.addColorStop(1, '#05070a');
+        ctx.fillStyle = bgGrad;
+        ctx.fillRect(0, 0, canvasW, canvasH);
 
+        // 2. Pass 1: Draw ambient background studio lighting from frame (full-cover scale, soft atmospheric alpha)
+        const bgCoverScale = Math.max(canvasW / imgW, canvasH / imgH);
+        const bgRenderW = Math.round(imgW * bgCoverScale);
+        const bgRenderH = Math.round(imgH * bgCoverScale);
+        const bgOffsetX = Math.round((canvasW - bgRenderW) / 2);
+        const bgOffsetY = Math.round((canvasH - bgRenderH) / 2);
+
+        ctx.globalAlpha = 0.32;
+        ctx.drawImage(img, bgOffsetX, bgOffsetY, bgRenderW, bgRenderH);
         ctx.globalAlpha = 1.0;
-        ctx.drawImage(img, offsetX, offsetY, renderW, renderH);
+
+        // 3. Pass 2: Foreground Car Frame - perfectly contained so 100% of vehicle is in view
+        const fgScale = (canvasW * 0.98) / imgW;
+        const fgRenderW = Math.round(imgW * fgScale);
+        const fgRenderH = Math.round(imgH * fgScale);
+        const fgOffsetX = Math.round((canvasW - fgRenderW) / 2);
+        // Optical vertical balance (positioned at 44% of viewport height)
+        const fgOffsetY = Math.round((canvasH - fgRenderH) * 0.44);
+
+        // Subtle studio floor shadow beneath the tires
+        const shadowGrad = ctx.createRadialGradient(
+          canvasW / 2, fgOffsetY + fgRenderH * 0.88, 10,
+          canvasW / 2, fgOffsetY + fgRenderH * 0.88, fgRenderW * 0.48
+        );
+        shadowGrad.addColorStop(0, 'rgba(0, 0, 0, 0.85)');
+        shadowGrad.addColorStop(0.6, 'rgba(5, 7, 10, 0.4)');
+        shadowGrad.addColorStop(1, 'rgba(5, 7, 10, 0)');
+        ctx.fillStyle = shadowGrad;
+        ctx.fillRect(0, fgOffsetY + fgRenderH * 0.65, canvasW, fgRenderH * 0.45);
+
+        // Draw complete uncropped sharp car
+        ctx.drawImage(img, fgOffsetX, fgOffsetY, fgRenderW, fgRenderH);
       }
     }
 
