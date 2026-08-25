@@ -394,7 +394,7 @@
     /* Mobile Responsive Optimizations - Desktop 100% Frozen */
     @media (max-width: 767px) {
       .hero-scroll-track {
-        height: 320vh; /* Smooth, responsive scroll transformation through 210 mobile frames */
+        height: 600vh; /* Pinned scroll distance to ensure all 210 frames finish before page scrolls */
       }
       .hero-sticky-viewport {
         position: sticky;
@@ -863,17 +863,25 @@
       } else {
         // =========================================================================
         // MOBILE: DEDICATED FULL-SCREEN PORTRAIT FRAME SCROLL ANIMATION (210 FRAMES)
+        // 1. Black screen frame at very first before scroll starts
+        // 2. Plays through all 210 frames before page below scrolls up
         // =========================================================================
         ctx.fillStyle = '#0d0d0d';
         ctx.fillRect(0, 0, canvasW, canvasH);
 
-        let activeIndex = 0;
-        if (progress > 0) {
-          activeIndex = Math.min(
-            totalMobileFrames - 1,
-            Math.max(0, Math.floor(progress * (totalMobileFrames - 1)))
-          );
+        const leadInThreshold = 0.05; // Black screen frame before scroll starts
+        const leadOutThreshold = 0.95; // 210th frame completes and holds before page unpins
+
+        if (progress <= leadInThreshold) {
+          // Pure black screen frame at the very beginning
+          return;
         }
+
+        const normalized = Math.min(1, Math.max(0, (progress - leadInThreshold) / (leadOutThreshold - leadInThreshold)));
+        const activeIndex = Math.min(
+          totalMobileFrames - 1,
+          Math.floor(normalized * (totalMobileFrames - 1))
+        );
 
         const img = mobileImages[activeIndex];
         if (!img || !img.complete || img.naturalWidth === 0) return;
@@ -888,8 +896,11 @@
         const offsetX = Math.round((canvasW - renderW) / 2);
         const offsetY = Math.round((canvasH - renderH) / 2);
 
-        ctx.globalAlpha = 1.0;
+        // Smooth fade in from black as scroll begins
+        const fadeInAlpha = Math.min(1, (progress - leadInThreshold) / 0.04);
+        ctx.globalAlpha = fadeInAlpha;
         ctx.drawImage(img, offsetX, offsetY, renderW, renderH);
+        ctx.globalAlpha = 1.0;
       }
     }
 
@@ -947,8 +958,8 @@
         // =========================================================================
         // MOBILE: CENTER -> SLOWLY MOVE UP IN HERO SECTION AND STAY THERE
         // =========================================================================
-        // As scroll begins (0 -> 0.22), slowly and smoothly moves up from center (50%) to upper hero area (14%)
-        const upProgress = Math.min(1, Math.max(0, progress / 0.22));
+        // Starts centered over the initial black frame. As scroll starts (0.05 -> 0.25), moves up to top (14%)
+        const upProgress = Math.min(1, Math.max(0, (progress - 0.05) / 0.20));
         const easeUp = 1 - Math.pow(1 - upProgress, 2.5); // Smooth ease-out deceleration
 
         const currentTopPercent = 50 - (36 * easeUp); // 50% -> 14%
@@ -972,10 +983,10 @@
           heroLeftVignette.style.opacity = 0;
         }
 
-        // Text stays there throughout the 210-frame animation.
-        // At the very end of the hero section track (> 0.92), gently fade out to transition to the next section.
-        if (progress > 0.92) {
-          const fadeOut = Math.min(1, (progress - 0.92) / 0.08);
+        // Text stays there throughout all 210 frames.
+        // Only at the very end after the 210th frame finishes (progress > 0.95), gently fade out as page scrolls up
+        if (progress > 0.95) {
+          const fadeOut = Math.min(1, (progress - 0.95) / 0.05);
           heroOverlay.style.opacity = (1 - fadeOut);
         } else {
           heroOverlay.style.opacity = 1;
