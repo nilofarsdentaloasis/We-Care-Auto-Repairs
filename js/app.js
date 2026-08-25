@@ -249,6 +249,186 @@ function initNavbarScroll() {
   }, { passive: true });
 }
 
+// 6. Precision Process Holographic Telemetry Engine
+function initPrecisionProcessEngine() {
+  const section = document.getElementById('how-we-work');
+  if (!section) return;
+
+  const pods = section.querySelectorAll('.telemetry-pod[data-stage]');
+  const indicator = document.getElementById('hud-stage-indicator');
+  const centerIcon = document.getElementById('hud-center-icon');
+  const centerMetric = document.getElementById('hud-center-metric');
+  const centerSub = document.getElementById('hud-center-sub');
+  const titleEl = document.getElementById('hud-telemetry-title');
+  const pillEl = document.getElementById('hud-telemetry-pill');
+  const descEl = document.getElementById('hud-telemetry-desc');
+  const busStatusEl = document.getElementById('hud-bus-status');
+  const simBtn = document.getElementById('btn-run-simulation');
+
+  if (!pods.length) return;
+
+  const stageData = {
+    1: {
+      indicator: 'STAGE 01 // INTAKE & SCAN',
+      icon: 'sensors',
+      metric: '360° LASER',
+      sub: 'TOL: ±0.01mm',
+      title: 'Laser Chassis & Underbody Audit',
+      pill: 'SCANNING 100%',
+      desc: 'Comprehensive bumper-to-bumper check. Calibrated electronic laser measurements for brake disc thickness, suspension geometry, and structural alignment.',
+      busStatus: 'OBD_BUS: LINKED // STAGE 1 ACTIVE'
+    },
+    2: {
+      indicator: 'STAGE 02 // ECU & OPTICAL SCAN',
+      icon: 'memory',
+      metric: 'ECU DECODE',
+      sub: 'DTC_STATUS: 0 ERRORS',
+      title: 'Optical Diagnostic & ECU Decoding',
+      pill: 'LIVE TELEMETRY',
+      desc: 'Dealer-grade OBD-II bus scanner interrogates all powertrain, airbag, ABS, and comfort modules to decode exact sensor voltages and fault origins without blind guessing.',
+      busStatus: 'ECU_BUS: ONLINE // STAGE 2 ACTIVE'
+    },
+    3: {
+      indicator: 'STAGE 03 // TRANSPARENT QUOTE',
+      icon: 'receipt_long',
+      metric: '₹ 0 HIDDEN',
+      sub: 'WHATSAPP DISPATCH',
+      title: '100% Transparent Itemized Quote',
+      pill: 'PRICE LOCK GUARANTEE',
+      desc: 'Itemized digital estimate with genuine part serial numbers, labor breakdown, and clear timeline delivered to your WhatsApp. Work begins only upon your approval.',
+      busStatus: 'QUOTE_LOCK: VERIFIED // STAGE 3 ACTIVE'
+    },
+    4: {
+      indicator: 'STAGE 04 // ATELIER ASSEMBLY',
+      icon: 'precision_manufacturing',
+      metric: '480 Nm LOCK',
+      sub: 'DIGITAL TORQUE SPEC',
+      title: 'Master Mechanical Assembly & Torque Lock',
+      pill: 'OEM CLEAN-ROOM',
+      desc: 'Certified master mechanics assemble 100% genuine factory parts using calibrated digital torque wrenches with real-time WhatsApp photo and video updates.',
+      busStatus: 'TORQUE_SPEC: LOCKED // STAGE 4 ACTIVE'
+    },
+    5: {
+      indicator: 'STAGE 05 // ROAD & DYNO TEST',
+      icon: 'workspace_premium',
+      metric: '7,500 RPM',
+      sub: 'DYNO TEST PASS',
+      title: 'High-Speed Dyno Road Test & Handover',
+      pill: '12-MO WARRANTY SIGNED',
+      desc: 'High-speed dynamometer calibration, suspension damping test, complimentary foam wash, and delivery with an official 12-Month / 10,000 KM warranty card.',
+      busStatus: 'FINAL_GATE: CLEARED // STAGE 5 ACTIVE'
+    }
+  };
+
+  let currentStage = 1;
+  let isSimulating = false;
+  let autoCycleTimer = null;
+
+  function setStage(stageNum, playAudio = true) {
+    currentStage = stageNum;
+    const data = stageData[stageNum];
+    if (!data) return;
+
+    // Update active class on pods
+    pods.forEach(pod => {
+      const podStage = parseInt(pod.getAttribute('data-stage'), 10);
+      if (podStage === stageNum) {
+        pod.classList.add('active-pod');
+      } else {
+        pod.classList.remove('active-pod');
+      }
+    });
+
+    // Update HUD elements
+    if (indicator) indicator.textContent = data.indicator;
+    if (centerIcon) centerIcon.innerHTML = `<span class="material-symbols-outlined text-[24px]">${data.icon}</span>`;
+    if (centerMetric) centerMetric.textContent = data.metric;
+    if (centerSub) centerSub.textContent = data.sub;
+    if (titleEl) titleEl.textContent = data.title;
+    if (pillEl) pillEl.textContent = data.pill;
+    if (descEl) descEl.textContent = data.desc;
+    if (busStatusEl) busStatusEl.textContent = data.busStatus;
+
+    if (playAudio && window.WebAudioFX) {
+      window.WebAudioFX.playClick();
+    }
+  }
+
+  // Click handlers for pods
+  pods.forEach(pod => {
+    pod.addEventListener('click', () => {
+      if (isSimulating) return;
+      const stage = parseInt(pod.getAttribute('data-stage'), 10);
+      setStage(stage, true);
+      resetAutoCycle();
+    });
+  });
+
+  // Auto-cycle stages every 4.5 seconds when visible
+  function startAutoCycle() {
+    stopAutoCycle();
+    autoCycleTimer = setInterval(() => {
+      if (!isSimulating) {
+        const next = currentStage >= 5 ? 1 : currentStage + 1;
+        setStage(next, false);
+      }
+    }, 4500);
+  }
+
+  function stopAutoCycle() {
+    if (autoCycleTimer) {
+      clearInterval(autoCycleTimer);
+      autoCycleTimer = null;
+    }
+  }
+
+  function resetAutoCycle() {
+    stopAutoCycle();
+    startAutoCycle();
+  }
+
+  // Pause on hover
+  section.addEventListener('mouseenter', stopAutoCycle);
+  section.addEventListener('mouseleave', startAutoCycle);
+  startAutoCycle();
+
+  // Run Simulation Button Handler
+  if (simBtn) {
+    simBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (isSimulating) return;
+      isSimulating = true;
+      stopAutoCycle();
+
+      simBtn.classList.add('opacity-90', 'scale-95');
+      simBtn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">progress_activity</span> <span>Executing Pipeline...</span>';
+
+      let stageIdx = 1;
+      setStage(1, true);
+
+      const interval = setInterval(() => {
+        stageIdx++;
+        if (stageIdx <= 5) {
+          setStage(stageIdx, true);
+        } else {
+          clearInterval(interval);
+          if (window.WebAudioFX) {
+            window.WebAudioFX.playMilestone();
+          }
+          simBtn.classList.remove('opacity-90', 'scale-95');
+          simBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">verified</span> <span>Simulation Passed!</span>';
+
+          setTimeout(() => {
+            isSimulating = false;
+            simBtn.innerHTML = '<span class="material-symbols-outlined text-[18px] group-hover:rotate-45 transition-transform">play_circle</span> <span>Simulate Atelier Workflow</span>';
+            startAutoCycle();
+          }, 2500);
+        }
+      }, 1200);
+    });
+  }
+}
+
 // Global initialization on DOM ready
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize canvas scrolly engine
@@ -268,4 +448,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initPricingCalculator();
   initBookingModal();
   initNavbarScroll();
+  initPrecisionProcessEngine();
 });
+

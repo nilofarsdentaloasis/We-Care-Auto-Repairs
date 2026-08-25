@@ -1630,78 +1630,312 @@
       </div>
     </section>
 
-    <!-- 5. HOW WE WORK -->
-    <section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-surface-dim relative z-20 border-t border-outline-variant/10" id="how-we-work">
-      <div class="max-w-container-max mx-auto">
-        <div class="text-center max-w-3xl mx-auto mb-16">
-          <div class="inline-flex items-center space-x-2 bg-surface-container-high border border-tertiary/20 px-3.5 py-1.5 rounded-full mb-4">
-            <span class="material-symbols-outlined text-tertiary text-[18px]">account_tree</span>
-            <span class="font-label-caps text-xs text-tertiary uppercase tracking-widest font-semibold">How We Work</span>
+    <!-- 5. PRECISION ENGINEERING PROCESS PIPELINE -->
+    <section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-surface-dim relative z-20 border-t border-outline-variant/10 overflow-hidden" id="how-we-work">
+      <!-- Ambient Glow Blobs -->
+      <div class="absolute top-1/4 left-10 w-96 h-96 bg-tertiary/5 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute bottom-10 right-10 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="max-w-container-max mx-auto relative z-10">
+        <!-- Section Header -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+          <div class="max-w-2xl">
+            <div class="inline-flex items-center space-x-2 bg-surface-container-high border border-tertiary/25 px-3.5 py-1.5 rounded-full mb-3 shadow-inner">
+              <span class="material-symbols-outlined text-tertiary text-[18px] animate-pulse">memory</span>
+              <span class="font-label-caps text-xs text-tertiary uppercase tracking-widest font-bold">Precision Atelier Pipeline</span>
+            </div>
+            <h2 class="font-display-lg text-3xl md:text-5xl text-primary leading-tight font-bold">
+              Our 5-Stage Precision Engineering Protocol
+            </h2>
+            <p class="font-body-md text-on-surface-variant text-sm md:text-base mt-2">
+              From multi-point laser diagnostics to dyno calibration, experience how Sohail Mulani and our master technicians engineer perfection for your car.
+            </p>
           </div>
-          <h2 class="font-display-lg text-3xl md:text-5xl text-primary mb-4 leading-tight">
-            How We Service Your Car in 5 Easy Steps
-          </h2>
-          <p class="font-body-md text-on-surface-variant text-base md:text-lg">
-            We make car repair simple, transparent, and completely worry-free from the moment you bring your car in until delivery.
-          </p>
+
+          <!-- Interactive Simulation Trigger -->
+          <div class="flex items-center gap-3 shrink-0">
+            <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container border border-outline-variant/20 text-xs text-on-surface-variant">
+              <span class="relative flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              </span>
+              <span class="font-mono font-medium">LIVE TELEMETRY READY</span>
+            </div>
+            <button id="btn-run-simulation" class="inline-flex items-center space-x-2 bg-gradient-to-r from-tertiary via-amber-400 to-tertiary text-surface-container-lowest font-bold text-xs md:text-sm px-5 py-2.5 rounded-full shadow-lg shadow-tertiary/25 hover:shadow-tertiary/40 hover:scale-105 transition-all duration-300 active:scale-95 group">
+              <span class="material-symbols-outlined text-[18px] group-hover:rotate-45 transition-transform">play_circle</span>
+              <span>Simulate Atelier Workflow</span>
+            </button>
+          </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-5 gap-4 relative">
-          <!-- Step 1 -->
-          <div class="bg-surface-container rounded-2xl p-6 shimmer-border flex flex-col justify-between relative group hover:border-tertiary/40 transition-colors">
-            <div>
-              <span class="font-mono text-3xl font-bold text-tertiary/40 mb-3 block group-hover:text-tertiary transition-colors">01</span>
-              <h3 class="font-headline-md text-lg text-primary mb-2 font-semibold">1. Inspection</h3>
-              <p class="font-body-md text-on-surface-variant text-xs leading-relaxed">
-                We thoroughly check your car from bumper to bumper, including underbody, suspension, and brakes.
-              </p>
+        <!-- Dynamic 2-Column Telemetry Atelier Workspace -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+          
+          <!-- LEFT / CENTER: Holographic Diagnostic Atelier HUD Core (5 Cols) -->
+          <div class="lg:col-span-5 flex flex-col">
+            <div class="telemetry-hud-core relative flex-1 bg-surface-container-low rounded-3xl p-6 md:p-8 border border-tertiary/30 shadow-2xl flex flex-col justify-between overflow-hidden">
+              
+              <!-- Subtle Background Grid Pattern -->
+              <div class="absolute inset-0 bg-[radial-gradient(#fbbf24_1px,transparent_1px)] [background-size:16px_16px] opacity-10 pointer-events-none"></div>
+              
+              <!-- HUD Top Header -->
+              <div class="relative z-10 flex items-center justify-between border-b border-outline-variant/15 pb-4 mb-6">
+                <div class="flex items-center space-x-2">
+                  <span class="material-symbols-outlined text-tertiary text-[20px]">tune</span>
+                  <span class="font-mono text-xs font-bold text-primary tracking-wider uppercase" id="hud-stage-indicator">STAGE 01 // INTAKE & SCAN</span>
+                </div>
+                <div class="flex items-center space-x-1.5">
+                  <span class="h-1.5 w-1.5 rounded-full bg-tertiary animate-ping"></span>
+                  <span class="font-mono text-[10px] text-tertiary font-bold tracking-widest uppercase">REAL-TIME HUD</span>
+                </div>
+              </div>
+
+              <!-- Central Holographic Dial & Stage Visualizer Screen -->
+              <div class="relative z-10 my-auto flex flex-col items-center justify-center py-6">
+                
+                <!-- Rotating Dual-Ring HUD Gauge Container -->
+                <div class="relative w-52 h-52 md:w-60 md:h-60 flex items-center justify-center mb-6">
+                  
+                  <!-- Outer Segmented Ring (Clockwise) -->
+                  <svg class="absolute inset-0 w-full h-full hud-rotate-cw opacity-40 text-tertiary" viewBox="0 0 240 240">
+                    <circle cx="120" cy="120" r="110" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="8 6 16 6 32 8" />
+                    <circle cx="120" cy="120" r="98" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4" />
+                  </svg>
+
+                  <!-- Inner Counter-Rotating Ring -->
+                  <svg class="absolute inset-0 w-full h-full hud-rotate-ccw opacity-30 text-primary" viewBox="0 0 240 240">
+                    <circle cx="120" cy="120" r="86" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="12 12 24 8" />
+                  </svg>
+
+                  <!-- Radar Scanner Beam Sweep -->
+                  <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div class="w-48 h-48 rounded-full border border-tertiary/20 relative overflow-hidden">
+                      <div class="radar-scanner-beam absolute inset-0 bg-gradient-to-tr from-transparent via-tertiary/15 to-tertiary/30 origin-center rounded-full pointer-events-none"></div>
+                    </div>
+                  </div>
+
+                  <!-- Central Screen / Stage Icon & Metrics Core -->
+                  <div class="relative z-20 w-32 h-32 rounded-full bg-surface-container-lowest border-2 border-tertiary/50 shadow-inner flex flex-col items-center justify-center p-3 text-center">
+                    <div id="hud-center-icon" class="w-10 h-10 rounded-full bg-tertiary/15 text-tertiary flex items-center justify-center mb-1 shadow-md">
+                      <span class="material-symbols-outlined text-[24px]">sensors</span>
+                    </div>
+                    <span id="hud-center-metric" class="font-mono text-base font-bold text-primary tracking-tight">360° LASER</span>
+                    <span id="hud-center-sub" class="text-[9px] font-mono text-tertiary uppercase tracking-widest font-semibold">TOL: ±0.01mm</span>
+                  </div>
+                </div>
+
+                <!-- Live Dynamic Stage Telemetry Screen -->
+                <div class="w-full bg-surface-container-lowest/80 backdrop-blur-md rounded-2xl p-4 border border-outline-variant/20 shadow-inner">
+                  <div class="flex items-center justify-between mb-2">
+                    <span id="hud-telemetry-title" class="font-headline-md text-xs font-bold text-primary">Laser Chassis & Underbody Audit</span>
+                    <span id="hud-telemetry-pill" class="text-[9px] font-mono px-2 py-0.5 rounded-full bg-tertiary/15 text-tertiary font-bold border border-tertiary/30">SCANNING 100%</span>
+                  </div>
+                  
+                  <p id="hud-telemetry-desc" class="text-xs text-on-surface-variant leading-relaxed">
+                    Comprehensive bumper-to-bumper check. Calibrated electronic laser measurements for brake disc thickness, suspension geometry, and structural alignment.
+                  </p>
+
+                  <!-- Dynamic Equalizer / Waveform Bar Simulation -->
+                  <div class="mt-3 pt-3 border-t border-outline-variant/10 flex items-center justify-between">
+                    <div class="flex items-end space-x-1 h-5 w-24">
+                      <span class="w-1 bg-tertiary rounded-full waveform-bar-anim" style="animation-delay: 0.1s"></span>
+                      <span class="w-1 bg-tertiary rounded-full waveform-bar-anim" style="animation-delay: 0.4s"></span>
+                      <span class="w-1 bg-tertiary rounded-full waveform-bar-anim" style="animation-delay: 0.2s"></span>
+                      <span class="w-1 bg-tertiary rounded-full waveform-bar-anim" style="animation-delay: 0.6s"></span>
+                      <span class="w-1 bg-tertiary rounded-full waveform-bar-anim" style="animation-delay: 0.3s"></span>
+                      <span class="w-1 bg-tertiary rounded-full waveform-bar-anim" style="animation-delay: 0.5s"></span>
+                      <span class="w-1 bg-tertiary rounded-full waveform-bar-anim" style="animation-delay: 0.25s"></span>
+                      <span class="w-1 bg-tertiary rounded-full waveform-bar-anim" style="animation-delay: 0.7s"></span>
+                    </div>
+                    <span id="hud-bus-status" class="font-mono text-[10px] text-tertiary/80 font-bold">OBD_BUS: LINKED // STAGE 1 ACTIVE</span>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- HUD Bottom Ticker Readouts -->
+              <div class="relative z-10 grid grid-cols-3 gap-2 pt-4 border-t border-outline-variant/15 text-center font-mono">
+                <div class="bg-surface-container/60 rounded-xl py-2 px-1 border border-outline-variant/10">
+                  <span class="text-[9px] text-on-surface-variant block uppercase">Scan Accuracy</span>
+                  <span class="text-xs font-bold text-tertiary">99.8%</span>
+                </div>
+                <div class="bg-surface-container/60 rounded-xl py-2 px-1 border border-outline-variant/10">
+                  <span class="text-[9px] text-on-surface-variant block uppercase">Parts Spec</span>
+                  <span class="text-xs font-bold text-primary">OEM Genuine</span>
+                </div>
+                <div class="bg-surface-container/60 rounded-xl py-2 px-1 border border-outline-variant/10">
+                  <span class="text-[9px] text-on-surface-variant block uppercase">WhatsApp Trail</span>
+                  <span class="text-xs font-bold text-emerald-400">Live Active</span>
+                </div>
+              </div>
+
             </div>
           </div>
 
-          <!-- Step 2 -->
-          <div class="bg-surface-container rounded-2xl p-6 shimmer-border flex flex-col justify-between relative group hover:border-tertiary/40 transition-colors">
-            <div>
-              <span class="font-mono text-3xl font-bold text-tertiary/40 mb-3 block group-hover:text-tertiary transition-colors">02</span>
-              <h3 class="font-headline-md text-lg text-primary mb-2 font-semibold">2. Diagnosis</h3>
-              <p class="font-body-md text-on-surface-variant text-xs leading-relaxed">
-                We use computer scanning to find the exact root cause of any issue without unnecessary guessing.
-              </p>
+          <!-- RIGHT: Aerodynamic Orbital Telemetry Pods (Stages 01 → 05) (7 Cols) -->
+          <div class="lg:col-span-7 flex flex-col justify-between space-y-3.5">
+
+            <!-- Stage 1 Capsule Pod -->
+            <div class="telemetry-pod active-pod cursor-pointer p-4 md:p-5 rounded-[1.75rem] border border-outline-variant/20 flex flex-col sm:flex-row sm:items-center justify-between gap-4 group" data-stage="1">
+              <div class="flex items-start sm:items-center space-x-4">
+                <div class="pod-num-ring shrink-0 w-12 h-12 rounded-2xl bg-surface-container border border-outline-variant/30 flex items-center justify-center font-mono text-base font-bold text-on-surface-variant transition-all duration-300">
+                  01
+                </div>
+                <div>
+                  <div class="flex items-center space-x-2 mb-1">
+                    <h3 class="font-headline-md text-base md:text-lg font-bold text-primary group-hover:text-tertiary transition-colors">
+                      1. Inspection & 360° Laser Audit
+                    </h3>
+                    <span class="pod-badge hidden sm:inline-block text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-surface-container border border-outline-variant/20 text-on-surface-variant transition-colors">
+                      CHASSIS & BRAKES
+                    </span>
+                  </div>
+                  <p class="font-body-md text-xs text-on-surface-variant leading-relaxed line-clamp-2">
+                    Bumper-to-bumper check, laser wheel alignment check, electronic brake rotor depth testing, and underbody frame scan.
+                  </p>
+                </div>
+              </div>
+              <div class="shrink-0 self-end sm:self-center flex items-center text-tertiary">
+                <span class="material-symbols-outlined text-[24px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+              </div>
             </div>
+
+            <!-- Stage 2 Capsule Pod -->
+            <div class="telemetry-pod cursor-pointer p-4 md:p-5 rounded-[1.75rem] border border-outline-variant/20 flex flex-col sm:flex-row sm:items-center justify-between gap-4 group" data-stage="2">
+              <div class="flex items-start sm:items-center space-x-4">
+                <div class="pod-num-ring shrink-0 w-12 h-12 rounded-2xl bg-surface-container border border-outline-variant/30 flex items-center justify-center font-mono text-base font-bold text-on-surface-variant transition-all duration-300">
+                  02
+                </div>
+                <div>
+                  <div class="flex items-center space-x-2 mb-1">
+                    <h3 class="font-headline-md text-base md:text-lg font-bold text-primary group-hover:text-tertiary transition-colors">
+                      2. ECU & Optical Computer Diagnosis
+                    </h3>
+                    <span class="pod-badge hidden sm:inline-block text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-surface-container border border-outline-variant/20 text-on-surface-variant transition-colors">
+                      OBD-II BUS SCAN
+                    </span>
+                  </div>
+                  <p class="font-body-md text-xs text-on-surface-variant leading-relaxed line-clamp-2">
+                    Dealer-level computer scanning across all ECU modules to pinpoint the exact root causes of error codes without blind guessing.
+                  </p>
+                </div>
+              </div>
+              <div class="shrink-0 self-end sm:self-center flex items-center text-tertiary">
+                <span class="material-symbols-outlined text-[24px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+              </div>
+            </div>
+
+            <!-- Stage 3 Capsule Pod -->
+            <div class="telemetry-pod cursor-pointer p-4 md:p-5 rounded-[1.75rem] border border-outline-variant/20 flex flex-col sm:flex-row sm:items-center justify-between gap-4 group" data-stage="3">
+              <div class="flex items-start sm:items-center space-x-4">
+                <div class="pod-num-ring shrink-0 w-12 h-12 rounded-2xl bg-surface-container border border-outline-variant/30 flex items-center justify-center font-mono text-base font-bold text-on-surface-variant transition-all duration-300">
+                  03
+                </div>
+                <div>
+                  <div class="flex items-center space-x-2 mb-1">
+                    <h3 class="font-headline-md text-base md:text-lg font-bold text-primary group-hover:text-tertiary transition-colors">
+                      3. Itemized Digital Estimate & Approval
+                    </h3>
+                    <span class="pod-badge hidden sm:inline-block text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-surface-container border border-outline-variant/20 text-on-surface-variant transition-colors">
+                      100% TRANSPARENT
+                    </span>
+                  </div>
+                  <p class="font-body-md text-xs text-on-surface-variant leading-relaxed line-clamp-2">
+                    Clear WhatsApp quote sharing genuine part serial numbers, labor costs, and timelines. We only start work after your full approval.
+                  </p>
+                </div>
+              </div>
+              <div class="shrink-0 self-end sm:self-center flex items-center text-tertiary">
+                <span class="material-symbols-outlined text-[24px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+              </div>
+            </div>
+
+            <!-- Stage 4 Capsule Pod -->
+            <div class="telemetry-pod cursor-pointer p-4 md:p-5 rounded-[1.75rem] border border-outline-variant/20 flex flex-col sm:flex-row sm:items-center justify-between gap-4 group" data-stage="4">
+              <div class="flex items-start sm:items-center space-x-4">
+                <div class="pod-num-ring shrink-0 w-12 h-12 rounded-2xl bg-surface-container border border-outline-variant/30 flex items-center justify-center font-mono text-base font-bold text-on-surface-variant transition-all duration-300">
+                  04
+                </div>
+                <div>
+                  <div class="flex items-center space-x-2 mb-1">
+                    <h3 class="font-headline-md text-base md:text-lg font-bold text-primary group-hover:text-tertiary transition-colors">
+                      4. Master Atelier Repair & Torque Lock
+                    </h3>
+                    <span class="pod-badge hidden sm:inline-block text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-surface-container border border-outline-variant/20 text-on-surface-variant transition-colors">
+                      OEM FACTORY TORQUE
+                    </span>
+                  </div>
+                  <p class="font-body-md text-xs text-on-surface-variant leading-relaxed line-clamp-2">
+                    Sohail Mulani and certified mechanics assemble genuine parts with digital torque wrenches and send live photo progress on WhatsApp.
+                  </p>
+                </div>
+              </div>
+              <div class="shrink-0 self-end sm:self-center flex items-center text-tertiary">
+                <span class="material-symbols-outlined text-[24px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+              </div>
+            </div>
+
+            <!-- Stage 5 Capsule Pod -->
+            <div class="telemetry-pod cursor-pointer p-4 md:p-5 rounded-[1.75rem] border border-outline-variant/20 flex flex-col sm:flex-row sm:items-center justify-between gap-4 group" data-stage="5">
+              <div class="flex items-start sm:items-center space-x-4">
+                <div class="pod-num-ring shrink-0 w-12 h-12 rounded-2xl bg-surface-container border border-outline-variant/30 flex items-center justify-center font-mono text-base font-bold text-on-surface-variant transition-all duration-300">
+                  05
+                </div>
+                <div>
+                  <div class="flex items-center space-x-2 mb-1">
+                    <h3 class="font-headline-md text-base md:text-lg font-bold text-primary group-hover:text-tertiary transition-colors">
+                      5. Road Test, Foam Wash & Delivery
+                    </h3>
+                    <span class="pod-badge hidden sm:inline-block text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-surface-container border border-outline-variant/20 text-on-surface-variant transition-colors">
+                      WARRANTY CERTIFIED
+                    </span>
+                  </div>
+                  <p class="font-body-md text-xs text-on-surface-variant leading-relaxed line-clamp-2">
+                    High-speed dyno and road testing, complimentary premium exterior foam wash, and handover with full 12-Month service warranty documentation.
+                  </p>
+                </div>
+              </div>
+              <div class="shrink-0 self-end sm:self-center flex items-center text-tertiary">
+                <span class="material-symbols-outlined text-[24px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+              </div>
+            </div>
+
           </div>
 
-          <!-- Step 3 -->
-          <div class="bg-surface-container rounded-2xl p-6 shimmer-border flex flex-col justify-between relative group hover:border-tertiary/40 transition-colors">
+        </div>
+
+        <!-- Workshop Precision Guarantees Ribbon -->
+        <div class="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="bg-surface-container/40 backdrop-blur-md rounded-2xl p-4 border border-outline-variant/15 flex items-center space-x-3">
+            <span class="material-symbols-outlined text-tertiary text-2xl shrink-0">verified</span>
             <div>
-              <span class="font-mono text-3xl font-bold text-tertiary/40 mb-3 block group-hover:text-tertiary transition-colors">03</span>
-              <h3 class="font-headline-md text-lg text-primary mb-2 font-semibold">3. Clear Estimate</h3>
-              <p class="font-body-md text-on-surface-variant text-xs leading-relaxed">
-                We share an itemized price estimate. We only start work after you give us your full approval.
-              </p>
+              <span class="font-headline-md text-xs font-bold text-primary block">100% Genuine OEM</span>
+              <span class="text-[11px] text-on-surface-variant">Authentic parts with warranty</span>
             </div>
           </div>
-
-          <!-- Step 4 -->
-          <div class="bg-surface-container rounded-2xl p-6 shimmer-border flex flex-col justify-between relative group hover:border-tertiary/40 transition-colors">
+          <div class="bg-surface-container/40 backdrop-blur-md rounded-2xl p-4 border border-outline-variant/15 flex items-center space-x-3">
+            <span class="material-symbols-outlined text-tertiary text-2xl shrink-0">chat</span>
             <div>
-              <span class="font-mono text-3xl font-bold text-tertiary/40 mb-3 block group-hover:text-tertiary transition-colors">04</span>
-              <h3 class="font-headline-md text-lg text-primary mb-2 font-semibold">4. Expert Repair</h3>
-              <p class="font-body-md text-on-surface-variant text-xs leading-relaxed">
-                Our master mechanics fix your car using original spare parts and send you photo updates on WhatsApp.
-              </p>
+              <span class="font-headline-md text-xs font-bold text-primary block">WhatsApp Live Trail</span>
+              <span class="text-[11px] text-on-surface-variant">Real-time photos & video clips</span>
             </div>
           </div>
-
-          <!-- Step 5 -->
-          <div class="bg-surface-container rounded-2xl p-6 shimmer-border flex flex-col justify-between relative group hover:border-tertiary/40 transition-colors">
+          <div class="bg-surface-container/40 backdrop-blur-md rounded-2xl p-4 border border-outline-variant/15 flex items-center space-x-3">
+            <span class="material-symbols-outlined text-tertiary text-2xl shrink-0">precision_manufacturing</span>
             <div>
-              <span class="font-mono text-3xl font-bold text-tertiary/40 mb-3 block group-hover:text-tertiary transition-colors">05</span>
-              <h3 class="font-headline-md text-lg text-primary mb-2 font-semibold">5. Delivery</h3>
-              <p class="font-body-md text-on-surface-variant text-xs leading-relaxed">
-                We test drive your car, wash it clean, and hand it back running perfectly with a full service bill.
-              </p>
+              <span class="font-headline-md text-xs font-bold text-primary block">±0.01mm Precision</span>
+              <span class="text-[11px] text-on-surface-variant">Digital torque & calibration</span>
+            </div>
+          </div>
+          <div class="bg-surface-container/40 backdrop-blur-md rounded-2xl p-4 border border-outline-variant/15 flex items-center space-x-3">
+            <span class="material-symbols-outlined text-tertiary text-2xl shrink-0">shield</span>
+            <div>
+              <span class="font-headline-md text-xs font-bold text-primary block">12-Month Warranty</span>
+              <span class="text-[11px] text-on-surface-variant">10,000 KM service warranty</span>
             </div>
           </div>
         </div>
+
       </div>
     </section>
 
