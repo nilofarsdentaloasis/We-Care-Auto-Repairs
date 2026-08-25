@@ -374,7 +374,7 @@ function initFeaturedProjectCarousel() {
 
   let currentIdx = 0;
   const totalSlides = slides.length;
-  const slideDuration = 5000; // 5 seconds
+  const slideDuration = 2000; // 2 seconds
   let animStart = performance.now();
   let rafId = null;
   let isPaused = false;
