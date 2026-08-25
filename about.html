@@ -254,21 +254,21 @@
           From showroom beginnings to Pune's trusted multi-brand car workshop — built on honest advice, genuine spare parts, and skilled workmanship led by <span class="text-primary font-semibold">Sohail Mulani</span>.
         </p>
 
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mt-8">
+        <div id="about-stats-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mt-8">
           <div class="bg-surface-container rounded-xl p-5 text-center shimmer-border">
-            <span class="font-stats-number text-3xl md:text-4xl text-tertiary font-bold block mb-1">10+</span>
+            <span class="font-stats-number text-3xl md:text-4xl text-tertiary font-bold block mb-1 counter-stat" data-target="10" data-suffix="+" data-decimals="0" data-duration="1800">10+</span>
             <span class="font-label-caps text-xs text-on-surface-variant uppercase tracking-wider font-semibold">Years in Pune</span>
           </div>
           <div class="bg-surface-container rounded-xl p-5 text-center shimmer-border">
-            <span class="font-stats-number text-3xl md:text-4xl text-tertiary font-bold block mb-1">1,400+</span>
+            <span class="font-stats-number text-3xl md:text-4xl text-tertiary font-bold block mb-1 counter-stat" data-target="1400" data-suffix="+" data-decimals="0" data-format-comma="true" data-duration="2200">1,400+</span>
             <span class="font-label-caps text-xs text-on-surface-variant uppercase tracking-wider font-semibold">Cars Serviced</span>
           </div>
           <div class="bg-surface-container rounded-xl p-5 text-center shimmer-border">
-            <span class="font-stats-number text-3xl md:text-4xl text-tertiary font-bold block mb-1">50+</span>
+            <span class="font-stats-number text-3xl md:text-4xl text-tertiary font-bold block mb-1 counter-stat" data-target="20" data-suffix="+" data-decimals="0" data-duration="1800">20+</span>
             <span class="font-label-caps text-xs text-on-surface-variant uppercase tracking-wider font-semibold">Car Brands</span>
           </div>
           <div class="bg-surface-container rounded-xl p-5 text-center shimmer-border">
-            <span class="font-stats-number text-3xl md:text-4xl text-tertiary font-bold block mb-1">99.4%</span>
+            <span class="font-stats-number text-3xl md:text-4xl text-tertiary font-bold block mb-1 counter-stat" data-target="99.4" data-suffix="%" data-decimals="1" data-duration="2000">99.4%</span>
             <span class="font-label-caps text-xs text-on-surface-variant uppercase tracking-wider font-semibold">Happy Clients</span>
           </div>
         </div>
@@ -1326,6 +1326,96 @@
         nav.classList.remove('scrolled');
       }
     }, { passive: true });
+
+    // =========================================================================
+    // STATS RUNNING COUNTER ANIMATION
+    // =========================================================================
+    function initStatsCounters() {
+      const statElements = document.querySelectorAll('.counter-stat');
+      if (!statElements.length) return;
+
+      statElements.forEach(el => {
+        const suffix = el.getAttribute('data-suffix') || '';
+        const prefix = el.getAttribute('data-prefix') || '';
+        const decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
+        const zeroVal = decimals > 0 ? (0).toFixed(decimals) : '0';
+        el.textContent = `${prefix}${zeroVal}${suffix}`;
+      });
+
+      let animated = false;
+
+      function animateCounter(el) {
+        const target = parseFloat(el.getAttribute('data-target'));
+        const duration = parseInt(el.getAttribute('data-duration') || '2000', 10);
+        const suffix = el.getAttribute('data-suffix') || '';
+        const prefix = el.getAttribute('data-prefix') || '';
+        const decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
+        const formatComma = el.getAttribute('data-format-comma') === 'true';
+
+        let startTime = null;
+
+        function easeOutCubic(t) {
+          return 1 - Math.pow(1 - t, 3);
+        }
+
+        function step(timestamp) {
+          if (!startTime) startTime = timestamp;
+          const elapsed = timestamp - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const easedProgress = easeOutCubic(progress);
+          const currentVal = easedProgress * target;
+
+          if (progress >= 1) {
+            const finalVal = decimals > 0 
+              ? target.toFixed(decimals) 
+              : (formatComma ? Math.round(target).toLocaleString('en-US') : Math.round(target).toString());
+            el.textContent = `${prefix}${finalVal}${suffix}`;
+          } else {
+            let displayVal;
+            if (decimals > 0) {
+              displayVal = currentVal.toFixed(decimals);
+            } else {
+              const rounded = Math.floor(currentVal);
+              displayVal = formatComma ? rounded.toLocaleString('en-US') : rounded.toString();
+            }
+            el.textContent = `${prefix}${displayVal}${suffix}`;
+            requestAnimationFrame(step);
+          }
+        }
+
+        requestAnimationFrame(step);
+      }
+
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !animated) {
+            animated = true;
+            statElements.forEach((el, index) => {
+              setTimeout(() => {
+                animateCounter(el);
+              }, index * 80);
+            });
+            obs.disconnect();
+          }
+        });
+      }, {
+        threshold: 0.15,
+        rootMargin: '0px 0px -40px 0px'
+      });
+
+      const statsGrid = document.getElementById('about-stats-grid');
+      if (statsGrid) {
+        observer.observe(statsGrid);
+      } else {
+        statElements.forEach(el => observer.observe(el));
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initStatsCounters);
+    } else {
+      initStatsCounters();
+    }
   </script>
 </body>
 </html>

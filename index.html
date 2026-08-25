@@ -658,25 +658,25 @@
           </div>
         </div>
 
-        <!-- 4-Stat Cards Grid -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+        <!-- 4-Stat Cards Grid with Animated Counters -->
+        <div id="stats-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           <div class="bg-surface-container-low rounded-xl p-6 shimmer-border glow-hover transition-all duration-300">
-            <span class="font-stats-number text-3xl md:text-5xl text-tertiary font-bold block mb-1">10+</span>
+            <span class="font-stats-number text-3xl md:text-5xl text-tertiary font-bold block mb-1 counter-stat" data-target="10" data-suffix="+" data-decimals="0" data-duration="1800">10+</span>
             <span class="font-label-caps text-xs text-primary uppercase tracking-wider block font-semibold">Years Experience</span>
             <span class="text-xs text-on-surface-variant mt-1 block">Serving Pune car owners since 2014</span>
           </div>
           <div class="bg-surface-container-low rounded-xl p-6 shimmer-border glow-hover transition-all duration-300">
-            <span class="font-stats-number text-3xl md:text-5xl text-tertiary font-bold block mb-1">50+</span>
+            <span class="font-stats-number text-3xl md:text-5xl text-tertiary font-bold block mb-1 counter-stat" data-target="20" data-suffix="+" data-decimals="0" data-duration="1800">20+</span>
             <span class="font-label-caps text-xs text-primary uppercase tracking-wider block font-semibold">Car Brands</span>
             <span class="text-xs text-on-surface-variant mt-1 block">Indian, Japanese & luxury European cars</span>
           </div>
           <div class="bg-surface-container-low rounded-xl p-6 shimmer-border glow-hover transition-all duration-300">
-            <span class="font-stats-number text-3xl md:text-5xl text-tertiary font-bold block mb-1">1,400+</span>
+            <span class="font-stats-number text-3xl md:text-5xl text-tertiary font-bold block mb-1 counter-stat" data-target="1400" data-suffix="+" data-decimals="0" data-format-comma="true" data-duration="2200">1,400+</span>
             <span class="font-label-caps text-xs text-primary uppercase tracking-wider block font-semibold">Cars Serviced</span>
             <span class="text-xs text-on-surface-variant mt-1 block">Happy customers across Pune & PCMC</span>
           </div>
           <div class="bg-surface-container-low rounded-xl p-6 shimmer-border glow-hover transition-all duration-300">
-            <span class="font-stats-number text-3xl md:text-5xl text-tertiary font-bold block mb-1">99.4%</span>
+            <span class="font-stats-number text-3xl md:text-5xl text-tertiary font-bold block mb-1 counter-stat" data-target="99.4" data-suffix="%" data-decimals="1" data-duration="2000">99.4%</span>
             <span class="font-label-caps text-xs text-primary uppercase tracking-wider block font-semibold">Happy Clients</span>
             <span class="text-xs text-on-surface-variant mt-1 block">Verified 5-star ratings & referrals</span>
           </div>
@@ -1969,6 +1969,99 @@
         nav.classList.remove('scrolled');
       }
     }, { passive: true });
+
+    // =========================================================================
+    // STATS RUNNING COUNTER ANIMATION (Who We Are Section)
+    // =========================================================================
+    function initStatsCounters() {
+      const statElements = document.querySelectorAll('.counter-stat');
+      if (!statElements.length) return;
+
+      // Set initial display to 0 with suffixes
+      statElements.forEach(el => {
+        const suffix = el.getAttribute('data-suffix') || '';
+        const prefix = el.getAttribute('data-prefix') || '';
+        const decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
+        const zeroVal = decimals > 0 ? (0).toFixed(decimals) : '0';
+        el.textContent = `${prefix}${zeroVal}${suffix}`;
+      });
+
+      let animated = false;
+
+      function animateCounter(el) {
+        const target = parseFloat(el.getAttribute('data-target'));
+        const duration = parseInt(el.getAttribute('data-duration') || '2000', 10);
+        const suffix = el.getAttribute('data-suffix') || '';
+        const prefix = el.getAttribute('data-prefix') || '';
+        const decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
+        const formatComma = el.getAttribute('data-format-comma') === 'true';
+
+        let startTime = null;
+
+        function easeOutCubic(t) {
+          return 1 - Math.pow(1 - t, 3);
+        }
+
+        function step(timestamp) {
+          if (!startTime) startTime = timestamp;
+          const elapsed = timestamp - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const easedProgress = easeOutCubic(progress);
+          const currentVal = easedProgress * target;
+
+          if (progress >= 1) {
+            const finalVal = decimals > 0 
+              ? target.toFixed(decimals) 
+              : (formatComma ? Math.round(target).toLocaleString('en-US') : Math.round(target).toString());
+            el.textContent = `${prefix}${finalVal}${suffix}`;
+          } else {
+            let displayVal;
+            if (decimals > 0) {
+              displayVal = currentVal.toFixed(decimals);
+            } else {
+              const rounded = Math.floor(currentVal);
+              displayVal = formatComma ? rounded.toLocaleString('en-US') : rounded.toString();
+            }
+            el.textContent = `${prefix}${displayVal}${suffix}`;
+            requestAnimationFrame(step);
+          }
+        }
+
+        requestAnimationFrame(step);
+      }
+
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !animated) {
+            animated = true;
+            statElements.forEach((el, index) => {
+              // Slight staggered start for a sleek dynamic feel
+              setTimeout(() => {
+                animateCounter(el);
+              }, index * 80);
+            });
+            obs.disconnect();
+          }
+        });
+      }, {
+        threshold: 0.15,
+        rootMargin: '0px 0px -40px 0px'
+      });
+
+      const statsGrid = document.getElementById('stats-grid') || document.getElementById('who-we-are');
+      if (statsGrid) {
+        observer.observe(statsGrid);
+      } else {
+        statElements.forEach(el => observer.observe(el));
+      }
+    }
+
+    // Initialize counters when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initStatsCounters);
+    } else {
+      initStatsCounters();
+    }
   </script>
 </body>
 </html>
