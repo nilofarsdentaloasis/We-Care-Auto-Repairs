@@ -787,13 +787,25 @@
 
       const imgW = img.naturalWidth;
       const imgH = img.naturalHeight;
+      const isMobile = window.innerWidth < 768;
 
-      // Full cover scale removes all black color padding on top/bottom across all screens
-      const scale = Math.max(canvasW / imgW, canvasH / imgH);
-      const renderW = Math.round(imgW * scale);
-      const renderH = Math.round(imgH * scale);
-      const offsetX = Math.round((canvasW - renderW) / 2);
-      const offsetY = Math.round((canvasH - renderH) / 2);
+      let renderW, renderH, offsetX, offsetY;
+
+      if (!isMobile) {
+        // DESKTOP: 100% UNCHANGED COVER FIT
+        const scale = Math.max(canvasW / imgW, canvasH / imgH);
+        renderW = Math.round(imgW * scale);
+        renderH = Math.round(imgH * scale);
+        offsetX = Math.round((canvasW - renderW) / 2);
+        offsetY = Math.round((canvasH - renderH) / 2);
+      } else {
+        // MOBILE: FULL CAR VISIBILITY (CONTAINED SO COMPLETE CAR IS FULLY VISIBLE)
+        const scale = Math.min(canvasW / imgW, (canvasH * 0.78) / imgH);
+        renderW = Math.round(imgW * scale);
+        renderH = Math.round(imgH * scale);
+        offsetX = Math.round((canvasW - renderW) / 2);
+        offsetY = Math.round((canvasH - renderH) / 2);
+      }
 
       ctx.globalAlpha = frameAlpha;
       ctx.drawImage(img, offsetX, offsetY, renderW, renderH);

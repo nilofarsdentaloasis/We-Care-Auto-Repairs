@@ -405,16 +405,24 @@ class ScrollyCarEngine {
     let renderW, renderH, offsetX, offsetY;
     const isMobile = width < 768;
 
-    if (canvasAspect > imgAspect) {
-      renderW = width;
-      renderH = width / imgAspect;
-      offsetX = 0;
-      offsetY = (height - renderH) / 2;
+    if (!isMobile) {
+      if (canvasAspect > imgAspect) {
+        renderW = width;
+        renderH = width / imgAspect;
+        offsetX = 0;
+        offsetY = (height - renderH) / 2;
+      } else {
+        renderH = height;
+        renderW = height * imgAspect;
+        offsetX = (width - renderW) / 2;
+        offsetY = 0;
+      }
     } else {
-      renderH = height;
-      renderW = height * imgAspect;
+      const scale = Math.min(width / imgW, (height * 0.78) / imgH);
+      renderW = imgW * scale;
+      renderH = imgH * scale;
       offsetX = (width - renderW) / 2;
-      offsetY = 0;
+      offsetY = (height - renderH) / 2;
     }
 
     this.ctx.fillStyle = '#080b11';
