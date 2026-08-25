@@ -394,23 +394,34 @@
     /* Mobile Responsive Optimizations - Desktop Unchanged */
     @media (max-width: 767px) {
       .hero-scroll-track {
-        height: 420vh; /* Smooth, natural swipe transformation on mobile */
+        height: 380vh; /* Snappy, responsive scroll transformation on mobile */
+      }
+      .hero-sticky-viewport {
+        align-items: flex-start;
+        justify-content: center;
       }
       .hero-overlay-content {
-        padding: 0 16px;
+        position: absolute;
+        top: auto;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%);
         width: 92%;
-        top: 48%;
+        max-width: 440px;
+        padding: 0 12px;
+        text-align: center;
+        transition: opacity 0.25s ease, transform 0.25s ease;
       }
       .hero-title {
-        font-size: clamp(26px, 7.2vw, 38px);
+        font-size: clamp(20px, 5.8vw, 28px);
         line-height: 1.15;
-        margin-bottom: 12px;
+        margin-bottom: 8px;
       }
       .hero-desc {
-        font-size: 14px;
-        line-height: 22px;
-        margin-bottom: 20px;
-        max-width: 92%;
+        font-size: 13px;
+        line-height: 19px;
+        margin-bottom: 14px;
+        max-width: 95%;
       }
       .hero-cta-group {
         flex-direction: row;
@@ -418,7 +429,7 @@
         justify-content: center;
       }
       .hero-btn-primary, .hero-btn-secondary {
-        padding: 12px 18px;
+        padding: 10px 18px;
         font-size: 11px;
         letter-spacing: 0.05em;
       }
@@ -426,7 +437,25 @@
         display: none !important;
       }
       .scroll-cue {
-        bottom: 1.5rem;
+        bottom: 0.5rem;
+      }
+
+      /* Mobile HUD Container placed directly below the car */
+      .hero-mobile-hud {
+        position: absolute;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 92%;
+        max-width: 440px;
+        z-index: 28;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.25s ease, transform 0.25s ease;
+      }
+      .hero-mobile-hud.active {
+        opacity: 1;
+        pointer-events: auto;
       }
     }
   </style>
@@ -527,6 +556,44 @@
               <span>Our Atelier</span>
               <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
             </a>
+          </div>
+        </div>
+
+        <!-- Mobile Dynamic Transformation Telemetry HUD (Positioned below car on mobile) -->
+        <div class="hero-mobile-hud md:hidden" id="hero-mobile-hud">
+          <div class="bg-surface-container-low/95 backdrop-blur-xl border border-outline-variant/30 rounded-2xl p-4 shadow-2xl">
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-label-caps text-[10px] text-tertiary tracking-widest uppercase flex items-center gap-1.5 font-bold" id="m-phase-tag">
+                <span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"></span>
+                01 / BASELINE SCAN
+              </span>
+              <span class="font-mono text-[10px] text-on-surface-variant bg-surface-container px-2 py-0.5 rounded-md" id="m-frame-counter">FRAME 001/144</span>
+            </div>
+            <h3 class="font-headline-md text-[16px] text-primary font-semibold leading-tight mb-1" id="m-phase-title">
+              180-Point Telemetry Diagnostics
+            </h3>
+            <p class="text-xs text-on-surface-variant line-clamp-2 leading-relaxed mb-3" id="m-phase-desc">
+              Real-time CAN-bus scan & optical sensor geometry calibration in Bay 4.
+            </p>
+            <!-- Live Metrics Row -->
+            <div class="grid grid-cols-3 gap-2 pt-2 border-t border-outline-variant/15 text-center">
+              <div class="bg-surface-container/80 rounded-lg py-1.5 px-1 border border-outline-variant/10">
+                <div class="text-[9px] font-label-caps text-on-surface-variant">ECU SCAN</div>
+                <div class="text-xs font-mono font-semibold text-tertiary" id="m-stat-1">98.4%</div>
+              </div>
+              <div class="bg-surface-container/80 rounded-lg py-1.5 px-1 border border-outline-variant/10">
+                <div class="text-[9px] font-label-caps text-on-surface-variant">OUTPUT</div>
+                <div class="text-xs font-mono font-semibold text-primary" id="m-stat-2">605 HP</div>
+              </div>
+              <div class="bg-surface-container/80 rounded-lg py-1.5 px-1 border border-outline-variant/10">
+                <div class="text-[9px] font-label-caps text-on-surface-variant">MODE</div>
+                <div class="text-xs font-mono font-semibold text-emerald-400" id="m-stat-3">STAGE 1</div>
+              </div>
+            </div>
+            <!-- Live Gold Progress Bar -->
+            <div class="w-full bg-surface-container h-1.5 rounded-full mt-3 overflow-hidden">
+              <div class="bg-tertiary h-full transition-all duration-75 shadow-[0_0_8px_rgba(233,195,73,0.8)]" id="m-hud-progress" style="width: 0%;"></div>
+            </div>
           </div>
         </div>
 
@@ -731,6 +798,55 @@
       ctx.imageSmoothingQuality = 'high';
     }
 
+    const mHud = document.getElementById('hero-mobile-hud');
+    const mPhaseTag = document.getElementById('m-phase-tag');
+    const mFrameCounter = document.getElementById('m-frame-counter');
+    const mPhaseTitle = document.getElementById('m-phase-title');
+    const mPhaseDesc = document.getElementById('m-phase-desc');
+    const mStat1 = document.getElementById('m-stat-1');
+    const mStat2 = document.getElementById('m-stat-2');
+    const mStat3 = document.getElementById('m-stat-3');
+    const mHudProgress = document.getElementById('m-hud-progress');
+
+    const mobilePhases = [
+      {
+        range: [0.00, 0.25],
+        tag: '01 / BASELINE SCAN',
+        title: '180-Point Diagnostic Scan',
+        desc: 'CAN-bus real-time logging & optical laser geometry calibration.',
+        stat1: '98.4%',
+        stat2: '605 HP',
+        stat3: 'STAGE 1'
+      },
+      {
+        range: [0.25, 0.55],
+        tag: '02 / AERO & TUNING',
+        title: 'CFD Carbon Splitter & Vented Hood',
+        desc: 'High-downforce carbon aero package & Stage 2 ECU dyno calibration.',
+        stat1: 'STAGE 2',
+        stat2: '+75 HP',
+        stat3: 'AERO +45%'
+      },
+      {
+        range: [0.55, 0.85],
+        tag: '03 / BESPOKE SATIN WRAP',
+        title: 'Dual-Tone Gunmetal & Livery',
+        desc: 'Hand-fitted satin wrap with 9H ceramic shield & Michelin Pilot rubber.',
+        stat1: '9H CERAMIC',
+        stat2: 'PILOT SPORT',
+        stat3: 'FORGED 18"'
+      },
+      {
+        range: [0.85, 1.00],
+        tag: '04 / RACE SPEC #42',
+        title: '4.0L Stage 2 Race Spec Unleashed',
+        desc: 'Full track transformation complete, safety prepped & dyno certified.',
+        stat1: '720 HP',
+        stat2: '2.9s 0-60',
+        stat3: 'VERIFIED'
+      }
+    ];
+
     function renderFrame(progress) {
       const canvasW = canvas.width;
       const canvasH = canvas.height;
@@ -768,22 +884,20 @@
       let renderW, renderH, offsetX, offsetY;
 
       if (!isMobile) {
-        // DESKTOP: 100% UNCHANGED
+        // DESKTOP: 100% UNCHANGED COVER FIT
         const scale = Math.max(canvasW / imgW, canvasH / imgH);
         renderW = Math.round(imgW * scale);
         renderH = Math.round(imgH * scale);
         offsetX = Math.round((canvasW - renderW) / 2);
         offsetY = Math.round((canvasH - renderH) / 2);
       } else {
-        // MOBILE: SHOW ENTIRE CAR ON SCREEN WITHOUT CROPPING
-        const maxScaleW = (canvasW * 0.98) / imgW;
-        const maxScaleH = (canvasH * 0.70) / imgH;
-        const scale = Math.min(maxScaleW, maxScaleH);
-
+        // MOBILE: TOP-ALIGNED RIGHT BELOW HEADER - NO BLANK SPACE ABOVE
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const scale = (canvasW * 0.98) / imgW;
         renderW = Math.round(imgW * scale);
         renderH = Math.round(imgH * scale);
         offsetX = Math.round((canvasW - renderW) / 2);
-        offsetY = Math.round((canvasH - renderH) / 2);
+        offsetY = Math.round(68 * dpr);
       }
 
       ctx.globalAlpha = frameAlpha;
@@ -795,30 +909,62 @@
       if (!heroOverlay) return;
 
       const isMobile = window.innerWidth < 768;
-      const shiftProgress = Math.min(1, Math.max(0, progress / 0.12));
 
       if (isMobile) {
-        heroOverlay.style.left = '50%';
-        heroOverlay.style.textAlign = 'center';
-        if (heroDesc) {
-          heroDesc.style.marginLeft = 'auto';
-          heroDesc.style.marginRight = 'auto';
-        }
-        if (heroCtaGroup) heroCtaGroup.style.justifyContent = 'center';
+        if (progress > 0.03) {
+          // Fade out intro content
+          heroOverlay.style.opacity = '0';
+          heroOverlay.style.pointerEvents = 'none';
+          heroOverlay.style.transform = 'translate(-50%, 15px)';
 
-        // On mobile, gracefully fade out text as soon as user scrolls so entire car is unblocked
-        if (progress > 0.02) {
-          const fadeOut = Math.min(1, (progress - 0.02) / 0.08);
-          heroOverlay.style.opacity = (1 - fadeOut);
-          heroOverlay.style.transform = `translate(-50%, calc(-50% - ${fadeOut * 24}px))`;
-          heroOverlay.style.pointerEvents = fadeOut > 0.8 ? 'none' : 'auto';
+          // Activate live HUD directly below car
+          if (mHud) {
+            mHud.classList.add('active');
+            mHud.style.opacity = '1';
+            mHud.style.transform = 'translate(-50%, 0)';
+            mHud.style.pointerEvents = 'auto';
+          }
         } else {
-          heroOverlay.style.opacity = 1;
-          heroOverlay.style.transform = 'translate(-50%, -50%)';
+          // Show intro content below car
+          heroOverlay.style.opacity = '1';
           heroOverlay.style.pointerEvents = 'auto';
+          heroOverlay.style.transform = 'translate(-50%, 0)';
+
+          // Hide HUD
+          if (mHud) {
+            mHud.classList.remove('active');
+            mHud.style.opacity = '0';
+            mHud.style.transform = 'translate(-50%, 15px)';
+            mHud.style.pointerEvents = 'none';
+          }
+        }
+
+        // Dynamically update HUD data on mobile
+        if (mHud) {
+          const curFrame = Math.min(totalFrames, Math.max(1, Math.floor(progress * totalFrames) + 1));
+          const pct = Math.round(progress * 100);
+          if (mFrameCounter) mFrameCounter.textContent = `FRAME ${String(curFrame).padStart(3, '0')}/${totalFrames}`;
+          if (mHudProgress) mHudProgress.style.width = `${pct}%`;
+
+          let currentPhaseData = mobilePhases[0];
+          for (const p of mobilePhases) {
+            if (progress >= p.range[0] && progress <= p.range[1]) {
+              currentPhaseData = p;
+              break;
+            }
+          }
+          if (progress >= 0.85) currentPhaseData = mobilePhases[3];
+
+          if (mPhaseTag) mPhaseTag.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"></span>${currentPhaseData.tag}`;
+          if (mPhaseTitle) mPhaseTitle.textContent = currentPhaseData.title;
+          if (mPhaseDesc) mPhaseDesc.textContent = currentPhaseData.desc;
+          if (mStat1) mStat1.textContent = currentPhaseData.stat1;
+          if (mStat2) mStat2.textContent = currentPhaseData.stat2;
+          if (mStat3) mStat3.textContent = currentPhaseData.stat3;
         }
       } else {
         // DESKTOP: EXACT ORIGINAL BEHAVIOR
+        const shiftProgress = Math.min(1, Math.max(0, progress / 0.12));
         const leftPercent = 50 - (46 * shiftProgress);
         const translateX = -50 * (1 - shiftProgress);
         const maxW = 850 - (330 * shiftProgress);
