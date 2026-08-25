@@ -1484,7 +1484,7 @@
       </div>
     </section>
 
-    <!-- 4. FEATURED PROJECTS - 3D ROUND TURNTABLE SHOWCASE -->
+    <!-- 4. THE MODELS WE WORKED ON - LUXURY SHOWROOM TURNTABLE SHOWCASE -->
     <section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-background relative z-20 border-t border-outline-variant/10 overflow-hidden" id="featured-projects">
       <div class="max-w-container-max mx-auto relative z-10">
         
@@ -1492,14 +1492,14 @@
         <div class="flex flex-col md:flex-row justify-between items-end mb-10 gap-6">
           <div class="max-w-2xl">
             <div class="inline-flex items-center space-x-2 bg-surface-container-high border border-tertiary/20 px-3.5 py-1.5 rounded-full mb-3 shadow-inner">
-              <span class="material-symbols-outlined text-tertiary text-[18px]">view_in_ar</span>
+              <span class="material-symbols-outlined text-tertiary text-[18px]">directions_car</span>
               <span class="font-label-caps text-xs text-tertiary uppercase tracking-widest font-bold">Showroom Showcase</span>
             </div>
             <h2 class="font-display-lg text-3xl md:text-5xl text-primary mb-3 leading-tight font-bold">
-              Featured Atelier Projects
+              The Models We Worked On
             </h2>
             <p class="font-body-md text-on-surface-variant text-sm md:text-base">
-              Explore recent performance builds, engine overhauls, and bespoke track setups crafted at our Chikhali workshop.
+              A showcase of recent high-performance machines, ECU tunes, and precision overhauls perfected at We Care Auto Repair in Chikhali.
             </p>
           </div>
 
@@ -1508,14 +1508,14 @@
             <div class="flex items-center space-x-3">
               <!-- Current Slide Indicator -->
               <span id="project-slide-counter" class="font-mono text-xs font-bold text-tertiary px-3 py-1.5 rounded-full bg-surface-container border border-outline-variant/20">
-                01 / 04
+                01 / 05
               </span>
               
               <!-- Prev / Next Navigation Buttons -->
-              <button id="project-prev-btn" class="w-10 h-10 rounded-full bg-surface-container border border-outline-variant/30 text-primary hover:border-tertiary hover:text-tertiary transition-all flex items-center justify-center active:scale-95 group" aria-label="Previous Car">
+              <button id="project-prev-btn" class="w-10 h-10 rounded-full bg-surface-container border border-outline-variant/30 text-primary hover:border-tertiary hover:text-tertiary transition-all flex items-center justify-center active:scale-95 group cursor-pointer" aria-label="Previous Car">
                 <span class="material-symbols-outlined text-[20px] group-hover:-translate-x-0.5 transition-transform">arrow_back</span>
               </button>
-              <button id="project-next-btn" class="w-10 h-10 rounded-full bg-surface-container border border-outline-variant/30 text-primary hover:border-tertiary hover:text-tertiary transition-all flex items-center justify-center active:scale-95 group" aria-label="Next Car">
+              <button id="project-next-btn" class="w-10 h-10 rounded-full bg-surface-container border border-outline-variant/30 text-primary hover:border-tertiary hover:text-tertiary transition-all flex items-center justify-center active:scale-95 group cursor-pointer" aria-label="Next Car">
                 <span class="material-symbols-outlined text-[20px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
               </button>
             </div>
@@ -1527,119 +1527,240 @@
           </div>
         </div>
 
-        <!-- 3D Turntable Horizontal Carousel Container -->
-        <div id="project-carousel-container" class="relative rounded-3xl bg-surface-container-low border border-tertiary/25 p-6 md:p-10 shadow-2xl overflow-hidden">
+        <!-- 3D Turntable Luxury Showroom Stage Container -->
+        <div id="project-carousel-container" class="relative rounded-3xl showroom-studio-bg border border-tertiary/30 p-4 md:p-8 shadow-2xl overflow-hidden">
           
-          <!-- Background Ambient Spotlight -->
-          <div class="absolute top-0 left-1/4 w-96 h-96 bg-tertiary/10 rounded-full blur-3xl pointer-events-none"></div>
+          <!-- Background Vertical Amber Light Pillars -->
+          <div class="absolute inset-0 flex justify-between px-8 md:px-24 pointer-events-none z-0">
+            <div class="showroom-light-pillar h-full opacity-60"></div>
+            <div class="showroom-light-pillar h-full opacity-75"></div>
+            <div class="showroom-light-pillar h-full opacity-75"></div>
+            <div class="showroom-light-pillar h-full opacity-60"></div>
+          </div>
+
+          <!-- Background Center "WE CARE AUTO REPAIRS" Logo Backdrop -->
+          <div class="absolute top-6 left-1/2 -translate-x-1/2 z-0 pointer-events-none text-center flex flex-col items-center opacity-40 md:opacity-60">
+            <img src="assets/logo.png" alt="We Care Auto Repairs" class="h-14 md:h-20 w-auto object-contain filter drop-shadow-[0_0_25px_rgba(251,191,36,0.5)]">
+            <span class="font-label-caps text-[10px] md:text-xs text-tertiary tracking-[0.3em] uppercase mt-1 font-bold">AUTO REPAIRS & ATELIER</span>
+          </div>
 
           <!-- Horizontal Sliding Track Container -->
-          <div id="project-carousel-track" class="project-carousel-track">
+          <div id="project-carousel-track" class="project-carousel-track relative z-10 pt-8 md:pt-12">
 
-            <!-- SLIDE 1: BMW M4 Competition -->
-            <div class="featured-project-slide grid grid-cols-1 lg:grid-cols-12 gap-8 items-center" data-project-idx="0">
-              <!-- LEFT: 3D Round Showroom Turntable Platform with Actual Car Model -->
-              <div class="lg:col-span-7 flex flex-col items-center justify-center relative py-4 md:py-8">
-                
-                <!-- Spotlight Overhead Cone -->
-                <div class="absolute top-0 w-3/4 h-32 bg-gradient-to-b from-tertiary/15 to-transparent blur-xl pointer-events-none rounded-t-full"></div>
-                
-                <!-- Actual Car Image -->
-                <div class="relative z-10 w-full max-w-lg md:max-w-xl mx-auto transition-transform duration-500 hover:scale-105">
-                  <img src="assets/brands/cars/bmw.jpg" alt="BMW M4 Competition" class="w-full h-64 md:h-80 object-cover rounded-2xl shadow-2xl border border-outline-variant/20 filter contrast-105">
-                  <!-- Under-car Cast Shadow -->
-                  <div class="turntable-shadow absolute -bottom-4 left-4 right-4 h-12 rounded-full pointer-events-none"></div>
-                </div>
-
-                <!-- 3D Round Showroom Platform (Turntable Plinth) -->
-                <div class="turntable-wrapper w-full max-w-lg md:max-w-xl -mt-10 relative z-0">
-                  <div class="turntable-platform w-full h-28 md:h-36 relative flex items-center justify-center">
-                    <!-- Inner Calibration Ring -->
-                    <div class="turntable-grid-ring w-4/5 h-4/5 flex items-center justify-center">
-                      <span class="font-mono text-[9px] text-tertiary/50 uppercase tracking-widest">SHOWROOM TURNTABLE // 360°</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- RIGHT (Top-Right): Basic Details & Performance Specs -->
-              <div class="lg:col-span-5 flex flex-col justify-between">
-                <div>
-                  <!-- Project Category Badge -->
-                  <div class="flex items-center justify-between mb-3">
-                    <span class="bg-tertiary/15 text-tertiary text-xs font-mono px-3 py-1 rounded-full uppercase font-bold border border-tertiary/30">
-                      STAGE 2 TUNING & CARBON AERO
-                    </span>
-                    <span class="text-xs text-on-surface-variant font-mono font-bold">BUILD #01</span>
-                  </div>
-
-                  <!-- Car Model Title -->
-                  <h3 class="font-display-lg text-2xl md:text-3xl text-primary font-bold mb-3">
-                    2024 BMW M4 Competition (G82)
-                  </h3>
+            <!-- SLIDE 1: BMW M5 ///M -->
+            <div class="featured-project-slide grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8 items-center" data-project-idx="0">
+              
+              <!-- LEFT: HUD Basic Spec Glass Card (Inspired by Reference Image) -->
+              <div class="lg:col-span-5 flex flex-col justify-center order-2 lg:order-1">
+                <div class="car-hud-glass-card rounded-2xl p-5 md:p-6 text-on-surface">
                   
-                  <!-- Brief Overview -->
-                  <p class="font-body-md text-on-surface-variant text-xs md:text-sm leading-relaxed mb-6">
-                    Complete Stage 2 dyno optimization with custom catless downpipes, Akrapovič titanium exhaust, dry carbon aero kit, and full 9H dual-layer ceramic paint shield.
-                  </p>
+                  <!-- Card Header -->
+                  <div class="flex items-center justify-between border-b border-white/10 pb-3 mb-3">
+                    <div class="flex items-center space-x-2">
+                      <h3 class="font-display-lg text-2xl md:text-3xl text-primary font-bold tracking-tight">
+                        BMW M5
+                      </h3>
+                      <!-- BMW M Badge Colors -->
+                      <div class="flex items-center space-x-0.5 ml-1">
+                        <span class="w-1.5 h-4.5 bg-sky-500 skew-x-[-20deg] inline-block rounded-xs"></span>
+                        <span class="w-1.5 h-4.5 bg-blue-700 skew-x-[-20deg] inline-block rounded-xs"></span>
+                        <span class="w-1.5 h-4.5 bg-red-600 skew-x-[-20deg] inline-block rounded-xs"></span>
+                        <span class="font-mono font-black italic text-base text-primary ml-1">M</span>
+                      </div>
+                    </div>
+                    <span class="font-mono text-[10px] text-tertiary font-bold px-2 py-0.5 rounded-full bg-tertiary/15 border border-tertiary/30">STAGE 2 // 625 HP</span>
+                  </div>
 
-                  <!-- 3 Performance Stat Cards -->
-                  <div class="grid grid-cols-3 gap-3 mb-6">
-                    <div class="bg-surface-container p-3 rounded-xl border border-outline-variant/15 text-center">
-                      <span class="font-stats-number text-base md:text-lg text-tertiary font-bold block">+140 HP</span>
-                      <span class="text-[10px] font-mono uppercase text-on-surface-variant">Power Gain</span>
+                  <!-- Spec Table Rows -->
+                  <div class="space-y-1 font-mono text-xs">
+                    <div class="hud-spec-row">
+                      <span class="text-on-surface-variant flex items-center gap-1.5 text-[11px] uppercase">
+                        <span class="material-symbols-outlined text-[14px] text-tertiary">calendar_today</span>
+                        <span>Model Year</span>
+                      </span>
+                      <span class="font-bold text-primary">2024</span>
                     </div>
-                    <div class="bg-surface-container p-3 rounded-xl border border-outline-variant/15 text-center">
-                      <span class="font-stats-number text-base md:text-lg text-primary font-bold block">650 HP</span>
-                      <span class="text-[10px] font-mono uppercase text-on-surface-variant">Total Output</span>
+
+                    <div class="hud-spec-row">
+                      <span class="text-on-surface-variant flex items-center gap-1.5 text-[11px] uppercase">
+                        <span class="material-symbols-outlined text-[14px] text-tertiary">settings</span>
+                        <span>Engine</span>
+                      </span>
+                      <span class="font-semibold text-primary text-right">4.4L V8 TwinPower Turbo</span>
                     </div>
-                    <div class="bg-surface-container p-3 rounded-xl border border-outline-variant/15 text-center">
-                      <span class="font-stats-number text-base md:text-lg text-tertiary font-bold block">780 Nm</span>
-                      <span class="text-[10px] font-mono uppercase text-on-surface-variant">Max Torque</span>
+
+                    <div class="hud-spec-row">
+                      <span class="text-on-surface-variant flex items-center gap-1.5 text-[11px] uppercase">
+                        <span class="material-symbols-outlined text-[14px] text-amber-400">bolt</span>
+                        <span>Power</span>
+                      </span>
+                      <span class="font-bold text-amber-400">625 HP / 7500 rpm</span>
+                    </div>
+
+                    <div class="hud-spec-row">
+                      <span class="text-on-surface-variant flex items-center gap-1.5 text-[11px] uppercase">
+                        <span class="material-symbols-outlined text-[14px] text-tertiary">speed</span>
+                        <span>Torque</span>
+                      </span>
+                      <span class="font-semibold text-primary">750 Nm / 1800 – 5860 rpm</span>
+                    </div>
+
+                    <div class="hud-spec-row">
+                      <span class="text-on-surface-variant flex items-center gap-1.5 text-[11px] uppercase">
+                        <span class="material-symbols-outlined text-[14px] text-emerald-400">timer</span>
+                        <span>0-100 km/h</span>
+                      </span>
+                      <span class="font-bold text-emerald-400">3.3 sec</span>
+                    </div>
+
+                    <div class="hud-spec-row">
+                      <span class="text-on-surface-variant flex items-center gap-1.5 text-[11px] uppercase">
+                        <span class="material-symbols-outlined text-[14px] text-tertiary">alt_route</span>
+                        <span>Drive Type</span>
+                      </span>
+                      <span class="font-semibold text-primary">AWD (M xDrive)</span>
+                    </div>
+
+                    <div class="hud-spec-row">
+                      <span class="text-on-surface-variant flex items-center gap-1.5 text-[11px] uppercase">
+                        <span class="material-symbols-outlined text-[14px] text-tertiary">tune</span>
+                        <span>Transmission</span>
+                      </span>
+                      <span class="font-semibold text-primary">8-Speed M Steptronic</span>
+                    </div>
+
+                    <div class="hud-spec-row">
+                      <span class="text-on-surface-variant flex items-center gap-1.5 text-[11px] uppercase">
+                        <span class="material-symbols-outlined text-[14px] text-tertiary">flag</span>
+                        <span>Top Speed</span>
+                      </span>
+                      <span class="font-semibold text-primary">305 km/h (Limited)</span>
                     </div>
                   </div>
 
-                  <!-- Upgrades Checklist -->
-                  <div class="space-y-2 mb-6">
-                    <div class="flex items-center space-x-2 text-xs text-primary font-medium">
-                      <span class="material-symbols-outlined text-tertiary text-[16px]">check_circle</span>
-                      <span>Stage 2 ECU Remap & TCU Transmission Tuning</span>
-                    </div>
-                    <div class="flex items-center space-x-2 text-xs text-primary font-medium">
-                      <span class="material-symbols-outlined text-tertiary text-[16px]">check_circle</span>
-                      <span>Akrapovič Lightweight Titanium Quad Exhaust</span>
-                    </div>
-                    <div class="flex items-center space-x-2 text-xs text-primary font-medium">
-                      <span class="material-symbols-outlined text-tertiary text-[16px]">check_circle</span>
-                      <span>Dry Carbon Front Splitter, Canards & Rear Diffuser</span>
-                    </div>
+                  <!-- Inquire Action -->
+                  <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between">
+                    <span class="text-[10px] text-on-surface-variant font-mono">Chikhali Atelier Bay 4</span>
+                    <a href="contact.html" class="inline-flex items-center space-x-1 text-xs font-bold text-tertiary hover:underline">
+                      <span>Book Service / Tune</span>
+                      <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                    </a>
                   </div>
-                </div>
 
-                <!-- Footer CTA & Location -->
-                <div class="pt-4 border-t border-outline-variant/15 flex items-center justify-between">
-                  <span class="text-[11px] font-mono text-on-surface-variant">Chikhali Atelier // Bay 4</span>
-                  <a href="contact.html" class="inline-flex items-center space-x-1.5 text-xs font-bold text-tertiary hover:underline">
-                    <span>Book Similar Build</span>
-                    <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
-                  </a>
                 </div>
               </div>
+
+              <!-- RIGHT: Actual Car Model on 3D Illuminated Turntable Plinth -->
+              <div class="lg:col-span-7 flex flex-col items-center justify-center relative order-1 lg:order-2">
+                <div class="relative z-10 w-full max-w-lg md:max-w-2xl mx-auto transition-transform duration-500 hover:scale-105">
+                  <img src="assets/projects/bmw-m5.jpg" alt="BMW M5 Competition on Turntable" class="w-full h-auto object-cover rounded-2xl shadow-2xl border border-outline-variant/30 filter contrast-105">
+                </div>
+              </div>
+
             </div>
 
-            <!-- SLIDE 2: Porsche 911 GT3 -->
-            <div class="featured-project-slide grid grid-cols-1 lg:grid-cols-12 gap-8 items-center" data-project-idx="1">
-              <!-- LEFT: 3D Round Showroom Turntable Platform with Actual Car Model -->
-              <div class="lg:col-span-7 flex flex-col items-center justify-center relative py-4 md:py-8">
-                <div class="absolute top-0 w-3/4 h-32 bg-gradient-to-b from-tertiary/15 to-transparent blur-xl pointer-events-none rounded-t-full"></div>
-                
-                <div class="relative z-10 w-full max-w-lg md:max-w-xl mx-auto transition-transform duration-500 hover:scale-105">
-                  <img src="assets/brands/cars/porsche.jpg" alt="Porsche 911 GT3" class="w-full h-64 md:h-80 object-cover rounded-2xl shadow-2xl border border-outline-variant/20 filter contrast-105">
+            <!-- SLIDE 2: Porsche 911 GT3 RS -->
+            <div class="featured-project-slide grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8 items-center" data-project-idx="1">
+              
+              <!-- LEFT: HUD Basic Spec Glass Card -->
+              <div class="lg:col-span-5 flex flex-col justify-center order-2 lg:order-1">
+                <div class="car-hud-glass-card rounded-2xl p-5 md:p-6 text-on-surface">
+                  
+                  <div class="flex items-center justify-between border-b border-white/10 pb-3 mb-3">
+                    <div class="flex items-center space-x-2">
+                      <h3 class="font-display-lg text-2xl md:text-3xl text-primary font-bold tracking-tight">
+                        Porsche 911 GT3
+                      </h3>
+                    </div>
+                    <span class="font-mono text-[10px] text-tertiary font-bold px-2 py-0.5 rounded-full bg-tertiary/15 border border-tertiary/30">GT MOTORSPORT</span>
+                  </div>
+
+                  <div class="space-y-1 font-mono text-xs">
+                    <div class="hud-spec-row">
+                      <span class="text-on-surface-variant flex items-center gap-1.5 text-[11px] uppercase">
+                        <span class="material-symbols-outlined text-[14px] text-tertiary">calendar_today</span>
+                        <span>Model Year</span>
+                      </span>
+                      <span class="font-bold text-primary">2024</span>
+                    </div>
+
+                    <div class="hud-spec-row">
+                      <span class="text-on-surface-variant flex items-center gap-1.5 text-[11px] uppercase">
+                        <span class="material-symbols-outlined text-[14px] text-tertiary">settings</span>
+                        <span>Engine</span>
+                      </span>
+                      <span class="font-semibold text-primary text-right">4.0L Naturally Aspirated Boxer-6</span>
+                    </div>
+
+                    <div class="hud-spec-row">
+                      <span class="text-on-surface-variant flex items-center gap-1.5 text-[11px] uppercase">
+                        <span class="material-symbols-outlined text-[14px] text-amber-400">bolt</span>
+                        <span>Power</span>
+                      </span>
+                      <span class="font-bold text-amber-400">510 HP / 8400 rpm</span>
+                    </div>
+
+                    <div class="hud-spec-row">
+                      <span class="text-on-surface-variant flex items-center gap-1.5 text-[11px] uppercase">
+                        <span class="material-symbols-outlined text-[14px] text-tertiary">speed</span>
+                        <span>Torque</span>
+                      </span>
+                      <span class="font-semibold text-primary">470 Nm / 6100 rpm</span>
+                    </div>
+
+                    <div class="hud-spec-row">
+                      <span class="text-on-surface-variant flex items-center gap-1.5 text-[11px] uppercase">
+                        <span class="material-symbols-outlined text-[14px] text-emerald-400">timer</span>
+                        <span>0-100 km/h</span>
+                      </span>
+                      <span class="font-bold text-emerald-400">3.4 sec</span>
+                    </div>
+
+                    <div class="hud-spec-row">
+                      <span class="text-on-surface-variant flex items-center gap-1.5 text-[11px] uppercase">
+                        <span class="material-symbols-outlined text-[14px] text-tertiary">alt_route</span>
+                        <span>Drive Type</span>
+                      </span>
+                      <span class="font-semibold text-primary">RWD (Rear-Wheel Drive)</span>
+                    </div>
+
+                    <div class="hud-spec-row">
+                      <span class="text-on-surface-variant flex items-center gap-1.5 text-[11px] uppercase">
+                        <span class="material-symbols-outlined text-[14px] text-tertiary">tune</span>
+                        <span>Transmission</span>
+                      </span>
+                      <span class="font-semibold text-primary">7-Speed Dual-Clutch PDK</span>
+                    </div>
+
+                    <div class="hud-spec-row">
+                      <span class="text-on-surface-variant flex items-center gap-1.5 text-[11px] uppercase">
+                        <span class="material-symbols-outlined text-[14px] text-tertiary">flag</span>
+                        <span>Top Speed</span>
+                      </span>
+                      <span class="font-semibold text-primary">318 km/h</span>
+                    </div>
+                  </div>
+
+                  <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between">
+                    <span class="text-[10px] text-on-surface-variant font-mono">Chikhali Atelier Bay 2</span>
+                    <a href="contact.html" class="inline-flex items-center space-x-1 text-xs font-bold text-tertiary hover:underline">
+                      <span>Book Track Alignment</span>
+                      <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                    </a>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- RIGHT: Actual Car Model on 3D Illuminated Turntable Plinth -->
+              <div class="lg:col-span-7 flex flex-col items-center justify-center relative order-1 lg:order-2">
+                <div class="relative z-10 w-full max-w-lg md:max-w-2xl mx-auto transition-transform duration-500 hover:scale-105">
+                  <img src="assets/projects/porsche-911.jpg" alt="Porsche 911 GT3 on Turntable" class="w-full h-auto object-cover rounded-2xl shadow-2xl border border-outline-variant/30 filter contrast-105">
                   <div class="turntable-shadow absolute -bottom-4 left-4 right-4 h-12 rounded-full pointer-events-none"></div>
                 </div>
-
-                <div class="turntable-wrapper w-full max-w-lg md:max-w-xl -mt-10 relative z-0">
-                  <div class="turntable-platform w-full h-28 md:h-36 relative flex items-center justify-center">
+                <!-- 3D Turntable Plinth Base -->
+                <div class="turntable-wrapper w-full max-w-lg md:max-w-2xl -mt-8 relative z-0">
+                  <div class="turntable-platform w-full h-24 md:h-32 relative flex items-center justify-center">
                     <div class="turntable-grid-ring w-4/5 h-4/5 flex items-center justify-center">
                       <span class="font-mono text-[9px] text-tertiary/50 uppercase tracking-widest">SHOWROOM TURNTABLE // 360°</span>
                     </div>
@@ -1647,78 +1768,109 @@
                 </div>
               </div>
 
-              <!-- RIGHT (Top-Right): Basic Details & Performance Specs -->
-              <div class="lg:col-span-5 flex flex-col justify-between">
-                <div>
-                  <div class="flex items-center justify-between mb-3">
-                    <span class="bg-tertiary/15 text-tertiary text-xs font-mono px-3 py-1 rounded-full uppercase font-bold border border-tertiary/30">
-                      TRACK SUSPENSION & 9H CERAMIC
-                    </span>
-                    <span class="text-xs text-on-surface-variant font-mono font-bold">BUILD #02</span>
-                  </div>
-
-                  <h3 class="font-display-lg text-2xl md:text-3xl text-primary font-bold mb-3">
-                    Porsche 911 GT3 (992)
-                  </h3>
-                  
-                  <p class="font-body-md text-on-surface-variant text-xs md:text-sm leading-relaxed mb-6">
-                    Precision track geometry calibration with 3D laser alignment, KW suspension damping tuning, OEM ceramic composite brake overhaul, and 9H dual shield.
-                  </p>
-
-                  <div class="grid grid-cols-3 gap-3 mb-6">
-                    <div class="bg-surface-container p-3 rounded-xl border border-outline-variant/15 text-center">
-                      <span class="font-stats-number text-base md:text-lg text-tertiary font-bold block">3D Laser</span>
-                      <span class="text-[10px] font-mono uppercase text-on-surface-variant">Alignment</span>
-                    </div>
-                    <div class="bg-surface-container p-3 rounded-xl border border-outline-variant/15 text-center">
-                      <span class="font-stats-number text-base md:text-lg text-primary font-bold block">510 HP</span>
-                      <span class="text-[10px] font-mono uppercase text-on-surface-variant">4.0L Boxer-6</span>
-                    </div>
-                    <div class="bg-surface-container p-3 rounded-xl border border-outline-variant/15 text-center">
-                      <span class="font-stats-number text-base md:text-lg text-tertiary font-bold block">9H Shield</span>
-                      <span class="text-[10px] font-mono uppercase text-on-surface-variant">Ceramic</span>
-                    </div>
-                  </div>
-
-                  <div class="space-y-2 mb-6">
-                    <div class="flex items-center space-x-2 text-xs text-primary font-medium">
-                      <span class="material-symbols-outlined text-tertiary text-[16px]">check_circle</span>
-                      <span>3D Electronic Multi-Axis Laser Corner Balancing</span>
-                    </div>
-                    <div class="flex items-center space-x-2 text-xs text-primary font-medium">
-                      <span class="material-symbols-outlined text-tertiary text-[16px]">check_circle</span>
-                      <span>High-Temp Motul RBF660 Brake Fluid Flush</span>
-                    </div>
-                    <div class="flex items-center space-x-2 text-xs text-primary font-medium">
-                      <span class="material-symbols-outlined text-tertiary text-[16px]">check_circle</span>
-                      <span>Dual-Layer 9H Ceramic Coat with 3-Year Warranty</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="pt-4 border-t border-outline-variant/15 flex items-center justify-between">
-                  <span class="text-[11px] font-mono text-on-surface-variant">Chikhali Atelier // Bay 2</span>
-                  <a href="contact.html" class="inline-flex items-center space-x-1.5 text-xs font-bold text-tertiary hover:underline">
-                    <span>Book Track Setup</span>
-                    <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
-                  </a>
-                </div>
-              </div>
             </div>
 
-            <!-- SLIDE 3: Mercedes-AMG C63 S -->
-            <div class="featured-project-slide grid grid-cols-1 lg:grid-cols-12 gap-8 items-center" data-project-idx="2">
-              <!-- LEFT: 3D Round Showroom Turntable Platform with Actual Car Model -->
-              <div class="lg:col-span-7 flex flex-col items-center justify-center relative py-4 md:py-8">
-                <div class="absolute top-0 w-3/4 h-32 bg-gradient-to-b from-tertiary/15 to-transparent blur-xl pointer-events-none rounded-t-full"></div>
-                
-                <div class="relative z-10 w-full max-w-lg md:max-w-xl mx-auto transition-transform duration-500 hover:scale-105">
-                  <img src="assets/brands/cars/mercedes.jpg" alt="Mercedes-AMG C63 S" class="w-full h-64 md:h-80 object-cover rounded-2xl shadow-2xl border border-outline-variant/20 filter contrast-105">
+            <!-- SLIDE 3: Mercedes-AMG GT -->
+            <div class="featured-project-slide grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8 items-center" data-project-idx="2">
+              
+              <!-- LEFT: HUD Basic Spec Glass Card -->
+              <div class="lg:col-span-5 flex flex-col justify-center order-2 lg:order-1">
+                <div class="car-hud-glass-card rounded-2xl p-5 md:p-6 text-on-surface">
+                  
+                  <div class="flex items-center justify-between border-b border-white/10 pb-3 mb-3">
+                    <div class="flex items-center space-x-2">
+                      <h3 class="font-display-lg text-2xl md:text-3xl text-primary font-bold tracking-tight">
+                        Mercedes-AMG GT
+                      </h3>
+                    </div>
+                    <span class="font-mono text-[10px] text-tertiary font-bold px-2 py-0.5 rounded-full bg-tertiary/15 border border-tertiary/30">V8 BITURBO // 585 HP</span>
+                  </div>
+
+                  <div class="space-y-1 font-mono text-xs">
+                    <div class="hud-spec-row">
+                      <span class="text-on-surface-variant flex items-center gap-1.5 text-[11px] uppercase">
+                        <span class="material-symbols-outlined text-[14px] text-tertiary">calendar_today</span>
+                        <span>Model Year</span>
+                      </span>
+                      <span class="font-bold text-primary">2024</span>
+                    </div>
+
+                    <div class="hud-spec-row">
+                      <span class="text-on-surface-variant flex items-center gap-1.5 text-[11px] uppercase">
+                        <span class="material-symbols-outlined text-[14px] text-tertiary">settings</span>
+                        <span>Engine</span>
+                      </span>
+                      <span class="font-semibold text-primary text-right">4.0L V8 Handcrafted BiTurbo</span>
+                    </div>
+
+                    <div class="hud-spec-row">
+                      <span class="text-on-surface-variant flex items-center gap-1.5 text-[11px] uppercase">
+                        <span class="material-symbols-outlined text-[14px] text-amber-400">bolt</span>
+                        <span>Power</span>
+                      </span>
+                      <span class="font-bold text-amber-400">585 HP / 6500 rpm</span>
+                    </div>
+
+                    <div class="hud-spec-row">
+                      <span class="text-on-surface-variant flex items-center gap-1.5 text-[11px] uppercase">
+                        <span class="material-symbols-outlined text-[14px] text-tertiary">speed</span>
+                        <span>Torque</span>
+                      </span>
+                      <span class="font-semibold text-primary">800 Nm / 2500 – 5000 rpm</span>
+                    </div>
+
+                    <div class="hud-spec-row">
+                      <span class="text-on-surface-variant flex items-center gap-1.5 text-[11px] uppercase">
+                        <span class="material-symbols-outlined text-[14px] text-emerald-400">timer</span>
+                        <span>0-100 km/h</span>
+                      </span>
+                      <span class="font-bold text-emerald-400">3.2 sec</span>
+                    </div>
+
+                    <div class="hud-spec-row">
+                      <span class="text-on-surface-variant flex items-center gap-1.5 text-[11px] uppercase">
+                        <span class="material-symbols-outlined text-[14px] text-tertiary">alt_route</span>
+                        <span>Drive Type</span>
+                      </span>
+                      <span class="font-semibold text-primary">AWD (AMG 4MATIC+)</span>
+                    </div>
+
+                    <div class="hud-spec-row">
+                      <span class="text-on-surface-variant flex items-center gap-1.5 text-[11px] uppercase">
+                        <span class="material-symbols-outlined text-[14px] text-tertiary">tune</span>
+                        <span>Transmission</span>
+                      </span>
+                      <span class="font-semibold text-primary">9-Speed AMG SPEEDSHIFT MCT</span>
+                    </div>
+
+                    <div class="hud-spec-row">
+                      <span class="text-on-surface-variant flex items-center gap-1.5 text-[11px] uppercase">
+                        <span class="material-symbols-outlined text-[14px] text-tertiary">flag</span>
+                        <span>Top Speed</span>
+                      </span>
+                      <span class="font-semibold text-primary">315 km/h</span>
+                    </div>
+                  </div>
+
+                  <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between">
+                    <span class="text-[10px] text-on-surface-variant font-mono">Chikhali Atelier Bay 1</span>
+                    <a href="contact.html" class="inline-flex items-center space-x-1 text-xs font-bold text-tertiary hover:underline">
+                      <span>Book AMG Service</span>
+                      <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                    </a>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- RIGHT: Actual Car Model on 3D Illuminated Turntable Plinth -->
+              <div class="lg:col-span-7 flex flex-col items-center justify-center relative order-1 lg:order-2">
+                <div class="relative z-10 w-full max-w-lg md:max-w-2xl mx-auto transition-transform duration-500 hover:scale-105">
+                  <img src="assets/projects/mercedes-amg.jpg" alt="Mercedes-AMG GT on Turntable" class="w-full h-auto object-cover rounded-2xl shadow-2xl border border-outline-variant/30 filter contrast-105">
                   <div class="turntable-shadow absolute -bottom-4 left-4 right-4 h-12 rounded-full pointer-events-none"></div>
                 </div>
-
-                <div class="turntable-wrapper w-full max-w-lg md:max-w-xl -mt-10 relative z-0">
-                  <div class="turntable-platform w-full h-28 md:h-36 relative flex items-center justify-center">
+                <div class="turntable-wrapper w-full max-w-lg md:max-w-2xl -mt-8 relative z-0">
+                  <div class="turntable-platform w-full h-24 md:h-32 relative flex items-center justify-center">
                     <div class="turntable-grid-ring w-4/5 h-4/5 flex items-center justify-center">
                       <span class="font-mono text-[9px] text-tertiary/50 uppercase tracking-widest">SHOWROOM TURNTABLE // 360°</span>
                     </div>
@@ -1726,78 +1878,109 @@
                 </div>
               </div>
 
-              <!-- RIGHT (Top-Right): Basic Details & Performance Specs -->
-              <div class="lg:col-span-5 flex flex-col justify-between">
-                <div>
-                  <div class="flex items-center justify-between mb-3">
-                    <span class="bg-tertiary/15 text-tertiary text-xs font-mono px-3 py-1 rounded-full uppercase font-bold border border-tertiary/30">
-                      V8 BITURBO ENGINE OVERHAUL
-                    </span>
-                    <span class="text-xs text-on-surface-variant font-mono font-bold">BUILD #03</span>
-                  </div>
-
-                  <h3 class="font-display-lg text-2xl md:text-3xl text-primary font-bold mb-3">
-                    Mercedes-AMG C63 S BiTurbo
-                  </h3>
-                  
-                  <p class="font-body-md text-on-surface-variant text-xs md:text-sm leading-relaxed mb-6">
-                    Full 4.0L V8 twin-turbo engine clean-room rebuild, OEM turbo cartridge replacement, high-pressure fuel pump service, and smooth ECU mapping.
-                  </p>
-
-                  <div class="grid grid-cols-3 gap-3 mb-6">
-                    <div class="bg-surface-container p-3 rounded-xl border border-outline-variant/15 text-center">
-                      <span class="font-stats-number text-base md:text-lg text-tertiary font-bold block">820 Nm</span>
-                      <span class="text-[10px] font-mono uppercase text-on-surface-variant">Max Torque</span>
-                    </div>
-                    <div class="bg-surface-container p-3 rounded-xl border border-outline-variant/15 text-center">
-                      <span class="font-stats-number text-base md:text-lg text-primary font-bold block">V8 Rebuild</span>
-                      <span class="text-[10px] font-mono uppercase text-on-surface-variant">Clean-Room</span>
-                    </div>
-                    <div class="bg-surface-container p-3 rounded-xl border border-outline-variant/15 text-center">
-                      <span class="font-stats-number text-base md:text-lg text-tertiary font-bold block">MCT 9-Speed</span>
-                      <span class="text-[10px] font-mono uppercase text-on-surface-variant">Gearbox Fixed</span>
-                    </div>
-                  </div>
-
-                  <div class="space-y-2 mb-6">
-                    <div class="flex items-center space-x-2 text-xs text-primary font-medium">
-                      <span class="material-symbols-outlined text-tertiary text-[16px]">check_circle</span>
-                      <span>Complete 4.0L BiTurbo Clean-Room Tear-Down & Reassembly</span>
-                    </div>
-                    <div class="flex items-center space-x-2 text-xs text-primary font-medium">
-                      <span class="material-symbols-outlined text-tertiary text-[16px]">check_circle</span>
-                      <span>OEM BorgWarner Twin-Turbochargers Installed</span>
-                    </div>
-                    <div class="flex items-center space-x-2 text-xs text-primary font-medium">
-                      <span class="material-symbols-outlined text-tertiary text-[16px]">check_circle</span>
-                      <span>12-Month / 10,000 KM Engine Warranty Sign-off</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="pt-4 border-t border-outline-variant/15 flex items-center justify-between">
-                  <span class="text-[11px] font-mono text-on-surface-variant">Chikhali Atelier // Bay 1</span>
-                  <a href="contact.html" class="inline-flex items-center space-x-1.5 text-xs font-bold text-tertiary hover:underline">
-                    <span>Book Engine Service</span>
-                    <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
-                  </a>
-                </div>
-              </div>
             </div>
 
-            <!-- SLIDE 4: Mahindra XUV700 & Thar Expedition -->
-            <div class="featured-project-slide grid grid-cols-1 lg:grid-cols-12 gap-8 items-center" data-project-idx="3">
-              <!-- LEFT: 3D Round Showroom Turntable Platform with Actual Car Model -->
-              <div class="lg:col-span-7 flex flex-col items-center justify-center relative py-4 md:py-8">
-                <div class="absolute top-0 w-3/4 h-32 bg-gradient-to-b from-tertiary/15 to-transparent blur-xl pointer-events-none rounded-t-full"></div>
-                
-                <div class="relative z-10 w-full max-w-lg md:max-w-xl mx-auto transition-transform duration-500 hover:scale-105">
-                  <img src="assets/brands/cars/mahindra.jpg" alt="Mahindra XUV700 Expedition" class="w-full h-64 md:h-80 object-cover rounded-2xl shadow-2xl border border-outline-variant/20 filter contrast-105">
+            <!-- SLIDE 4: Audi R8 V10 Performance -->
+            <div class="featured-project-slide grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8 items-center" data-project-idx="3">
+              
+              <!-- LEFT: HUD Basic Spec Glass Card -->
+              <div class="lg:col-span-5 flex flex-col justify-center order-2 lg:order-1">
+                <div class="car-hud-glass-card rounded-2xl p-5 md:p-6 text-on-surface">
+                  
+                  <div class="flex items-center justify-between border-b border-white/10 pb-3 mb-3">
+                    <div class="flex items-center space-x-2">
+                      <h3 class="font-display-lg text-2xl md:text-3xl text-primary font-bold tracking-tight">
+                        Audi R8 V10
+                      </h3>
+                    </div>
+                    <span class="font-mono text-[10px] text-tertiary font-bold px-2 py-0.5 rounded-full bg-tertiary/15 border border-tertiary/30">QUATTRO SPORT // 620 HP</span>
+                  </div>
+
+                  <div class="space-y-1 font-mono text-xs">
+                    <div class="hud-spec-row">
+                      <span class="text-on-surface-variant flex items-center gap-1.5 text-[11px] uppercase">
+                        <span class="material-symbols-outlined text-[14px] text-tertiary">calendar_today</span>
+                        <span>Model Year</span>
+                      </span>
+                      <span class="font-bold text-primary">2024</span>
+                    </div>
+
+                    <div class="hud-spec-row">
+                      <span class="text-on-surface-variant flex items-center gap-1.5 text-[11px] uppercase">
+                        <span class="material-symbols-outlined text-[14px] text-tertiary">settings</span>
+                        <span>Engine</span>
+                      </span>
+                      <span class="font-semibold text-primary text-right">5.2L FSI V10 Naturally Aspirated</span>
+                    </div>
+
+                    <div class="hud-spec-row">
+                      <span class="text-on-surface-variant flex items-center gap-1.5 text-[11px] uppercase">
+                        <span class="material-symbols-outlined text-[14px] text-amber-400">bolt</span>
+                        <span>Power</span>
+                      </span>
+                      <span class="font-bold text-amber-400">620 HP / 8000 rpm</span>
+                    </div>
+
+                    <div class="hud-spec-row">
+                      <span class="text-on-surface-variant flex items-center gap-1.5 text-[11px] uppercase">
+                        <span class="material-symbols-outlined text-[14px] text-tertiary">speed</span>
+                        <span>Torque</span>
+                      </span>
+                      <span class="font-semibold text-primary">580 Nm / 6600 rpm</span>
+                    </div>
+
+                    <div class="hud-spec-row">
+                      <span class="text-on-surface-variant flex items-center gap-1.5 text-[11px] uppercase">
+                        <span class="material-symbols-outlined text-[14px] text-emerald-400">timer</span>
+                        <span>0-100 km/h</span>
+                      </span>
+                      <span class="font-bold text-emerald-400">3.1 sec</span>
+                    </div>
+
+                    <div class="hud-spec-row">
+                      <span class="text-on-surface-variant flex items-center gap-1.5 text-[11px] uppercase">
+                        <span class="material-symbols-outlined text-[14px] text-tertiary">alt_route</span>
+                        <span>Drive Type</span>
+                      </span>
+                      <span class="font-semibold text-primary">AWD (quattro Permanent)</span>
+                    </div>
+
+                    <div class="hud-spec-row">
+                      <span class="text-on-surface-variant flex items-center gap-1.5 text-[11px] uppercase">
+                        <span class="material-symbols-outlined text-[14px] text-tertiary">tune</span>
+                        <span>Transmission</span>
+                      </span>
+                      <span class="font-semibold text-primary">7-Speed S Tronic Dual-Clutch</span>
+                    </div>
+
+                    <div class="hud-spec-row">
+                      <span class="text-on-surface-variant flex items-center gap-1.5 text-[11px] uppercase">
+                        <span class="material-symbols-outlined text-[14px] text-tertiary">flag</span>
+                        <span>Top Speed</span>
+                      </span>
+                      <span class="font-semibold text-primary">331 km/h</span>
+                    </div>
+                  </div>
+
+                  <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between">
+                    <span class="text-[10px] text-on-surface-variant font-mono">Chikhali Atelier Bay 3</span>
+                    <a href="contact.html" class="inline-flex items-center space-x-1 text-xs font-bold text-tertiary hover:underline">
+                      <span>Book Audi Service</span>
+                      <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                    </a>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- RIGHT: Actual Car Model on 3D Illuminated Turntable Plinth -->
+              <div class="lg:col-span-7 flex flex-col items-center justify-center relative order-1 lg:order-2">
+                <div class="relative z-10 w-full max-w-lg md:max-w-2xl mx-auto transition-transform duration-500 hover:scale-105">
+                  <img src="assets/projects/audi-r8.jpg" alt="Audi R8 V10 on Turntable" class="w-full h-auto object-cover rounded-2xl shadow-2xl border border-outline-variant/30 filter contrast-105">
                   <div class="turntable-shadow absolute -bottom-4 left-4 right-4 h-12 rounded-full pointer-events-none"></div>
                 </div>
-
-                <div class="turntable-wrapper w-full max-w-lg md:max-w-xl -mt-10 relative z-0">
-                  <div class="turntable-platform w-full h-28 md:h-36 relative flex items-center justify-center">
+                <div class="turntable-wrapper w-full max-w-lg md:max-w-2xl -mt-8 relative z-0">
+                  <div class="turntable-platform w-full h-24 md:h-32 relative flex items-center justify-center">
                     <div class="turntable-grid-ring w-4/5 h-4/5 flex items-center justify-center">
                       <span class="font-mono text-[9px] text-tertiary/50 uppercase tracking-widest">SHOWROOM TURNTABLE // 360°</span>
                     </div>
@@ -1805,63 +1988,116 @@
                 </div>
               </div>
 
-              <!-- RIGHT (Top-Right): Basic Details & Performance Specs -->
-              <div class="lg:col-span-5 flex flex-col justify-between">
-                <div>
-                  <div class="flex items-center justify-between mb-3">
-                    <span class="bg-tertiary/15 text-tertiary text-xs font-mono px-3 py-1 rounded-full uppercase font-bold border border-tertiary/30">
-                      SUV EXPEDITION & OFF-ROAD LIFT
-                    </span>
-                    <span class="text-xs text-on-surface-variant font-mono font-bold">BUILD #04</span>
-                  </div>
+            </div>
 
-                  <h3 class="font-display-lg text-2xl md:text-3xl text-primary font-bold mb-3">
-                    Mahindra XUV700 & Thar Expedition
-                  </h3>
+            <!-- SLIDE 5: Lamborghini Revuelto -->
+            <div class="featured-project-slide grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8 items-center" data-project-idx="4">
+              
+              <!-- LEFT: HUD Basic Spec Glass Card -->
+              <div class="lg:col-span-5 flex flex-col justify-center order-2 lg:order-1">
+                <div class="car-hud-glass-card rounded-2xl p-5 md:p-6 text-on-surface">
                   
-                  <p class="font-body-md text-on-surface-variant text-xs md:text-sm leading-relaxed mb-6">
-                    Suspension lift kit engineered for rough Pune & Western Ghats terrain, heavy-duty underbody protection, auxiliary matrix LED bars, and low-end diesel torque remap.
-                  </p>
+                  <div class="flex items-center justify-between border-b border-white/10 pb-3 mb-3">
+                    <div class="flex items-center space-x-2">
+                      <h3 class="font-display-lg text-2xl md:text-3xl text-primary font-bold tracking-tight">
+                        Lamborghini Revuelto
+                      </h3>
+                    </div>
+                    <span class="font-mono text-[10px] text-tertiary font-bold px-2 py-0.5 rounded-full bg-tertiary/15 border border-tertiary/30">V12 HYBRID // 1015 HP</span>
+                  </div>
 
-                  <div class="grid grid-cols-3 gap-3 mb-6">
-                    <div class="bg-surface-container p-3 rounded-xl border border-outline-variant/15 text-center">
-                      <span class="font-stats-number text-base md:text-lg text-tertiary font-bold block">+85 Nm</span>
-                      <span class="text-[10px] font-mono uppercase text-on-surface-variant">Low-End Torque</span>
+                  <div class="space-y-1 font-mono text-xs">
+                    <div class="hud-spec-row">
+                      <span class="text-on-surface-variant flex items-center gap-1.5 text-[11px] uppercase">
+                        <span class="material-symbols-outlined text-[14px] text-tertiary">calendar_today</span>
+                        <span>Model Year</span>
+                      </span>
+                      <span class="font-bold text-primary">2024</span>
                     </div>
-                    <div class="bg-surface-container p-3 rounded-xl border border-outline-variant/15 text-center">
-                      <span class="font-stats-number text-base md:text-lg text-primary font-bold block">+2.5"</span>
-                      <span class="text-[10px] font-mono uppercase text-on-surface-variant">Lift Height</span>
+
+                    <div class="hud-spec-row">
+                      <span class="text-on-surface-variant flex items-center gap-1.5 text-[11px] uppercase">
+                        <span class="material-symbols-outlined text-[14px] text-tertiary">settings</span>
+                        <span>Engine</span>
+                      </span>
+                      <span class="font-semibold text-primary text-right">6.5L V12 + 3 Electric Motors</span>
                     </div>
-                    <div class="bg-surface-container p-3 rounded-xl border border-outline-variant/15 text-center">
-                      <span class="font-stats-number text-base md:text-lg text-tertiary font-bold block">4mm Steel</span>
-                      <span class="text-[10px] font-mono uppercase text-on-surface-variant">Skid Plate</span>
+
+                    <div class="hud-spec-row">
+                      <span class="text-on-surface-variant flex items-center gap-1.5 text-[11px] uppercase">
+                        <span class="material-symbols-outlined text-[14px] text-amber-400">bolt</span>
+                        <span>Power</span>
+                      </span>
+                      <span class="font-bold text-amber-400">1015 HP (Combined)</span>
+                    </div>
+
+                    <div class="hud-spec-row">
+                      <span class="text-on-surface-variant flex items-center gap-1.5 text-[11px] uppercase">
+                        <span class="material-symbols-outlined text-[14px] text-tertiary">speed</span>
+                        <span>Torque</span>
+                      </span>
+                      <span class="font-semibold text-primary">1074 Nm Total Output</span>
+                    </div>
+
+                    <div class="hud-spec-row">
+                      <span class="text-on-surface-variant flex items-center gap-1.5 text-[11px] uppercase">
+                        <span class="material-symbols-outlined text-[14px] text-emerald-400">timer</span>
+                        <span>0-100 km/h</span>
+                      </span>
+                      <span class="font-bold text-emerald-400">2.5 sec</span>
+                    </div>
+
+                    <div class="hud-spec-row">
+                      <span class="text-on-surface-variant flex items-center gap-1.5 text-[11px] uppercase">
+                        <span class="material-symbols-outlined text-[14px] text-tertiary">alt_route</span>
+                        <span>Drive Type</span>
+                      </span>
+                      <span class="font-semibold text-primary">AWD (Torque Vectoring)</span>
+                    </div>
+
+                    <div class="hud-spec-row">
+                      <span class="text-on-surface-variant flex items-center gap-1.5 text-[11px] uppercase">
+                        <span class="material-symbols-outlined text-[14px] text-tertiary">tune</span>
+                        <span>Transmission</span>
+                      </span>
+                      <span class="font-semibold text-primary">8-Speed Dual-Clutch</span>
+                    </div>
+
+                    <div class="hud-spec-row">
+                      <span class="text-on-surface-variant flex items-center gap-1.5 text-[11px] uppercase">
+                        <span class="material-symbols-outlined text-[14px] text-tertiary">flag</span>
+                        <span>Top Speed</span>
+                      </span>
+                      <span class="font-semibold text-primary">> 350 km/h</span>
                     </div>
                   </div>
 
-                  <div class="space-y-2 mb-6">
-                    <div class="flex items-center space-x-2 text-xs text-primary font-medium">
-                      <span class="material-symbols-outlined text-tertiary text-[16px]">check_circle</span>
-                      <span>Heavy-Duty Long-Travel Shock Absorber & Spring Lift Kit</span>
-                    </div>
-                    <div class="flex items-center space-x-2 text-xs text-primary font-medium">
-                      <span class="material-symbols-outlined text-tertiary text-[16px]">check_circle</span>
-                      <span>Laser-Cut 4mm Steel Underbody Sump & Gearbox Armor</span>
-                    </div>
-                    <div class="flex items-center space-x-2 text-xs text-primary font-medium">
-                      <span class="material-symbols-outlined text-tertiary text-[16px]">check_circle</span>
-                      <span>Stage 1 Diesel Remap for Improved Low-End Pull & Mileage</span>
-                    </div>
+                  <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between">
+                    <span class="text-[10px] text-on-surface-variant font-mono">Chikhali Supercar Clean-Room</span>
+                    <a href="contact.html" class="inline-flex items-center space-x-1 text-xs font-bold text-tertiary hover:underline">
+                      <span>Book Supercar Audit</span>
+                      <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                    </a>
                   </div>
-                </div>
 
-                <div class="pt-4 border-t border-outline-variant/15 flex items-center justify-between">
-                  <span class="text-[11px] font-mono text-on-surface-variant">Chikhali Atelier // Bay 3</span>
-                  <a href="contact.html" class="inline-flex items-center space-x-1.5 text-xs font-bold text-tertiary hover:underline">
-                    <span>Book SUV Upgrade</span>
-                    <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
-                  </a>
                 </div>
               </div>
+
+              <!-- RIGHT: Actual Car Model on 3D Illuminated Turntable Plinth -->
+              <div class="lg:col-span-7 flex flex-col items-center justify-center relative order-1 lg:order-2">
+                <div class="relative z-10 w-full max-w-lg md:max-w-2xl mx-auto transition-transform duration-500 hover:scale-105">
+                  <img src="assets/projects/lamborghini.jpg" alt="Lamborghini Revuelto on Turntable" class="w-full h-auto object-cover rounded-2xl shadow-2xl border border-outline-variant/30 filter contrast-105">
+                  <div class="turntable-shadow absolute -bottom-4 left-4 right-4 h-12 rounded-full pointer-events-none"></div>
+                </div>
+                <div class="turntable-wrapper w-full max-w-lg md:max-w-2xl -mt-8 relative z-0">
+                  <div class="turntable-platform w-full h-24 md:h-32 relative flex items-center justify-center">
+                    <div class="turntable-grid-ring w-4/5 h-4/5 flex items-center justify-center">
+                      <span class="font-mono text-[9px] text-tertiary/50 uppercase tracking-widest">SHOWROOM TURNTABLE // 360°</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
 
           </div>
@@ -1871,7 +2107,7 @@
         <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
           <button class="project-nav-pill active-pill px-4 py-2 rounded-full bg-surface-container border border-outline-variant/20 text-xs font-mono font-bold text-on-surface-variant hover:border-tertiary hover:text-tertiary flex items-center space-x-2 transition-all cursor-pointer" data-target-idx="0">
             <span class="w-2 h-2 rounded-full bg-tertiary"></span>
-            <span>BMW M4 Competition</span>
+            <span>BMW M5 ///M</span>
           </button>
           <button class="project-nav-pill px-4 py-2 rounded-full bg-surface-container border border-outline-variant/20 text-xs font-mono font-bold text-on-surface-variant hover:border-tertiary hover:text-tertiary flex items-center space-x-2 transition-all cursor-pointer" data-target-idx="1">
             <span class="w-2 h-2 rounded-full bg-tertiary"></span>
@@ -1879,11 +2115,15 @@
           </button>
           <button class="project-nav-pill px-4 py-2 rounded-full bg-surface-container border border-outline-variant/20 text-xs font-mono font-bold text-on-surface-variant hover:border-tertiary hover:text-tertiary flex items-center space-x-2 transition-all cursor-pointer" data-target-idx="2">
             <span class="w-2 h-2 rounded-full bg-tertiary"></span>
-            <span>Mercedes-AMG C63 S</span>
+            <span>Mercedes-AMG GT</span>
           </button>
           <button class="project-nav-pill px-4 py-2 rounded-full bg-surface-container border border-outline-variant/20 text-xs font-mono font-bold text-on-surface-variant hover:border-tertiary hover:text-tertiary flex items-center space-x-2 transition-all cursor-pointer" data-target-idx="3">
             <span class="w-2 h-2 rounded-full bg-tertiary"></span>
-            <span>Mahindra Expedition</span>
+            <span>Audi R8 V10</span>
+          </button>
+          <button class="project-nav-pill px-4 py-2 rounded-full bg-surface-container border border-outline-variant/20 text-xs font-mono font-bold text-on-surface-variant hover:border-tertiary hover:text-tertiary flex items-center space-x-2 transition-all cursor-pointer" data-target-idx="4">
+            <span class="w-2 h-2 rounded-full bg-tertiary"></span>
+            <span>Lamborghini Revuelto</span>
           </button>
         </div>
 
