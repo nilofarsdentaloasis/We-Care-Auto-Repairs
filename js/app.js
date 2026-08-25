@@ -357,58 +357,81 @@ function initTimelineRibbonEngine() {
   });
 }
 
-// 7. Featured Projects 3D Round Turntable Horizontal Carousel (Auto-scrolls every 5s from right to left)
+// 7. Featured Projects 3D Round Turntable Horizontal Carousel (Seamless Infinite 2s Loop)
 function initFeaturedProjectCarousel() {
   const container = document.getElementById('project-carousel-container');
   const track = document.getElementById('project-carousel-track');
   if (!container || !track) return;
 
-  const slides = track.querySelectorAll('.featured-project-slide');
+  const realSlides = Array.from(track.querySelectorAll('.featured-project-slide:not(.carousel-clone)'));
   const prevBtn = document.getElementById('project-prev-btn');
   const nextBtn = document.getElementById('project-next-btn');
   const counterEl = document.getElementById('project-slide-counter');
   const timerFill = document.getElementById('project-timer-fill');
   const navPills = document.querySelectorAll('.project-nav-pill');
 
-  if (!slides.length) return;
+  if (!realSlides.length) return;
 
-  let currentIdx = 0;
-  const totalSlides = slides.length;
+  const N = realSlides.length;
   const slideDuration = 2000; // 2 seconds
-  let animStart = performance.now();
-  let rafId = null;
-  let isPaused = false;
-  let elapsedBeforePause = 0;
 
-  // Ensure track and slides are styled for exact fractional width
+  // Clean any existing clones
+  track.querySelectorAll('.carousel-clone').forEach(el => el.remove());
+
+  // Prepend clone of last slide & Append clone of first slide
+  const firstClone = realSlides[0].cloneNode(true);
+  firstClone.classList.add('carousel-clone');
+  const lastClone = realSlides[N - 1].cloneNode(true);
+  lastClone.classList.add('carousel-clone');
+
+  track.insertBefore(lastClone, realSlides[0]);
+  track.appendChild(firstClone);
+
+  const allSlides = track.querySelectorAll('.featured-project-slide');
+  const totalWithClones = allSlides.length;
+
   track.style.display = 'flex';
   track.style.flexDirection = 'row';
   track.style.flexWrap = 'nowrap';
-  track.style.width = `${totalSlides * 100}%`;
-  track.style.transition = 'transform 0.75s cubic-bezier(0.25, 1, 0.5, 1)';
+  track.style.width = (totalWithClones * 100) + '%';
   track.style.willChange = 'transform';
 
-  slides.forEach((slide) => {
-    slide.style.width = `${100 / totalSlides}%`;
-    slide.style.flex = `0 0 ${100 / totalSlides}%`;
-    slide.style.minWidth = `${100 / totalSlides}%`;
-    slide.style.maxWidth = `${100 / totalSlides}%`;
+  allSlides.forEach((slide) => {
+    slide.style.width = (100 / totalWithClones) + '%';
+    slide.style.flex = '0 0 ' + (100 / totalWithClones) + '%';
+    slide.style.minWidth = (100 / totalWithClones) + '%';
+    slide.style.maxWidth = (100 / totalWithClones) + '%';
     slide.style.boxSizing = 'border-box';
   });
 
-  function updateSlide(idx) {
-    // Correct translation: shift track by (idx * 100 / totalSlides)% of track width
-    const percentShift = (idx * 100) / totalSlides;
-    track.style.transform = `translateX(-${percentShift}%)`;
+  let currentTrackIdx = 1;
+  let isTransitioning = false;
+  let isPaused = false;
+  let timerInterval = null;
+  let startTime = Date.now();
 
-    // Update counter
-    if (counterEl) {
-      counterEl.textContent = `0${idx + 1} / 0${totalSlides}`;
+  function setTrackPosition(idx, animated = true) {
+    if (animated) {
+      track.style.transition = 'transform 0.75s cubic-bezier(0.25, 1, 0.5, 1)';
+      isTransitioning = true;
+    } else {
+      track.style.transition = 'none';
+      isTransitioning = false;
     }
 
-    // Update Quick-Selector Nav Pills
+    const shiftPercent = (idx * 100) / totalWithClones;
+    track.style.transform = 'translateX(-' + shiftPercent + '%)';
+
+    let realIdx = idx - 1;
+    if (idx === 0) realIdx = N - 1;
+    if (idx === totalWithClones - 1) realIdx = 0;
+
+    if (counterEl) {
+      counterEl.textContent = '0' + (realIdx + 1) + ' / 0' + N;
+    }
+
     navPills.forEach((pill, i) => {
-      if (i === idx) {
+      if (i === realIdx) {
         pill.classList.add('active-pill');
       } else {
         pill.classList.remove('active-pill');
@@ -416,93 +439,107 @@ function initFeaturedProjectCarousel() {
     });
   }
 
-  function startProgress() {
-    if (rafId) cancelAnimationFrame(rafId);
-    animStart = performance.now();
-    elapsedBeforePause = 0;
+  track.addEventListener('transitionend', () => {
+    isTransitioning = false;
+    if (currentTrackIdx === 0) {
+      currentTrackIdx = N;
+      setTrackPosition(currentTrackIdx, false);
+    } else if (currentTrackIdx === totalWithClones - 1) {
+      currentTrackIdx = 1;
+      setTrackPosition(currentTrackIdx, false);
+    }
+  });
 
-    function step(timestamp) {
-      if (isPaused) {
-        animStart = timestamp - elapsedBeforePause;
-        rafId = requestAnimationFrame(step);
-        return;
-      }
+  function startTimer() {
+    clearInterval(timerInterval);
+    startTime = Date.now();
 
-      const elapsed = timestamp - animStart;
-      elapsedBeforePause = elapsed;
+    timerInterval = setInterval(() => {
+      if (isPaused) return;
+      const elapsed = Date.now() - startTime;
       const progress = Math.min(elapsed / slideDuration, 1);
 
       if (timerFill) {
-        timerFill.style.width = `${progress * 100}%`;
+        timerFill.style.width = (progress * 100) + '%';
       }
 
-      if (progress < 1) {
-        rafId = requestAnimationFrame(step);
-      } else {
-        nextSlide(false);
+      if (elapsed >= slideDuration) {
+        slideNext();
+        startTime = Date.now();
+        if (timerFill) timerFill.style.width = '0%';
       }
-    }
-
-    rafId = requestAnimationFrame(step);
+    }, 40);
   }
 
-  function goToSlide(idx, manual = true) {
-    currentIdx = idx;
-    updateSlide(currentIdx);
-    if (manual && window.WebAudioFX) window.WebAudioFX.playClick();
-    startProgress();
+  function slideNext() {
+    if (isTransitioning) return;
+    currentTrackIdx++;
+    setTrackPosition(currentTrackIdx, true);
+    if (timerFill) timerFill.style.width = '0%';
+    startTimer();
   }
 
-  function nextSlide(manual = true) {
-    currentIdx = (currentIdx + 1) % totalSlides;
-    goToSlide(currentIdx, manual);
+  function slidePrev() {
+    if (isTransitioning) return;
+    currentTrackIdx--;
+    setTrackPosition(currentTrackIdx, true);
+    if (timerFill) timerFill.style.width = '0%';
+    startTimer();
   }
 
-  function prevSlide() {
-    currentIdx = (currentIdx - 1 + totalSlides) % totalSlides;
-    goToSlide(currentIdx, true);
+  function goToRealSlide(realIdx) {
+    currentTrackIdx = realIdx + 1;
+    setTrackPosition(currentTrackIdx, true);
+    if (window.WebAudioFX) window.WebAudioFX.playClick();
+    if (timerFill) timerFill.style.width = '0%';
+    startTimer();
   }
 
-  if (nextBtn) nextBtn.addEventListener('click', () => nextSlide(true));
-  if (prevBtn) prevBtn.addEventListener('click', () => prevSlide());
+  if (nextBtn) {
+    nextBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      slideNext();
+    });
+  }
 
-  // Click handler for Quick-Selector Pills
+  if (prevBtn) {
+    prevBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      slidePrev();
+    });
+  }
+
   navPills.forEach((pill) => {
-    pill.addEventListener('click', () => {
+    pill.addEventListener('click', (e) => {
+      e.preventDefault();
       const targetIdx = parseInt(pill.getAttribute('data-target-idx'), 10);
       if (!isNaN(targetIdx)) {
-        goToSlide(targetIdx, true);
+        goToRealSlide(targetIdx);
       }
     });
   });
 
-  // Pause on hover
-  container.addEventListener('mouseenter', () => {
-    isPaused = true;
-  });
-  container.addEventListener('mouseleave', () => {
-    isPaused = false;
+  container.addEventListener('mouseenter', () => { isPaused = true; });
+  container.addEventListener('mouseleave', () => { 
+    isPaused = false; 
+    startTime = Date.now(); 
   });
 
-  // Touch Swipe Support
   let touchStartX = 0;
-  let touchEndX = 0;
   container.addEventListener('touchstart', (e) => {
-    touchStartX = e.changedTouches[0].screenX;
+    touchStartX = e.changedTouches[0].clientX;
   }, { passive: true });
 
   container.addEventListener('touchend', (e) => {
-    touchEndX = e.changedTouches[0].screenX;
-    if (touchStartX - touchEndX > 50) {
-      nextSlide(true); // Swipe Left -> Next
-    } else if (touchEndX - touchStartX > 50) {
-      prevSlide(); // Swipe Right -> Prev
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) {
+      if (diff > 0) slideNext();
+      else slidePrev();
     }
   }, { passive: true });
 
-  // Initial display & start 5s cycle
-  updateSlide(0);
-  startProgress();
+  setTrackPosition(1, false);
+  startTimer();
 }
 
 // Global initialization on DOM ready

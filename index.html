@@ -1503,12 +1503,12 @@
             </p>
           </div>
 
-          <!-- Carousel Controls & 5-Second Timer Bar -->
+          <!-- Carousel Controls & 2-Second Timer Bar -->
           <div class="flex flex-col items-end gap-3 shrink-0">
             <div class="flex items-center space-x-3">
               <!-- Current Slide Indicator -->
               <span id="project-slide-counter" class="font-mono text-xs font-bold text-tertiary px-3 py-1.5 rounded-full bg-surface-container border border-outline-variant/20">
-                01 / 05
+                01 / 07
               </span>
               
               <!-- Prev / Next Navigation Buttons -->
@@ -1520,7 +1520,7 @@
               </button>
             </div>
 
-            <!-- 5s Auto-Scroll Progress Rail -->
+            <!-- 2s Auto-Scroll Progress Rail -->
             <div class="w-40 h-1 bg-surface-container rounded-full overflow-hidden border border-outline-variant/15">
               <div id="project-timer-fill" class="h-full bg-gradient-to-r from-tertiary to-amber-400 w-0"></div>
             </div>
@@ -1531,40 +1531,54 @@
         <div id="project-carousel-container" class="relative w-full overflow-hidden py-4" style="overflow: hidden; position: relative; width: 100%;">
 
           <!-- Horizontal Revolving Sliding Track Container -->
-          <div id="project-carousel-track" class="project-carousel-track relative z-10" style="display: flex; flex-direction: row; flex-wrap: nowrap; width: 500%; transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); will-change: transform;">
+          <div id="project-carousel-track" class="project-carousel-track relative z-10" style="display: flex; flex-direction: row; flex-wrap: nowrap; will-change: transform;">
 
             <!-- SLIDE 1: Mahindra Scorpio-N -->
-            <div class="featured-project-slide flex flex-col items-center justify-center px-2" data-project-idx="0" style="flex: 0 0 20%; min-width: 20%; max-width: 20%; width: 20%; box-sizing: border-box;">
+            <div class="featured-project-slide flex flex-col items-center justify-center px-2" data-project-idx="0">
               <div class="relative w-full max-w-5xl mx-auto flex items-center justify-center">
                 <img src="assets/projects/mahindra-scorpio-n.png" alt="Mahindra Scorpio-N - Models We Worked On" class="w-full h-auto max-h-[75vh] object-contain mx-auto transition-transform duration-700 hover:scale-[1.02] drop-shadow-2xl">
               </div>
             </div>
 
             <!-- SLIDE 2: Audi A4 -->
-            <div class="featured-project-slide flex flex-col items-center justify-center px-2" data-project-idx="1" style="flex: 0 0 20%; min-width: 20%; max-width: 20%; width: 20%; box-sizing: border-box;">
+            <div class="featured-project-slide flex flex-col items-center justify-center px-2" data-project-idx="1">
               <div class="relative w-full max-w-5xl mx-auto flex items-center justify-center">
                 <img src="assets/projects/audi-a4.png" alt="Audi A4 - Models We Worked On" class="w-full h-auto max-h-[75vh] object-contain mx-auto transition-transform duration-700 hover:scale-[1.02] drop-shadow-2xl">
               </div>
             </div>
 
             <!-- SLIDE 3: Kia Seltos -->
-            <div class="featured-project-slide flex flex-col items-center justify-center px-2" data-project-idx="2" style="flex: 0 0 20%; min-width: 20%; max-width: 20%; width: 20%; box-sizing: border-box;">
+            <div class="featured-project-slide flex flex-col items-center justify-center px-2" data-project-idx="2">
               <div class="relative w-full max-w-5xl mx-auto flex items-center justify-center">
                 <img src="assets/projects/kia-seltos.png" alt="Kia Seltos - Models We Worked On" class="w-full h-auto max-h-[75vh] object-contain mx-auto transition-transform duration-700 hover:scale-[1.02] drop-shadow-2xl">
               </div>
             </div>
 
             <!-- SLIDE 4: Volkswagen Polo -->
-            <div class="featured-project-slide flex flex-col items-center justify-center px-2" data-project-idx="3" style="flex: 0 0 20%; min-width: 20%; max-width: 20%; width: 20%; box-sizing: border-box;">
+            <div class="featured-project-slide flex flex-col items-center justify-center px-2" data-project-idx="3">
               <div class="relative w-full max-w-5xl mx-auto flex items-center justify-center">
                 <img src="assets/projects/vw-polo.png" alt="Volkswagen Polo - Models We Worked On" class="w-full h-auto max-h-[75vh] object-contain mx-auto transition-transform duration-700 hover:scale-[1.02] drop-shadow-2xl">
               </div>
             </div>
 
             <!-- SLIDE 5: BMW M5 (White) -->
-            <div class="featured-project-slide flex flex-col items-center justify-center px-2" data-project-idx="4" style="flex: 0 0 20%; min-width: 20%; max-width: 20%; width: 20%; box-sizing: border-box;">
+            <div class="featured-project-slide flex flex-col items-center justify-center px-2" data-project-idx="4">
               <div class="relative w-full max-w-5xl mx-auto flex items-center justify-center">
                 <img src="assets/projects/bmw-m5.png" alt="BMW M5 ///M - Models We Worked On" class="w-full h-auto max-h-[75vh] object-contain mx-auto transition-transform duration-700 hover:scale-[1.02] drop-shadow-2xl">
+              </div>
+            </div>
+
+            <!-- SLIDE 6: Jaguar XF -->
+            <div class="featured-project-slide flex flex-col items-center justify-center px-2" data-project-idx="5">
+              <div class="relative w-full max-w-5xl mx-auto flex items-center justify-center">
+                <img src="assets/projects/jaguar-xf.png" alt="Jaguar XF - Models We Worked On" class="w-full h-auto max-h-[75vh] object-contain mx-auto transition-transform duration-700 hover:scale-[1.02] drop-shadow-2xl">
+              </div>
+            </div>
+
+            <!-- SLIDE 7: Toyota Fortuner Legender -->
+            <div class="featured-project-slide flex flex-col items-center justify-center px-2" data-project-idx="6">
+              <div class="relative w-full max-w-5xl mx-auto flex items-center justify-center">
+                <img src="assets/projects/toyota-fortuner.png" alt="Toyota Fortuner Legender - Models We Worked On" class="w-full h-auto max-h-[75vh] object-contain mx-auto transition-transform duration-700 hover:scale-[1.02] drop-shadow-2xl">
               </div>
             </div>
 
@@ -1592,6 +1606,14 @@
           <button class="project-nav-pill px-4 py-2 rounded-full bg-surface-container border border-outline-variant/20 text-xs font-mono font-bold text-on-surface-variant hover:border-tertiary hover:text-tertiary flex items-center space-x-2 transition-all cursor-pointer" data-target-idx="4">
             <span class="w-2 h-2 rounded-full bg-tertiary"></span>
             <span>BMW M5 ///M</span>
+          </button>
+          <button class="project-nav-pill px-4 py-2 rounded-full bg-surface-container border border-outline-variant/20 text-xs font-mono font-bold text-on-surface-variant hover:border-tertiary hover:text-tertiary flex items-center space-x-2 transition-all cursor-pointer" data-target-idx="5">
+            <span class="w-2 h-2 rounded-full bg-tertiary"></span>
+            <span>Jaguar XF</span>
+          </button>
+          <button class="project-nav-pill px-4 py-2 rounded-full bg-surface-container border border-outline-variant/20 text-xs font-mono font-bold text-on-surface-variant hover:border-tertiary hover:text-tertiary flex items-center space-x-2 transition-all cursor-pointer" data-target-idx="6">
+            <span class="w-2 h-2 rounded-full bg-tertiary"></span>
+            <span>Toyota Fortuner</span>
           </button>
         </div>
 
@@ -3274,62 +3296,105 @@
     }
 
     // =========================================================================
-    // MODELS WE WORKED ON: HORIZONTAL REVOLVING CAROUSEL
+    // MODELS WE WORKED ON: SEAMLESS INFINITE ONE-WAY HORIZONTAL REVOLVING CAROUSEL
     // =========================================================================
     function initFeaturedProjectCarousel() {
       const container = document.getElementById('project-carousel-container');
       const track = document.getElementById('project-carousel-track');
       if (!container || !track) return;
 
-      const slides = track.querySelectorAll('.featured-project-slide');
+      // Real slides originally present in DOM
+      const realSlides = Array.from(track.querySelectorAll('.featured-project-slide:not(.carousel-clone)'));
       const prevBtn = document.getElementById('project-prev-btn');
       const nextBtn = document.getElementById('project-next-btn');
       const counterEl = document.getElementById('project-slide-counter');
       const timerFill = document.getElementById('project-timer-fill');
       const navPills = document.querySelectorAll('.project-nav-pill');
 
-      if (!slides.length) return;
+      if (!realSlides.length) return;
 
-      let currentIdx = 0;
-      const totalSlides = slides.length;
+      const N = realSlides.length; // 7 vehicles
       const slideDuration = 2000; // 2 seconds
-      let timerInterval = null;
-      let startTime = Date.now();
-      let isPaused = false;
 
-      // Ensure track and slide fractional widths
+      // Clean any existing clones
+      track.querySelectorAll('.carousel-clone').forEach(el => el.remove());
+
+      // Prepend clone of last slide & Append clone of first slide for seamless infinite scroll
+      const firstClone = realSlides[0].cloneNode(true);
+      firstClone.classList.add('carousel-clone');
+      const lastClone = realSlides[N - 1].cloneNode(true);
+      lastClone.classList.add('carousel-clone');
+
+      track.insertBefore(lastClone, realSlides[0]);
+      track.appendChild(firstClone);
+
+      const allSlides = track.querySelectorAll('.featured-project-slide');
+      const totalWithClones = allSlides.length; // N + 2
+
+      // Apply dynamic percentage sizing
       track.style.display = 'flex';
       track.style.flexDirection = 'row';
       track.style.flexWrap = 'nowrap';
-      track.style.width = (totalSlides * 100) + '%';
-      track.style.transition = 'transform 0.75s cubic-bezier(0.25, 1, 0.5, 1)';
+      track.style.width = (totalWithClones * 100) + '%';
       track.style.willChange = 'transform';
 
-      slides.forEach((slide) => {
-        slide.style.width = (100 / totalSlides) + '%';
-        slide.style.flex = '0 0 ' + (100 / totalSlides) + '%';
-        slide.style.minWidth = (100 / totalSlides) + '%';
-        slide.style.maxWidth = (100 / totalSlides) + '%';
+      allSlides.forEach((slide) => {
+        slide.style.width = (100 / totalWithClones) + '%';
+        slide.style.flex = '0 0 ' + (100 / totalWithClones) + '%';
+        slide.style.minWidth = (100 / totalWithClones) + '%';
+        slide.style.maxWidth = (100 / totalWithClones) + '%';
         slide.style.boxSizing = 'border-box';
       });
 
-      function updateSlide(idx) {
-        currentIdx = ((idx % totalSlides) + totalSlides) % totalSlides;
-        const shiftPercent = (currentIdx * 100) / totalSlides;
+      let currentTrackIdx = 1; // Start at real slide 0 (offset 1)
+      let isTransitioning = false;
+      let isPaused = false;
+      let timerInterval = null;
+      let startTime = Date.now();
+
+      function setTrackPosition(idx, animated = true) {
+        if (animated) {
+          track.style.transition = 'transform 0.75s cubic-bezier(0.25, 1, 0.5, 1)';
+          isTransitioning = true;
+        } else {
+          track.style.transition = 'none';
+          isTransitioning = false;
+        }
+
+        const shiftPercent = (idx * 100) / totalWithClones;
         track.style.transform = 'translateX(-' + shiftPercent + '%)';
 
+        // Calculate real index 0 to N-1
+        let realIdx = idx - 1;
+        if (idx === 0) realIdx = N - 1;
+        if (idx === totalWithClones - 1) realIdx = 0;
+
         if (counterEl) {
-          counterEl.textContent = '0' + (currentIdx + 1) + ' / 0' + totalSlides;
+          counterEl.textContent = '0' + (realIdx + 1) + ' / 0' + N;
         }
 
         navPills.forEach((pill, i) => {
-          if (i === currentIdx) {
+          if (i === realIdx) {
             pill.classList.add('active-pill');
           } else {
             pill.classList.remove('active-pill');
           }
         });
       }
+
+      // Seamless instantaneous buffer swap on transition end
+      track.addEventListener('transitionend', () => {
+        isTransitioning = false;
+        if (currentTrackIdx === 0) {
+          // Wrapped backward past start -> jump to real last slide
+          currentTrackIdx = N;
+          setTrackPosition(currentTrackIdx, false);
+        } else if (currentTrackIdx === totalWithClones - 1) {
+          // Wrapped forward past end -> jump to real first slide seamlessly
+          currentTrackIdx = 1;
+          setTrackPosition(currentTrackIdx, false);
+        }
+      });
 
       function startTimer() {
         clearInterval(timerInterval);
@@ -3345,15 +3410,32 @@
           }
 
           if (elapsed >= slideDuration) {
-            updateSlide(currentIdx + 1);
+            slideNext();
             startTime = Date.now();
             if (timerFill) timerFill.style.width = '0%';
           }
-        }, 50);
+        }, 40);
       }
 
-      function goToSlide(idx) {
-        updateSlide(idx);
+      function slideNext() {
+        if (isTransitioning) return;
+        currentTrackIdx++;
+        setTrackPosition(currentTrackIdx, true);
+        if (timerFill) timerFill.style.width = '0%';
+        startTimer();
+      }
+
+      function slidePrev() {
+        if (isTransitioning) return;
+        currentTrackIdx--;
+        setTrackPosition(currentTrackIdx, true);
+        if (timerFill) timerFill.style.width = '0%';
+        startTimer();
+      }
+
+      function goToRealSlide(realIdx) {
+        currentTrackIdx = realIdx + 1;
+        setTrackPosition(currentTrackIdx, true);
         if (timerFill) timerFill.style.width = '0%';
         startTimer();
       }
@@ -3361,14 +3443,14 @@
       if (nextBtn) {
         nextBtn.addEventListener('click', (e) => {
           e.preventDefault();
-          goToSlide(currentIdx + 1);
+          slideNext();
         });
       }
 
       if (prevBtn) {
         prevBtn.addEventListener('click', (e) => {
           e.preventDefault();
-          goToSlide(currentIdx - 1);
+          slidePrev();
         });
       }
 
@@ -3377,7 +3459,7 @@
           e.preventDefault();
           const targetIdx = parseInt(pill.getAttribute('data-target-idx'), 10);
           if (!isNaN(targetIdx)) {
-            goToSlide(targetIdx);
+            goToRealSlide(targetIdx);
           }
         });
       });
@@ -3397,13 +3479,13 @@
       container.addEventListener('touchend', (e) => {
         const diff = touchStartX - e.changedTouches[0].clientX;
         if (Math.abs(diff) > 40) {
-          if (diff > 0) goToSlide(currentIdx + 1);
-          else goToSlide(currentIdx - 1);
+          if (diff > 0) slideNext();
+          else slidePrev();
         }
       }, { passive: true });
 
-      // Initialize
-      updateSlide(0);
+      // Initial layout at real slide 0
+      setTrackPosition(1, false);
       startTimer();
     }
 
