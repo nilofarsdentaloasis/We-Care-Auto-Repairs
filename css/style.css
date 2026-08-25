@@ -1085,19 +1085,28 @@ button {
   background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.6) 45%, transparent 75%);
 }
 
+#project-carousel-container {
+  overflow: hidden !important;
+  position: relative !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
 .project-carousel-track {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  width: 100% !important;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1) !important;
   will-change: transform;
 }
 
 .featured-project-slide {
-  min-width: 100%;
-  width: 100%;
-  flex-shrink: 0;
-  box-sizing: border-box;
+  flex: 0 0 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
 }
 
 .project-nav-pill {
