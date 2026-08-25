@@ -1977,8 +1977,9 @@
       const statElements = document.querySelectorAll('.counter-stat');
       if (!statElements.length) return;
 
-      // Set initial display to 0 with suffixes
+      // Initialize each stat to 0
       statElements.forEach(el => {
+        el._hasAnimated = false;
         const suffix = el.getAttribute('data-suffix') || '';
         const prefix = el.getAttribute('data-prefix') || '';
         const decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
@@ -1986,21 +1987,22 @@
         el.textContent = `${prefix}${zeroVal}${suffix}`;
       });
 
-      let animated = false;
+      function easeOutCubic(t) {
+        return 1 - Math.pow(1 - t, 3);
+      }
 
       function animateCounter(el) {
+        if (el._hasAnimated) return;
+        el._hasAnimated = true;
+
         const target = parseFloat(el.getAttribute('data-target'));
-        const duration = parseInt(el.getAttribute('data-duration') || '2000', 10);
+        const duration = parseInt(el.getAttribute('data-duration') || '1800', 10);
         const suffix = el.getAttribute('data-suffix') || '';
         const prefix = el.getAttribute('data-prefix') || '';
         const decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
         const formatComma = el.getAttribute('data-format-comma') === 'true';
 
         let startTime = null;
-
-        function easeOutCubic(t) {
-          return 1 - Math.pow(1 - t, 3);
-        }
 
         function step(timestamp) {
           if (!startTime) startTime = timestamp;
@@ -2030,33 +2032,54 @@
         requestAnimationFrame(step);
       }
 
-      const observer = new IntersectionObserver((entries, obs) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting && !animated) {
-            animated = true;
-            statElements.forEach((el, index) => {
-              // Slight staggered start for a sleek dynamic feel
-              setTimeout(() => {
-                animateCounter(el);
-              }, index * 80);
-            });
-            obs.disconnect();
-          }
+      function triggerAll() {
+        statElements.forEach((el, index) => {
+          setTimeout(() => {
+            animateCounter(el);
+          }, index * 80);
         });
-      }, {
-        threshold: 0.15,
-        rootMargin: '0px 0px -40px 0px'
-      });
-
-      const statsGrid = document.getElementById('stats-grid') || document.getElementById('who-we-are');
-      if (statsGrid) {
-        observer.observe(statsGrid);
-      } else {
-        statElements.forEach(el => observer.observe(el));
       }
+
+      // Check visibility on scroll as primary/fallback trigger
+      function checkVisibility() {
+        const statsGrid = document.getElementById('stats-grid') || document.getElementById('who-we-are');
+        if (!statsGrid) return;
+        const rect = statsGrid.getBoundingClientRect();
+        const inView = rect.top < (window.innerHeight || document.documentElement.clientHeight) * 0.95 && rect.bottom > 0;
+        if (inView) {
+          triggerAll();
+          window.removeEventListener('scroll', checkVisibility);
+        }
+      }
+
+      window.addEventListener('scroll', checkVisibility, { passive: true });
+      window.addEventListener('resize', checkVisibility, { passive: true });
+
+      // IntersectionObserver for modern browsers
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries, obs) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              triggerAll();
+              obs.disconnect();
+              window.removeEventListener('scroll', checkVisibility);
+            }
+          });
+        }, {
+          threshold: 0.05,
+          rootMargin: '50px 0px 50px 0px'
+        });
+
+        const statsGrid = document.getElementById('stats-grid') || document.getElementById('who-we-are');
+        if (statsGrid) {
+          observer.observe(statsGrid);
+        }
+      }
+
+      // Immediate check in case page loaded scrolled down
+      setTimeout(checkVisibility, 250);
     }
 
-    // Initialize counters when DOM is ready
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', initStatsCounters);
     } else {
