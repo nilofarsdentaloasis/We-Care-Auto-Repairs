@@ -1971,29 +1971,38 @@
     }, { passive: true });
 
     // =========================================================================
-    // STATS RUNNING COUNTER ANIMATION (Who We Are Section)
+    // STATS RUNNING COUNTER ANIMATION (Replays each time visitor enters section)
     // =========================================================================
     function initStatsCounters() {
       const statElements = document.querySelectorAll('.counter-stat');
       if (!statElements.length) return;
 
-      // Initialize each stat to 0
-      statElements.forEach(el => {
-        el._hasAnimated = false;
+      function resetElement(el) {
+        if (el._animFrameId) {
+          cancelAnimationFrame(el._animFrameId);
+          el._animFrameId = null;
+        }
+        el._isAnimating = false;
         const suffix = el.getAttribute('data-suffix') || '';
         const prefix = el.getAttribute('data-prefix') || '';
         const decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
         const zeroVal = decimals > 0 ? (0).toFixed(decimals) : '0';
         el.textContent = `${prefix}${zeroVal}${suffix}`;
-      });
+      }
+
+      // Initial reset to 0
+      statElements.forEach(el => resetElement(el));
 
       function easeOutCubic(t) {
         return 1 - Math.pow(1 - t, 3);
       }
 
       function animateCounter(el) {
-        if (el._hasAnimated) return;
-        el._hasAnimated = true;
+        if (el._animFrameId) {
+          cancelAnimationFrame(el._animFrameId);
+          el._animFrameId = null;
+        }
+        el._isAnimating = true;
 
         const target = parseFloat(el.getAttribute('data-target'));
         const duration = parseInt(el.getAttribute('data-duration') || '1800', 10);
@@ -2016,6 +2025,8 @@
               ? target.toFixed(decimals) 
               : (formatComma ? Math.round(target).toLocaleString('en-US') : Math.round(target).toString());
             el.textContent = `${prefix}${finalVal}${suffix}`;
+            el._isAnimating = false;
+            el._animFrameId = null;
           } else {
             let displayVal;
             if (decimals > 0) {
@@ -2025,49 +2036,45 @@
               displayVal = formatComma ? rounded.toLocaleString('en-US') : rounded.toString();
             }
             el.textContent = `${prefix}${displayVal}${suffix}`;
-            requestAnimationFrame(step);
+            el._animFrameId = requestAnimationFrame(step);
           }
         }
 
-        requestAnimationFrame(step);
+        el._animFrameId = requestAnimationFrame(step);
       }
 
-      function triggerAll() {
+      let isSectionInView = false;
+
+      function startAllCounters() {
+        if (isSectionInView) return;
+        isSectionInView = true;
         statElements.forEach((el, index) => {
+          resetElement(el);
           setTimeout(() => {
-            animateCounter(el);
+            if (isSectionInView) animateCounter(el);
           }, index * 80);
         });
       }
 
-      // Check visibility on scroll as primary/fallback trigger
-      function checkVisibility() {
-        const statsGrid = document.getElementById('stats-grid') || document.getElementById('who-we-are');
-        if (!statsGrid) return;
-        const rect = statsGrid.getBoundingClientRect();
-        const inView = rect.top < (window.innerHeight || document.documentElement.clientHeight) * 0.95 && rect.bottom > 0;
-        if (inView) {
-          triggerAll();
-          window.removeEventListener('scroll', checkVisibility);
-        }
+      function stopAndResetCounters() {
+        if (!isSectionInView) return;
+        isSectionInView = false;
+        statElements.forEach(el => resetElement(el));
       }
 
-      window.addEventListener('scroll', checkVisibility, { passive: true });
-      window.addEventListener('resize', checkVisibility, { passive: true });
-
-      // IntersectionObserver for modern browsers
+      // IntersectionObserver for repeatable scroll triggers
       if ('IntersectionObserver' in window) {
-        const observer = new IntersectionObserver((entries, obs) => {
+        const observer = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
-              triggerAll();
-              obs.disconnect();
-              window.removeEventListener('scroll', checkVisibility);
+              startAllCounters();
+            } else {
+              stopAndResetCounters();
             }
           });
         }, {
-          threshold: 0.05,
-          rootMargin: '50px 0px 50px 0px'
+          threshold: 0.1,
+          rootMargin: '0px 0px 0px 0px'
         });
 
         const statsGrid = document.getElementById('stats-grid') || document.getElementById('who-we-are');
@@ -2076,8 +2083,26 @@
         }
       }
 
-      // Immediate check in case page loaded scrolled down
-      setTimeout(checkVisibility, 250);
+      // Scroll-based fallback check
+      let wasInView = false;
+      function checkScroll() {
+        const statsGrid = document.getElementById('stats-grid') || document.getElementById('who-we-are');
+        if (!statsGrid) return;
+        const rect = statsGrid.getBoundingClientRect();
+        const currentlyInView = rect.top < (window.innerHeight || document.documentElement.clientHeight) * 0.9 && rect.bottom > (window.innerHeight * 0.1);
+
+        if (currentlyInView && !wasInView) {
+          wasInView = true;
+          startAllCounters();
+        } else if (!currentlyInView && wasInView) {
+          wasInView = false;
+          stopAndResetCounters();
+        }
+      }
+
+      window.addEventListener('scroll', checkScroll, { passive: true });
+      window.addEventListener('resize', checkScroll, { passive: true });
+      setTimeout(checkScroll, 300);
     }
 
     if (document.readyState === 'loading') {
