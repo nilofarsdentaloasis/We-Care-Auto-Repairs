@@ -204,6 +204,76 @@
     }
 
     /* ==========================================================================
+       WHY CHOOSE US SINGLE-ROW ANIMATED MARQUEE TRACK & HOVER SURPRISE
+       ========================================================================== */
+    @keyframes why-choose-flow {
+      0% {
+        transform: translate3d(0, 0, 0);
+      }
+      100% {
+        transform: translate3d(-50%, 0, 0);
+      }
+    }
+
+    .why-choose-track {
+      display: flex;
+      width: max-content;
+      animation: why-choose-flow 32s linear infinite;
+      will-change: transform;
+    }
+
+    .why-choose-wrapper:hover .why-choose-track,
+    .why-choose-track:hover {
+      animation-play-state: paused;
+    }
+
+    .why-choose-tile {
+      width: 330px;
+      flex-shrink: 0;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+    }
+
+    @media (min-width: 768px) {
+      .why-choose-tile {
+        width: 375px;
+      }
+    }
+
+    .why-choose-tile:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 40px -10px rgba(202, 160, 86, 0.22), 0 0 25px rgba(202, 160, 86, 0.12);
+      border-color: rgba(202, 160, 86, 0.6) !important;
+    }
+
+    @keyframes pulseAura {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.2;
+      }
+      50% {
+        transform: scale(1.15);
+        opacity: 0.4;
+      }
+    }
+
+    .pulse-aura {
+      animation: pulseAura 3s ease-in-out infinite;
+    }
+
+    @keyframes floatIconBadge {
+      0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-5px) rotate(2deg);
+      }
+    }
+
+    .float-icon {
+      animation: floatIconBadge 4s ease-in-out infinite;
+    }
+
+    /* ==========================================================================
        HERO FRAME SCROLL ANIMATION PINNING STYLES
        ========================================================================== */
     .hero-scroll-track {
@@ -1038,88 +1108,367 @@
       </div>
     </section>
 
-    <!-- 3. WHY CHOOSE WE CARE -->
-    <section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-surface-dim relative z-20 border-t border-outline-variant/10" id="why-choose-us">
-      <div class="max-w-container-max mx-auto">
-        <div class="text-center max-w-3xl mx-auto mb-16">
-          <div class="inline-flex items-center space-x-2 bg-surface-container-high border border-tertiary/20 px-3.5 py-1.5 rounded-full mb-4">
-            <span class="material-symbols-outlined text-tertiary text-[18px]">star</span>
-            <span class="font-label-caps text-xs text-tertiary uppercase tracking-widest font-semibold">Why Choose WE Care</span>
+    <!-- 3. WHY CHOOSE WE CARE (SINGLE-ROW LUXURY ANIMATED MARQUEE) -->
+    <section class="py-section-gap bg-surface-dim relative z-20 border-t border-outline-variant/10 overflow-hidden" id="why-choose-us">
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-14 gap-6">
+          <div class="max-w-2xl">
+            <div class="inline-flex items-center space-x-2 bg-surface-container-high border border-tertiary/20 px-3.5 py-1.5 rounded-full mb-4 shadow-sm">
+              <span class="material-symbols-outlined text-tertiary text-[18px]">star</span>
+              <span class="font-label-caps text-xs text-tertiary uppercase tracking-widest font-semibold">Why Choose WE Care</span>
+            </div>
+            <h2 class="font-display-lg text-3xl md:text-5xl text-primary mb-4 leading-tight font-bold">
+              Honest Advice, Skilled Hands, <br class="hidden sm:inline" /><span class="text-gradient-gold">Fair Prices</span>
+            </h2>
+            <p class="font-body-md text-on-surface-variant text-base md:text-lg">
+              We built our workshop on honesty, skilled workmanship, and high standards. We treat every customer's car like our own.
+            </p>
           </div>
-          <h2 class="font-display-lg text-3xl md:text-5xl text-primary mb-4 leading-tight">
-            Honest Advice, Skilled Hands, Fair Prices
-          </h2>
-          <p class="font-body-md text-on-surface-variant text-base md:text-lg">
-            We built our workshop on honesty, skilled workmanship, and high standards. We treat every customer's car like our own.
-          </p>
+
+          <!-- Status badge with live pulse indicator -->
+          <div class="inline-flex items-center space-x-2 bg-surface-container-low border border-outline-variant/25 px-4 py-2 rounded-full text-xs font-label-caps uppercase text-on-surface-variant shadow-sm">
+            <span class="w-2 h-2 rounded-full bg-tertiary animate-ping"></span>
+            <span>Live Auto-Scroll • Hover Any Tile to Pause</span>
+          </div>
         </div>
+      </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <!-- Pillar 1: Certified Technicians -->
-          <div class="bg-surface-container rounded-2xl p-8 shimmer-border glow-hover transition-all duration-300">
-            <div class="w-12 h-12 rounded-xl bg-tertiary/10 flex items-center justify-center mb-5 text-tertiary">
-              <span class="material-symbols-outlined text-[28px]">badge</span>
+      <!-- Full-Width Single-Row Animated Marquee Carousel with Fade Masks -->
+      <div class="why-choose-wrapper relative overflow-hidden py-4">
+        <!-- Left Edge Fade Gradient -->
+        <div class="pointer-events-none absolute left-0 top-0 bottom-0 w-16 md:w-36 bg-gradient-to-r from-surface-dim to-transparent z-10"></div>
+        <!-- Right Edge Fade Gradient -->
+        <div class="pointer-events-none absolute right-0 top-0 bottom-0 w-16 md:w-36 bg-gradient-to-l from-surface-dim to-transparent z-10"></div>
+
+        <!-- Continuous Infinite Track (Set 1 + Set 2) -->
+        <div class="why-choose-track flex gap-6 px-4">
+          
+          <!-- SET 1 -->
+          <!-- Tile 1: Experienced Technicians -->
+          <div class="why-choose-tile group relative bg-surface-container rounded-2xl p-7 md:p-8 border border-outline-variant/20 flex flex-col justify-between overflow-hidden shadow-xl">
+            <div class="tile-pulse-ring"></div>
+            <div class="absolute top-0 left-0 h-1 w-12 bg-tertiary/40 group-hover:w-full group-hover:bg-tertiary transition-all duration-500 rounded-t-2xl"></div>
+            <div>
+              <div class="flex items-center justify-between mb-5">
+                <div class="relative w-14 h-14 rounded-2xl bg-surface-container-high border border-tertiary/25 flex items-center justify-center text-tertiary shadow-inner float-icon">
+                  <div class="absolute inset-0 rounded-2xl bg-tertiary/10 blur-sm pulse-aura"></div>
+                  <span class="material-symbols-outlined text-[30px] relative z-10">badge</span>
+                </div>
+                <span class="text-[11px] font-label-caps font-bold px-2.5 py-1 rounded-full bg-tertiary/10 text-tertiary border border-tertiary/20">
+                  PILLAR 01
+                </span>
+              </div>
+              <h3 class="font-headline-md text-xl text-primary mb-2.5 font-bold group-hover:text-tertiary transition-colors">
+                Experienced Technicians
+              </h3>
+              <p class="font-body-md text-on-surface-variant text-sm leading-relaxed">
+                Our mechanics have 10+ years of showroom training across all popular Indian, Japanese, and luxury German car models.
+              </p>
             </div>
-            <h3 class="font-headline-md text-xl text-primary mb-2 font-semibold">Experienced Technicians</h3>
-            <p class="font-body-md text-on-surface-variant text-sm leading-relaxed">
-              Our mechanics have 10+ years of showroom training across all popular Indian, Japanese, and luxury German car models.
-            </p>
+            <div class="flex items-center space-x-1.5 text-xs text-tertiary font-label-caps uppercase font-semibold mt-5 pt-4 border-t border-outline-variant/15">
+              <span class="material-symbols-outlined text-[16px]">verified</span>
+              <span>10+ Years Factory Training</span>
+            </div>
           </div>
 
-          <!-- Pillar 2: Genuine Parts -->
-          <div class="bg-surface-container rounded-2xl p-8 shimmer-border glow-hover transition-all duration-300">
-            <div class="w-12 h-12 rounded-xl bg-tertiary/10 flex items-center justify-center mb-5 text-tertiary">
-              <span class="material-symbols-outlined text-[28px]">verified_user</span>
+          <!-- Tile 2: Genuine Parts -->
+          <div class="why-choose-tile group relative bg-surface-container rounded-2xl p-7 md:p-8 border border-outline-variant/20 flex flex-col justify-between overflow-hidden shadow-xl">
+            <div class="tile-pulse-ring"></div>
+            <div class="absolute top-0 left-0 h-1 w-12 bg-tertiary/40 group-hover:w-full group-hover:bg-tertiary transition-all duration-500 rounded-t-2xl"></div>
+            <div>
+              <div class="flex items-center justify-between mb-5">
+                <div class="relative w-14 h-14 rounded-2xl bg-surface-container-high border border-tertiary/25 flex items-center justify-center text-tertiary shadow-inner float-icon">
+                  <div class="absolute inset-0 rounded-2xl bg-tertiary/10 blur-sm pulse-aura"></div>
+                  <span class="material-symbols-outlined text-[30px] relative z-10">verified_user</span>
+                </div>
+                <span class="text-[11px] font-label-caps font-bold px-2.5 py-1 rounded-full bg-tertiary/10 text-tertiary border border-tertiary/20">
+                  PILLAR 02
+                </span>
+              </div>
+              <h3 class="font-headline-md text-xl text-primary mb-2.5 font-bold group-hover:text-tertiary transition-colors">
+                100% Genuine Spare Parts
+              </h3>
+              <p class="font-body-md text-on-surface-variant text-sm leading-relaxed">
+                We only use 100% original OEM parts sourced directly from authorized company distributors with full warranty support.
+              </p>
             </div>
-            <h3 class="font-headline-md text-xl text-primary mb-2 font-semibold">100% Genuine Spare Parts</h3>
-            <p class="font-body-md text-on-surface-variant text-sm leading-relaxed">
-              We only use 100% original OEM parts sourced directly from authorized company distributors with full warranty support.
-            </p>
+            <div class="flex items-center space-x-1.5 text-xs text-tertiary font-label-caps uppercase font-semibold mt-5 pt-4 border-t border-outline-variant/15">
+              <span class="material-symbols-outlined text-[16px]">verified</span>
+              <span>Direct OEM Distributor Sourcing</span>
+            </div>
           </div>
 
-          <!-- Pillar 3: Transparent Pricing -->
-          <div class="bg-surface-container rounded-2xl p-8 shimmer-border glow-hover transition-all duration-300">
-            <div class="w-12 h-12 rounded-xl bg-tertiary/10 flex items-center justify-center mb-5 text-tertiary">
-              <span class="material-symbols-outlined text-[28px]">receipt_long</span>
+          <!-- Tile 3: Transparent Pricing -->
+          <div class="why-choose-tile group relative bg-surface-container rounded-2xl p-7 md:p-8 border border-outline-variant/20 flex flex-col justify-between overflow-hidden shadow-xl">
+            <div class="tile-pulse-ring"></div>
+            <div class="absolute top-0 left-0 h-1 w-12 bg-tertiary/40 group-hover:w-full group-hover:bg-tertiary transition-all duration-500 rounded-t-2xl"></div>
+            <div>
+              <div class="flex items-center justify-between mb-5">
+                <div class="relative w-14 h-14 rounded-2xl bg-surface-container-high border border-tertiary/25 flex items-center justify-center text-tertiary shadow-inner float-icon">
+                  <div class="absolute inset-0 rounded-2xl bg-tertiary/10 blur-sm pulse-aura"></div>
+                  <span class="material-symbols-outlined text-[30px] relative z-10">receipt_long</span>
+                </div>
+                <span class="text-[11px] font-label-caps font-bold px-2.5 py-1 rounded-full bg-tertiary/10 text-tertiary border border-tertiary/20">
+                  PILLAR 03
+                </span>
+              </div>
+              <h3 class="font-headline-md text-xl text-primary mb-2.5 font-bold group-hover:text-tertiary transition-colors">
+                Clear & Transparent Pricing
+              </h3>
+              <p class="font-body-md text-on-surface-variant text-sm leading-relaxed">
+                You get an itemized bill before work starts. Zero hidden fees or surprise charges. We only do work you approve.
+              </p>
             </div>
-            <h3 class="font-headline-md text-xl text-primary mb-2 font-semibold">Clear & Transparent Pricing</h3>
-            <p class="font-body-md text-on-surface-variant text-sm leading-relaxed">
-              You get an itemized bill before work starts. Zero hidden fees or surprise charges. We only do work you approve.
-            </p>
+            <div class="flex items-center space-x-1.5 text-xs text-tertiary font-label-caps uppercase font-semibold mt-5 pt-4 border-t border-outline-variant/15">
+              <span class="material-symbols-outlined text-[16px]">verified</span>
+              <span>Zero Hidden Cost Guarantee</span>
+            </div>
           </div>
 
-          <!-- Pillar 4: Fast Turnaround -->
-          <div class="bg-surface-container rounded-2xl p-8 shimmer-border glow-hover transition-all duration-300">
-            <div class="w-12 h-12 rounded-xl bg-tertiary/10 flex items-center justify-center mb-5 text-tertiary">
-              <span class="material-symbols-outlined text-[28px]">schedule</span>
+          <!-- Tile 4: Fast Turnaround -->
+          <div class="why-choose-tile group relative bg-surface-container rounded-2xl p-7 md:p-8 border border-outline-variant/20 flex flex-col justify-between overflow-hidden shadow-xl">
+            <div class="tile-pulse-ring"></div>
+            <div class="absolute top-0 left-0 h-1 w-12 bg-tertiary/40 group-hover:w-full group-hover:bg-tertiary transition-all duration-500 rounded-t-2xl"></div>
+            <div>
+              <div class="flex items-center justify-between mb-5">
+                <div class="relative w-14 h-14 rounded-2xl bg-surface-container-high border border-tertiary/25 flex items-center justify-center text-tertiary shadow-inner float-icon">
+                  <div class="absolute inset-0 rounded-2xl bg-tertiary/10 blur-sm pulse-aura"></div>
+                  <span class="material-symbols-outlined text-[30px] relative z-10">schedule</span>
+                </div>
+                <span class="text-[11px] font-label-caps font-bold px-2.5 py-1 rounded-full bg-tertiary/10 text-tertiary border border-tertiary/20">
+                  PILLAR 04
+                </span>
+              </div>
+              <h3 class="font-headline-md text-xl text-primary mb-2.5 font-bold group-hover:text-tertiary transition-colors">
+                Fast & On-Time Delivery
+              </h3>
+              <p class="font-body-md text-on-surface-variant text-sm leading-relaxed">
+                We respect your time. Our organized repair bays ensure your car is serviced properly and returned to you on schedule.
+              </p>
             </div>
-            <h3 class="font-headline-md text-xl text-primary mb-2 font-semibold">Fast & On-Time Delivery</h3>
-            <p class="font-body-md text-on-surface-variant text-sm leading-relaxed">
-              We respect your time. Our organized repair bays ensure your car is serviced properly and returned to you on schedule.
-            </p>
+            <div class="flex items-center space-x-1.5 text-xs text-tertiary font-label-caps uppercase font-semibold mt-5 pt-4 border-t border-outline-variant/15">
+              <span class="material-symbols-outlined text-[16px]">verified</span>
+              <span>Strict Bay Scheduling</span>
+            </div>
           </div>
 
-          <!-- Pillar 5: Modern Equipment -->
-          <div class="bg-surface-container rounded-2xl p-8 shimmer-border glow-hover transition-all duration-300">
-            <div class="w-12 h-12 rounded-xl bg-tertiary/10 flex items-center justify-center mb-5 text-tertiary">
-              <span class="material-symbols-outlined text-[28px]">precision_manufacturing</span>
+          <!-- Tile 5: Modern Equipment -->
+          <div class="why-choose-tile group relative bg-surface-container rounded-2xl p-7 md:p-8 border border-outline-variant/20 flex flex-col justify-between overflow-hidden shadow-xl">
+            <div class="tile-pulse-ring"></div>
+            <div class="absolute top-0 left-0 h-1 w-12 bg-tertiary/40 group-hover:w-full group-hover:bg-tertiary transition-all duration-500 rounded-t-2xl"></div>
+            <div>
+              <div class="flex items-center justify-between mb-5">
+                <div class="relative w-14 h-14 rounded-2xl bg-surface-container-high border border-tertiary/25 flex items-center justify-center text-tertiary shadow-inner float-icon">
+                  <div class="absolute inset-0 rounded-2xl bg-tertiary/10 blur-sm pulse-aura"></div>
+                  <span class="material-symbols-outlined text-[30px] relative z-10">precision_manufacturing</span>
+                </div>
+                <span class="text-[11px] font-label-caps font-bold px-2.5 py-1 rounded-full bg-tertiary/10 text-tertiary border border-tertiary/20">
+                  PILLAR 05
+                </span>
+              </div>
+              <h3 class="font-headline-md text-xl text-primary mb-2.5 font-bold group-hover:text-tertiary transition-colors">
+                Modern Diagnostic Tools
+              </h3>
+              <p class="font-body-md text-on-surface-variant text-sm leading-relaxed">
+                Equipped with latest OBD computer scanners, AC gas recovery machines, hydraulic lifts, and specialized engine toolkits.
+              </p>
             </div>
-            <h3 class="font-headline-md text-xl text-primary mb-2 font-semibold">Modern Diagnostic Tools</h3>
-            <p class="font-body-md text-on-surface-variant text-sm leading-relaxed">
-              Equipped with latest OBD computer scanners, AC gas recovery machines, hydraulic lifts, and specialized engine toolkits.
-            </p>
+            <div class="flex items-center space-x-1.5 text-xs text-tertiary font-label-caps uppercase font-semibold mt-5 pt-4 border-t border-outline-variant/15">
+              <span class="material-symbols-outlined text-[16px]">verified</span>
+              <span>Latest Computer Scanners</span>
+            </div>
           </div>
 
-          <!-- Pillar 6: Dedicated Bay Telemetry -->
-          <div class="bg-surface-container rounded-2xl p-8 shimmer-border glow-hover transition-all duration-300">
-            <div class="w-12 h-12 rounded-xl bg-tertiary/10 flex items-center justify-center mb-5 text-tertiary">
-              <span class="material-symbols-outlined text-[28px]">photo_camera</span>
+          <!-- Tile 6: WhatsApp Photo & Video Updates -->
+          <div class="why-choose-tile group relative bg-surface-container rounded-2xl p-7 md:p-8 border border-outline-variant/20 flex flex-col justify-between overflow-hidden shadow-xl">
+            <div class="tile-pulse-ring"></div>
+            <div class="absolute top-0 left-0 h-1 w-12 bg-tertiary/40 group-hover:w-full group-hover:bg-tertiary transition-all duration-500 rounded-t-2xl"></div>
+            <div>
+              <div class="flex items-center justify-between mb-5">
+                <div class="relative w-14 h-14 rounded-2xl bg-surface-container-high border border-tertiary/25 flex items-center justify-center text-tertiary shadow-inner float-icon">
+                  <div class="absolute inset-0 rounded-2xl bg-tertiary/10 blur-sm pulse-aura"></div>
+                  <span class="material-symbols-outlined text-[30px] relative z-10">photo_camera</span>
+                </div>
+                <span class="text-[11px] font-label-caps font-bold px-2.5 py-1 rounded-full bg-tertiary/10 text-tertiary border border-tertiary/20">
+                  PILLAR 06
+                </span>
+              </div>
+              <h3 class="font-headline-md text-xl text-primary mb-2.5 font-bold group-hover:text-tertiary transition-colors">
+                WhatsApp Photo & Video Updates
+              </h3>
+              <p class="font-body-md text-on-surface-variant text-sm leading-relaxed">
+                We send you real-time photos and videos on WhatsApp showing replaced parts and service progress for 100% peace of mind.
+              </p>
             </div>
-            <h3 class="font-headline-md text-xl text-primary mb-2 font-semibold">WhatsApp Photo & Video Updates</h3>
-            <p class="font-body-md text-on-surface-variant text-sm leading-relaxed">
-              We send you real-time photos and videos on WhatsApp showing replaced parts and service progress for 100% peace of mind.
-            </p>
+            <div class="flex items-center space-x-1.5 text-xs text-tertiary font-label-caps uppercase font-semibold mt-5 pt-4 border-t border-outline-variant/15">
+              <span class="material-symbols-outlined text-[16px]">verified</span>
+              <span>100% Live Visual Proof</span>
+            </div>
           </div>
+
+          <!-- SET 2 (DUPLICATE FOR SEAMLESS INFINITE LOOP) -->
+          <!-- Tile 1 Duplicate -->
+          <div class="why-choose-tile group relative bg-surface-container rounded-2xl p-7 md:p-8 border border-outline-variant/20 flex flex-col justify-between overflow-hidden shadow-xl" aria-hidden="true">
+            <div class="tile-pulse-ring"></div>
+            <div class="absolute top-0 left-0 h-1 w-12 bg-tertiary/40 group-hover:w-full group-hover:bg-tertiary transition-all duration-500 rounded-t-2xl"></div>
+            <div>
+              <div class="flex items-center justify-between mb-5">
+                <div class="relative w-14 h-14 rounded-2xl bg-surface-container-high border border-tertiary/25 flex items-center justify-center text-tertiary shadow-inner float-icon">
+                  <div class="absolute inset-0 rounded-2xl bg-tertiary/10 blur-sm pulse-aura"></div>
+                  <span class="material-symbols-outlined text-[30px] relative z-10">badge</span>
+                </div>
+                <span class="text-[11px] font-label-caps font-bold px-2.5 py-1 rounded-full bg-tertiary/10 text-tertiary border border-tertiary/20">
+                  PILLAR 01
+                </span>
+              </div>
+              <h3 class="font-headline-md text-xl text-primary mb-2.5 font-bold group-hover:text-tertiary transition-colors">
+                Experienced Technicians
+              </h3>
+              <p class="font-body-md text-on-surface-variant text-sm leading-relaxed">
+                Our mechanics have 10+ years of showroom training across all popular Indian, Japanese, and luxury German car models.
+              </p>
+            </div>
+            <div class="flex items-center space-x-1.5 text-xs text-tertiary font-label-caps uppercase font-semibold mt-5 pt-4 border-t border-outline-variant/15">
+              <span class="material-symbols-outlined text-[16px]">verified</span>
+              <span>10+ Years Factory Training</span>
+            </div>
+          </div>
+
+          <!-- Tile 2 Duplicate -->
+          <div class="why-choose-tile group relative bg-surface-container rounded-2xl p-7 md:p-8 border border-outline-variant/20 flex flex-col justify-between overflow-hidden shadow-xl" aria-hidden="true">
+            <div class="tile-pulse-ring"></div>
+            <div class="absolute top-0 left-0 h-1 w-12 bg-tertiary/40 group-hover:w-full group-hover:bg-tertiary transition-all duration-500 rounded-t-2xl"></div>
+            <div>
+              <div class="flex items-center justify-between mb-5">
+                <div class="relative w-14 h-14 rounded-2xl bg-surface-container-high border border-tertiary/25 flex items-center justify-center text-tertiary shadow-inner float-icon">
+                  <div class="absolute inset-0 rounded-2xl bg-tertiary/10 blur-sm pulse-aura"></div>
+                  <span class="material-symbols-outlined text-[30px] relative z-10">verified_user</span>
+                </div>
+                <span class="text-[11px] font-label-caps font-bold px-2.5 py-1 rounded-full bg-tertiary/10 text-tertiary border border-tertiary/20">
+                  PILLAR 02
+                </span>
+              </div>
+              <h3 class="font-headline-md text-xl text-primary mb-2.5 font-bold group-hover:text-tertiary transition-colors">
+                100% Genuine Spare Parts
+              </h3>
+              <p class="font-body-md text-on-surface-variant text-sm leading-relaxed">
+                We only use 100% original OEM parts sourced directly from authorized company distributors with full warranty support.
+              </p>
+            </div>
+            <div class="flex items-center space-x-1.5 text-xs text-tertiary font-label-caps uppercase font-semibold mt-5 pt-4 border-t border-outline-variant/15">
+              <span class="material-symbols-outlined text-[16px]">verified</span>
+              <span>Direct OEM Distributor Sourcing</span>
+            </div>
+          </div>
+
+          <!-- Tile 3 Duplicate -->
+          <div class="why-choose-tile group relative bg-surface-container rounded-2xl p-7 md:p-8 border border-outline-variant/20 flex flex-col justify-between overflow-hidden shadow-xl" aria-hidden="true">
+            <div class="tile-pulse-ring"></div>
+            <div class="absolute top-0 left-0 h-1 w-12 bg-tertiary/40 group-hover:w-full group-hover:bg-tertiary transition-all duration-500 rounded-t-2xl"></div>
+            <div>
+              <div class="flex items-center justify-between mb-5">
+                <div class="relative w-14 h-14 rounded-2xl bg-surface-container-high border border-tertiary/25 flex items-center justify-center text-tertiary shadow-inner float-icon">
+                  <div class="absolute inset-0 rounded-2xl bg-tertiary/10 blur-sm pulse-aura"></div>
+                  <span class="material-symbols-outlined text-[30px] relative z-10">receipt_long</span>
+                </div>
+                <span class="text-[11px] font-label-caps font-bold px-2.5 py-1 rounded-full bg-tertiary/10 text-tertiary border border-tertiary/20">
+                  PILLAR 03
+                </span>
+              </div>
+              <h3 class="font-headline-md text-xl text-primary mb-2.5 font-bold group-hover:text-tertiary transition-colors">
+                Clear & Transparent Pricing
+              </h3>
+              <p class="font-body-md text-on-surface-variant text-sm leading-relaxed">
+                You get an itemized bill before work starts. Zero hidden fees or surprise charges. We only do work you approve.
+              </p>
+            </div>
+            <div class="flex items-center space-x-1.5 text-xs text-tertiary font-label-caps uppercase font-semibold mt-5 pt-4 border-t border-outline-variant/15">
+              <span class="material-symbols-outlined text-[16px]">verified</span>
+              <span>Zero Hidden Cost Guarantee</span>
+            </div>
+          </div>
+
+          <!-- Tile 4 Duplicate -->
+          <div class="why-choose-tile group relative bg-surface-container rounded-2xl p-7 md:p-8 border border-outline-variant/20 flex flex-col justify-between overflow-hidden shadow-xl" aria-hidden="true">
+            <div class="tile-pulse-ring"></div>
+            <div class="absolute top-0 left-0 h-1 w-12 bg-tertiary/40 group-hover:w-full group-hover:bg-tertiary transition-all duration-500 rounded-t-2xl"></div>
+            <div>
+              <div class="flex items-center justify-between mb-5">
+                <div class="relative w-14 h-14 rounded-2xl bg-surface-container-high border border-tertiary/25 flex items-center justify-center text-tertiary shadow-inner float-icon">
+                  <div class="absolute inset-0 rounded-2xl bg-tertiary/10 blur-sm pulse-aura"></div>
+                  <span class="material-symbols-outlined text-[30px] relative z-10">schedule</span>
+                </div>
+                <span class="text-[11px] font-label-caps font-bold px-2.5 py-1 rounded-full bg-tertiary/10 text-tertiary border border-tertiary/20">
+                  PILLAR 04
+                </span>
+              </div>
+              <h3 class="font-headline-md text-xl text-primary mb-2.5 font-bold group-hover:text-tertiary transition-colors">
+                Fast & On-Time Delivery
+              </h3>
+              <p class="font-body-md text-on-surface-variant text-sm leading-relaxed">
+                We respect your time. Our organized repair bays ensure your car is serviced properly and returned to you on schedule.
+              </p>
+            </div>
+            <div class="flex items-center space-x-1.5 text-xs text-tertiary font-label-caps uppercase font-semibold mt-5 pt-4 border-t border-outline-variant/15">
+              <span class="material-symbols-outlined text-[16px]">verified</span>
+              <span>Strict Bay Scheduling</span>
+            </div>
+          </div>
+
+          <!-- Tile 5 Duplicate -->
+          <div class="why-choose-tile group relative bg-surface-container rounded-2xl p-7 md:p-8 border border-outline-variant/20 flex flex-col justify-between overflow-hidden shadow-xl" aria-hidden="true">
+            <div class="tile-pulse-ring"></div>
+            <div class="absolute top-0 left-0 h-1 w-12 bg-tertiary/40 group-hover:w-full group-hover:bg-tertiary transition-all duration-500 rounded-t-2xl"></div>
+            <div>
+              <div class="flex items-center justify-between mb-5">
+                <div class="relative w-14 h-14 rounded-2xl bg-surface-container-high border border-tertiary/25 flex items-center justify-center text-tertiary shadow-inner float-icon">
+                  <div class="absolute inset-0 rounded-2xl bg-tertiary/10 blur-sm pulse-aura"></div>
+                  <span class="material-symbols-outlined text-[30px] relative z-10">precision_manufacturing</span>
+                </div>
+                <span class="text-[11px] font-label-caps font-bold px-2.5 py-1 rounded-full bg-tertiary/10 text-tertiary border border-tertiary/20">
+                  PILLAR 05
+                </span>
+              </div>
+              <h3 class="font-headline-md text-xl text-primary mb-2.5 font-bold group-hover:text-tertiary transition-colors">
+                Modern Diagnostic Tools
+              </h3>
+              <p class="font-body-md text-on-surface-variant text-sm leading-relaxed">
+                Equipped with latest OBD computer scanners, AC gas recovery machines, hydraulic lifts, and specialized engine toolkits.
+              </p>
+            </div>
+            <div class="flex items-center space-x-1.5 text-xs text-tertiary font-label-caps uppercase font-semibold mt-5 pt-4 border-t border-outline-variant/15">
+              <span class="material-symbols-outlined text-[16px]">verified</span>
+              <span>Latest Computer Scanners</span>
+            </div>
+          </div>
+
+          <!-- Tile 6 Duplicate -->
+          <div class="why-choose-tile group relative bg-surface-container rounded-2xl p-7 md:p-8 border border-outline-variant/20 flex flex-col justify-between overflow-hidden shadow-xl" aria-hidden="true">
+            <div class="tile-pulse-ring"></div>
+            <div class="absolute top-0 left-0 h-1 w-12 bg-tertiary/40 group-hover:w-full group-hover:bg-tertiary transition-all duration-500 rounded-t-2xl"></div>
+            <div>
+              <div class="flex items-center justify-between mb-5">
+                <div class="relative w-14 h-14 rounded-2xl bg-surface-container-high border border-tertiary/25 flex items-center justify-center text-tertiary shadow-inner float-icon">
+                  <div class="absolute inset-0 rounded-2xl bg-tertiary/10 blur-sm pulse-aura"></div>
+                  <span class="material-symbols-outlined text-[30px] relative z-10">photo_camera</span>
+                </div>
+                <span class="text-[11px] font-label-caps font-bold px-2.5 py-1 rounded-full bg-tertiary/10 text-tertiary border border-tertiary/20">
+                  PILLAR 06
+                </span>
+              </div>
+              <h3 class="font-headline-md text-xl text-primary mb-2.5 font-bold group-hover:text-tertiary transition-colors">
+                WhatsApp Photo & Video Updates
+              </h3>
+              <p class="font-body-md text-on-surface-variant text-sm leading-relaxed">
+                We send you real-time photos and videos on WhatsApp showing replaced parts and service progress for 100% peace of mind.
+              </p>
+            </div>
+            <div class="flex items-center space-x-1.5 text-xs text-tertiary font-label-caps uppercase font-semibold mt-5 pt-4 border-t border-outline-variant/15">
+              <span class="material-symbols-outlined text-[16px]">verified</span>
+              <span>100% Live Visual Proof</span>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
