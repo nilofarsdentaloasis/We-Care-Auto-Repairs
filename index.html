@@ -442,6 +442,13 @@
         display: none;
         opacity: 0;
       }
+      #hero-canvas {
+        width: 100%;
+        height: 100%;
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: high-quality;
+        filter: contrast(1.10) brightness(1.04) saturate(1.08);
+      }
       .scroll-cue {
         bottom: 1.5rem;
       }
@@ -759,7 +766,9 @@
     }
 
     function resizeCanvas() {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+      const isMobile = window.innerWidth < 768;
+      // Support native 3x Retina DPR on modern mobile screens (iPhone Pro, Pixel, Galaxy Ultra)
+      const dpr = Math.min(window.devicePixelRatio || 1, isMobile ? 3 : 2.5);
       const width = window.innerWidth;
       const height = window.innerHeight;
 
@@ -775,7 +784,6 @@
       ctx.imageSmoothingQuality = 'high';
 
       // Ensure appropriate image set is preloaded on viewport resize
-      const isMobile = window.innerWidth < 768;
       if (isMobile && !mobilePreloaded) {
         preloadMobileImages();
       } else if (!isMobile && !desktopPreloaded) {
