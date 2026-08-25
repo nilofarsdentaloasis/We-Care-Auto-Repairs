@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Contact Us | We Care Auto Repair</title>
+  
+  <!-- Tailwind CSS & Plugins -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Hanken+Grotesk:wght@400;600&family=Libre+Caslon+Text:wght@400;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-primary": "#313030",
+            "surface-container": "#202020",
+            "on-primary-container": "#7e7d7d",
+            "surface-bright": "#393939",
+            "on-surface": "#e5e2e1",
+            "surface-dim": "#131313",
+            "secondary-container": "#484949",
+            "inverse-primary": "#5f5e5e",
+            "background": "#131313",
+            "on-tertiary-fixed": "#241a00",
+            "on-primary-fixed-variant": "#474646",
+            "primary-fixed": "#e5e2e1",
+            "inverse-surface": "#e5e2e1",
+            "error-container": "#93000a",
+            "secondary-fixed-dim": "#c6c6c6",
+            "on-tertiary": "#3c2f00",
+            "on-primary-fixed": "#1c1b1b",
+            "secondary-fixed": "#e3e2e2",
+            "tertiary-fixed-dim": "#e9c349",
+            "surface-container-low": "#1b1b1c",
+            "outline-variant": "#444748",
+            "on-secondary-container": "#b8b8b8",
+            "surface-variant": "#353535",
+            "surface-container-highest": "#353535",
+            "on-secondary-fixed": "#1a1c1c",
+            "tertiary": "#e9c349",
+            "surface": "#131313",
+            "on-error-container": "#ffdad6",
+            "tertiary-container": "#181100",
+            "on-surface-variant": "#c4c7c7",
+            "on-tertiary-fixed-variant": "#574500",
+            "surface-container-lowest": "#0e0e0e",
+            "on-background": "#e5e2e1",
+            "secondary": "#c6c6c6",
+            "on-secondary": "#2f3131",
+            "error": "#ffb4ab",
+            "primary-fixed-dim": "#c8c6c5",
+            "surface-container-high": "#2a2a2a",
+            "on-error": "#690005",
+            "on-tertiary-container": "#987a00",
+            "inverse-on-surface": "#303030",
+            "primary-container": "#121212",
+            "tertiary-fixed": "#ffe088",
+            "primary": "#c8c6c5",
+            "surface-tint": "#c8c6c5",
+            "on-secondary-fixed-variant": "#464747",
+            "outline": "#8e9192"
+          },
+          borderRadius: {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          spacing: {
+            "stack-lg": "32px",
+            "margin-desktop": "64px",
+            "gutter": "24px",
+            "container-max": "1280px",
+            "section-gap": "120px",
+            "stack-md": "16px",
+            "stack-sm": "8px",
+            "margin-mobile": "20px"
+          },
+          fontFamily: {
+            "headline-lg": ["Libre Caslon Text"],
+            "body-lg": ["Hanken Grotesk"],
+            "display-lg": ["Libre Caslon Text"],
+            "headline-md": ["Libre Caslon Text"],
+            "stats-number": ["Geist"],
+            "label-caps": ["Geist"],
+            "body-md": ["Hanken Grotesk"],
+            "headline-lg-mobile": ["Libre Caslon Text"]
+          }
+        },
+      },
+    }
+  </script>
+
+  <style>
+    html, body {
+      background-color: #131313;
+      color: #e5e2e1;
+      overflow-x: hidden;
+    }
+    .shimmer-border {
+      border: 1px solid rgba(192, 192, 192, 0.15);
+    }
+    .glow-hover:hover {
+      box-shadow: 0 0 25px rgba(233, 195, 73, 0.12);
+      transform: translateY(-4px);
+    }
+    .btn-hover:hover {
+      transform: scale(1.02);
+      transition: transform 0.2s ease;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased selection:bg-tertiary selection:text-on-tertiary">
+
+  <!-- TopNavBar (Shared Component) -->
+  <nav class="fixed top-0 w-full bg-background/90 backdrop-blur-md border-b border-outline-variant/15 z-50 transition-all duration-300" id="topNav">
+    <div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-stack-md max-w-container-max mx-auto">
+      <a class="font-headline-md text-headline-md text-primary tracking-tighter uppercase shrink-0" href="index.html">WE CARE</a>
+      <div class="hidden md:flex space-x-8 items-center">
+        <a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md hover:scale-105 duration-300" href="index.html">Home</a>
+        <a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md hover:scale-105 duration-300" href="services.html">Services</a>
+        <a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md hover:scale-105 duration-300" href="about.html">About Us</a>
+        <a class="text-tertiary border-b-2 border-tertiary pb-1 font-body-md text-body-md" href="contact.html">Contact Us</a>
+      </div>
+      <a class="hidden md:inline-flex bg-tertiary text-on-tertiary px-6 py-3 rounded-full font-label-caps text-label-caps uppercase btn-hover items-center space-x-2" href="contact.html">
+        <span>Request Appointment</span>
+        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+      </a>
+      <div class="md:hidden flex items-center space-x-4">
+        <a class="text-sm font-label-caps text-on-surface-variant uppercase" href="index.html">Home</a>
+        <a class="text-sm font-label-caps text-tertiary uppercase" href="services.html">Services</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="pt-[110px]">
+    <!-- Contact Header -->
+    <section class="py-16 md:py-24 px-margin-mobile md:px-margin-desktop text-center relative overflow-hidden">
+      <div class="max-w-3xl mx-auto">
+        <span class="font-label-caps text-label-caps text-tertiary tracking-[0.2em] uppercase mb-4 inline-block">RESERVE A BAY</span>
+        <h1 class="font-headline-lg-mobile md:font-display-lg text-primary mb-6 leading-tight">
+          Schedule Your Consultation
+        </h1>
+        <p class="font-body-lg text-on-surface-variant max-w-2xl mx-auto">
+          Connect directly with our master technicians to discuss diagnostics, performance builds, or bespoke vehicle detailing.
+        </p>
+      </div>
+    </section>
+
+    <!-- Contact Grid: Info & Form -->
+    <section class="pb-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+        
+        <!-- Left: Workshop Details -->
+        <div class="md:col-span-5 flex flex-col justify-between space-y-8">
+          <div>
+            <h2 class="font-headline-md text-primary mb-6">Workshop & Atelier</h2>
+            
+            <div class="space-y-6 text-on-surface-variant font-body-md">
+              <div class="flex items-start space-x-4 bg-surface-container-low p-5 rounded-xl shimmer-border">
+                <span class="material-symbols-outlined text-tertiary text-2xl mt-1">location_on</span>
+                <div>
+                  <h4 class="text-primary font-semibold mb-1">Workshop Location</h4>
+                  <p class="text-sm">Bay 4, Industrial Performance Park, Sector 8</p>
+                </div>
+              </div>
+
+              <div class="flex items-start space-x-4 bg-surface-container-low p-5 rounded-xl shimmer-border">
+                <span class="material-symbols-outlined text-tertiary text-2xl mt-1">call</span>
+                <div>
+                  <h4 class="text-primary font-semibold mb-1">Direct Phone</h4>
+                  <p class="text-sm">+1 (800) 420-CARE / +1 (555) 019-2834</p>
+                </div>
+              </div>
+
+              <div class="flex items-start space-x-4 bg-surface-container-low p-5 rounded-xl shimmer-border">
+                <span class="material-symbols-outlined text-tertiary text-2xl mt-1">schedule</span>
+                <div>
+                  <h4 class="text-primary font-semibold mb-1">Operating Hours</h4>
+                  <p class="text-sm">Monday – Saturday: 8:00 AM – 7:00 PM<br>Sunday: Dedicated Dyno & Track Testing</p>
+                </div>
+              </div>
+
+              <div class="flex items-start space-x-4 bg-surface-container-low p-5 rounded-xl shimmer-border">
+                <span class="material-symbols-outlined text-tertiary text-2xl mt-1">mail</span>
+                <div>
+                  <h4 class="text-primary font-semibold mb-1">Direct Inquiries</h4>
+                  <p class="text-sm">engineering@wecareautorepair.com</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-surface-container p-6 rounded-xl shimmer-border">
+            <h4 class="font-headline-md text-lg text-primary mb-2">Emergency Track Dispatch</h4>
+            <p class="text-xs font-body-md text-on-surface-variant">
+              Need on-track technical support or immediate flatbed transport? Call our priority line: <span class="text-tertiary font-bold">+1 (800) 420-9911</span>.
+            </p>
+          </div>
+        </div>
+
+        <!-- Right: Appointment Booking Form -->
+        <div class="md:col-span-7 bg-surface-container-low p-8 md:p-12 rounded-2xl shimmer-border">
+          <h3 class="font-headline-md text-2xl text-primary mb-2">Book Your Bay Slot</h3>
+          <p class="font-body-md text-on-surface-variant text-sm mb-8">
+            Complete the form below and an engineer will contact you within 15 minutes.
+          </p>
+
+          <form id="contact-form" class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label class="block font-label-caps text-xs text-on-surface-variant uppercase tracking-wider mb-2">Full Name</label>
+                <input type="text" required placeholder="Alex Sterling" class="w-full bg-surface-container border border-outline-variant/30 rounded-lg p-3 text-sm text-primary focus:outline-none focus:border-tertiary transition-colors">
+              </div>
+              <div>
+                <label class="block font-label-caps text-xs text-on-surface-variant uppercase tracking-wider mb-2">Phone Number</label>
+                <input type="tel" required placeholder="+1 (555) 000-0000" class="w-full bg-surface-container border border-outline-variant/30 rounded-lg p-3 text-sm text-primary focus:outline-none focus:border-tertiary transition-colors">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label class="block font-label-caps text-xs text-on-surface-variant uppercase tracking-wider mb-2">Email Address</label>
+                <input type="email" required placeholder="alex@example.com" class="w-full bg-surface-container border border-outline-variant/30 rounded-lg p-3 text-sm text-primary focus:outline-none focus:border-tertiary transition-colors">
+              </div>
+              <div>
+                <label class="block font-label-caps text-xs text-on-surface-variant uppercase tracking-wider mb-2">Vehicle Model & Year</label>
+                <input type="text" required placeholder="e.g. VW Polo GTI (2022)" class="w-full bg-surface-container border border-outline-variant/30 rounded-lg p-3 text-sm text-primary focus:outline-none focus:border-tertiary transition-colors">
+              </div>
+            </div>
+
+            <div>
+              <label class="block font-label-caps text-xs text-on-surface-variant uppercase tracking-wider mb-2">Desired Atelier Service</label>
+              <select class="w-full bg-surface-container border border-outline-variant/30 rounded-lg p-3 text-sm text-primary focus:outline-none focus:border-tertiary transition-colors">
+                <option>Stage 1 / 2 ECU Dyno Calibration</option>
+                <option>Aero Carbon Bodywork & Splitters</option>
+                <option>Bespoke Dual-Tone Vinyl Wrap</option>
+                <option>9H Ceramic Shield Matrix Detailing</option>
+                <option>Track Coilovers & Big Brake Kit</option>
+                <option>Complete 180-Point Diagnostic Scan</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block font-label-caps text-xs text-on-surface-variant uppercase tracking-wider mb-2">Project Notes & Goals</label>
+              <textarea rows="4" placeholder="Tell us about your build timeline or performance goals..." class="w-full bg-surface-container border border-outline-variant/30 rounded-lg p-3 text-sm text-primary focus:outline-none focus:border-tertiary transition-colors"></textarea>
+            </div>
+
+            <button type="submit" class="w-full bg-tertiary text-on-tertiary py-4 rounded-full font-label-caps text-label-caps uppercase btn-hover flex items-center justify-center space-x-2 font-semibold">
+              <span>Submit Reservation Request</span>
+              <span class="material-symbols-outlined text-[18px]">send</span>
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer (Shared Component) -->
+  <footer class="w-full py-section-gap border-t border-outline-variant/10 bg-surface-dim dark:bg-surface-dim relative z-10">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+      <div class="col-span-1 md:col-span-2 flex flex-col justify-between mb-stack-lg md:mb-0">
+        <div>
+          <h2 class="font-headline-md text-headline-md text-primary mb-stack-sm">WE CARE</h2>
+          <p class="font-body-md text-body-md text-on-surface-variant max-w-sm mb-stack-lg">
+            Excellence in Engineering. A premier atelier for the modern motorsport enthusiast and luxury motorist.
+          </p>
+        </div>
+        <p class="font-body-md text-body-md text-on-surface-variant text-sm">
+          © 2026 We Care Auto Repair. Excellence in Engineering.
+        </p>
+      </div>
+      <div class="col-span-1 flex flex-col space-y-stack-sm">
+        <span class="font-label-caps text-label-caps text-primary uppercase mb-stack-sm">Navigation</span>
+        <a class="font-body-md text-body-md text-on-surface-variant hover:text-tertiary transition-colors" href="index.html">Home</a>
+        <a class="font-body-md text-body-md text-on-surface-variant hover:text-tertiary transition-colors" href="services.html">Services</a>
+        <a class="font-body-md text-body-md text-on-surface-variant hover:text-tertiary transition-colors" href="about.html">About Us</a>
+        <a class="font-body-md text-body-md text-on-surface-variant hover:text-tertiary transition-colors" href="contact.html">Contact Us</a>
+      </div>
+      <div class="col-span-1 flex flex-col space-y-stack-sm">
+        <span class="font-label-caps text-label-caps text-primary uppercase mb-stack-sm">Workshop Bay</span>
+        <p class="font-body-md text-sm text-on-surface-variant leading-relaxed">
+          Bay 4, Industrial Performance Park<br>
+          Mon - Sat: 8:00 AM – 7:00 PM<br>
+          Direct: +1 (800) 420-CARE
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Form submission feedback
+    document.getElementById('contact-form')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const btn = e.target.querySelector('button[type="submit"]');
+      btn.innerHTML = '<span>Processing Request...</span>';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        alert('🎉 Reservation Received! Our master technician will reach out within 15 minutes to confirm your bay slot.');
+        btn.innerHTML = '<span>Submit Reservation Request</span><span class="material-symbols-outlined text-[18px]">send</span>';
+        btn.disabled = false;
+        e.target.reset();
+      }, 900);
+    });
+  </script>
+</body>
+</html>

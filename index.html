@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>We Care Auto Repair | Precision Engineering</title>
+  
+  <!-- Tailwind CSS & Plugins -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Hanken+Grotesk:wght@400;600&family=Libre+Caslon+Text:wght@400;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-primary": "#313030",
+            "surface-container": "#202020",
+            "on-primary-container": "#7e7d7d",
+            "surface-bright": "#393939",
+            "on-surface": "#e5e2e1",
+            "surface-dim": "#131313",
+            "secondary-container": "#484949",
+            "inverse-primary": "#5f5e5e",
+            "background": "#131313",
+            "on-tertiary-fixed": "#241a00",
+            "on-primary-fixed-variant": "#474646",
+            "primary-fixed": "#e5e2e1",
+            "inverse-surface": "#e5e2e1",
+            "error-container": "#93000a",
+            "secondary-fixed-dim": "#c6c6c6",
+            "on-tertiary": "#3c2f00",
+            "on-primary-fixed": "#1c1b1b",
+            "secondary-fixed": "#e3e2e2",
+            "tertiary-fixed-dim": "#e9c349",
+            "surface-container-low": "#1b1b1c",
+            "outline-variant": "#444748",
+            "on-secondary-container": "#b8b8b8",
+            "surface-variant": "#353535",
+            "surface-container-highest": "#353535",
+            "on-secondary-fixed": "#1a1c1c",
+            "tertiary": "#e9c349",
+            "surface": "#131313",
+            "on-error-container": "#ffdad6",
+            "tertiary-container": "#181100",
+            "on-surface-variant": "#c4c7c7",
+            "on-tertiary-fixed-variant": "#574500",
+            "surface-container-lowest": "#0e0e0e",
+            "on-background": "#e5e2e1",
+            "secondary": "#c6c6c6",
+            "on-secondary": "#2f3131",
+            "error": "#ffb4ab",
+            "primary-fixed-dim": "#c8c6c5",
+            "surface-container-high": "#2a2a2a",
+            "on-error": "#690005",
+            "on-tertiary-container": "#987a00",
+            "inverse-on-surface": "#303030",
+            "primary-container": "#121212",
+            "tertiary-fixed": "#ffe088",
+            "primary": "#c8c6c5",
+            "surface-tint": "#c8c6c5",
+            "on-secondary-fixed-variant": "#464747",
+            "outline": "#8e9192"
+          },
+          borderRadius: {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          spacing: {
+            "stack-lg": "32px",
+            "margin-desktop": "64px",
+            "gutter": "24px",
+            "container-max": "1280px",
+            "section-gap": "120px",
+            "stack-md": "16px",
+            "stack-sm": "8px",
+            "margin-mobile": "20px"
+          },
+          fontFamily: {
+            "headline-lg": ["Libre Caslon Text"],
+            "body-lg": ["Hanken Grotesk"],
+            "display-lg": ["Libre Caslon Text"],
+            "headline-md": ["Libre Caslon Text"],
+            "stats-number": ["Geist"],
+            "label-caps": ["Geist"],
+            "body-md": ["Hanken Grotesk"],
+            "headline-lg-mobile": ["Libre Caslon Text"]
+          },
+          fontSize: {
+            "headline-lg": ["48px", { "lineHeight": "56px", "fontWeight": "400" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+            "display-lg": ["64px", { "lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "400" }],
+            "headline-md": ["32px", { "lineHeight": "40px", "fontWeight": "400" }],
+            "stats-number": ["24px", { "lineHeight": "32px", "fontWeight": "500" }],
+            "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600" }],
+            "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "headline-lg-mobile": ["32px", { "lineHeight": "40px", "fontWeight": "400" }]
+          }
+        },
+      },
+    }
+  </script>
+
+  <style>
+    /* Critical: use overflow-x: clip so sticky pinning never breaks */
+    html {
+      overflow-y: scroll;
+      overflow-x: clip;
+      background-color: #131313;
+      color: #e5e2e1;
+    }
+
+    body {
+      background-color: #131313;
+      color: #e5e2e1;
+      overflow-x: clip;
+    }
+
+    .shimmer-border {
+      border: 1px solid rgba(192, 192, 192, 0.15);
+    }
+    
+    .glow-hover:hover {
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
+      transform: scale(1.02);
+    }
+    
+    .btn-hover:hover {
+      transform: scaleX(1.02);
+      transition: transform 0.3s ease;
+    }
+
+    /* ==========================================================================
+       HERO FRAME SCROLL ANIMATION PINNING STYLES
+       ========================================================================== */
+    .hero-scroll-track {
+      position: relative;
+      width: 100%;
+      height: 600vh;
+      background: #0d0d0d;
+    }
+
+    .hero-sticky-viewport {
+      position: sticky;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0d0d0d;
+      z-index: 10;
+    }
+
+    #hero-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: high-quality;
+    }
+
+    .hero-left-vignette {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 60vw;
+      max-width: 800px;
+      background: linear-gradient(
+        to right, 
+        rgba(10, 10, 10, 0.94) 0%, 
+        rgba(10, 10, 10, 0.82) 40%, 
+        rgba(10, 10, 10, 0.4) 75%, 
+        rgba(10, 10, 10, 0) 100%
+      );
+      pointer-events: none;
+      z-index: 15;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .hero-overlay-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      max-width: 850px;
+      padding: 0 24px;
+      z-index: 25;
+      text-align: center;
+      pointer-events: none;
+      will-change: transform, left, opacity;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Geist', monospace;
+      font-size: 12px;
+      line-height: 16px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      color: #e9c349;
+      font-weight: 600;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+    }
+
+    .hero-title {
+      font-family: 'Libre Caslon Text', serif;
+      font-size: clamp(32px, 5vw, 64px);
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+      color: #ffffff;
+      font-weight: 400;
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.95), 0 4px 40px rgba(0, 0, 0, 0.8);
+    }
+
+    .hero-desc {
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-size: 18px;
+      line-height: 28px;
+      color: #e2e8f0;
+      margin: 0 auto 32px auto;
+      max-width: 580px;
+      text-shadow: 0 2px 15px rgba(0, 0, 0, 0.9);
+      transition: margin 0.2s ease;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
+      pointer-events: auto;
+      transition: justify-content 0.2s ease;
+    }
+
+    .hero-btn-primary {
+      background-color: #e9c349;
+      color: #181100;
+      padding: 16px 32px;
+      border-radius: 9999px;
+      font-family: 'Geist', monospace;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+      transition: transform 0.2s ease, filter 0.2s ease;
+    }
+
+    .hero-btn-primary:hover {
+      transform: scale(1.02);
+      filter: brightness(1.08);
+    }
+
+    .hero-btn-secondary {
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      color: #ffffff;
+      padding: 16px 32px;
+      border-radius: 9999px;
+      font-family: 'Geist', monospace;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      backdrop-filter: blur(12px);
+      background: rgba(0, 0, 0, 0.4);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .hero-btn-secondary:hover {
+      transform: scale(1.02);
+      background: rgba(0, 0, 0, 0.6);
+      border-color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* Minimal Loader */
+    .hero-loader {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      z-index: 100;
+      pointer-events: none;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+
+    .hero-loader.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .hero-loader-bar {
+      width: 200px;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .hero-loader-progress {
+      width: 0%;
+      height: 100%;
+      background: #e9c349;
+      box-shadow: 0 0 10px rgba(233, 195, 73, 0.5);
+      transition: width 0.1s ease;
+    }
+
+    .hero-loader-text {
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: rgba(229, 226, 225, 0.6);
+      text-transform: uppercase;
+      font-family: 'Geist', monospace;
+    }
+
+    /* Scroll Indicator Cue */
+    .scroll-cue {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 25;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(229, 226, 225, 0.6);
+      font-family: 'Geist', monospace;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .scroll-cue.hidden {
+      opacity: 0;
+    }
+
+    .mouse-icon {
+      width: 14px;
+      height: 22px;
+      border: 2px solid rgba(229, 226, 225, 0.4);
+      border-radius: 10px;
+      position: relative;
+    }
+
+    .mouse-wheel {
+      position: absolute;
+      top: 4px;
+      left: 50%;
+      width: 2px;
+      height: 5px;
+      background: #e9c349;
+      border-radius: 2px;
+      transform: translateX(-50%);
+      animation: wheelBounce 1.6s infinite;
+    }
+
+    @keyframes wheelBounce {
+      0% { transform: translate(-50%, 0); opacity: 1; }
+      100% { transform: translate(-50%, 8px); opacity: 0; }
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased selection:bg-tertiary selection:text-on-tertiary">
+
+  <!-- TopNavBar (Shared Component) -->
+  <nav class="fixed top-0 w-full bg-background/80 backdrop-blur-md border-b border-outline-variant/15 z-50 transition-all duration-300" id="topNav">
+    <div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-stack-md max-w-container-max mx-auto">
+      <a class="font-headline-md text-headline-md text-primary tracking-tighter uppercase shrink-0" href="index.html">WE CARE</a>
+      <div class="hidden md:flex space-x-8 items-center">
+        <a class="text-tertiary border-b-2 border-tertiary pb-1 font-body-md text-body-md" href="index.html">Home</a>
+        <a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md hover:scale-105 duration-300" href="services.html">Services</a>
+        <a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md hover:scale-105 duration-300" href="about.html">About Us</a>
+        <a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md hover:scale-105 duration-300" href="contact.html">Contact Us</a>
+      </div>
+      <a class="hidden md:inline-flex bg-tertiary text-on-tertiary px-6 py-3 rounded-full font-label-caps text-label-caps uppercase btn-hover items-center space-x-2" href="contact.html">
+        <span>Request Appointment</span>
+        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+      </a>
+      <!-- Mobile Menu Toggle -->
+      <div class="md:hidden flex items-center space-x-4">
+        <a class="text-sm font-label-caps text-tertiary uppercase" href="services.html">Services</a>
+        <a class="text-sm font-label-caps text-on-surface-variant uppercase" href="contact.html">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Minimal Loader -->
+  <div class="hero-loader" id="hero-loader">
+    <div class="hero-loader-bar">
+      <div class="hero-loader-progress" id="hero-loader-progress"></div>
+    </div>
+    <div class="hero-loader-text" id="hero-loader-text">Loading 0%</div>
+  </div>
+
+  <main>
+    <!-- ==========================================================================
+         HERO SECTION (FULL-SCREEN PINNED 144-FRAME SCROLL ANIMATION)
+         Frozen until the 144th frame completes!
+         ========================================================================== -->
+    <section class="hero-scroll-track" id="hero-scroll-track">
+      <div class="hero-sticky-viewport">
+        <!-- Pure Ultra-HD Canvas with 100% True Aspect Ratio -->
+        <canvas id="hero-canvas"></canvas>
+
+        <!-- Left-Side Black Shadow/Vignette covering only text area -->
+        <div class="hero-left-vignette" id="hero-left-vignette"></div>
+
+        <!-- Dynamic Shift Hero Typography & CTAs -->
+        <div class="hero-overlay-content" id="hero-overlay-content">
+          <p class="hero-eyebrow" id="hero-eyebrow">
+            Excellence in Engineering
+          </p>
+          <h1 class="hero-title" id="hero-title">
+            Precision Engineering for Every Drive
+          </h1>
+          <p class="hero-desc" id="hero-desc">
+            We treat your vehicle as an investment. Experience meticulous care in our state-of-the-art atelier.
+          </p>
+          <div class="hero-cta-group" id="hero-cta-group">
+            <a class="hero-btn-primary" href="services.html">
+              <span>Explore Services</span>
+              <span class="material-symbols-outlined text-[18px]">calendar_month</span>
+            </a>
+            <a class="hero-btn-secondary" id="hero-btn-sec" href="about.html">
+              <span>Our Atelier</span>
+              <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Scroll Cue Indicator -->
+        <div class="scroll-cue" id="scroll-cue">
+          <div class="mouse-icon">
+            <div class="mouse-wheel"></div>
+          </div>
+          <span>Scroll to Transform</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         HOME PAGE OVERVIEW & ATELIER HIGHLIGHT
+         Only scrolls into view AFTER the 144th frame is reached!
+         ========================================================================== -->
+    <section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-surface-dim relative z-20 border-t border-outline-variant/10">
+      <div class="max-w-container-max mx-auto">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-margin-desktop">
+          <div class="max-w-2xl">
+            <div class="flex items-center space-x-2 mb-stack-sm">
+              <span class="material-symbols-outlined text-tertiary">verified</span>
+              <span class="font-label-caps text-label-caps text-tertiary uppercase">Bespoke Excellence</span>
+            </div>
+            <h2 class="font-headline-md text-headline-md text-primary mb-stack-sm">Crafted for Discerning Motorists</h2>
+            <p class="font-body-md text-body-md text-on-surface-variant">
+              From telemetry diagnostics to complete aerodynamic stage builds, explore our tailored capabilities across our dedicated atelier departments.
+            </p>
+          </div>
+          <a class="inline-flex items-center space-x-2 text-tertiary font-label-caps text-label-caps uppercase hover:text-primary transition-colors mt-4 md:mt-0" href="services.html">
+            <span>View All Services</span>
+            <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+          </a>
+        </div>
+
+        <!-- Quick 3-Column Highlights -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter mb-margin-desktop">
+          <div class="bg-surface-container-low rounded-xl p-stack-lg shimmer-border glow-hover transition-all duration-300">
+            <span class="material-symbols-outlined text-tertiary text-[36px] mb-stack-sm">troubleshoot</span>
+            <h3 class="font-headline-md text-[24px] text-primary mb-stack-sm font-semibold">180-Point Diagnostic Scan</h3>
+            <p class="font-body-md text-on-surface-variant text-sm mb-stack-md">
+              Proprietary optical and ECU telemetry analysis to evaluate engine health, ignition timing, and drivetrain tolerances.
+            </p>
+            <a class="text-tertiary text-xs font-label-caps uppercase inline-flex items-center space-x-1" href="services.html">
+              <span>Read More</span>
+              <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+            </a>
+          </div>
+
+          <div class="bg-surface-container-low rounded-xl p-stack-lg shimmer-border glow-hover transition-all duration-300">
+            <span class="material-symbols-outlined text-tertiary text-[36px] mb-stack-sm">speed</span>
+            <h3 class="font-headline-md text-[24px] text-primary mb-stack-sm font-semibold">Stage 1 & 2 ECU Tuning</h3>
+            <p class="font-body-md text-on-surface-variant text-sm mb-stack-md">
+              Custom dyno calibrations programmed specifically for your engine displacement, intercooler, and exhaust setup.
+            </p>
+            <a class="text-tertiary text-xs font-label-caps uppercase inline-flex items-center space-x-1" href="services.html">
+              <span>Read More</span>
+              <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+            </a>
+          </div>
+
+          <div class="bg-surface-container-low rounded-xl p-stack-lg shimmer-border glow-hover transition-all duration-300">
+            <span class="material-symbols-outlined text-tertiary text-[36px] mb-stack-sm">auto_fix_high</span>
+            <h3 class="font-headline-md text-[24px] text-primary mb-stack-sm font-semibold">Bespoke Aero & Ceramic</h3>
+            <p class="font-body-md text-on-surface-variant text-sm mb-stack-md">
+              Autoclave carbon fiber components, satin dual-tone wraps, and 9H ceramic shield protection for track endurance.
+            </p>
+            <a class="text-tertiary text-xs font-label-caps uppercase inline-flex items-center space-x-1" href="services.html">
+              <span>Read More</span>
+              <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Call to Action Banner -->
+        <div class="bg-surface-container rounded-2xl p-stack-lg md:p-12 shimmer-border flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-6">
+          <div>
+            <h3 class="font-headline-md text-headline-md text-primary mb-2">Ready for Your Transformation?</h3>
+            <p class="font-body-md text-on-surface-variant max-w-xl">
+              Schedule a dedicated inspection slot with our master technicians in Bay 4.
+            </p>
+          </div>
+          <a class="bg-tertiary text-on-tertiary px-8 py-4 rounded-full font-label-caps text-label-caps uppercase btn-hover inline-flex items-center space-x-2 shrink-0" href="contact.html">
+            <span>Book Appointment</span>
+            <span class="material-symbols-outlined text-[18px]">calendar_month</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer (Shared Component Across All 4 Pages) -->
+  <footer class="w-full py-section-gap border-t border-outline-variant/10 bg-surface-dim dark:bg-surface-dim relative z-10">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+      <div class="col-span-1 md:col-span-2 flex flex-col justify-between mb-stack-lg md:mb-0">
+        <div>
+          <h2 class="font-headline-md text-headline-md text-primary mb-stack-sm">WE CARE</h2>
+          <p class="font-body-md text-body-md text-on-surface-variant max-w-sm mb-stack-lg">
+            Excellence in Engineering. A premier atelier for the modern motorsport enthusiast and luxury motorist.
+          </p>
+        </div>
+        <p class="font-body-md text-body-md text-on-surface-variant text-sm">
+          © 2026 We Care Auto Repair. Excellence in Engineering.
+        </p>
+      </div>
+      <div class="col-span-1 flex flex-col space-y-stack-sm">
+        <span class="font-label-caps text-label-caps text-primary uppercase mb-stack-sm">Navigation</span>
+        <a class="font-body-md text-body-md text-on-surface-variant hover:text-tertiary transition-colors" href="index.html">Home</a>
+        <a class="font-body-md text-body-md text-on-surface-variant hover:text-tertiary transition-colors" href="services.html">Services</a>
+        <a class="font-body-md text-body-md text-on-surface-variant hover:text-tertiary transition-colors" href="about.html">About Us</a>
+        <a class="font-body-md text-body-md text-on-surface-variant hover:text-tertiary transition-colors" href="contact.html">Contact Us</a>
+      </div>
+      <div class="col-span-1 flex flex-col space-y-stack-sm">
+        <span class="font-label-caps text-label-caps text-primary uppercase mb-stack-sm">Workshop Bay</span>
+        <p class="font-body-md text-sm text-on-surface-variant leading-relaxed">
+          Bay 4, Industrial Performance Park<br>
+          Mon - Sat: 8:00 AM – 7:00 PM<br>
+          Direct: +1 (800) 420-CARE
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       SCROLL ENGINE SCRIPT
+       ========================================================================== -->
+  <script>
+    const totalFrames = 144;
+    const canvas = document.getElementById('hero-canvas');
+    const ctx = canvas.getContext('2d', { alpha: false });
+    const scrollTrack = document.getElementById('hero-scroll-track');
+    const loader = document.getElementById('hero-loader');
+    const loaderProgress = document.getElementById('hero-loader-progress');
+    const loaderText = document.getElementById('hero-loader-text');
+    
+    const heroOverlay = document.getElementById('hero-overlay-content');
+    const heroDesc = document.getElementById('hero-desc');
+    const heroCtaGroup = document.getElementById('hero-cta-group');
+    const heroLeftVignette = document.getElementById('hero-left-vignette');
+    const scrollCue = document.getElementById('scroll-cue');
+
+    const images = [];
+    let loadedCount = 0;
+    let targetProgress = 0;
+    let currentProgress = 0;
+
+    function getFramePath(index) {
+      const padNum = String(index).padStart(3, '0');
+      return `assets/frames/ezgif-frame-${padNum}.jpg`;
+    }
+
+    function preloadImages() {
+      for (let i = 1; i <= totalFrames; i++) {
+        const img = new Image();
+        img.decoding = 'async';
+        const path = getFramePath(i);
+        img.src = path;
+
+        img.onload = () => {
+          loadedCount++;
+          const pct = Math.floor((loadedCount / totalFrames) * 100);
+          if (loaderProgress) loaderProgress.style.width = pct + '%';
+          if (loaderText) loaderText.textContent = `Loading ${pct}%`;
+
+          if (loadedCount === totalFrames) {
+            setTimeout(() => {
+              if (loader) loader.classList.add('hidden');
+            }, 200);
+          }
+        };
+
+        img.onerror = () => {
+          const padNum = String(i).padStart(3, '0');
+          img.src = `ezgif-frame-${padNum}.jpg`;
+          img.onload = () => {
+            loadedCount++;
+            const pct = Math.floor((loadedCount / totalFrames) * 100);
+            if (loaderProgress) loaderProgress.style.width = pct + '%';
+            if (loaderText) loaderText.textContent = `Loading ${pct}%`;
+            if (loadedCount === totalFrames) {
+              setTimeout(() => {
+                if (loader) loader.classList.add('hidden');
+              }, 200);
+            }
+          };
+        };
+
+        images.push(img);
+      }
+    }
+
+    function resizeCanvas() {
+      const dpr = window.devicePixelRatio || 1;
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
+
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+    }
+
+    function renderFrame(progress) {
+      const canvasW = canvas.width;
+      const canvasH = canvas.height;
+
+      ctx.fillStyle = '#0d0d0d';
+      ctx.fillRect(0, 0, canvasW, canvasH);
+
+      if (progress <= 0.001) {
+        return;
+      }
+
+      const leadInThreshold = 0.04;
+      let frameAlpha = 1.0;
+      let activeIndex = 0;
+
+      if (progress < leadInThreshold) {
+        frameAlpha = progress / leadInThreshold;
+        activeIndex = 0;
+      } else {
+        const normalized = (progress - leadInThreshold) / (1 - leadInThreshold);
+        activeIndex = Math.min(
+          totalFrames - 1,
+          Math.max(0, Math.floor(normalized * (totalFrames - 1)))
+        );
+        frameAlpha = 1.0;
+      }
+
+      const img = images[activeIndex];
+      if (!img || !img.complete || img.naturalWidth === 0) return;
+
+      const imgW = img.naturalWidth;
+      const imgH = img.naturalHeight;
+      const scale = Math.max(canvasW / imgW, canvasH / imgH);
+
+      const renderW = Math.round(imgW * scale);
+      const renderH = Math.round(imgH * scale);
+      const offsetX = Math.round((canvasW - renderW) / 2);
+      const offsetY = Math.round((canvasH - renderH) / 2);
+
+      ctx.globalAlpha = frameAlpha;
+      ctx.drawImage(img, offsetX, offsetY, renderW, renderH);
+      ctx.globalAlpha = 1.0;
+    }
+
+    function updateHeroTextTransition(progress) {
+      if (!heroOverlay) return;
+
+      const isMobile = window.innerWidth < 768;
+      const shiftProgress = Math.min(1, Math.max(0, progress / 0.12));
+
+      if (isMobile) {
+        heroOverlay.style.left = '50%';
+        heroOverlay.style.transform = 'translate(-50%, -50%)';
+        heroOverlay.style.textAlign = 'center';
+        if (heroDesc) {
+          heroDesc.style.marginLeft = 'auto';
+          heroDesc.style.marginRight = 'auto';
+        }
+        if (heroCtaGroup) heroCtaGroup.style.justifyContent = 'center';
+      } else {
+        const leftPercent = 50 - (46 * shiftProgress);
+        const translateX = -50 * (1 - shiftProgress);
+        const maxW = 850 - (330 * shiftProgress);
+
+        heroOverlay.style.left = `${leftPercent}%`;
+        heroOverlay.style.transform = `translate(${translateX}%, -50%)`;
+        heroOverlay.style.maxWidth = `${maxW}px`;
+
+        if (shiftProgress > 0.25) {
+          heroOverlay.style.textAlign = 'left';
+          if (heroDesc) {
+            heroDesc.style.marginLeft = '0';
+            heroDesc.style.marginRight = '0';
+          }
+          if (heroCtaGroup) heroCtaGroup.style.justifyContent = 'flex-start';
+        } else {
+          heroOverlay.style.textAlign = 'center';
+          if (heroDesc) {
+            heroDesc.style.marginLeft = 'auto';
+            heroDesc.style.marginRight = 'auto';
+          }
+          if (heroCtaGroup) heroCtaGroup.style.justifyContent = 'center';
+        }
+      }
+
+      if (heroLeftVignette) {
+        if (progress > 0.01) {
+          heroLeftVignette.style.opacity = Math.min(1, (progress - 0.01) / 0.06);
+        } else {
+          heroLeftVignette.style.opacity = 0;
+        }
+      }
+
+      if (progress > 0.28) {
+        const fadeOutProgress = Math.min(1, (progress - 0.28) / 0.12);
+        heroOverlay.style.opacity = (1 - fadeOutProgress);
+        if (heroLeftVignette) heroLeftVignette.style.opacity = (1 - fadeOutProgress);
+      } else if (progress > 0.01) {
+        heroOverlay.style.opacity = 1;
+      }
+
+      if (scrollCue) {
+        if (progress > 0.03) {
+          scrollCue.classList.add('hidden');
+        } else {
+          scrollCue.classList.remove('hidden');
+        }
+      }
+    }
+
+    function updateScrollProgress() {
+      const trackRect = scrollTrack.getBoundingClientRect();
+      const scrollableDistance = scrollTrack.offsetHeight - window.innerHeight;
+
+      if (scrollableDistance <= 0) return;
+
+      let progress = -trackRect.top / scrollableDistance;
+      targetProgress = Math.max(0, Math.min(1, progress));
+    }
+
+    window.addEventListener('scroll', updateScrollProgress, { passive: true });
+    window.addEventListener('resize', resizeCanvas, { passive: true });
+
+    function animate() {
+      const diff = targetProgress - currentProgress;
+      if (Math.abs(diff) > 0.0001) {
+        currentProgress += diff * 0.12;
+      } else {
+        currentProgress = targetProgress;
+      }
+
+      renderFrame(currentProgress);
+      updateHeroTextTransition(currentProgress);
+
+      requestAnimationFrame(animate);
+    }
+
+    resizeCanvas();
+    preloadImages();
+    updateScrollProgress();
+    requestAnimationFrame(animate);
+
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('topNav');
+      if (window.scrollY > 50) {
+        nav.classList.add('bg-surface-container', 'shadow-lg');
+        nav.classList.remove('bg-background/80');
+      } else {
+        nav.classList.remove('bg-surface-container', 'shadow-lg');
+        nav.classList.add('bg-background/80');
+      }
+    });
+  </script>
+</body>
+</html>

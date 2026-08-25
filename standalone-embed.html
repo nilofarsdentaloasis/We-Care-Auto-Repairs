@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scroll-Driven Car Transformation Animation (Standalone Component)</title>
+  <meta name="description" content="Ultra-smooth, 144-frame scroll-driven vehicle transformation animation component.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk:wght@500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+
+  <!-- Component Styles -->
+  <link rel="stylesheet" href="css/scrolly-canvas.css">
+
+  <style>
+    /* Demo Wrapper Styles */
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #080b11;
+      font-family: 'Inter', sans-serif;
+      color: #fff;
+    }
+
+    .demo-header {
+      padding: 4rem 2rem 2rem 2rem;
+      text-align: center;
+      background: radial-gradient(circle at center, #151b28 0%, #080b11 80%);
+    }
+
+    .demo-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #fff, #00f2fe);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .demo-subtitle {
+      color: #94a3b8;
+      font-size: 1rem;
+      max-width: 600px;
+      margin: 0 auto 1.5rem auto;
+    }
+
+    .demo-footer {
+      padding: 4rem 2rem;
+      text-align: center;
+      background: #040609;
+      color: #64748b;
+      font-family: 'Space Grotesk', monospace;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Demo Intro -->
+  <header class="demo-header">
+    <h1 class="demo-title">Automotive Transformation Canvas</h1>
+    <p class="demo-subtitle">
+      Scroll down smoothly to trigger the 144-frame workshop transformation. Powered by sub-pixel LERP physics dampening.
+    </p>
+    <div style="font-family: 'Space Grotesk', monospace; font-size: 0.8rem; color: #00f2fe; letter-spacing: 2px;">
+      ↓ SCROLL DOWN TO BEGIN TRANSFORMATION ↓
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       STANDALONE EMBEDDABLE SCROLLY ANIMATION COMPONENT
+       (Copy this block into any website!)
+       ========================================================================== -->
+  <div id="car-scrolly-section" class="scrolly-track" data-phase="1">
+    <div class="scrolly-sticky-viewport">
+      
+      <!-- Background Ambient Grid & Glow -->
+      <div class="scrolly-grid-bg"></div>
+      <div class="scrolly-ambient-glow"></div>
+
+      <!-- High-Performance HTML5 Canvas -->
+      <canvas id="car-canvas" class="scrolly-canvas"></canvas>
+
+      <!-- Hotspots on vehicle -->
+      <div class="hotspot-layer"></div>
+
+      <!-- Loading Screen Overlay -->
+      <div class="scrolly-preloader">
+        <div class="preloader-box">
+          <div class="preloader-spinner">
+            <svg viewBox="0 0 50 50">
+              <circle cx="25" cy="25" r="20"></circle>
+            </svg>
+          </div>
+          <div class="preloader-title">LOADING FRAMES</div>
+          <div class="preloader-status">INITIALIZING 144 ASSETS...</div>
+          <div class="preloader-bar-bg">
+            <div class="preloader-bar-fill"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HUD Telemetry Interface -->
+      <div class="scrolly-hud">
+        
+        <!-- Top Bar -->
+        <div class="hud-top-bar">
+          <div class="hud-badge">
+            <div class="pulse-dot"></div>
+            <span class="hud-badge-text">BAY 01 • ACTIVE DYNO SCAN</span>
+          </div>
+
+          <div class="hud-controls-group">
+            <button id="btn-autoplay" class="hud-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              <span>AUTO 360°</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Story Phase Cards -->
+        <div class="hud-story-center">
+          
+          <div class="story-card active" data-phase="1">
+            <div class="story-phase-tag">PHASE 01 / 04</div>
+            <h2 class="story-title">Baseline Inspection</h2>
+            <p class="story-desc">Stock factory Polo configuration. Baseline diagnostics, telemetry readout, and multi-point laser scan.</p>
+            <div class="story-specs-grid">
+              <div class="spec-item">
+                <span class="spec-label">Engine</span>
+                <span class="spec-val">115 BHP Stock</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-label">Chassis</span>
+                <span class="spec-val">OEM Spec</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="story-card" data-phase="2">
+            <div class="story-phase-tag">PHASE 02 / 04</div>
+            <h2 class="story-title">Aero & Suspension Tuning</h2>
+            <p class="story-desc">Carbon front splitter, twin hood extractors, lightweight forged racing wheels, and lowered sport coilovers.</p>
+            <div class="story-specs-grid">
+              <div class="spec-item">
+                <span class="spec-label">Downforce</span>
+                <span class="spec-val">+38% @ 120 MPH</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-label">Height</span>
+                <span class="spec-val">-35mm Drop</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="story-card" data-phase="3">
+            <div class="story-phase-tag">PHASE 03 / 04</div>
+            <h2 class="story-title">Satin Gunmetal Wrap</h2>
+            <p class="story-desc">Dual-tone Matte Silver & Satin Stealth Black wrap application with Michelin motorsport decals and 9H ceramic coat.</p>
+            <div class="story-specs-grid">
+              <div class="spec-item">
+                <span class="spec-label">Finish</span>
+                <span class="spec-val">Dual Satin / Gloss</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-label">Protection</span>
+                <span class="spec-val">9H Ceramic Shield</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="story-card" data-phase="4">
+            <div class="story-phase-tag">PHASE 04 / 04</div>
+            <h2 class="story-title">Track Ready #42 Unleashed</h2>
+            <p class="story-desc">Full #42 race livery, competition open doors, race cockpit staging, and stage 2 ECU dyno calibration.</p>
+            <div class="story-specs-grid">
+              <div class="spec-item">
+                <span class="spec-label">Final Power</span>
+                <span class="spec-val">245 BHP (+113%)</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-label">Readiness</span>
+                <span class="spec-val">Track Certified</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Bottom Timeline Navigation -->
+        <div class="hud-bottom-bar">
+          <div class="chapter-nav">
+            <button class="chapter-btn active" data-target-phase="1">01 Baseline</button>
+            <button class="chapter-btn" data-target-phase="2">02 Aero Body</button>
+            <button class="chapter-btn" data-target-phase="3">03 Satin Wrap</button>
+            <button class="chapter-btn" data-target-phase="4">04 Race Spec</button>
+          </div>
+
+          <div class="scrub-timeline-container">
+            <span class="frame-counter">001 / 144 [0%]</span>
+            <div class="scrub-track">
+              <div class="scrub-progress"></div>
+              <div class="scrub-thumb"></div>
+            </div>
+            <div class="scrub-hint">
+              <div class="scroll-indicator-mouse" style="width:10px; height:16px;">
+                <div class="scroll-indicator-wheel" style="width:2px; height:3px;"></div>
+              </div>
+              <span>DRAG TO SCRUB</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+  <!-- /STANDALONE COMPONENT END -->
+
+  <footer class="demo-footer">
+    <p>We Care Auto Repair • Smooth Canvas Scroll Animation</p>
+  </footer>
+
+  <!-- Script Initialization -->
+  <script src="js/scrolly-canvas.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      new ScrollyCarEngine({
+        container: '#car-scrolly-section',
+        canvas: '#car-canvas',
+        track: '.scrolly-track',
+        totalFrames: 144,
+        framePathPattern: 'assets/frames/ezgif-frame-{INDEX}.jpg',
+        lerpFactor: 0.12
+      });
+    });
+  </script>
+</body>
+</html>
