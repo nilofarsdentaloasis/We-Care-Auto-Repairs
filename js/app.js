@@ -357,6 +357,120 @@ function initTimelineRibbonEngine() {
   });
 }
 
+// 7. Featured Projects 3D Round Turntable Single-Car Carousel (Auto-scrolls every 5s from right to left)
+function initFeaturedProjectCarousel() {
+  const container = document.getElementById('project-carousel-container');
+  if (!container) return;
+
+  const slides = container.querySelectorAll('.featured-project-slide');
+  const prevBtn = document.getElementById('project-prev-btn');
+  const nextBtn = document.getElementById('project-next-btn');
+  const counterEl = document.getElementById('project-slide-counter');
+  const timerFill = document.getElementById('project-timer-fill');
+
+  if (!slides.length) return;
+
+  let currentIdx = 0;
+  const totalSlides = slides.length;
+  const slideDuration = 5000; // 5 seconds
+  let animStart = performance.now();
+  let rafId = null;
+  let isPaused = false;
+  let elapsedBeforePause = 0;
+
+  function updateSlide(idx) {
+    slides.forEach((slide, i) => {
+      slide.classList.remove('slide-active', 'slide-hidden-left', 'slide-hidden-right');
+      if (i === idx) {
+        slide.classList.add('slide-active');
+      } else if (i < idx) {
+        slide.classList.add('slide-hidden-left');
+      } else {
+        slide.classList.add('slide-hidden-right');
+      }
+    });
+
+    if (counterEl) {
+      counterEl.textContent = `0${idx + 1} / 0${totalSlides}`;
+    }
+  }
+
+  function startProgress() {
+    if (rafId) cancelAnimationFrame(rafId);
+    animStart = performance.now();
+    elapsedBeforePause = 0;
+
+    function step(timestamp) {
+      if (isPaused) {
+        animStart = timestamp - elapsedBeforePause;
+        rafId = requestAnimationFrame(step);
+        return;
+      }
+
+      const elapsed = timestamp - animStart;
+      elapsedBeforePause = elapsed;
+      const progress = Math.min(elapsed / slideDuration, 1);
+
+      if (timerFill) {
+        timerFill.style.width = `${progress * 100}%`;
+      }
+
+      if (progress < 1) {
+        rafId = requestAnimationFrame(step);
+      } else {
+        nextSlide(false);
+      }
+    }
+
+    rafId = requestAnimationFrame(step);
+  }
+
+  function nextSlide(manual = true) {
+    currentIdx = (currentIdx + 1) % totalSlides;
+    updateSlide(currentIdx);
+    if (manual && window.WebAudioFX) window.WebAudioFX.playClick();
+    startProgress();
+  }
+
+  function prevSlide() {
+    currentIdx = (currentIdx - 1 + totalSlides) % totalSlides;
+    updateSlide(currentIdx);
+    if (window.WebAudioFX) window.WebAudioFX.playClick();
+    startProgress();
+  }
+
+  if (nextBtn) nextBtn.addEventListener('click', () => nextSlide(true));
+  if (prevBtn) prevBtn.addEventListener('click', () => prevSlide());
+
+  // Pause on hover
+  container.addEventListener('mouseenter', () => {
+    isPaused = true;
+  });
+  container.addEventListener('mouseleave', () => {
+    isPaused = false;
+  });
+
+  // Touch Swipe Support
+  let touchStartX = 0;
+  let touchEndX = 0;
+  container.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  container.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    if (touchStartX - touchEndX > 50) {
+      nextSlide(true); // Swipe Left -> Next
+    } else if (touchEndX - touchStartX > 50) {
+      prevSlide(); // Swipe Right -> Prev
+    }
+  }, { passive: true });
+
+  // Initial display & start 5s cycle
+  updateSlide(0);
+  startProgress();
+}
+
 // Global initialization on DOM ready
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize canvas scrolly engine
@@ -377,6 +491,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initBookingModal();
   initNavbarScroll();
   initTimelineRibbonEngine();
+  initFeaturedProjectCarousel();
 });
+
 
 

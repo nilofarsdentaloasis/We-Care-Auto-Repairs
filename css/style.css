@@ -1057,4 +1057,71 @@ button {
   }
 }
 
+/* ==========================================================================
+   FEATURED PROJECTS - 3D ROUND TURNTABLE SHOWCASE & 5S AUTO-SCROLLER
+   ========================================================================== */
+.turntable-wrapper {
+  perspective: 1000px;
+}
+
+.turntable-platform {
+  background: radial-gradient(ellipse 65% 45% at 50% 50%, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.98) 60%, rgba(2, 6, 23, 1) 100%);
+  border: 2px solid rgba(251, 191, 36, 0.4);
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.9),
+    0 0 35px rgba(251, 191, 36, 0.3),
+    inset 0 0 30px rgba(251, 191, 36, 0.15);
+  border-radius: 50%;
+  transform: rotateX(56deg);
+  transform-origin: center center;
+}
+
+.turntable-grid-ring {
+  border: 1px dashed rgba(251, 191, 36, 0.3);
+  border-radius: 50%;
+}
+
+.turntable-shadow {
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.6) 45%, transparent 75%);
+}
+
+.featured-project-slide {
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.featured-project-slide.slide-active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0) scale(1);
+  position: relative;
+  z-index: 10;
+}
+
+.featured-project-slide.slide-hidden-left {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-60px) scale(0.96);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 0;
+}
+
+.featured-project-slide.slide-hidden-right {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(60px) scale(0.96);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 0;
+}
+
+.project-carousel-progress {
+  transition: width 5s linear;
+}
+
+
 
