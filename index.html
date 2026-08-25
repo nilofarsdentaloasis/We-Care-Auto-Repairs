@@ -407,16 +407,16 @@
         overflow: hidden;
       }
       .hero-overlay-content {
-        top: 50%;
+        top: 72px; /* Permanently placed on upper side of hero section */
         left: 50%;
-        transform: translate(-50%, -50%);
+        transform: translateX(-50%);
         width: 92%;
         max-width: 340px;
         padding: 0 16px;
         box-sizing: border-box;
         text-align: center;
-        pointer-events: none;
-        will-change: transform, top, opacity;
+        pointer-events: auto;
+        opacity: 1;
       }
       .hero-eyebrow {
         font-size: 11px;
@@ -956,20 +956,14 @@
         }
       } else {
         // =========================================================================
-        // MOBILE: CENTER -> SLOWLY MOVE UP IN HERO SECTION AND STAY THERE
+        // MOBILE: PERMANENTLY PLACED ON TOP SIDE OF HERO SECTION (ZERO TEXT ANIMATION)
         // =========================================================================
-        // Starts centered over the initial black frame. As scroll starts (0.05 -> 0.25), moves up to top (14%)
-        const upProgress = Math.min(1, Math.max(0, (progress - 0.05) / 0.20));
-        const easeUp = 1 - Math.pow(1 - upProgress, 2.5); // Smooth ease-out deceleration
-
-        const currentTopPercent = 50 - (36 * easeUp); // 50% -> 14%
-        const currentTranslateY = -50 * (1 - easeUp); // -50% -> 0%
-
         heroOverlay.style.left = '50%';
-        heroOverlay.style.top = `${currentTopPercent}%`;
-        heroOverlay.style.transform = `translate(-50%, ${currentTranslateY}%)`;
+        heroOverlay.style.top = '72px';
+        heroOverlay.style.transform = 'translateX(-50%)';
         heroOverlay.style.maxWidth = '340px';
         heroOverlay.style.textAlign = 'center';
+        heroOverlay.style.opacity = '1';
 
         if (heroDesc) {
           heroDesc.style.marginLeft = 'auto';
@@ -981,13 +975,6 @@
 
         if (heroLeftVignette) {
           heroLeftVignette.style.opacity = 0;
-        }
-
-        // Hold the entire header still and 100% visible until the last animation frame is finished
-        if (progress >= 0.99) {
-          heroOverlay.style.opacity = Math.max(0, 1 - ((progress - 0.99) / 0.01));
-        } else {
-          heroOverlay.style.opacity = 1;
         }
       }
 
