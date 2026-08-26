@@ -1019,42 +1019,121 @@ button {
   box-shadow: 0 0 22px rgba(251, 191, 36, 0.5);
 }
 
-.timeline-node.active-node {
-  border-color: #fbbf24 !important;
-  background: #fbbf24 !important;
-  color: #020617 !important;
-  box-shadow: 0 0 28px rgba(251, 191, 36, 0.6), inset 0 0 8px rgba(255, 255, 255, 0.4);
-  transform: scale(1.2);
+/* ==========================================================================
+   SERVICE WORKFLOW - LUXURY AUTOMOTIVE HUD STEPPER
+   ========================================================================== */
+.timeline-track-rail {
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.6);
 }
 
+.workflow-step-btn {
+  font-family: 'Plus Jakarta Sans', 'Geist', sans-serif;
+  background: rgba(24, 26, 30, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.workflow-step-btn:hover {
+  background: rgba(36, 40, 46, 0.9);
+  border-color: rgba(251, 191, 36, 0.35);
+  transform: translateY(-2px);
+}
+
+.workflow-step-btn.active-step {
+  background: linear-gradient(145deg, rgba(251, 191, 36, 0.14) 0%, rgba(22, 24, 28, 0.95) 100%) !important;
+  border-color: rgba(251, 191, 36, 0.75) !important;
+  box-shadow: 0 10px 30px -5px rgba(251, 191, 36, 0.22), inset 0 0 20px rgba(251, 191, 36, 0.08) !important;
+  transform: translateY(-3px);
+}
+
+.workflow-step-num {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #94a3b8;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.workflow-step-btn:hover .workflow-step-num {
+  border-color: rgba(251, 191, 36, 0.5);
+  color: #fbbf24;
+}
+
+.workflow-step-btn.active-step .workflow-step-num {
+  background: #fbbf24 !important;
+  border-color: #fbbf24 !important;
+  color: #0f172a !important;
+  box-shadow: 0 0 14px rgba(251, 191, 36, 0.8) !important;
+  transform: scale(1.1);
+}
+
+.workflow-hud-stage {
+  background: radial-gradient(90% 90% at 75% 20%, rgba(251, 191, 36, 0.06) 0%, rgba(20, 22, 26, 0.95) 60%, rgba(13, 15, 17, 0.98) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.workflow-hud-screen {
+  background: rgba(10, 12, 15, 0.92);
+  border: 1px solid rgba(251, 191, 36, 0.22);
+  background-image: 
+    linear-gradient(rgba(251, 191, 36, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(251, 191, 36, 0.035) 1px, transparent 1px);
+  background-size: 24px 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hud-scan-beam {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, rgba(251, 191, 36, 0.8) 50%, transparent 100%);
+  box-shadow: 0 0 10px rgba(251, 191, 36, 0.9);
+  animation: hudScanBeam 3s ease-in-out infinite;
+}
+
+@keyframes hudScanBeam {
+  0% { top: 0%; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+.hud-pulse-radar {
+  animation: hudRadarPing 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes hudRadarPing {
+  75%, 100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+/* Backward compatibility aliases */
 .timeline-card {
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   background: radial-gradient(120% 120% at 0% 0%, rgba(30, 41, 59, 0.55) 0%, rgba(15, 23, 42, 0.8) 100%);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
 }
-
-.timeline-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(251, 191, 36, 0.45) !important;
-  box-shadow: 0 10px 25px -5px rgba(251, 191, 36, 0.15);
-}
-
 .timeline-card.active-card {
   border-color: rgba(251, 191, 36, 0.8) !important;
-  background: radial-gradient(120% 120% at 0% 0%, rgba(251, 191, 36, 0.08) 0%, rgba(15, 23, 42, 0.95) 100%);
-  box-shadow: 0 0 25px -5px rgba(251, 191, 36, 0.25);
-}
-
-.timeline-pulse-dot {
-  animation: timelinePing 2s cubic-bezier(0, 0, 0.2, 1) infinite;
-}
-
-@keyframes timelinePing {
-  75%, 100% {
-    transform: scale(2);
-    opacity: 0;
-  }
 }
 
 /* ==========================================================================
