@@ -1291,18 +1291,39 @@ button {
   outline: none !important;
 }
 
-/* Authentic Printable White Invoice Paper Sheet */
+/* Authentic Printable White Invoice Paper Sheet (Dealership Standard) */
 .invoice-paper-sheet {
   background: #ffffff !important;
-  color: #0f172a !important;
+  color: #000000 !important;
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+.invoice-paper-sheet * {
+  color: #000000;
+}
+
+.invoice-paper-sheet .inv-text-black {
+  color: #000000 !important;
+}
+
+.invoice-paper-sheet .inv-text-slate {
+  color: #1e293b !important;
+}
+
+.invoice-paper-sheet .inv-text-amber {
+  color: #b45309 !important;
+}
+
+.invoice-paper-sheet .inv-border-dark {
+  border-color: #0f172a !important;
 }
 
 .invoice-stamp {
-  border: 2px dashed #d97706;
-  color: #b45309;
-  transform: rotate(-4deg);
+  border: 2px dashed #b45309;
+  color: #b45309 !important;
+  transform: rotate(-3deg);
+  background: rgba(245, 158, 11, 0.05);
 }
 
 /* Dedicated Print Stylesheet */
@@ -1320,7 +1341,7 @@ button {
     width: 100% !important;
     max-width: 100% !important;
     margin: 0 !important;
-    padding: 15mm !important;
+    padding: 12mm !important;
     box-shadow: none !important;
     border: none !important;
     background: #ffffff !important;

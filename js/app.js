@@ -730,10 +730,22 @@ function initFeaturedProjectCarousel() {
   startTimer();
 }
 
-// 8. Digital Invoice & Service Bill Generator Engine
+// 8. Digital Invoice & Service Bill Generator Engine (Persistence & Dealership Standard)
 function initInvoiceGenerator() {
   const section = document.getElementById('invoice-generator');
   if (!section) return;
+
+  const STORAGE_KEY = 'wcar_invoices_v1';
+
+  // Tabs & Panels
+  const tabBtnEditor = document.getElementById('tab-btn-editor');
+  const tabBtnHistory = document.getElementById('tab-btn-history');
+  const panelEditor = document.getElementById('panel-invoice-editor');
+  const panelHistory = document.getElementById('panel-invoice-history');
+  const savedBadge = document.getElementById('saved-invoices-badge');
+  const savedListContainer = document.getElementById('saved-invoices-list');
+  const searchHistoryInput = document.getElementById('search-saved-invoices');
+  const clearAllHistoryBtn = document.getElementById('btn-clear-all-history');
 
   // Form Inputs
   const custNameInput = document.getElementById('inv-cust-name');
@@ -752,6 +764,7 @@ function initInvoiceGenerator() {
   const presetBtns = section.querySelectorAll('.preset-item-btn');
 
   // Action Buttons
+  const saveInvoiceBtn = document.getElementById('btn-save-invoice');
   const downloadPdfBtn = document.getElementById('btn-download-pdf');
   const sendWhatsAppBtn = document.getElementById('btn-send-whatsapp');
   const printInvoiceBtn = document.getElementById('btn-print-invoice');
@@ -772,6 +785,7 @@ function initInvoiceGenerator() {
   const prevDiscountRow = document.getElementById('prev-discount-row');
   const prevDiscountAmount = document.getElementById('prev-discount-amount');
   const prevGrandTotal = document.getElementById('prev-grand-total');
+  const prevWordsAmount = document.getElementById('prev-words-amount');
   const prevWarrantyTerm = document.getElementById('prev-warranty-term');
   const printableSheet = document.getElementById('printable-invoice-paper');
 
@@ -807,6 +821,284 @@ function initInvoiceGenerator() {
     return `WCAR-2026-${rand}`;
   }
 
+  // Convert Number to Words in Indian Rupees
+  function numberToWordsINR(num) {
+    num = Math.round(Number(num) || 0);
+    if (num <= 0) return 'Rupees Zero Only';
+    const a = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+    const b = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+    
+    function convertGroup(n) {
+      let str = '';
+      if (n >= 100) {
+        str += a[Math.floor(n / 100)] + ' Hundred ';
+        n %= 100;
+      }
+      if (n >= 20) {
+        str += b[Math.floor(n / 10)] + ' ';
+        n %= 10;
+      }
+      if (n > 0) {
+        str += a[n] + ' ';
+      }
+      return str.trim();
+    }
+
+    let crore = Math.floor(num / 10000000);
+    num %= 10000000;
+    let lakh = Math.floor(num / 100000);
+    num %= 100000;
+    let thousand = Math.floor(num / 1000);
+    num %= 1000;
+    let remaining = num;
+
+    let res = 'Rupees ';
+    if (crore > 0) res += convertGroup(crore) + ' Crore ';
+    if (lakh > 0) res += convertGroup(lakh) + ' Lakh ';
+    if (thousand > 0) res += convertGroup(thousand) + ' Thousand ';
+    if (remaining > 0) res += convertGroup(remaining);
+    return res.trim() + ' Only';
+  }
+
+  // ==========================================
+  // STORAGE & HISTORY SYSTEM (localStorage)
+  // ==========================================
+  function getSavedInvoices() {
+    try {
+      const data = localStorage.getItem(STORAGE_KEY);
+      return data ? JSON.parse(data) : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function saveCurrentInvoice(showToast = true) {
+    const custName = custNameInput ? custNameInput.value.trim() || 'Valued Customer' : 'Valued Customer';
+    const custPhone = custPhoneInput ? custPhoneInput.value.trim() : '';
+    const carModel = carModelInput ? carModelInput.value.trim() || 'Vehicle' : 'Vehicle';
+    const carReg = carRegInput ? carRegInput.value.trim().toUpperCase() : '';
+    const invNum = invNumberInput ? invNumberInput.value.trim() || 'WCAR-BILL' : 'WCAR-BILL';
+    const invDate = invDateInput ? invDateInput.value : new Date().toISOString().split('T')[0];
+    const taxRate = taxRateSelect ? parseFloat(taxRateSelect.value) || 0 : 18;
+    const discount = discountInput ? Math.max(0, parseFloat(discountInput.value) || 0) : 0;
+    const payStatus = payStatusSelect ? payStatusSelect.value : 'PAID';
+    const warrantyTerm = warrantySelect ? warrantySelect.value : '12-Month / 10,000 KM Warranty';
+    const grandTotal = prevGrandTotal ? prevGrandTotal.textContent : '₹0';
+
+    const invoiceRecord = {
+      id: invNum,
+      date: invDate,
+      custName,
+      custPhone,
+      carModel,
+      carReg,
+      taxRate,
+      discount,
+      payStatus,
+      warrantyTerm,
+      lineItems: JSON.parse(JSON.stringify(lineItems)),
+      grandTotal,
+      savedAt: new Date().toISOString()
+    };
+
+    let invoices = getSavedInvoices();
+    const existingIdx = invoices.findIndex(it => it.id === invNum);
+    if (existingIdx >= 0) {
+      invoices[existingIdx] = invoiceRecord;
+    } else {
+      invoices.unshift(invoiceRecord);
+    }
+
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(invoices));
+    } catch (err) {
+      console.warn('LocalStorage save error:', err);
+    }
+
+    updateHistoryBadge();
+    renderSavedInvoicesList();
+
+    if (showToast) {
+      if (saveInvoiceBtn) {
+        const originalText = saveInvoiceBtn.innerHTML;
+        saveInvoiceBtn.innerHTML = `<span class="material-symbols-outlined text-[16px] text-emerald-400">check_circle</span><span class="text-emerald-400">Saved to Records!</span>`;
+        setTimeout(() => {
+          saveInvoiceBtn.innerHTML = originalText;
+        }, 1800);
+      }
+    }
+  }
+
+  function deleteSavedInvoice(invId) {
+    if (confirm(`Delete invoice ${invId} from saved records?`)) {
+      let invoices = getSavedInvoices();
+      invoices = invoices.filter(it => it.id !== invId);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(invoices));
+      updateHistoryBadge();
+      renderSavedInvoicesList(searchHistoryInput ? searchHistoryInput.value : '');
+    }
+  }
+
+  function loadSavedInvoice(invId) {
+    const invoices = getSavedInvoices();
+    const inv = invoices.find(it => it.id === invId);
+    if (!inv) return;
+
+    if (custNameInput) custNameInput.value = inv.custName || '';
+    if (custPhoneInput) custPhoneInput.value = inv.custPhone || '';
+    if (carModelInput) carModelInput.value = inv.carModel || '';
+    if (carRegInput) carRegInput.value = inv.carReg || '';
+    if (invNumberInput) invNumberInput.value = inv.id || '';
+    if (invDateInput) invDateInput.value = inv.date || '';
+    if (taxRateSelect) taxRateSelect.value = String(inv.taxRate ?? 18);
+    if (discountInput) discountInput.value = String(inv.discount ?? 0);
+    if (payStatusSelect) payStatusSelect.value = inv.payStatus || 'PAID';
+    if (warrantySelect) warrantySelect.value = inv.warrantyTerm || '12-Month / 10,000 KM Official Workshop Warranty';
+
+    if (Array.isArray(inv.lineItems) && inv.lineItems.length > 0) {
+      lineItems = JSON.parse(JSON.stringify(inv.lineItems));
+    }
+
+    renderItemRows();
+    updateLivePreview();
+    switchTab('editor');
+
+    if (window.WebAudioFX) window.WebAudioFX.playClick();
+  }
+
+  function updateHistoryBadge() {
+    const count = getSavedInvoices().length;
+    if (savedBadge) savedBadge.textContent = count;
+  }
+
+  function renderSavedInvoicesList(filter = '') {
+    if (!savedListContainer) return;
+    const invoices = getSavedInvoices();
+    const query = filter.trim().toLowerCase();
+
+    const filtered = invoices.filter(it => {
+      if (!query) return true;
+      return (
+        (it.id && it.id.toLowerCase().includes(query)) ||
+        (it.custName && it.custName.toLowerCase().includes(query)) ||
+        (it.carModel && it.carModel.toLowerCase().includes(query)) ||
+        (it.carReg && it.carReg.toLowerCase().includes(query)) ||
+        (it.custPhone && it.custPhone.includes(query))
+      );
+    });
+
+    if (!filtered.length) {
+      savedListContainer.innerHTML = `
+        <div class="text-center py-8 px-4 bg-surface-container-low/50 rounded-xl border border-white/5 text-slate-400">
+          <span class="material-symbols-outlined text-3xl text-slate-500 mb-1">receipt_long</span>
+          <p class="text-xs font-semibold">${query ? 'No matching invoices found.' : 'No saved invoices yet.'}</p>
+          <p class="text-[11px] text-slate-500 mt-1">Generated bills will be saved here automatically.</p>
+        </div>
+      `;
+      return;
+    }
+
+    savedListContainer.innerHTML = filtered.map(inv => `
+      <div class="p-3 bg-surface-container-low/90 rounded-xl border border-white/5 hover:border-tertiary/30 transition-all space-y-2">
+        <div class="flex items-start justify-between">
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="font-mono text-xs font-bold text-tertiary">${inv.id}</span>
+              <span class="text-[9px] font-bold px-1.5 py-0.5 rounded ${inv.payStatus === 'PAID' ? 'bg-emerald-500/20 text-emerald-300' : 'bg-amber-500/20 text-amber-300'}">${inv.payStatus || 'PAID'}</span>
+            </div>
+            <p class="text-xs font-bold text-slate-100 mt-0.5">${inv.custName} <span class="font-normal text-slate-400">(${inv.carModel})</span></p>
+            <p class="text-[10px] font-mono text-slate-400">${inv.carReg || 'No Reg'} • Date: ${formatDateDisplay(inv.date)}</p>
+          </div>
+          <div class="text-right">
+            <span class="font-mono font-black text-sm text-amber-300 block">${inv.grandTotal || '₹0'}</span>
+            <span class="text-[10px] text-slate-400 font-mono">${(inv.lineItems || []).length} Item(s)</span>
+          </div>
+        </div>
+
+        <div class="pt-2 border-t border-white/5 flex items-center justify-between gap-1 text-[11px]">
+          <button type="button" class="btn-load-history px-2.5 py-1 rounded-lg bg-tertiary/15 hover:bg-tertiary hover:text-on-tertiary text-tertiary font-bold transition-colors cursor-pointer" data-id="${inv.id}">
+            Load & Edit
+          </button>
+          
+          <div class="flex items-center space-x-1">
+            <button type="button" class="btn-whatsapp-history p-1.5 rounded-lg bg-[#25D366]/20 hover:bg-[#25D366] text-[#25D366] hover:text-white transition-colors cursor-pointer" data-id="${inv.id}" title="Send via WhatsApp">
+              <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.04 14.69 2 12.04 2ZM12.04 20.15C10.56 20.15 9.11 19.76 7.85 19.01L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.8 13.47 3.8 11.91C3.8 7.37 7.5 3.67 12.04 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15ZM16.56 14.41C16.31 14.29 15.09 13.69 14.86 13.61C14.64 13.52 14.47 13.48 14.31 13.73C14.14 13.97 13.67 14.53 13.52 14.69C13.38 14.86 13.23 14.88 12.98 14.76C12.74 14.64 11.95 14.38 11.02 13.55C10.29 12.9 9.8 12.1 9.68 11.85C9.55 11.61 9.66 11.47 9.79 11.35C9.9 11.24 10.03 11.07 10.15 10.93C10.28 10.78 10.32 10.68 10.4 10.51C10.48 10.35 10.44 10.21 10.38 10.08C10.32 9.96 9.83 8.76 9.63 8.26C9.43 7.78 9.23 7.84 9.08 7.83C8.94 7.83 8.77 7.83 8.61 7.83C8.44 7.83 8.18 7.89 7.95 8.14C7.72 8.38 7.08 8.98 7.08 10.21C7.08 11.44 7.97 12.62 8.1 12.79C8.22 12.96 9.86 15.48 12.36 16.56C12.96 16.82 13.42 16.97 13.78 17.09C14.38 17.28 14.93 17.25 15.36 17.19C15.84 17.12 16.84 16.58 17.05 16C17.25 15.41 17.25 14.91 17.19 14.8C17.13 14.7 16.98 14.64 16.73 14.52L16.56 14.41Z"/></svg>
+            </button>
+            <button type="button" class="btn-delete-history p-1.5 rounded-lg bg-red-500/15 hover:bg-red-500 text-red-400 hover:text-white transition-colors cursor-pointer" data-id="${inv.id}" title="Delete Invoice">
+              <span class="material-symbols-outlined text-[15px]">delete</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+
+    // Attach row events
+    savedListContainer.querySelectorAll('.btn-load-history').forEach(btn => {
+      btn.addEventListener('click', () => {
+        loadSavedInvoice(btn.dataset.id);
+      });
+    });
+
+    savedListContainer.querySelectorAll('.btn-whatsapp-history').forEach(btn => {
+      btn.addEventListener('click', () => {
+        loadSavedInvoice(btn.dataset.id);
+        if (sendWhatsAppBtn) sendWhatsAppBtn.click();
+      });
+    });
+
+    savedListContainer.querySelectorAll('.btn-delete-history').forEach(btn => {
+      btn.addEventListener('click', () => {
+        deleteSavedInvoice(btn.dataset.id);
+      });
+    });
+  }
+
+  // Switch Tab function
+  function switchTab(tab) {
+    if (tab === 'editor') {
+      if (tabBtnEditor) {
+        tabBtnEditor.className = 'px-3 py-1.5 rounded-lg text-xs font-[\'Plus_Jakarta_Sans\',sans-serif] font-bold transition-all bg-tertiary text-on-tertiary cursor-pointer flex items-center space-x-1.5 shadow-sm';
+      }
+      if (tabBtnHistory) {
+        tabBtnHistory.className = 'px-3 py-1.5 rounded-lg text-xs font-[\'Plus_Jakarta_Sans\',sans-serif] font-bold transition-all bg-surface-container-high hover:bg-surface-bright text-slate-300 hover:text-tertiary cursor-pointer flex items-center space-x-1.5 border border-white/5';
+      }
+      if (panelEditor) panelEditor.classList.remove('hidden');
+      if (panelHistory) panelHistory.classList.add('hidden');
+    } else {
+      if (tabBtnEditor) {
+        tabBtnEditor.className = 'px-3 py-1.5 rounded-lg text-xs font-[\'Plus_Jakarta_Sans\',sans-serif] font-bold transition-all bg-surface-container-high hover:bg-surface-bright text-slate-300 hover:text-tertiary cursor-pointer flex items-center space-x-1.5 border border-white/5';
+      }
+      if (tabBtnHistory) {
+        tabBtnHistory.className = 'px-3 py-1.5 rounded-lg text-xs font-[\'Plus_Jakarta_Sans\',sans-serif] font-bold transition-all bg-tertiary text-on-tertiary cursor-pointer flex items-center space-x-1.5 shadow-sm';
+      }
+      if (panelEditor) panelEditor.classList.add('hidden');
+      if (panelHistory) panelHistory.classList.remove('hidden');
+      renderSavedInvoicesList(searchHistoryInput ? searchHistoryInput.value : '');
+    }
+  }
+
+  if (tabBtnEditor) tabBtnEditor.addEventListener('click', () => switchTab('editor'));
+  if (tabBtnHistory) tabBtnHistory.addEventListener('click', () => switchTab('history'));
+  if (searchHistoryInput) {
+    searchHistoryInput.addEventListener('input', (e) => {
+      renderSavedInvoicesList(e.target.value);
+    });
+  }
+
+  if (clearAllHistoryBtn) {
+    clearAllHistoryBtn.addEventListener('click', () => {
+      if (confirm('Are you sure you want to clear all stored invoices? This cannot be undone.')) {
+        localStorage.removeItem(STORAGE_KEY);
+        updateHistoryBadge();
+        renderSavedInvoicesList();
+      }
+    });
+  }
+
+  // ==========================================
+  // FORM ROW BUILDER & PREVIEW ENGINE
+  // ==========================================
+
   // Render Form Row Inputs
   function renderItemRows() {
     if (!itemsContainer) return;
@@ -817,13 +1109,13 @@ function initInvoiceGenerator() {
       row.className = 'grid grid-cols-12 gap-2 items-center bg-surface-container-low/90 p-2.5 rounded-xl border border-white/5';
       row.innerHTML = `
         <div class="col-span-6 sm:col-span-7">
-          <input type="text" class="item-desc-input invoice-input-field w-full px-2.5 py-1.5 rounded-lg text-xs" value="${item.desc}" placeholder="Service description..." data-index="${index}">
+          <input type="text" class="item-desc-input invoice-input-field w-full px-2.5 py-1.5 rounded-lg text-xs" value="${item.desc}" placeholder="Service / Part description..." data-index="${index}">
         </div>
         <div class="col-span-2 sm:col-span-2">
-          <input type="number" class="item-qty-input invoice-input-field w-full px-2 py-1.5 rounded-lg text-xs text-center" value="${item.qty}" min="1" step="1" data-index="${index}" title="Qty">
+          <input type="number" class="item-qty-input invoice-input-field w-full px-2 py-1.5 rounded-lg text-xs text-center font-mono font-bold" value="${item.qty}" min="1" step="1" data-index="${index}" title="Qty">
         </div>
         <div class="col-span-3 sm:col-span-2">
-          <input type="number" class="item-price-input invoice-input-field w-full px-2 py-1.5 rounded-lg text-xs text-right font-mono" value="${item.price}" min="0" step="50" data-index="${index}" title="Price (₹)">
+          <input type="number" class="item-price-input invoice-input-field w-full px-2 py-1.5 rounded-lg text-xs text-right font-mono font-bold" value="${item.price}" min="0" step="50" data-index="${index}" title="Price (₹)">
         </div>
         <div class="col-span-1 flex justify-center">
           <button type="button" class="item-delete-btn text-slate-500 hover:text-red-400 p-1 transition-colors cursor-pointer" data-index="${index}" title="Delete Item">
@@ -873,17 +1165,17 @@ function initInvoiceGenerator() {
     });
   }
 
-  // Update Preview Document
+  // Update Preview Document with Solid Black Text & Crisp Alignment
   function updateLivePreview() {
     // 1. Customer & Vehicle Metadata
     const custName = custNameInput ? custNameInput.value.trim() || 'Valued Customer' : 'Valued Customer';
     const custPhone = custPhoneInput ? custPhoneInput.value.trim() || '9876543210' : '9876543210';
-    const carModel = carModelInput ? carModelInput.value.trim() || 'Vehicle / Car' : 'Vehicle / Car';
+    const carModel = carModelInput ? carModelInput.value.trim() || 'Vehicle' : 'Vehicle';
     const carReg = carRegInput ? carRegInput.value.trim().toUpperCase() || 'MH 14 XX 0000' : 'MH 14 XX 0000';
     const invNum = invNumberInput ? invNumberInput.value.trim() || 'WCAR-2026-0001' : 'WCAR-2026-0001';
     const invDate = invDateInput ? invDateInput.value : '';
     const payStatus = payStatusSelect ? payStatusSelect.value : 'PAID';
-    const warrantyTerm = warrantySelect ? warrantySelect.value : '12-Month / 10,000 KM Official Warranty';
+    const warrantyTerm = warrantySelect ? warrantySelect.value : '12-Month / 10,000 KM Official Workshop Warranty';
 
     if (prevCustName) prevCustName.textContent = custName;
     if (prevCustPhone) prevCustPhone.textContent = '+91 ' + custPhone;
@@ -896,15 +1188,15 @@ function initInvoiceGenerator() {
     if (prevInvStatus) {
       prevInvStatus.textContent = payStatus;
       if (payStatus === 'PAID') {
-        prevInvStatus.className = 'inline-block mt-1.5 px-2.5 py-0.5 rounded-md text-[10px] font-bold tracking-wider uppercase bg-emerald-100 text-emerald-800 border border-emerald-300';
+        prevInvStatus.className = 'inline-block px-3 py-0.5 rounded-full text-[10px] font-black tracking-wider uppercase bg-emerald-100 text-emerald-900 border border-emerald-400';
       } else if (payStatus === 'PENDING') {
-        prevInvStatus.className = 'inline-block mt-1.5 px-2.5 py-0.5 rounded-md text-[10px] font-bold tracking-wider uppercase bg-amber-100 text-amber-800 border border-amber-300';
+        prevInvStatus.className = 'inline-block px-3 py-0.5 rounded-full text-[10px] font-black tracking-wider uppercase bg-amber-100 text-amber-900 border border-amber-400';
       } else {
-        prevInvStatus.className = 'inline-block mt-1.5 px-2.5 py-0.5 rounded-md text-[10px] font-bold tracking-wider uppercase bg-blue-100 text-blue-800 border border-blue-300';
+        prevInvStatus.className = 'inline-block px-3 py-0.5 rounded-full text-[10px] font-black tracking-wider uppercase bg-blue-100 text-blue-900 border border-blue-400';
       }
     }
 
-    // 2. Build Item Table Rows
+    // 2. Build Item Table Rows with Solid Black Typography
     if (prevItemsBody) {
       prevItemsBody.innerHTML = '';
       let subtotal = 0;
@@ -914,13 +1206,13 @@ function initInvoiceGenerator() {
         subtotal += itemTotal;
 
         const tr = document.createElement('tr');
-        tr.className = 'border-b border-slate-100';
+        tr.className = 'border-b border-slate-200 text-black';
         tr.innerHTML = `
-          <td class="py-2.5 pr-2 font-mono text-[11px] text-slate-400">${String(i + 1).padStart(2, '0')}</td>
-          <td class="py-2.5 px-2 font-medium text-slate-900">${item.desc || 'Service / Part'}</td>
-          <td class="py-2.5 px-2 text-center font-mono">${item.qty}</td>
-          <td class="py-2.5 px-2 text-right font-mono">${formatCurrency(item.price)}</td>
-          <td class="py-2.5 pl-2 text-right font-mono font-bold text-slate-900">${formatCurrency(itemTotal)}</td>
+          <td class="py-2.5 px-2.5 text-center font-mono font-bold inv-text-black text-xs">${String(i + 1).padStart(2, '0')}</td>
+          <td class="py-2.5 px-3 font-bold inv-text-black text-xs leading-snug">${item.desc || 'Service / Part'}</td>
+          <td class="py-2.5 px-3 text-center font-mono font-bold inv-text-black text-xs">${item.qty}</td>
+          <td class="py-2.5 px-3 text-right font-mono font-bold inv-text-black text-xs">${formatCurrency(item.price)}</td>
+          <td class="py-2.5 px-3 text-right font-mono font-black inv-text-black text-xs">${formatCurrency(itemTotal)}</td>
         `;
         prevItemsBody.appendChild(tr);
       });
@@ -953,6 +1245,11 @@ function initInvoiceGenerator() {
       }
 
       if (prevGrandTotal) prevGrandTotal.textContent = formatCurrency(grandTotal);
+
+      // 4. Amount in Words (INR)
+      if (prevWordsAmount) {
+        prevWordsAmount.textContent = numberToWordsINR(grandTotal);
+      }
     }
   }
 
@@ -973,7 +1270,7 @@ function initInvoiceGenerator() {
   if (addItemBtn) {
     addItemBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      lineItems.push({ desc: 'Custom Diagnostic / Service', qty: 1, price: 1500 });
+      lineItems.push({ desc: 'Custom Mechanical Service / Diagnostic', qty: 1, price: 1500 });
       renderItemRows();
       updateLivePreview();
       if (window.WebAudioFX) window.WebAudioFX.playClick();
@@ -984,7 +1281,7 @@ function initInvoiceGenerator() {
   if (resetBtn) {
     resetBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      if (confirm('Reset invoice form to default template?')) {
+      if (confirm('Start a new blank bill? Current un-saved edits will be cleared.')) {
         lineItems = [
           { desc: 'Synthetic Engine Oil (5W-40) & OEM Filter', qty: 1, price: 4500 },
           { desc: '60-Point Electronic Laser Chassis & Safety Audit', qty: 1, price: 1200 },
@@ -1000,7 +1297,17 @@ function initInvoiceGenerator() {
         if (payStatusSelect) payStatusSelect.value = 'PAID';
         renderItemRows();
         updateLivePreview();
+        switchTab('editor');
       }
+    });
+  }
+
+  // Save to Storage Button
+  if (saveInvoiceBtn) {
+    saveInvoiceBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      saveCurrentInvoice(true);
+      if (window.WebAudioFX) window.WebAudioFX.playSuccess();
     });
   }
 
@@ -1016,11 +1323,14 @@ function initInvoiceGenerator() {
     if (el) el.addEventListener('change', updateLivePreview);
   });
 
-  // PDF Export Handler via html2pdf
+  // PDF Export Handler via html2pdf with auto-save
   if (downloadPdfBtn) {
     downloadPdfBtn.addEventListener('click', async (e) => {
       e.preventDefault();
       if (!printableSheet) return;
+
+      // Auto-save invoice to history
+      saveCurrentInvoice(false);
 
       const originalBtnHtml = downloadPdfBtn.innerHTML;
       downloadPdfBtn.innerHTML = `<span class="material-symbols-outlined text-[18px] animate-spin">sync</span><span>Generating PDF...</span>`;
@@ -1049,7 +1359,6 @@ function initInvoiceGenerator() {
           downloadPdfBtn.disabled = false;
         }
       } else {
-        // Fallback to browser print
         window.print();
         downloadPdfBtn.innerHTML = originalBtnHtml;
         downloadPdfBtn.disabled = false;
@@ -1057,10 +1366,13 @@ function initInvoiceGenerator() {
     });
   }
 
-  // Send to WhatsApp Handler
+  // Send to WhatsApp Handler with auto-save
   if (sendWhatsAppBtn) {
     sendWhatsAppBtn.addEventListener('click', (e) => {
       e.preventDefault();
+
+      // Auto-save invoice to history
+      saveCurrentInvoice(false);
 
       const custName = custNameInput ? custNameInput.value.trim() || 'Valued Customer' : 'Valued Customer';
       let phone = custPhoneInput ? custPhoneInput.value.trim().replace(/\D/g, '') : '';
@@ -1072,6 +1384,7 @@ function initInvoiceGenerator() {
       const warrantyTerm = warrantySelect ? warrantySelect.value : '12-Month / 10,000 KM Warranty';
       const grandTotal = prevGrandTotal ? prevGrandTotal.textContent : '₹0';
       const subtotal = prevSubtotal ? prevSubtotal.textContent : '₹0';
+      const inWords = prevWordsAmount ? prevWordsAmount.textContent : '';
 
       // Format WhatsApp number
       if (phone.length === 10) {
@@ -1088,7 +1401,7 @@ function initInvoiceGenerator() {
       });
 
       const message = 
-`🏎️ *WE CARE AUTO REPAIR — OFFICIAL BILL*
+`🏎️ *WE CARE AUTO REPAIR — OFFICIAL TAX INVOICE*
 ━━━━━━━━━━━━━━━━━━━━━━
 📋 *Invoice #:* ${invNum}
 👤 *Customer:* ${custName}
@@ -1101,12 +1414,13 @@ ${itemsSummary}
 ━━━━━━━━━━━━━━━━━━━━━━
 💵 *Subtotal:* ${subtotal}
 💰 *GRAND TOTAL:* *${grandTotal}*
+📝 *Amount in Words:* ${inWords}
 ━━━━━━━━━━━━━━━━━━━━━━
 🛡️ *Warranty:* ${warrantyTerm}
 📍 *Workshop:* Gat No 1079, Newali Wasti, Chikhali, Pune 411062
-📞 *Lead Technician:* +91 7757030387 (Sohail Mulani)
+📞 *Lead Engineer:* +91 7757030387 (Sohail Mulani)
 ━━━━━━━━━━━━━━━━━━━━━━
-_Thank you for trusting We Care Auto Repair with your vehicle!_`;
+_Thank you for choosing We Care Auto Repair for your vehicle service!_`;
 
       const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
       window.open(whatsappUrl, '_blank');
@@ -1117,13 +1431,15 @@ _Thank you for trusting We Care Auto Repair with your vehicle!_`;
   if (printInvoiceBtn) {
     printInvoiceBtn.addEventListener('click', (e) => {
       e.preventDefault();
+      saveCurrentInvoice(false);
       window.print();
     });
   }
 
-  // Initialize
+  // Initial Boot
   renderItemRows();
   updateLivePreview();
+  updateHistoryBadge();
 }
 
 // Global initialization on DOM ready
