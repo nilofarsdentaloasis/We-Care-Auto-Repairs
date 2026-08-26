@@ -1524,7 +1524,7 @@
             <div class="flex items-center space-x-3">
               <!-- Current Slide Indicator -->
               <span id="project-slide-counter" class="font-mono text-xs font-bold text-tertiary px-3 py-1.5 rounded-full bg-surface-container border border-outline-variant/20">
-                01 / 07
+                01 / 12
               </span>
               
               <!-- Prev / Next Navigation Buttons -->
@@ -1598,6 +1598,41 @@
               </div>
             </div>
 
+            <!-- SLIDE 8: Honda Accord -->
+            <div class="featured-project-slide flex flex-col items-center justify-center px-2" data-project-idx="7">
+              <div class="relative w-full max-w-5xl mx-auto flex items-center justify-center">
+                <img src="assets/projects/honda-accord.png" alt="Honda Accord - Models We Worked On" class="w-full h-auto max-h-[75vh] object-contain mx-auto transition-transform duration-700 hover:scale-[1.02] drop-shadow-2xl">
+              </div>
+            </div>
+
+            <!-- SLIDE 9: Mercedes-Benz GLE Coupe -->
+            <div class="featured-project-slide flex flex-col items-center justify-center px-2" data-project-idx="8">
+              <div class="relative w-full max-w-5xl mx-auto flex items-center justify-center">
+                <img src="assets/projects/mercedes-gle-coupe.png" alt="Mercedes-Benz GLE Coupe - Models We Worked On" class="w-full h-auto max-h-[75vh] object-contain mx-auto transition-transform duration-700 hover:scale-[1.02] drop-shadow-2xl">
+              </div>
+            </div>
+
+            <!-- SLIDE 10: Maruti Suzuki Ertiga -->
+            <div class="featured-project-slide flex flex-col items-center justify-center px-2" data-project-idx="9">
+              <div class="relative w-full max-w-5xl mx-auto flex items-center justify-center">
+                <img src="assets/projects/maruti-ertiga.png" alt="Maruti Suzuki Ertiga - Models We Worked On" class="w-full h-auto max-h-[75vh] object-contain mx-auto transition-transform duration-700 hover:scale-[1.02] drop-shadow-2xl">
+              </div>
+            </div>
+
+            <!-- SLIDE 11: Toyota Innova Crysta -->
+            <div class="featured-project-slide flex flex-col items-center justify-center px-2" data-project-idx="10">
+              <div class="relative w-full max-w-5xl mx-auto flex items-center justify-center">
+                <img src="assets/projects/toyota-innova-crysta.png" alt="Toyota Innova Crysta - Models We Worked On" class="w-full h-auto max-h-[75vh] object-contain mx-auto transition-transform duration-700 hover:scale-[1.02] drop-shadow-2xl">
+              </div>
+            </div>
+
+            <!-- SLIDE 12: Mahindra Thar 4x4 -->
+            <div class="featured-project-slide flex flex-col items-center justify-center px-2" data-project-idx="11">
+              <div class="relative w-full max-w-5xl mx-auto flex items-center justify-center">
+                <img src="assets/projects/mahindra-thar.png" alt="Mahindra Thar 4x4 - Models We Worked On" class="w-full h-auto max-h-[75vh] object-contain mx-auto transition-transform duration-700 hover:scale-[1.02] drop-shadow-2xl">
+              </div>
+            </div>
+
           </div>
         </div>
 
@@ -1630,6 +1665,26 @@
           <button class="project-nav-pill px-4 py-2 rounded-full bg-surface-container border border-outline-variant/20 text-xs font-mono font-bold text-on-surface-variant hover:border-tertiary hover:text-tertiary flex items-center space-x-2 transition-all cursor-pointer" data-target-idx="6">
             <span class="w-2 h-2 rounded-full bg-tertiary"></span>
             <span>Toyota Fortuner</span>
+          </button>
+          <button class="project-nav-pill px-4 py-2 rounded-full bg-surface-container border border-outline-variant/20 text-xs font-mono font-bold text-on-surface-variant hover:border-tertiary hover:text-tertiary flex items-center space-x-2 transition-all cursor-pointer" data-target-idx="7">
+            <span class="w-2 h-2 rounded-full bg-tertiary"></span>
+            <span>Honda Accord</span>
+          </button>
+          <button class="project-nav-pill px-4 py-2 rounded-full bg-surface-container border border-outline-variant/20 text-xs font-mono font-bold text-on-surface-variant hover:border-tertiary hover:text-tertiary flex items-center space-x-2 transition-all cursor-pointer" data-target-idx="8">
+            <span class="w-2 h-2 rounded-full bg-tertiary"></span>
+            <span>Mercedes GLE Coupe</span>
+          </button>
+          <button class="project-nav-pill px-4 py-2 rounded-full bg-surface-container border border-outline-variant/20 text-xs font-mono font-bold text-on-surface-variant hover:border-tertiary hover:text-tertiary flex items-center space-x-2 transition-all cursor-pointer" data-target-idx="9">
+            <span class="w-2 h-2 rounded-full bg-tertiary"></span>
+            <span>Maruti Ertiga</span>
+          </button>
+          <button class="project-nav-pill px-4 py-2 rounded-full bg-surface-container border border-outline-variant/20 text-xs font-mono font-bold text-on-surface-variant hover:border-tertiary hover:text-tertiary flex items-center space-x-2 transition-all cursor-pointer" data-target-idx="10">
+            <span class="w-2 h-2 rounded-full bg-tertiary"></span>
+            <span>Innova Crysta</span>
+          </button>
+          <button class="project-nav-pill px-4 py-2 rounded-full bg-surface-container border border-outline-variant/20 text-xs font-mono font-bold text-on-surface-variant hover:border-tertiary hover:text-tertiary flex items-center space-x-2 transition-all cursor-pointer" data-target-idx="11">
+            <span class="w-2 h-2 rounded-full bg-tertiary"></span>
+            <span>Mahindra Thar</span>
           </button>
         </div>
 
@@ -3577,7 +3632,7 @@
         if (idx === totalWithClones - 1) realIdx = 0;
 
         if (counterEl) {
-          counterEl.textContent = '0' + (realIdx + 1) + ' / 0' + N;
+          counterEl.textContent = String(realIdx + 1).padStart(2, '0') + ' / ' + String(N).padStart(2, '0');
         }
 
         navPills.forEach((pill, i) => {
