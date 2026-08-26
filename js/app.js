@@ -585,6 +585,39 @@ function initFeaturedProjectCarousel() {
       counterEl.textContent = String(realIdx + 1).padStart(2, '0') + ' / ' + String(N).padStart(2, '0');
     }
 
+    // Update Mobile Single Model Name Badge
+    const carNames = [
+      'Mahindra Scorpio-N',
+      'Audi A4',
+      'Kia Seltos',
+      'Volkswagen Polo',
+      'BMW M5 ///M',
+      'Jaguar XF',
+      'Toyota Fortuner',
+      'Honda Accord',
+      'Mercedes GLE Coupe',
+      'Maruti Ertiga',
+      'Innova Crysta',
+      'Mahindra Thar'
+    ];
+
+    const mobileNameEl = document.getElementById('mobile-active-model-name');
+    if (mobileNameEl && carNames[realIdx]) {
+      if (animated && mobileNameEl.textContent !== carNames[realIdx]) {
+        mobileNameEl.style.opacity = '0';
+        mobileNameEl.style.transform = 'translateY(3px)';
+        setTimeout(() => {
+          mobileNameEl.textContent = carNames[realIdx];
+          mobileNameEl.style.opacity = '1';
+          mobileNameEl.style.transform = 'translateY(0)';
+        }, 120);
+      } else {
+        mobileNameEl.textContent = carNames[realIdx];
+        mobileNameEl.style.opacity = '1';
+        mobileNameEl.style.transform = 'translateY(0)';
+      }
+    }
+
     navPills.forEach((pill, i) => {
       if (i === realIdx) {
         pill.classList.add('active-pill');
