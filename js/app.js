@@ -730,6 +730,402 @@ function initFeaturedProjectCarousel() {
   startTimer();
 }
 
+// 8. Digital Invoice & Service Bill Generator Engine
+function initInvoiceGenerator() {
+  const section = document.getElementById('invoice-generator');
+  if (!section) return;
+
+  // Form Inputs
+  const custNameInput = document.getElementById('inv-cust-name');
+  const custPhoneInput = document.getElementById('inv-cust-phone');
+  const carModelInput = document.getElementById('inv-car-model');
+  const carRegInput = document.getElementById('inv-car-reg');
+  const invNumberInput = document.getElementById('inv-number');
+  const invDateInput = document.getElementById('inv-date');
+  const taxRateSelect = document.getElementById('inv-tax-rate');
+  const discountInput = document.getElementById('inv-discount');
+  const payStatusSelect = document.getElementById('inv-pay-status');
+  const warrantySelect = document.getElementById('inv-warranty');
+  const itemsContainer = document.getElementById('invoice-items-list');
+  const addItemBtn = document.getElementById('btn-add-line-item');
+  const resetBtn = document.getElementById('btn-reset-invoice');
+  const presetBtns = section.querySelectorAll('.preset-item-btn');
+
+  // Action Buttons
+  const downloadPdfBtn = document.getElementById('btn-download-pdf');
+  const sendWhatsAppBtn = document.getElementById('btn-send-whatsapp');
+  const printInvoiceBtn = document.getElementById('btn-print-invoice');
+
+  // Preview Elements
+  const prevCustName = document.getElementById('prev-cust-name');
+  const prevCustPhone = document.getElementById('prev-cust-phone');
+  const prevCarModel = document.getElementById('prev-car-model');
+  const prevCarReg = document.getElementById('prev-car-reg');
+  const prevInvNum = document.getElementById('prev-inv-num');
+  const prevInvDate = document.getElementById('prev-inv-date');
+  const prevInvStatus = document.getElementById('prev-inv-status');
+  const prevItemsBody = document.getElementById('prev-items-body');
+  const prevSubtotal = document.getElementById('prev-subtotal');
+  const prevTaxRow = document.getElementById('prev-tax-row');
+  const prevTaxLabel = document.getElementById('prev-tax-label');
+  const prevTaxAmount = document.getElementById('prev-tax-amount');
+  const prevDiscountRow = document.getElementById('prev-discount-row');
+  const prevDiscountAmount = document.getElementById('prev-discount-amount');
+  const prevGrandTotal = document.getElementById('prev-grand-total');
+  const prevWarrantyTerm = document.getElementById('prev-warranty-term');
+  const printableSheet = document.getElementById('printable-invoice-paper');
+
+  // Default Items State
+  let lineItems = [
+    { desc: 'Synthetic Engine Oil (5W-40) & OEM Filter', qty: 1, price: 4500 },
+    { desc: '60-Point Electronic Laser Chassis & Safety Audit', qty: 1, price: 1200 },
+    { desc: 'Front Brake Pads Replacement (OEM Factory Spec)', qty: 1, price: 3800 }
+  ];
+
+  // Set today's date
+  if (invDateInput && !invDateInput.value) {
+    const today = new Date().toISOString().split('T')[0];
+    invDateInput.value = today;
+  }
+
+  function formatCurrency(num) {
+    return '₹' + Number(num || 0).toLocaleString('en-IN');
+  }
+
+  function formatDateDisplay(dateStr) {
+    if (!dateStr) return new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+    const parts = dateStr.split('-');
+    if (parts.length === 3) {
+      const d = new Date(parts[0], parts[1] - 1, parts[2]);
+      return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+    }
+    return dateStr;
+  }
+
+  function generateRandomInvoiceNum() {
+    const rand = Math.floor(1000 + Math.random() * 9000);
+    return `WCAR-2026-${rand}`;
+  }
+
+  // Render Form Row Inputs
+  function renderItemRows() {
+    if (!itemsContainer) return;
+    itemsContainer.innerHTML = '';
+
+    lineItems.forEach((item, index) => {
+      const row = document.createElement('div');
+      row.className = 'grid grid-cols-12 gap-2 items-center bg-surface-container-low/90 p-2.5 rounded-xl border border-white/5';
+      row.innerHTML = `
+        <div class="col-span-6 sm:col-span-7">
+          <input type="text" class="item-desc-input invoice-input-field w-full px-2.5 py-1.5 rounded-lg text-xs" value="${item.desc}" placeholder="Service description..." data-index="${index}">
+        </div>
+        <div class="col-span-2 sm:col-span-2">
+          <input type="number" class="item-qty-input invoice-input-field w-full px-2 py-1.5 rounded-lg text-xs text-center" value="${item.qty}" min="1" step="1" data-index="${index}" title="Qty">
+        </div>
+        <div class="col-span-3 sm:col-span-2">
+          <input type="number" class="item-price-input invoice-input-field w-full px-2 py-1.5 rounded-lg text-xs text-right font-mono" value="${item.price}" min="0" step="50" data-index="${index}" title="Price (₹)">
+        </div>
+        <div class="col-span-1 flex justify-center">
+          <button type="button" class="item-delete-btn text-slate-500 hover:text-red-400 p-1 transition-colors cursor-pointer" data-index="${index}" title="Delete Item">
+            <span class="material-symbols-outlined text-[17px]">delete</span>
+          </button>
+        </div>
+      `;
+      itemsContainer.appendChild(row);
+    });
+
+    // Attach listeners to input fields in rows
+    itemsContainer.querySelectorAll('.item-desc-input').forEach(input => {
+      input.addEventListener('input', (e) => {
+        const idx = parseInt(e.target.dataset.index, 10);
+        lineItems[idx].desc = e.target.value;
+        updateLivePreview();
+      });
+    });
+
+    itemsContainer.querySelectorAll('.item-qty-input').forEach(input => {
+      input.addEventListener('input', (e) => {
+        const idx = parseInt(e.target.dataset.index, 10);
+        lineItems[idx].qty = Math.max(1, parseInt(e.target.value, 10) || 1);
+        updateLivePreview();
+      });
+    });
+
+    itemsContainer.querySelectorAll('.item-price-input').forEach(input => {
+      input.addEventListener('input', (e) => {
+        const idx = parseInt(e.target.dataset.index, 10);
+        lineItems[idx].price = Math.max(0, parseFloat(e.target.value) || 0);
+        updateLivePreview();
+      });
+    });
+
+    itemsContainer.querySelectorAll('.item-delete-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const idx = parseInt(btn.dataset.index, 10);
+        if (lineItems.length > 1) {
+          lineItems.splice(idx, 1);
+          renderItemRows();
+          updateLivePreview();
+        } else {
+          alert('Invoice must have at least one service or part item.');
+        }
+      });
+    });
+  }
+
+  // Update Preview Document
+  function updateLivePreview() {
+    // 1. Customer & Vehicle Metadata
+    const custName = custNameInput ? custNameInput.value.trim() || 'Valued Customer' : 'Valued Customer';
+    const custPhone = custPhoneInput ? custPhoneInput.value.trim() || '9876543210' : '9876543210';
+    const carModel = carModelInput ? carModelInput.value.trim() || 'Vehicle / Car' : 'Vehicle / Car';
+    const carReg = carRegInput ? carRegInput.value.trim().toUpperCase() || 'MH 14 XX 0000' : 'MH 14 XX 0000';
+    const invNum = invNumberInput ? invNumberInput.value.trim() || 'WCAR-2026-0001' : 'WCAR-2026-0001';
+    const invDate = invDateInput ? invDateInput.value : '';
+    const payStatus = payStatusSelect ? payStatusSelect.value : 'PAID';
+    const warrantyTerm = warrantySelect ? warrantySelect.value : '12-Month / 10,000 KM Official Warranty';
+
+    if (prevCustName) prevCustName.textContent = custName;
+    if (prevCustPhone) prevCustPhone.textContent = '+91 ' + custPhone;
+    if (prevCarModel) prevCarModel.textContent = carModel;
+    if (prevCarReg) prevCarReg.textContent = carReg;
+    if (prevInvNum) prevInvNum.textContent = invNum;
+    if (prevInvDate) prevInvDate.textContent = 'Date: ' + formatDateDisplay(invDate);
+    if (prevWarrantyTerm) prevWarrantyTerm.textContent = warrantyTerm;
+
+    if (prevInvStatus) {
+      prevInvStatus.textContent = payStatus;
+      if (payStatus === 'PAID') {
+        prevInvStatus.className = 'inline-block mt-1.5 px-2.5 py-0.5 rounded-md text-[10px] font-bold tracking-wider uppercase bg-emerald-100 text-emerald-800 border border-emerald-300';
+      } else if (payStatus === 'PENDING') {
+        prevInvStatus.className = 'inline-block mt-1.5 px-2.5 py-0.5 rounded-md text-[10px] font-bold tracking-wider uppercase bg-amber-100 text-amber-800 border border-amber-300';
+      } else {
+        prevInvStatus.className = 'inline-block mt-1.5 px-2.5 py-0.5 rounded-md text-[10px] font-bold tracking-wider uppercase bg-blue-100 text-blue-800 border border-blue-300';
+      }
+    }
+
+    // 2. Build Item Table Rows
+    if (prevItemsBody) {
+      prevItemsBody.innerHTML = '';
+      let subtotal = 0;
+
+      lineItems.forEach((item, i) => {
+        const itemTotal = (item.qty || 1) * (item.price || 0);
+        subtotal += itemTotal;
+
+        const tr = document.createElement('tr');
+        tr.className = 'border-b border-slate-100';
+        tr.innerHTML = `
+          <td class="py-2.5 pr-2 font-mono text-[11px] text-slate-400">${String(i + 1).padStart(2, '0')}</td>
+          <td class="py-2.5 px-2 font-medium text-slate-900">${item.desc || 'Service / Part'}</td>
+          <td class="py-2.5 px-2 text-center font-mono">${item.qty}</td>
+          <td class="py-2.5 px-2 text-right font-mono">${formatCurrency(item.price)}</td>
+          <td class="py-2.5 pl-2 text-right font-mono font-bold text-slate-900">${formatCurrency(itemTotal)}</td>
+        `;
+        prevItemsBody.appendChild(tr);
+      });
+
+      // 3. Totals & Taxes
+      const taxRate = taxRateSelect ? parseFloat(taxRateSelect.value) || 0 : 18;
+      const taxAmount = (subtotal * taxRate) / 100;
+      const discount = discountInput ? Math.max(0, parseFloat(discountInput.value) || 0) : 0;
+      const grandTotal = Math.max(0, subtotal + taxAmount - discount);
+
+      if (prevSubtotal) prevSubtotal.textContent = formatCurrency(subtotal);
+
+      if (prevTaxRow && prevTaxAmount && prevTaxLabel) {
+        if (taxRate > 0) {
+          prevTaxRow.style.display = 'flex';
+          prevTaxLabel.textContent = `GST (${taxRate}%):`;
+          prevTaxAmount.textContent = formatCurrency(taxAmount);
+        } else {
+          prevTaxRow.style.display = 'none';
+        }
+      }
+
+      if (prevDiscountRow && prevDiscountAmount) {
+        if (discount > 0) {
+          prevDiscountRow.style.display = 'flex';
+          prevDiscountAmount.textContent = '-' + formatCurrency(discount);
+        } else {
+          prevDiscountRow.style.display = 'none';
+        }
+      }
+
+      if (prevGrandTotal) prevGrandTotal.textContent = formatCurrency(grandTotal);
+    }
+  }
+
+  // Preset Buttons Click
+  presetBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const desc = btn.getAttribute('data-desc');
+      const price = parseFloat(btn.getAttribute('data-price')) || 1000;
+      lineItems.push({ desc, qty: 1, price });
+      renderItemRows();
+      updateLivePreview();
+      if (window.WebAudioFX) window.WebAudioFX.playClick();
+    });
+  });
+
+  // Add Custom Line Item
+  if (addItemBtn) {
+    addItemBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      lineItems.push({ desc: 'Custom Diagnostic / Service', qty: 1, price: 1500 });
+      renderItemRows();
+      updateLivePreview();
+      if (window.WebAudioFX) window.WebAudioFX.playClick();
+    });
+  }
+
+  // Reset Form
+  if (resetBtn) {
+    resetBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (confirm('Reset invoice form to default template?')) {
+        lineItems = [
+          { desc: 'Synthetic Engine Oil (5W-40) & OEM Filter', qty: 1, price: 4500 },
+          { desc: '60-Point Electronic Laser Chassis & Safety Audit', qty: 1, price: 1200 },
+          { desc: 'Front Brake Pads Replacement (OEM Factory Spec)', qty: 1, price: 3800 }
+        ];
+        if (invNumberInput) invNumberInput.value = generateRandomInvoiceNum();
+        if (custNameInput) custNameInput.value = 'Rahul Sharma';
+        if (custPhoneInput) custPhoneInput.value = '9876543210';
+        if (carModelInput) carModelInput.value = 'Mahindra Scorpio-N';
+        if (carRegInput) carRegInput.value = 'MH 14 AB 1234';
+        if (taxRateSelect) taxRateSelect.value = '18';
+        if (discountInput) discountInput.value = '500';
+        if (payStatusSelect) payStatusSelect.value = 'PAID';
+        renderItemRows();
+        updateLivePreview();
+      }
+    });
+  }
+
+  // Bind Form Change Events
+  [custNameInput, custPhoneInput, carModelInput, carRegInput, invNumberInput, invDateInput, discountInput].forEach(el => {
+    if (el) {
+      el.addEventListener('input', updateLivePreview);
+      el.addEventListener('change', updateLivePreview);
+    }
+  });
+
+  [taxRateSelect, payStatusSelect, warrantySelect].forEach(el => {
+    if (el) el.addEventListener('change', updateLivePreview);
+  });
+
+  // PDF Export Handler via html2pdf
+  if (downloadPdfBtn) {
+    downloadPdfBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      if (!printableSheet) return;
+
+      const originalBtnHtml = downloadPdfBtn.innerHTML;
+      downloadPdfBtn.innerHTML = `<span class="material-symbols-outlined text-[18px] animate-spin">sync</span><span>Generating PDF...</span>`;
+      downloadPdfBtn.disabled = true;
+
+      const invNum = invNumberInput ? invNumberInput.value.trim() : 'WCAR-BILL';
+      const carModel = carModelInput ? carModelInput.value.trim().replace(/[^a-zA-Z0-9]/g, '_') : 'Car';
+      const filename = `Invoice_${invNum}_${carModel}.pdf`;
+
+      if (window.html2pdf) {
+        const opt = {
+          margin: [8, 8, 8, 8],
+          filename: filename,
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: { scale: 2, useCORS: true, letterRendering: true, scrollY: 0 },
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        try {
+          await window.html2pdf().set(opt).from(printableSheet).save();
+        } catch (err) {
+          console.error('html2pdf generation error:', err);
+          window.print();
+        } finally {
+          downloadPdfBtn.innerHTML = originalBtnHtml;
+          downloadPdfBtn.disabled = false;
+        }
+      } else {
+        // Fallback to browser print
+        window.print();
+        downloadPdfBtn.innerHTML = originalBtnHtml;
+        downloadPdfBtn.disabled = false;
+      }
+    });
+  }
+
+  // Send to WhatsApp Handler
+  if (sendWhatsAppBtn) {
+    sendWhatsAppBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      const custName = custNameInput ? custNameInput.value.trim() || 'Valued Customer' : 'Valued Customer';
+      let phone = custPhoneInput ? custPhoneInput.value.trim().replace(/\D/g, '') : '';
+      const carModel = carModelInput ? carModelInput.value.trim() || 'Vehicle' : 'Vehicle';
+      const carReg = carRegInput ? carRegInput.value.trim().toUpperCase() : '';
+      const invNum = invNumberInput ? invNumberInput.value.trim() || 'WCAR-BILL' : 'WCAR-BILL';
+      const invDate = invDateInput ? formatDateDisplay(invDateInput.value) : new Date().toLocaleDateString('en-GB');
+      const payStatus = payStatusSelect ? payStatusSelect.value : 'PAID';
+      const warrantyTerm = warrantySelect ? warrantySelect.value : '12-Month / 10,000 KM Warranty';
+      const grandTotal = prevGrandTotal ? prevGrandTotal.textContent : '₹0';
+      const subtotal = prevSubtotal ? prevSubtotal.textContent : '₹0';
+
+      // Format WhatsApp number
+      if (phone.length === 10) {
+        phone = '91' + phone;
+      } else if (!phone) {
+        phone = '917757030387'; // Default to workshop lead
+      }
+
+      // Build Itemized Text
+      let itemsSummary = '';
+      lineItems.forEach((it, idx) => {
+        const itemTot = formatCurrency((it.qty || 1) * (it.price || 0));
+        itemsSummary += `• ${it.desc} (${it.qty}x) — *${itemTot}*\n`;
+      });
+
+      const message = 
+`🏎️ *WE CARE AUTO REPAIR — OFFICIAL BILL*
+━━━━━━━━━━━━━━━━━━━━━━
+📋 *Invoice #:* ${invNum}
+👤 *Customer:* ${custName}
+🚘 *Vehicle:* ${carModel} ${carReg ? '(' + carReg + ')' : ''}
+📅 *Date:* ${invDate}
+📌 *Status:* ${payStatus}
+
+🔧 *ITEMIZED SERVICES & SPARES:*
+${itemsSummary}
+━━━━━━━━━━━━━━━━━━━━━━
+💵 *Subtotal:* ${subtotal}
+💰 *GRAND TOTAL:* *${grandTotal}*
+━━━━━━━━━━━━━━━━━━━━━━
+🛡️ *Warranty:* ${warrantyTerm}
+📍 *Workshop:* Gat No 1079, Newali Wasti, Chikhali, Pune 411062
+📞 *Lead Technician:* +91 7757030387 (Sohail Mulani)
+━━━━━━━━━━━━━━━━━━━━━━
+_Thank you for trusting We Care Auto Repair with your vehicle!_`;
+
+      const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, '_blank');
+    });
+  }
+
+  // Print Invoice direct
+  if (printInvoiceBtn) {
+    printInvoiceBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.print();
+    });
+  }
+
+  // Initialize
+  renderItemRows();
+  updateLivePreview();
+}
+
 // Global initialization on DOM ready
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize canvas scrolly engine
@@ -751,6 +1147,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavbarScroll();
   initTimelineRibbonEngine();
   initFeaturedProjectCarousel();
+  initInvoiceGenerator();
 });
 
 
