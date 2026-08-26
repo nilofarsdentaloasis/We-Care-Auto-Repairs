@@ -1272,23 +1272,49 @@ button {
    DIGITAL INVOICE & ESTIMATION GENERATOR MODULE
    ========================================================================== */
 .invoice-builder-card {
-  background: radial-gradient(120% 120% at 0% 0%, rgba(30, 33, 38, 0.95) 0%, rgba(18, 20, 24, 0.98) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  background: #111827 !important;
+  border: 1.5px solid rgba(251, 191, 36, 0.35) !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
 }
 
+/* High-Contrast Pure White Input Fields with Bold Black Typed Text */
 .invoice-input-field {
-  background: rgba(14, 16, 19, 0.9) !important;
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
-  color: #f8fafc !important;
+  background-color: #ffffff !important;
+  border: 1.5px solid #94a3b8 !important;
+  color: #000000 !important;
+  font-weight: 700 !important;
+  font-size: 13.5px !important;
   font-family: 'Plus Jakarta Sans', sans-serif !important;
-  transition: all 0.25s ease !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.06) !important;
+  transition: all 0.2s ease-in-out !important;
 }
 
 .invoice-input-field:focus {
-  border-color: #fbbf24 !important;
-  box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.2) !important;
+  background-color: #ffffff !important;
+  border-color: #d97706 !important;
+  color: #000000 !important;
+  box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.25), inset 0 1px 2px rgba(0, 0, 0, 0.06) !important;
   outline: none !important;
+}
+
+.invoice-input-field::placeholder {
+  color: #64748b !important;
+  font-weight: 500 !important;
+}
+
+.invoice-input-field option {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  font-weight: 700 !important;
+  padding: 6px 10px !important;
+}
+
+/* Ensure all input, select, textarea elements in invoice generator have solid black typed text */
+#invoice-generator input,
+#invoice-generator select,
+#invoice-generator textarea {
+  color: #000000 !important;
+  background-color: #ffffff !important;
 }
 
 /* Authentic Printable White Invoice Paper Sheet (Dealership Standard) */
@@ -1296,34 +1322,50 @@ button {
   background: #ffffff !important;
   color: #000000 !important;
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(0, 0, 0, 0.1);
+  border: 2px solid #0f172a !important;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.6) !important;
 }
 
 .invoice-paper-sheet * {
-  color: #000000;
+  color: #000000 !important;
+}
+
+.invoice-paper-sheet .text-white,
+.invoice-paper-sheet .text-white * {
+  color: #ffffff !important;
+}
+
+.invoice-paper-sheet .bg-slate-900,
+.invoice-paper-sheet .bg-slate-950 {
+  background-color: #0f172a !important;
+  color: #ffffff !important;
+}
+.invoice-paper-sheet .bg-slate-900 *,
+.invoice-paper-sheet .bg-slate-950 * {
+  color: #ffffff !important;
 }
 
 .invoice-paper-sheet .inv-text-black {
   color: #000000 !important;
+  font-weight: 800 !important;
 }
 
 .invoice-paper-sheet .inv-text-slate {
-  color: #1e293b !important;
+  color: #0f172a !important;
+  font-weight: 600 !important;
 }
 
 .invoice-paper-sheet .inv-text-amber {
-  color: #b45309 !important;
-}
-
-.invoice-paper-sheet .inv-border-dark {
-  border-color: #0f172a !important;
+  color: #92400e !important;
+  font-weight: 800 !important;
 }
 
 .invoice-stamp {
-  border: 2px dashed #b45309;
-  color: #b45309 !important;
+  border: 2.5px dashed #b45309 !important;
+  color: #92400e !important;
+  font-weight: 900 !important;
   transform: rotate(-3deg);
-  background: rgba(245, 158, 11, 0.05);
+  background: rgba(245, 158, 11, 0.08) !important;
 }
 
 /* Dedicated Print Stylesheet */
