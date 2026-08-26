@@ -550,7 +550,7 @@ document.addEventListener('DOMContentLoaded', () => {
       container: document.querySelector('#transformation') ? '#transformation' : '#car-scrolly-section',
       canvas: '#car-canvas',
       track: '.scrolly-track',
-      totalFrames: 144,
+      totalFrames: 300,
       framePathPattern: 'assets/frames/ezgif-frame-{INDEX}.jpg',
       lerpFactor: 0.12
     });

@@ -292,14 +292,13 @@
       width: 100%;
       height: 100%;
       display: block;
-      image-rendering: -webkit-optimize-contrast;
-      image-rendering: high-quality;
+      image-rendering: auto;
       transform: translate3d(0, 0, 0);
       -webkit-transform: translate3d(0, 0, 0);
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
       will-change: transform;
-      filter: contrast(1.08) brightness(1.03) saturate(1.06);
+      filter: contrast(1.05) brightness(1.02) saturate(1.04);
     }
 
     .hero-left-vignette {
@@ -618,8 +617,8 @@
 
   <main>
     <!-- ==========================================================================
-         HERO SECTION (FULL-SCREEN PINNED 144-FRAME SCROLL ANIMATION)
-         Frozen until the 144th frame completes!
+         HERO SECTION (FULL-SCREEN PINNED 300-FRAME SCROLL ANIMATION)
+         Frozen until the 300th frame completes!
          ========================================================================== -->
     <section class="hero-scroll-track" id="hero-scroll-track">
       <div class="hero-sticky-viewport">
@@ -2676,8 +2675,8 @@
        SCROLL ENGINE SCRIPT
        ========================================================================== -->
   <script>
-    const totalDesktopFrames = 144;
-    const totalMobileFrames = 210;
+    const totalDesktopFrames = 300;
+    const totalMobileFrames = 300;
 
     const canvas = document.getElementById('hero-canvas');
     const ctx = canvas.getContext('2d', { alpha: false });
@@ -2712,48 +2711,140 @@
     function preloadDesktopImages() {
       if (desktopPreloaded) return;
       desktopPreloaded = true;
+
+      // Initialize array for all 300 desktop frames
       for (let i = 1; i <= totalDesktopFrames; i++) {
         const img = new Image();
         img.decoding = 'async';
-        img.src = getDesktopFramePath(i);
-
-        img.onload = () => {
-          desktopLoaded++;
-        };
-
-        img.onerror = () => {
-          const padNum = String(i).padStart(3, '0');
-          img.src = `ezgif-frame-${padNum}.jpg`;
-          img.onload = () => {
-            desktopLoaded++;
-          };
-        };
-
         desktopImages.push(img);
+      }
+
+      function attachHandlers(img, fallbackIdx, isP1 = false) {
+        img.onload = () => {
+          if (img.decode) {
+            img.decode().catch(() => {}).then(() => {
+              desktopLoaded++;
+              if (isP1) renderFrame(currentProgress);
+            });
+          } else {
+            desktopLoaded++;
+            if (isP1) renderFrame(currentProgress);
+          }
+        };
+        img.onerror = () => {
+          const padNum = String(fallbackIdx).padStart(3, '0');
+          img.src = `desktop new hero/ezgif-frame-${padNum}.jpg`;
+        };
+      }
+
+      // Priority 1: Instant load Frame 1 for immediate HD first-paint
+      attachHandlers(desktopImages[0], 1, true);
+      desktopImages[0].src = getDesktopFramePath(1);
+
+      // Priority 2: Immediate scrub buffer (frames 2 to 30)
+      for (let i = 2; i <= Math.min(30, totalDesktopFrames); i++) {
+        const idx = i - 1;
+        const img = desktopImages[idx];
+        attachHandlers(img, i);
+        img.src = getDesktopFramePath(i);
+      }
+
+      // Priority 3: Keyframe anchors distributed every 10 frames across sequence
+      for (let i = 40; i <= totalDesktopFrames; i += 10) {
+        const idx = i - 1;
+        const img = desktopImages[idx];
+        if (!img.src) {
+          attachHandlers(img, i);
+          img.src = getDesktopFramePath(i);
+        }
+      }
+
+      // Priority 4: Background stream of all remaining frames
+      const streamRemaining = () => {
+        for (let i = 1; i <= totalDesktopFrames; i++) {
+          const idx = i - 1;
+          const img = desktopImages[idx];
+          if (!img.src) {
+            attachHandlers(img, i);
+            img.src = getDesktopFramePath(i);
+          }
+        }
+      };
+
+      if (window.requestIdleCallback) {
+        window.requestIdleCallback(streamRemaining, { timeout: 1200 });
+      } else {
+        setTimeout(streamRemaining, 60);
       }
     }
 
     function preloadMobileImages() {
       if (mobilePreloaded) return;
       mobilePreloaded = true;
+
+      // Initialize array for all 300 mobile frames
       for (let i = 1; i <= totalMobileFrames; i++) {
         const img = new Image();
         img.decoding = 'async';
-        img.src = getMobileFramePath(i);
-
-        img.onload = () => {
-          mobileLoaded++;
-        };
-
-        img.onerror = () => {
-          const padNum = String(i).padStart(3, '0');
-          img.src = `assets/frames-mobile/ezgif-frame-${padNum}.jpg`;
-          img.onload = () => {
-            mobileLoaded++;
-          };
-        };
-
         mobileImages.push(img);
+      }
+
+      function attachMobileHandlers(img, fallbackIdx, isP1 = false) {
+        img.onload = () => {
+          if (img.decode) {
+            img.decode().catch(() => {}).then(() => {
+              mobileLoaded++;
+              if (isP1) renderFrame(currentProgress);
+            });
+          } else {
+            mobileLoaded++;
+            if (isP1) renderFrame(currentProgress);
+          }
+        };
+        img.onerror = () => {
+          const padNum = String(fallbackIdx).padStart(3, '0');
+          img.src = `assets/frames-mobile/ezgif-frame-${padNum}.jpg`;
+        };
+      }
+
+      // Priority 1: Instant load Frame 1 for immediate HD first-paint
+      attachMobileHandlers(mobileImages[0], 1, true);
+      mobileImages[0].src = getMobileFramePath(1);
+
+      // Priority 2: Immediate scrub buffer (frames 2 to 30)
+      for (let i = 2; i <= Math.min(30, totalMobileFrames); i++) {
+        const idx = i - 1;
+        const img = mobileImages[idx];
+        attachMobileHandlers(img, i);
+        img.src = getMobileFramePath(i);
+      }
+
+      // Priority 3: Keyframe anchors distributed across 300 frames
+      for (let i = 40; i <= totalMobileFrames; i += 10) {
+        const idx = i - 1;
+        const img = mobileImages[idx];
+        if (!img.src) {
+          attachMobileHandlers(img, i);
+          img.src = getMobileFramePath(i);
+        }
+      }
+
+      // Priority 4: Background stream of all remaining frames
+      const streamRemainingMobile = () => {
+        for (let i = 1; i <= totalMobileFrames; i++) {
+          const idx = i - 1;
+          const img = mobileImages[idx];
+          if (!img.src) {
+            attachMobileHandlers(img, i);
+            img.src = getMobileFramePath(i);
+          }
+        }
+      };
+
+      if (window.requestIdleCallback) {
+        window.requestIdleCallback(streamRemainingMobile, { timeout: 1200 });
+      } else {
+        setTimeout(streamRemainingMobile, 60);
       }
     }
 
@@ -2768,7 +2859,7 @@
 
     function resizeCanvas() {
       const isMobile = window.innerWidth < 768;
-      // Support native 3x Retina DPR on modern mobile screens (iPhone Pro, Pixel, Galaxy Ultra)
+      // High-DPI precision on desktop and mobile
       const dpr = Math.min(window.devicePixelRatio || 1, isMobile ? 3 : 2.5);
       const width = window.innerWidth;
       const height = window.innerHeight;
@@ -2790,6 +2881,8 @@
       } else if (!isMobile && !desktopPreloaded) {
         preloadDesktopImages();
       }
+
+      renderFrame(currentProgress);
     }
 
     function renderFrame(progress) {
@@ -2803,7 +2896,8 @@
 
       if (!isMobile) {
         // =========================================================================
-        // DESKTOP: Solid Black Background Initial Frame & Seamless Scroll Sequence
+        // DESKTOP: 300-Frame Ultra-HD (3840x2160) BMW Diagnostic Sequence
+        // Solid Black Background Initial Frame & Seamless Scroll Sequence
         // =========================================================================
         ctx.fillStyle = '#0d0d0d';
         ctx.fillRect(0, 0, canvasW, canvasH);
@@ -2821,64 +2915,114 @@
           Math.floor(normalized * (totalDesktopFrames - 1))
         );
 
-        const img = desktopImages[activeIndex];
-        if (!img || !img.complete || img.naturalWidth === 0) return;
+        let img = desktopImages[activeIndex];
 
-        const imgW = img.naturalWidth;
-        const imgH = img.naturalHeight;
+        // Intelligent nearest-frame fallback during fast scrubbing to eliminate flickering
+        if (!img || !img.complete || img.naturalWidth === 0) {
+          for (let offset = 1; offset < totalDesktopFrames; offset++) {
+            if (activeIndex - offset >= 0) {
+              const prevImg = desktopImages[activeIndex - offset];
+              if (prevImg && prevImg.complete && prevImg.naturalWidth > 0) {
+                img = prevImg;
+                break;
+              }
+            }
+            if (activeIndex + offset < totalDesktopFrames) {
+              const nextImg = desktopImages[activeIndex + offset];
+              if (nextImg && nextImg.complete && nextImg.naturalWidth > 0) {
+                img = nextImg;
+                break;
+              }
+            }
+          }
+        }
 
-        const scale = Math.max(canvasW / imgW, canvasH / imgH);
-        const renderW = Math.round(imgW * scale);
-        const renderH = Math.round(imgH * scale);
-        const offsetX = Math.round((canvasW - renderW) / 2);
-        const offsetY = Math.round((canvasH - renderH) / 2);
+        if (!img || !img.complete || img.naturalWidth === 0) {
+          img = desktopImages[0];
+        }
 
-        // Smooth fade in from black as scroll begins
-        const fadeInAlpha = Math.min(1, (progress - leadInThreshold) / 0.03);
-        ctx.globalAlpha = fadeInAlpha;
-        ctx.drawImage(img, offsetX, offsetY, renderW, renderH);
-        ctx.globalAlpha = 1.0;
+        if (img && img.complete && img.naturalWidth > 0) {
+          const imgW = img.naturalWidth;
+          const imgH = img.naturalHeight;
+
+          const scale = Math.max(canvasW / imgW, canvasH / imgH);
+          const renderW = Math.round(imgW * scale);
+          const renderH = Math.round(imgH * scale);
+          const offsetX = Math.round((canvasW - renderW) / 2);
+          const offsetY = Math.round((canvasH - renderH) / 2);
+
+          // Smooth fade in from black as scroll begins
+          const fadeInAlpha = Math.min(1, (progress - leadInThreshold) / 0.03);
+          ctx.globalAlpha = fadeInAlpha;
+          ctx.drawImage(img, offsetX, offsetY, renderW, renderH);
+          ctx.globalAlpha = 1.0;
+        }
       } else {
         // =========================================================================
-        // MOBILE: DEDICATED FULL-SCREEN PORTRAIT FRAME SCROLL ANIMATION (210 FRAMES)
+        // MOBILE: 300-Frame QHD (1440x2560) BMW Workshop Diagnostic Sequence
         // 1. Black screen frame at very first before scroll starts
-        // 2. Plays through all 210 frames before page below scrolls up
+        // 2. Plays through all 300 frames before page below scrolls up
         // =========================================================================
         ctx.fillStyle = '#0d0d0d';
         ctx.fillRect(0, 0, canvasW, canvasH);
 
-        const leadInThreshold = 0.05; // Black screen frame before scroll starts
-        const leadOutThreshold = 0.95; // 210th frame completes and holds before page unpins
+        const leadInThreshold = 0.04; // Black screen frame before scroll starts
+        const holdEnd = 0.98; // 300th frame completes and holds before page unpins
 
         if (progress <= leadInThreshold) {
           // Pure black screen frame at the very beginning
           return;
         }
 
-        const normalized = Math.min(1, Math.max(0, (progress - leadInThreshold) / (leadOutThreshold - leadInThreshold)));
+        const normalized = Math.min(1, Math.max(0, (progress - leadInThreshold) / (holdEnd - leadInThreshold)));
         const activeIndex = Math.min(
           totalMobileFrames - 1,
-          Math.floor(normalized * (totalMobileFrames - 1))
+          Math.floor(normalized * totalMobileFrames)
         );
 
-        const img = mobileImages[activeIndex];
-        if (!img || !img.complete || img.naturalWidth === 0) return;
+        let img = mobileImages[activeIndex];
 
-        const imgW = img.naturalWidth;
-        const imgH = img.naturalHeight;
+        // Intelligent nearest-frame fallback during fast mobile touch scrubbing
+        if (!img || !img.complete || img.naturalWidth === 0) {
+          for (let offset = 1; offset < totalMobileFrames; offset++) {
+            if (activeIndex - offset >= 0) {
+              const prevImg = mobileImages[activeIndex - offset];
+              if (prevImg && prevImg.complete && prevImg.naturalWidth > 0) {
+                img = prevImg;
+                break;
+              }
+            }
+            if (activeIndex + offset < totalMobileFrames) {
+              const nextImg = mobileImages[activeIndex + offset];
+              if (nextImg && nextImg.complete && nextImg.naturalWidth > 0) {
+                img = nextImg;
+                break;
+              }
+            }
+          }
+        }
 
-        // Full bleed cover for portrait mobile frame with high-fidelity scaling
-        const scale = Math.max(canvasW / imgW, canvasH / imgH);
-        const renderW = Math.round(imgW * scale);
-        const renderH = Math.round(imgH * scale);
-        const offsetX = Math.round((canvasW - renderW) / 2);
-        const offsetY = Math.round((canvasH - renderH) / 2);
+        if (!img || !img.complete || img.naturalWidth === 0) {
+          img = mobileImages[0];
+        }
 
-        // Smooth fade in from black as scroll begins
-        const fadeInAlpha = Math.min(1, (progress - leadInThreshold) / 0.04);
-        ctx.globalAlpha = fadeInAlpha;
-        ctx.drawImage(img, offsetX, offsetY, renderW, renderH);
-        ctx.globalAlpha = 1.0;
+        if (img && img.complete && img.naturalWidth > 0) {
+          const imgW = img.naturalWidth;
+          const imgH = img.naturalHeight;
+
+          // Full bleed cover for portrait mobile frame with high-fidelity scaling
+          const scale = Math.max(canvasW / imgW, canvasH / imgH);
+          const renderW = Math.round(imgW * scale);
+          const renderH = Math.round(imgH * scale);
+          const offsetX = Math.round((canvasW - renderW) / 2);
+          const offsetY = Math.round((canvasH - renderH) / 2);
+
+          // Smooth fade in from black as scroll begins
+          const fadeInAlpha = Math.min(1, (progress - leadInThreshold) / 0.04);
+          ctx.globalAlpha = fadeInAlpha;
+          ctx.drawImage(img, offsetX, offsetY, renderW, renderH);
+          ctx.globalAlpha = 1.0;
+        }
       }
     }
 
@@ -2889,13 +3033,14 @@
 
       if (!isMobile) {
         // =========================================================================
-        // DESKTOP: Centered on black initial screen -> slides left & slightly lower for maximum readability
+        // DESKTOP: Centered on black initial screen -> slides left and STAYS till last frame
         // =========================================================================
-        const shiftProgress = Math.min(1, Math.max(0, progress / 0.12));
+        const leadIn = 0.04;
+        const shiftProgress = Math.min(1, Math.max(0, (progress - leadIn) / 0.10));
         const leftPercent = 50 - (46 * shiftProgress);
         const translateX = -50 * (1 - shiftProgress);
         const maxW = 850 - (330 * shiftProgress);
-        const topPercent = 50 + (6.5 * shiftProgress); // Shift slightly lower (from 50% to 56.5%) as it slides to the left
+        const topPercent = 50 + (6.5 * shiftProgress);
 
         heroOverlay.style.left = `${leftPercent}%`;
         heroOverlay.style.top = `${topPercent}%`;
@@ -2918,17 +3063,18 @@
           if (heroCtaGroup) heroCtaGroup.style.justifyContent = 'center';
         }
 
-        if (progress > 0.28) {
-          const fadeOutProgress = Math.min(1, (progress - 0.28) / 0.12);
+        // Keep text and vignette fully visible all the way till the final frame (progress > 0.94)
+        if (progress > 0.94) {
+          const fadeOutProgress = Math.min(1, (progress - 0.94) / 0.04);
           heroOverlay.style.opacity = (1 - fadeOutProgress);
           if (heroLeftVignette) heroLeftVignette.style.opacity = (1 - fadeOutProgress);
-        } else if (progress > 0.01) {
+        } else {
           heroOverlay.style.opacity = 1;
         }
 
-        if (heroLeftVignette) {
-          if (progress > 0.01) {
-            heroLeftVignette.style.opacity = Math.min(1, (progress - 0.01) / 0.06);
+        if (heroLeftVignette && progress <= 0.94) {
+          if (progress > leadIn) {
+            heroLeftVignette.style.opacity = Math.min(1, (progress - leadIn) / 0.06);
           } else {
             heroLeftVignette.style.opacity = 0;
           }
@@ -2942,7 +3088,13 @@
         heroOverlay.style.transform = 'translateX(-50%)';
         heroOverlay.style.maxWidth = '340px';
         heroOverlay.style.textAlign = 'center';
-        heroOverlay.style.opacity = '1';
+
+        if (progress > 0.94) {
+          const fadeOutProgress = Math.min(1, (progress - 0.94) / 0.04);
+          heroOverlay.style.opacity = (1 - fadeOutProgress);
+        } else {
+          heroOverlay.style.opacity = '1';
+        }
 
         if (heroDesc) {
           heroDesc.style.marginLeft = 'auto';
@@ -2985,9 +3137,9 @@
     function animate() {
       const diff = targetProgress - currentProgress;
       const isMobile = window.innerWidth < 768;
-      const lerpFactor = isMobile ? 0.16 : 0.12;
+      const lerpFactor = isMobile ? 0.16 : 0.09;
 
-      if (Math.abs(diff) > 0.0001) {
+      if (Math.abs(diff) > 0.00005) {
         currentProgress += diff * lerpFactor;
       } else {
         currentProgress = targetProgress;

@@ -17,10 +17,10 @@ We Care Auto Repair/
 │   ├── scrolly-canvas.js       # Core LERP Canvas animation engine & telemetry
 │   └── app.js                  # Before/After comparison, dynamic price calculator, booking modal
 └── assets/
-    └── frames/                 # 144 high-definition transformation image frames
+    └── frames/                 # 300 high-definition transformation image frames
         ├── ezgif-frame-001.jpg
         ├── ...
-        └── ezgif-frame-144.jpg
+        └── ezgif-frame-300.jpg
 ```
 
 ---
@@ -98,7 +98,7 @@ Include the script before `</body>`:
       container: '#car-scrolly-section',
       canvas: '#car-canvas',
       track: '.scrolly-track',
-      totalFrames: 144,
+      totalFrames: 300,
       framePathPattern: 'assets/frames/ezgif-frame-{INDEX}.jpg',
       lerpFactor: 0.12  // Adjust inertia (0.05 = super smooth/heavy, 0.25 = snappy)
     });
@@ -112,7 +112,7 @@ Include the script before `</body>`:
 
 | Option | Default | Description |
 | :--- | :--- | :--- |
-| `totalFrames` | `144` | Total number of frames in your image folder. |
+| `totalFrames` | `300` | Total number of frames in your image folder. |
 | `framePathPattern` | `'assets/frames/ezgif-frame-{INDEX}.jpg'` | Path pattern where `{INDEX}` will be replaced with 3-digit padded numbers (`001`, `002`, etc.). |
 | `lerpFactor` | `0.12` | Physics damping coefficient. Lower values create a more floating/inertial feel. |
 | `track.style.height` | `450vh` (in CSS) | Scroll track length. Increase (e.g. `600vh`) for slower, more granular frame steps per scroll unit. |

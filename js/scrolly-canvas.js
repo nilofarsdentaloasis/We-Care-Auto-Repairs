@@ -26,7 +26,7 @@ class ScrollyCarEngine {
     this.ctx = this.canvas.getContext('2d', { alpha: false });
     
     // Configuration
-    this.totalFrames = options.totalFrames || 144;
+    this.totalFrames = options.totalFrames || 300;
     this.framePathPattern = options.framePathPattern || 'assets/frames/ezgif-frame-{INDEX}.jpg';
     this.lerpFactor = options.lerpFactor || (window.innerWidth < 768 ? 0.16 : 0.12); // Responsive touch smoothness
     
