@@ -1090,6 +1090,15 @@ button {
   position: relative !important;
   width: 100% !important;
   max-width: 100% !important;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.15) 3%, black 15%, black 85%, rgba(0, 0, 0, 0.15) 97%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.15) 3%, black 15%, black 85%, rgba(0, 0, 0, 0.15) 97%, transparent 100%);
+}
+
+@media (max-width: 768px) {
+  #project-carousel-container {
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.2) 2%, black 12%, black 88%, rgba(0, 0, 0, 0.2) 98%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.2) 2%, black 12%, black 88%, rgba(0, 0, 0, 0.2) 98%, transparent 100%);
+  }
 }
 
 .project-carousel-track {
@@ -1107,6 +1116,8 @@ button {
   max-width: 100% !important;
   width: 100% !important;
   box-sizing: border-box !important;
+  transition: opacity 0.75s cubic-bezier(0.25, 1, 0.5, 1), transform 0.75s cubic-bezier(0.25, 1, 0.5, 1), filter 0.75s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform, opacity;
 }
 
 .project-nav-pill {

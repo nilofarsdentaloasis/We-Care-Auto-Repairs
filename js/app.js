@@ -422,12 +422,24 @@ function initFeaturedProjectCarousel() {
     const shiftPercent = (idx * 100) / totalWithClones;
     track.style.transform = 'translateX(-' + shiftPercent + '%)';
 
+    // Animate slide opacity and subtle scale for smooth fade in/out at stage edges
+    allSlides.forEach((slide, i) => {
+      if (i === idx) {
+        slide.style.opacity = '1';
+        slide.style.transform = 'scale(1)';
+      } else {
+        slide.style.opacity = '0.35';
+        slide.style.transform = 'scale(0.96)';
+      }
+      slide.style.transition = animated ? 'opacity 0.75s cubic-bezier(0.25, 1, 0.5, 1), transform 0.75s cubic-bezier(0.25, 1, 0.5, 1)' : 'none';
+    });
+
     let realIdx = idx - 1;
     if (idx === 0) realIdx = N - 1;
     if (idx === totalWithClones - 1) realIdx = 0;
 
     if (counterEl) {
-      counterEl.textContent = '0' + (realIdx + 1) + ' / 0' + N;
+      counterEl.textContent = String(realIdx + 1).padStart(2, '0') + ' / ' + String(N).padStart(2, '0');
     }
 
     navPills.forEach((pill, i) => {

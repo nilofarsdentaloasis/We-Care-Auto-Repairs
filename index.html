@@ -1543,8 +1543,12 @@
           </div>
         </div>
 
-        <!-- Carousel Viewport (Clean Floating Turntable without Outer Box) -->
-        <div id="project-carousel-container" class="relative w-full overflow-hidden py-4" style="overflow: hidden; position: relative; width: 100%;">
+        <!-- Carousel Viewport with Cinematic Edge Fade Effect -->
+        <div id="project-carousel-container" class="relative w-full overflow-hidden py-4" style="overflow: hidden; position: relative; width: 100%; -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.15) 3%, black 15%, black 85%, rgba(0, 0, 0, 0.15) 97%, transparent 100%); mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.15) 3%, black 15%, black 85%, rgba(0, 0, 0, 0.15) 97%, transparent 100%);">
+
+          <!-- Left & Right Ambient Stage Edge Fade Vignettes -->
+          <div class="pointer-events-none absolute inset-y-0 left-0 w-12 md:w-28 bg-gradient-to-r from-background via-background/60 to-transparent z-20"></div>
+          <div class="pointer-events-none absolute inset-y-0 right-0 w-12 md:w-28 bg-gradient-to-l from-background via-background/60 to-transparent z-20"></div>
 
           <!-- Horizontal Revolving Sliding Track Container -->
           <div id="project-carousel-track" class="project-carousel-track relative z-10" style="display: flex; flex-direction: row; flex-wrap: nowrap; will-change: transform;">
@@ -3625,6 +3629,18 @@
 
         const shiftPercent = (idx * 100) / totalWithClones;
         track.style.transform = 'translateX(-' + shiftPercent + '%)';
+
+        // Animate slide opacity and subtle scale for smooth fade in/out at stage edges
+        allSlides.forEach((slide, i) => {
+          if (i === idx) {
+            slide.style.opacity = '1';
+            slide.style.transform = 'scale(1)';
+          } else {
+            slide.style.opacity = '0.35';
+            slide.style.transform = 'scale(0.96)';
+          }
+          slide.style.transition = animated ? 'opacity 0.75s cubic-bezier(0.25, 1, 0.5, 1), transform 0.75s cubic-bezier(0.25, 1, 0.5, 1)' : 'none';
+        });
 
         // Calculate real index 0 to N-1
         let realIdx = idx - 1;
