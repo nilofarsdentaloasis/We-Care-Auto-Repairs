@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="dark" lang="en">
+<html class="light" lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -23,53 +23,53 @@
       theme: {
         extend: {
           colors: {
-            "on-primary": "#313030",
-            "surface-container": "#202020",
-            "on-primary-container": "#7e7d7d",
-            "surface-bright": "#393939",
-            "on-surface": "#e5e2e1",
-            "surface-dim": "#131313",
-            "secondary-container": "#484949",
-            "inverse-primary": "#5f5e5e",
-            "background": "#131313",
-            "on-tertiary-fixed": "#241a00",
-            "on-primary-fixed-variant": "#474646",
-            "primary-fixed": "#e5e2e1",
-            "inverse-surface": "#e5e2e1",
-            "error-container": "#93000a",
-            "secondary-fixed-dim": "#c6c6c6",
-            "on-tertiary": "#3c2f00",
-            "on-primary-fixed": "#1c1b1b",
-            "secondary-fixed": "#e3e2e2",
-            "tertiary-fixed-dim": "#e9c349",
-            "surface-container-low": "#1b1b1c",
-            "outline-variant": "#444748",
-            "on-secondary-container": "#b8b8b8",
-            "surface-variant": "#353535",
-            "surface-container-highest": "#353535",
-            "on-secondary-fixed": "#1a1c1c",
-            "tertiary": "#e9c349",
-            "surface": "#131313",
-            "on-error-container": "#ffdad6",
-            "tertiary-container": "#181100",
-            "on-surface-variant": "#c4c7c7",
-            "on-tertiary-fixed-variant": "#574500",
-            "surface-container-lowest": "#0e0e0e",
-            "on-background": "#e5e2e1",
-            "secondary": "#c6c6c6",
-            "on-secondary": "#2f3131",
-            "error": "#ffb4ab",
-            "primary-fixed-dim": "#c8c6c5",
-            "surface-container-high": "#2a2a2a",
-            "on-error": "#690005",
-            "on-tertiary-container": "#987a00",
-            "inverse-on-surface": "#303030",
-            "primary-container": "#121212",
-            "tertiary-fixed": "#ffe088",
-            "primary": "#c8c6c5",
-            "surface-tint": "#c8c6c5",
-            "on-secondary-fixed-variant": "#464747",
-            "outline": "#8e9192"
+            "on-primary": "#ffffff",
+            "surface-container": "#ffffff",
+            "on-primary-container": "#1e293b",
+            "surface-bright": "#ffffff",
+            "on-surface": "#1e293b",
+            "surface-dim": "#f1f5f9",
+            "secondary-container": "#e2e8f0",
+            "inverse-primary": "#e2e8f0",
+            "background": "#f8fafc",
+            "on-tertiary-fixed": "#78350f",
+            "on-primary-fixed-variant": "#334155",
+            "primary-fixed": "#1e293b",
+            "inverse-surface": "#0f172a",
+            "error-container": "#fee2e2",
+            "secondary-fixed-dim": "#cbd5e1",
+            "on-tertiary": "#ffffff",
+            "on-primary-fixed": "#0f172a",
+            "secondary-fixed": "#e2e8f0",
+            "tertiary-fixed-dim": "#fde68a",
+            "surface-container-low": "#f8fafc",
+            "outline-variant": "#e2e8f0",
+            "on-secondary-container": "#0f172a",
+            "surface-variant": "#f1f5f9",
+            "surface-container-highest": "#cbd5e1",
+            "on-secondary-fixed": "#0f172a",
+            "tertiary": "#d97706",
+            "surface": "#ffffff",
+            "on-error-container": "#991b1b",
+            "tertiary-container": "#fef3c7",
+            "on-surface-variant": "#475569",
+            "on-tertiary-fixed-variant": "#92400e",
+            "surface-container-lowest": "#ffffff",
+            "on-background": "#0f172a",
+            "secondary": "#475569",
+            "on-secondary": "#ffffff",
+            "error": "#dc2626",
+            "primary-fixed-dim": "#334155",
+            "surface-container-high": "#f1f5f9",
+            "on-error": "#ffffff",
+            "on-tertiary-container": "#92400e",
+            "inverse-on-surface": "#f8fafc",
+            "primary-container": "#f1f5f9",
+            "tertiary-fixed": "#fef3c7",
+            "primary": "#0f172a",
+            "surface-tint": "#d97706",
+            "on-secondary-fixed-variant": "#334155",
+            "outline": "#cbd5e1"
           },
           borderRadius: {
             "DEFAULT": "0.125rem",
@@ -104,15 +104,16 @@
 
   <style>
     html, body {
-      background-color: #131313;
-      color: #e5e2e1;
+      background-color: #f8fafc;
+      color: #0f172a;
       overflow-x: hidden;
     }
     .shimmer-border {
-      border: 1px solid rgba(192, 192, 192, 0.15);
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04);
     }
     .glow-hover:hover {
-      box-shadow: 0 0 25px rgba(233, 195, 73, 0.12);
+      box-shadow: 0 12px 30px rgba(217, 119, 6, 0.16);
       transform: translateY(-4px);
     }
     .btn-hover:hover {
@@ -122,20 +123,20 @@
 
     /* Modern Luxury Glassmorphic Header */
     .glass-header {
-      background: rgba(18, 18, 18, 0.55);
+      background: rgba(255, 255, 255, 0.85);
       backdrop-filter: blur(20px) saturate(180%);
       -webkit-backdrop-filter: blur(20px) saturate(180%);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+      box-shadow: 0 4px 24px 0 rgba(15, 23, 42, 0.04);
       transition: background 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
     .glass-header.scrolled {
-      background: rgba(12, 12, 12, 0.82);
+      background: rgba(255, 255, 255, 0.96);
       backdrop-filter: blur(24px) saturate(190%);
       -webkit-backdrop-filter: blur(24px) saturate(190%);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-      box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.55);
+      border-bottom: 1px solid rgba(15, 23, 42, 0.12);
+      box-shadow: 0 10px 35px 0 rgba(15, 23, 42, 0.08);
     }
   </style>
 </head>
@@ -1406,11 +1407,11 @@
        ========================================================================== -->
   <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end space-y-3 pointer-events-auto">
     <!-- Call Us Floating Button -->
-    <a href="tel:+917757030387" aria-label="Call Sohail Mulani" class="group flex items-center bg-[#1c1b1b]/95 hover:bg-[#252424] text-primary hover:text-tertiary border border-tertiary/40 hover:border-tertiary p-2 rounded-full shadow-2xl transition-all duration-300 hover:scale-105 shadow-[0_4px_24px_rgba(0,0,0,0.6)]">
+    <a href="tel:+917757030387" aria-label="Call Sohail Mulani" class="group flex items-center bg-white/95 hover:bg-slate-50 text-slate-900 hover:text-tertiary border border-tertiary/40 hover:border-tertiary p-2 rounded-full shadow-2xl transition-all duration-300 hover:scale-105 shadow-[0_4px_24px_rgba(0,0,0,0.12)]">
       <span class="max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-xs transition-all duration-300 ease-in-out text-xs font-label-caps uppercase font-bold text-tertiary pl-0 pr-0 group-hover:pl-3 group-hover:pr-2">
         Call 7757030387
       </span>
-      <div class="w-10 h-10 rounded-full bg-tertiary text-on-tertiary flex items-center justify-center shrink-0 shadow-md">
+      <div class="w-10 h-10 rounded-full bg-tertiary text-white flex items-center justify-center shrink-0 shadow-md">
         <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
           <path d="M20.01 15.38C18.78 15.38 17.59 15.18 16.48 14.82C16.13 14.7 15.74 14.79 15.47 15.06L13.9 17.03C11.07 15.68 8.42 13.13 7.01 10.2L8.96 8.54C9.23 8.26 9.31 7.87 9.2 7.52C8.83 6.41 8.64 5.22 8.64 3.99C8.64 3.45 8.19 3 7.65 3H4.19C3.65 3 3 3.24 3 3.99C3 13.28 10.73 21 20.01 21C20.72 21 21 20.37 21 19.82V16.37C21 15.83 20.55 15.38 20.01 15.38Z"/>
         </svg>
@@ -1418,13 +1419,13 @@
     </a>
 
     <!-- WhatsApp Floating Button -->
-    <a href="https://wa.me/917757030387?text=Hello%20Sohail%20bhai,%20I%20would%20like%20to%20inquire%20about%20service%20for%20my%20vehicle" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp with Sohail Mulani" class="group flex items-center bg-[#1c1b1b]/95 hover:bg-[#252424] text-white border border-[#25D366]/40 hover:border-[#25D366] p-2 rounded-full shadow-2xl transition-all duration-300 hover:scale-105 shadow-[0_4px_24px_rgba(0,0,0,0.6)]">
+    <a href="https://wa.me/917757030387?text=Hello%20Sohail%20bhai,%20I%20would%20like%20to%20inquire%20about%20service%20for%20my%20vehicle" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp with Sohail Mulani" class="group flex items-center bg-white/95 hover:bg-slate-50 text-slate-900 border border-[#25D366]/40 hover:border-[#25D366] p-2 rounded-full shadow-2xl transition-all duration-300 hover:scale-105 shadow-[0_4px_24px_rgba(0,0,0,0.12)]">
       <span class="max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-xs transition-all duration-300 ease-in-out text-xs font-label-caps uppercase font-bold text-[#25D366] pl-0 pr-0 group-hover:pl-3 group-hover:pr-2">
         Chat on WhatsApp
       </span>
       <div class="w-10 h-10 rounded-full bg-[#25D366] text-white flex items-center justify-center shrink-0 shadow-md shadow-[0_2px_10px_rgba(37,211,102,0.5)]">
         <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-          <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.04 14.69 2 12.04 2ZM12.04 20.15C10.56 20.15 9.11 19.76 7.85 19.01L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.8 13.47 3.8 11.91C3.8 7.37 7.5 3.67 12.04 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15ZM16.56 14.41C16.31 14.29 15.09 13.69 14.86 13.61C14.64 13.52 14.47 13.48 14.31 13.73C14.14 13.97 13.67 14.53 13.52 14.69C13.38 14.86 13.23 14.88 12.98 14.76C12.74 14.64 11.95 14.38 11.02 13.55C10.29 12.9 9.8 12.1 9.68 11.85C9.55 11.61 9.66 11.47 9.79 11.35C9.9 11.24 10.03 11.07 10.15 10.93C10.28 10.78 10.32 10.68 10.4 10.51C10.48 10.35 10.44 10.21 10.38 10.08C10.32 9.96 9.83 8.76 9.63 8.26C9.43 7.78 9.23 7.84 9.08 7.83C8.94 7.83 8.77 7.83 8.61 7.83C8.44 7.83 8.18 7.89 7.95 8.14C7.72 8.38 7.08 8.98 7.08 10.21C7.08 11.44 7.97 12.62 8.1 12.79C8.22 12.96 9.86 15.48 12.36 16.56C12.96 16.82 13.42 16.97 13.78 17.09C14.38 17.28 14.93 17.25 15.36 17.19C15.84 17.12 16.84 16.58 17.05 16C17.25 15.41 17.25 14.91 17.19 14.8C17.13 14.7 16.98 14.64 16.73 14.52L16.56 14.41Z"/>
+          <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.04 14.69 2 12.04 2ZM12.04 20.15C10.56 20.15 9.11 19.76 7.85 19.01L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.8 13.47 3.8 11.91C3.8 7.37 7.5 3.67 12.04 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15ZM16.56 14.41C16.31 14.29 15.09 13.69 14.86 13.61C14.64 13.52 14.47 13.48 14.31 13.73C14.14 13.97 13.67 14.53 13.52 14.69C13.38 14.86 13.23 14.88 12.98 14.76C12.74 14.64 11.95 14.38 11.02 13.55C10.29 12.9 9.8 12.1 9.68 11.85C9.55 11.61 9.66 11.47 9.79 11.35C9.9 11.24 10.03 11.07 10.15 10.93C10.28 10.78 10.32 10.68 10.4 10.51C10.48 10.35 10.44 10.21 10.38 10.08C10.32 9.96 9.83 8.76 9.63 8.26C9.43 7.78 9.23 7.84 9.08 7.83C8.94 7.83 8.18 7.89 7.95 8.14C7.72 8.38 7.08 8.98 7.08 10.21C7.08 11.44 7.97 12.62 8.1 12.79C8.22 12.96 9.86 15.48 12.36 16.56C12.96 16.82 13.42 16.97 13.78 17.09C14.38 17.28 14.93 17.25 15.36 17.19C15.84 17.12 16.84 16.58 17.05 16C17.25 15.41 17.25 14.91 17.19 14.8C17.13 14.7 16.98 14.64 16.73 14.52L16.56 14.41Z"/>
         </svg>
       </div>
     </a>

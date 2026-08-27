@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="dark" lang="en">
+<html class="light" lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -20,53 +20,53 @@
       theme: {
         extend: {
           colors: {
-            "on-primary": "#313030",
-            "surface-container": "#202020",
-            "on-primary-container": "#7e7d7d",
-            "surface-bright": "#393939",
-            "on-surface": "#e5e2e1",
-            "surface-dim": "#131313",
-            "secondary-container": "#484949",
-            "inverse-primary": "#5f5e5e",
-            "background": "#131313",
-            "on-tertiary-fixed": "#241a00",
-            "on-primary-fixed-variant": "#474646",
-            "primary-fixed": "#e5e2e1",
-            "inverse-surface": "#e5e2e1",
-            "error-container": "#93000a",
-            "secondary-fixed-dim": "#c6c6c6",
-            "on-tertiary": "#3c2f00",
-            "on-primary-fixed": "#1c1b1b",
-            "secondary-fixed": "#e3e2e2",
-            "tertiary-fixed-dim": "#e9c349",
-            "surface-container-low": "#1b1b1c",
-            "outline-variant": "#444748",
-            "on-secondary-container": "#b8b8b8",
-            "surface-variant": "#353535",
-            "surface-container-highest": "#353535",
-            "on-secondary-fixed": "#1a1c1c",
-            "tertiary": "#e9c349",
-            "surface": "#131313",
-            "on-error-container": "#ffdad6",
-            "tertiary-container": "#181100",
-            "on-surface-variant": "#c4c7c7",
-            "on-tertiary-fixed-variant": "#574500",
-            "surface-container-lowest": "#0e0e0e",
-            "on-background": "#e5e2e1",
-            "secondary": "#c6c6c6",
-            "on-secondary": "#2f3131",
-            "error": "#ffb4ab",
-            "primary-fixed-dim": "#c8c6c5",
-            "surface-container-high": "#2a2a2a",
-            "on-error": "#690005",
-            "on-tertiary-container": "#987a00",
-            "inverse-on-surface": "#303030",
-            "primary-container": "#121212",
-            "tertiary-fixed": "#ffe088",
-            "primary": "#c8c6c5",
-            "surface-tint": "#c8c6c5",
-            "on-secondary-fixed-variant": "#464747",
-            "outline": "#8e9192"
+            "on-primary": "#ffffff",
+            "surface-container": "#ffffff",
+            "on-primary-container": "#1e293b",
+            "surface-bright": "#ffffff",
+            "on-surface": "#1e293b",
+            "surface-dim": "#f1f5f9",
+            "secondary-container": "#e2e8f0",
+            "inverse-primary": "#e2e8f0",
+            "background": "#f8fafc",
+            "on-tertiary-fixed": "#78350f",
+            "on-primary-fixed-variant": "#334155",
+            "primary-fixed": "#1e293b",
+            "inverse-surface": "#0f172a",
+            "error-container": "#fee2e2",
+            "secondary-fixed-dim": "#cbd5e1",
+            "on-tertiary": "#ffffff",
+            "on-primary-fixed": "#0f172a",
+            "secondary-fixed": "#e2e8f0",
+            "tertiary-fixed-dim": "#fde68a",
+            "surface-container-low": "#f8fafc",
+            "outline-variant": "#e2e8f0",
+            "on-secondary-container": "#0f172a",
+            "surface-variant": "#f1f5f9",
+            "surface-container-highest": "#cbd5e1",
+            "on-secondary-fixed": "#0f172a",
+            "tertiary": "#d97706",
+            "surface": "#ffffff",
+            "on-error-container": "#991b1b",
+            "tertiary-container": "#fef3c7",
+            "on-surface-variant": "#475569",
+            "on-tertiary-fixed-variant": "#92400e",
+            "surface-container-lowest": "#ffffff",
+            "on-background": "#0f172a",
+            "secondary": "#475569",
+            "on-secondary": "#ffffff",
+            "error": "#dc2626",
+            "primary-fixed-dim": "#334155",
+            "surface-container-high": "#f1f5f9",
+            "on-error": "#ffffff",
+            "on-tertiary-container": "#92400e",
+            "inverse-on-surface": "#f8fafc",
+            "primary-container": "#f1f5f9",
+            "tertiary-fixed": "#fef3c7",
+            "primary": "#0f172a",
+            "surface-tint": "#d97706",
+            "on-secondary-fixed-variant": "#334155",
+            "outline": "#cbd5e1"
           },
           borderRadius: {
             "DEFAULT": "0.125rem",
@@ -101,15 +101,16 @@
 
   <style>
     html, body {
-      background-color: #131313;
-      color: #e5e2e1;
+      background-color: #f8fafc;
+      color: #0f172a;
       overflow-x: hidden;
     }
     .shimmer-border {
-      border: 1px solid rgba(192, 192, 192, 0.15);
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04);
     }
     .glow-hover:hover {
-      box-shadow: 0 0 25px rgba(233, 195, 73, 0.12);
+      box-shadow: 0 12px 30px rgba(217, 119, 6, 0.16);
       transform: translateY(-4px);
     }
     .btn-hover:hover {
@@ -119,20 +120,20 @@
 
     /* Modern Luxury Glassmorphic Header */
     .glass-header {
-      background: rgba(18, 18, 18, 0.55);
+      background: rgba(255, 255, 255, 0.85);
       backdrop-filter: blur(20px) saturate(180%);
       -webkit-backdrop-filter: blur(20px) saturate(180%);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+      box-shadow: 0 4px 24px 0 rgba(15, 23, 42, 0.04);
       transition: background 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
     .glass-header.scrolled {
-      background: rgba(12, 12, 12, 0.82);
+      background: rgba(255, 255, 255, 0.96);
       backdrop-filter: blur(24px) saturate(190%);
       -webkit-backdrop-filter: blur(24px) saturate(190%);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-      box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.55);
+      border-bottom: 1px solid rgba(15, 23, 42, 0.12);
+      box-shadow: 0 10px 35px 0 rgba(15, 23, 42, 0.08);
     }
 
     /* Fixed 40% Opacity Full Page Background */
@@ -153,7 +154,7 @@
       object-fit: cover;
       object-position: center;
       opacity: 0.40; /* 40% Opacity requested */
-      filter: brightness(0.85) contrast(1.1);
+      filter: brightness(0.95) contrast(1.05);
     }
   </style>
 </head>
@@ -162,7 +163,7 @@
   <!-- Full-Page Automotive Background with 40% Opacity -->
   <div class="page-bg-fixed" aria-hidden="true">
     <img src="assets/contact-bg.jpg" alt="We Care Auto Repair Workshop Background"/>
-    <div class="absolute inset-0 bg-gradient-to-b from-[#131313]/60 via-transparent to-[#131313]/80 pointer-events-none"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-[#f8fafc]/75 via-[#f8fafc]/40 to-[#f8fafc]/85 pointer-events-none"></div>
   </div>
 
   <!-- TopNavBar (Shared Component) -->
@@ -251,7 +252,7 @@
             
             <div class="space-y-4 text-on-surface-variant font-body-md">
               <!-- Location Card -->
-              <div class="flex items-start space-x-4 bg-[#1a1a1c]/80 backdrop-blur-xl p-5 rounded-xl shimmer-border hover:border-tertiary/40 transition-all duration-300 shadow-lg">
+              <div class="flex items-start space-x-4 bg-white/85 backdrop-blur-xl p-5 rounded-xl shimmer-border hover:border-tertiary/40 transition-all duration-300 shadow-md hover:shadow-xl">
                 <span class="material-symbols-outlined text-tertiary text-2xl mt-1 shrink-0">pin_drop</span>
                 <div>
                   <h4 class="text-primary font-semibold mb-1">Workshop Address</h4>
@@ -265,7 +266,7 @@
               </div>
 
               <!-- Phone Card -->
-              <div class="flex items-start space-x-4 bg-[#1a1a1c]/80 backdrop-blur-xl p-5 rounded-xl shimmer-border hover:border-tertiary/40 transition-all duration-300 shadow-lg">
+              <div class="flex items-start space-x-4 bg-white/85 backdrop-blur-xl p-5 rounded-xl shimmer-border hover:border-tertiary/40 transition-all duration-300 shadow-md hover:shadow-xl">
                 <span class="material-symbols-outlined text-tertiary text-2xl mt-1 shrink-0">call</span>
                 <div>
                   <h4 class="text-primary font-semibold mb-1">Call & WhatsApp Directly</h4>
@@ -284,7 +285,7 @@
               </div>
 
               <!-- Hours Card -->
-              <div class="flex items-start space-x-4 bg-[#1a1a1c]/80 backdrop-blur-xl p-5 rounded-xl shimmer-border hover:border-tertiary/40 transition-all duration-300 shadow-lg">
+              <div class="flex items-start space-x-4 bg-white/85 backdrop-blur-xl p-5 rounded-xl shimmer-border hover:border-tertiary/40 transition-all duration-300 shadow-md hover:shadow-xl">
                 <span class="material-symbols-outlined text-tertiary text-2xl mt-1 shrink-0">schedule</span>
                 <div>
                   <h4 class="text-primary font-semibold mb-1">Working Hours</h4>
@@ -294,7 +295,7 @@
             </div>
           </div>
 
-          <div class="bg-[#202022]/85 backdrop-blur-xl p-6 rounded-xl shimmer-border border-l-4 border-l-tertiary shadow-lg">
+          <div class="bg-amber-50/90 backdrop-blur-xl p-6 rounded-xl shimmer-border border-l-4 border-l-tertiary shadow-md">
             <h4 class="font-headline-md text-lg text-primary mb-1">Emergency Breakdown & Towing</h4>
             <p class="text-xs font-body-md text-on-surface-variant mb-2">
               Need immediate car towing or roadside assistance in Pune / PCMC?
@@ -307,7 +308,7 @@
         </div>
 
         <!-- Right: Appointment Booking Form -->
-        <div class="md:col-span-7 bg-[#1a1a1c]/85 backdrop-blur-xl p-8 md:p-12 rounded-2xl shimmer-border shadow-2xl">
+        <div class="md:col-span-7 bg-white/90 backdrop-blur-xl p-8 md:p-12 rounded-2xl shimmer-border shadow-xl">
           <h3 class="font-headline-md text-2xl text-primary mb-2">Book Your Service</h3>
           <p class="font-body-md text-on-surface-variant text-sm mb-8">
             Fill out the form below and Sohail Mulani will call or WhatsApp you directly to confirm your booking.
@@ -317,28 +318,28 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label class="block font-label-caps text-xs text-on-surface-variant uppercase tracking-wider mb-2">Your Name</label>
-                <input type="text" required placeholder="e.g. Rahul Sharma" class="w-full bg-[#121213]/80 backdrop-blur-sm border border-outline-variant/40 rounded-lg p-3 text-sm text-primary focus:outline-none focus:border-tertiary focus:ring-1 focus:ring-tertiary/50 transition-all">
+                <input type="text" required placeholder="e.g. Rahul Sharma" class="w-full bg-slate-50/90 backdrop-blur-sm border border-outline-variant/60 rounded-lg p-3 text-sm text-primary focus:outline-none focus:border-tertiary focus:ring-1 focus:ring-tertiary/50 transition-all">
               </div>
               <div>
                 <label class="block font-label-caps text-xs text-on-surface-variant uppercase tracking-wider mb-2">Phone Number</label>
-                <input type="tel" required placeholder="+91 98765 43210" class="w-full bg-[#121213]/80 backdrop-blur-sm border border-outline-variant/40 rounded-lg p-3 text-sm text-primary focus:outline-none focus:border-tertiary focus:ring-1 focus:ring-tertiary/50 transition-all">
+                <input type="tel" required placeholder="+91 98765 43210" class="w-full bg-slate-50/90 backdrop-blur-sm border border-outline-variant/60 rounded-lg p-3 text-sm text-primary focus:outline-none focus:border-tertiary focus:ring-1 focus:ring-tertiary/50 transition-all">
               </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label class="block font-label-caps text-xs text-on-surface-variant uppercase tracking-wider mb-2">Email Address (Optional)</label>
-                <input type="email" placeholder="yourname@gmail.com" class="w-full bg-[#121213]/80 backdrop-blur-sm border border-outline-variant/40 rounded-lg p-3 text-sm text-primary focus:outline-none focus:border-tertiary focus:ring-1 focus:ring-tertiary/50 transition-all">
+                <input type="email" placeholder="yourname@gmail.com" class="w-full bg-slate-50/90 backdrop-blur-sm border border-outline-variant/60 rounded-lg p-3 text-sm text-primary focus:outline-none focus:border-tertiary focus:ring-1 focus:ring-tertiary/50 transition-all">
               </div>
               <div>
                 <label class="block font-label-caps text-xs text-on-surface-variant uppercase tracking-wider mb-2">Car Model & Year</label>
-                <input type="text" required placeholder="e.g. Creta / Swift / XUV700 / BMW 3-Series" class="w-full bg-[#121213]/80 backdrop-blur-sm border border-outline-variant/40 rounded-lg p-3 text-sm text-primary focus:outline-none focus:border-tertiary focus:ring-1 focus:ring-tertiary/50 transition-all">
+                <input type="text" required placeholder="e.g. Creta / Swift / XUV700 / BMW 3-Series" class="w-full bg-slate-50/90 backdrop-blur-sm border border-outline-variant/60 rounded-lg p-3 text-sm text-primary focus:outline-none focus:border-tertiary focus:ring-1 focus:ring-tertiary/50 transition-all">
               </div>
             </div>
 
             <div>
               <label class="block font-label-caps text-xs text-on-surface-variant uppercase tracking-wider mb-2">Service Required</label>
-              <select class="w-full bg-[#121213]/80 backdrop-blur-sm border border-outline-variant/40 rounded-lg p-3 text-sm text-primary focus:outline-none focus:border-tertiary focus:ring-1 focus:ring-tertiary/50 transition-all">
+              <select class="w-full bg-slate-50/90 backdrop-blur-sm border border-outline-variant/60 rounded-lg p-3 text-sm text-primary focus:outline-none focus:border-tertiary focus:ring-1 focus:ring-tertiary/50 transition-all">
                 <option>Periodic Car Maintenance & Oil Service</option>
                 <option>Mechanical Repair (Engine / Gearbox / Suspension / Steering)</option>
                 <option>Computer Scanning & Electrical Troubleshooting</option>
@@ -351,7 +352,7 @@
 
             <div>
               <label class="block font-label-caps text-xs text-on-surface-variant uppercase tracking-wider mb-2">Details or Car Symptoms</label>
-              <textarea rows="4" placeholder="Describe what issue your car has (e.g. strange noise, check engine light, brake sound) or what upgrade you want..." class="w-full bg-[#121213]/80 backdrop-blur-sm border border-outline-variant/40 rounded-lg p-3 text-sm text-primary focus:outline-none focus:border-tertiary focus:ring-1 focus:ring-tertiary/50 transition-all"></textarea>
+              <textarea rows="4" placeholder="Describe what issue your car has (e.g. strange noise, check engine light, brake sound) or what upgrade you want..." class="w-full bg-slate-50/90 backdrop-blur-sm border border-outline-variant/60 rounded-lg p-3 text-sm text-primary focus:outline-none focus:border-tertiary focus:ring-1 focus:ring-tertiary/50 transition-all"></textarea>
             </div>
 
             <button type="submit" class="w-full bg-tertiary text-on-tertiary py-4 rounded-full font-label-caps text-label-caps uppercase btn-hover flex items-center justify-center space-x-2 font-semibold shadow-lg shadow-tertiary/20">
@@ -407,11 +408,11 @@
        ========================================================================== -->
   <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end space-y-3 pointer-events-auto">
     <!-- Call Us Floating Button -->
-    <a href="tel:+917757030387" aria-label="Call Sohail Mulani" class="group flex items-center bg-[#1c1b1b]/95 hover:bg-[#252424] text-primary hover:text-tertiary border border-tertiary/40 hover:border-tertiary p-2 rounded-full shadow-2xl transition-all duration-300 hover:scale-105 shadow-[0_4px_24px_rgba(0,0,0,0.6)]">
+    <a href="tel:+917757030387" aria-label="Call Sohail Mulani" class="group flex items-center bg-white/95 hover:bg-slate-50 text-slate-900 hover:text-tertiary border border-tertiary/40 hover:border-tertiary p-2 rounded-full shadow-2xl transition-all duration-300 hover:scale-105 shadow-[0_4px_24px_rgba(0,0,0,0.12)]">
       <span class="max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-xs transition-all duration-300 ease-in-out text-xs font-label-caps uppercase font-bold text-tertiary pl-0 pr-0 group-hover:pl-3 group-hover:pr-2">
         Call 7757030387
       </span>
-      <div class="w-10 h-10 rounded-full bg-tertiary text-on-tertiary flex items-center justify-center shrink-0 shadow-md">
+      <div class="w-10 h-10 rounded-full bg-tertiary text-white flex items-center justify-center shrink-0 shadow-md">
         <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
           <path d="M20.01 15.38C18.78 15.38 17.59 15.18 16.48 14.82C16.13 14.7 15.74 14.79 15.47 15.06L13.9 17.03C11.07 15.68 8.42 13.13 7.01 10.2L8.96 8.54C9.23 8.26 9.31 7.87 9.2 7.52C8.83 6.41 8.64 5.22 8.64 3.99C8.64 3.45 8.19 3 7.65 3H4.19C3.65 3 3 3.24 3 3.99C3 13.28 10.73 21 20.01 21C20.72 21 21 20.37 21 19.82V16.37C21 15.83 20.55 15.38 20.01 15.38Z"/>
         </svg>
@@ -419,7 +420,7 @@
     </a>
 
     <!-- WhatsApp Floating Button -->
-    <a href="https://wa.me/917757030387?text=Hello%20Sohail%20bhai,%20I%20would%20like%20to%20inquire%20about%20service%20for%20my%20vehicle" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp with Sohail Mulani" class="group flex items-center bg-[#1c1b1b]/95 hover:bg-[#252424] text-white border border-[#25D366]/40 hover:border-[#25D366] p-2 rounded-full shadow-2xl transition-all duration-300 hover:scale-105 shadow-[0_4px_24px_rgba(0,0,0,0.6)]">
+    <a href="https://wa.me/917757030387?text=Hello%20Sohail%20bhai,%20I%20would%20like%20to%20inquire%20about%20service%20for%20my%20vehicle" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp with Sohail Mulani" class="group flex items-center bg-white/95 hover:bg-slate-50 text-slate-900 border border-[#25D366]/40 hover:border-[#25D366] p-2 rounded-full shadow-2xl transition-all duration-300 hover:scale-105 shadow-[0_4px_24px_rgba(0,0,0,0.12)]">
       <span class="max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-xs transition-all duration-300 ease-in-out text-xs font-label-caps uppercase font-bold text-[#25D366] pl-0 pr-0 group-hover:pl-3 group-hover:pr-2">
         Chat on WhatsApp
       </span>
