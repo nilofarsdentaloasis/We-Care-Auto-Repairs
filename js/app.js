@@ -867,16 +867,16 @@ function initInvoiceGenerator() {
   // Mobile View Switcher Event Handlers
   if (mobileViewFormBtn && mobileViewPreviewBtn) {
     mobileViewFormBtn.addEventListener('click', () => {
-      mobileViewFormBtn.className = 'px-4 py-2 rounded-lg text-xs font-bold font-[\'Plus_Jakarta_Sans\',sans-serif] transition-all bg-amber-500 text-slate-950 shadow-sm flex items-center space-x-1.5 cursor-pointer';
-      mobileViewPreviewBtn.className = 'px-4 py-2 rounded-lg text-xs font-bold font-[\'Plus_Jakarta_Sans\',sans-serif] transition-all text-slate-700 hover:text-slate-950 flex items-center space-x-1.5 cursor-pointer';
+      mobileViewFormBtn.className = 'px-4 py-2 rounded-lg text-xs font-bold transition-all bg-amber-500 text-slate-950 shadow-sm flex items-center space-x-1.5 cursor-pointer';
+      mobileViewPreviewBtn.className = 'px-4 py-2 rounded-lg text-xs font-bold transition-all text-slate-700 hover:text-slate-950 flex items-center space-x-1.5 cursor-pointer';
       if (colInvoiceBuilder) {
         colInvoiceBuilder.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     });
 
     mobileViewPreviewBtn.addEventListener('click', () => {
-      mobileViewPreviewBtn.className = 'px-4 py-2 rounded-lg text-xs font-bold font-[\'Plus_Jakarta_Sans\',sans-serif] transition-all bg-amber-500 text-slate-950 shadow-sm flex items-center space-x-1.5 cursor-pointer';
-      mobileViewFormBtn.className = 'px-4 py-2 rounded-lg text-xs font-bold font-[\'Plus_Jakarta_Sans\',sans-serif] transition-all text-slate-700 hover:text-slate-950 flex items-center space-x-1.5 cursor-pointer';
+      mobileViewPreviewBtn.className = 'px-4 py-2 rounded-lg text-xs font-bold transition-all bg-amber-500 text-slate-950 shadow-sm flex items-center space-x-1.5 cursor-pointer';
+      mobileViewFormBtn.className = 'px-4 py-2 rounded-lg text-xs font-bold transition-all text-slate-700 hover:text-slate-950 flex items-center space-x-1.5 cursor-pointer';
       if (colInvoicePreview) {
         colInvoicePreview.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
@@ -1024,15 +1024,15 @@ function initInvoiceGenerator() {
         <div class="flex items-start justify-between">
           <div>
             <div class="flex items-center space-x-1.5">
-              <span class="font-mono text-xs font-black text-slate-900">${inv.id}</span>
+              <span class="text-xs font-black text-slate-900 tabular-nums">${inv.id}</span>
               <span class="text-[9px] font-black px-1.5 py-0.5 rounded-full ${inv.payStatus === 'PAID' ? 'bg-emerald-100 text-emerald-900 border border-emerald-400' : 'bg-amber-100 text-amber-900 border border-amber-400'}">${inv.payStatus || 'PAID'}</span>
             </div>
             <p class="text-xs font-black text-slate-950 mt-0.5">${inv.custName || 'Customer'} <span class="font-bold text-slate-600">(${inv.carModel || 'Car'})</span></p>
-            <p class="text-[10px] font-mono text-slate-600">${inv.carReg || 'No Reg'} • ${formatDateDisplay(inv.date)}</p>
+            <p class="text-[10px] text-slate-600 tabular-nums">${inv.carReg || 'No Reg'} • ${formatDateDisplay(inv.date)}</p>
           </div>
           <div class="text-right">
-            <span class="font-mono font-black text-sm text-amber-900 block">${inv.grandTotal || '₹0'}</span>
-            <span class="text-[10px] text-slate-600 font-mono font-bold">${(inv.lineItems || []).length} Item(s)</span>
+            <span class="font-black text-sm text-amber-900 block tabular-nums">${inv.grandTotal || '₹0'}</span>
+            <span class="text-[10px] text-slate-600 font-bold">${(inv.lineItems || []).length} Item(s)</span>
           </div>
         </div>
 
@@ -1078,19 +1078,19 @@ function initInvoiceGenerator() {
   function switchTab(tab) {
     if (tab === 'editor') {
       if (tabBtnEditor) {
-        tabBtnEditor.className = 'px-3.5 py-1.5 rounded-xl text-xs font-[\'Plus_Jakarta_Sans\',sans-serif] font-black transition-all bg-amber-500 hover:bg-amber-400 text-slate-950 cursor-pointer flex items-center space-x-1.5 shadow-sm';
+        tabBtnEditor.className = 'px-3.5 py-1.5 rounded-xl text-xs font-black transition-all bg-amber-500 hover:bg-amber-400 text-slate-950 cursor-pointer flex items-center space-x-1.5 shadow-sm';
       }
       if (tabBtnHistory) {
-        tabBtnHistory.className = 'px-3.5 py-1.5 rounded-xl text-xs font-[\'Plus_Jakarta_Sans\',sans-serif] font-bold transition-all bg-slate-100 hover:bg-slate-200 text-slate-800 cursor-pointer flex items-center space-x-1.5 border border-slate-300';
+        tabBtnHistory.className = 'px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all bg-slate-100 hover:bg-slate-200 text-slate-800 cursor-pointer flex items-center space-x-1.5 border border-slate-300';
       }
       if (panelEditor) panelEditor.classList.remove('hidden');
       if (panelHistory) panelHistory.classList.add('hidden');
     } else {
       if (tabBtnEditor) {
-        tabBtnEditor.className = 'px-3.5 py-1.5 rounded-xl text-xs font-[\'Plus_Jakarta_Sans\',sans-serif] font-bold transition-all bg-slate-100 hover:bg-slate-200 text-slate-800 cursor-pointer flex items-center space-x-1.5 border border-slate-300';
+        tabBtnEditor.className = 'px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all bg-slate-100 hover:bg-slate-200 text-slate-800 cursor-pointer flex items-center space-x-1.5 border border-slate-300';
       }
       if (tabBtnHistory) {
-        tabBtnHistory.className = 'px-3.5 py-1.5 rounded-xl text-xs font-[\'Plus_Jakarta_Sans\',sans-serif] font-black transition-all bg-amber-500 hover:bg-amber-400 text-slate-950 cursor-pointer flex items-center space-x-1.5 shadow-sm';
+        tabBtnHistory.className = 'px-3.5 py-1.5 rounded-xl text-xs font-black transition-all bg-amber-500 hover:bg-amber-400 text-slate-950 cursor-pointer flex items-center space-x-1.5 shadow-sm';
       }
       if (panelEditor) panelEditor.classList.add('hidden');
       if (panelHistory) panelHistory.classList.remove('hidden');
@@ -1133,10 +1133,10 @@ function initInvoiceGenerator() {
           <input type="text" class="item-desc-input invoice-input-field w-full px-2.5 py-1.5 rounded-md text-xs font-bold" value="${item.desc || ''}" placeholder="Service / Part description..." data-index="${index}">
         </div>
         <div class="col-span-2 sm:col-span-2">
-          <input type="number" class="item-qty-input invoice-input-field w-full px-1.5 py-1.5 rounded-md text-xs text-center font-mono font-bold" value="${item.qty || 1}" min="1" step="1" data-index="${index}" title="Qty">
+          <input type="number" class="item-qty-input invoice-input-field w-full px-1.5 py-1.5 rounded-md text-xs text-center font-bold tabular-nums" value="${item.qty || 1}" min="1" step="1" data-index="${index}" title="Qty">
         </div>
         <div class="col-span-3 sm:col-span-2">
-          <input type="number" class="item-price-input invoice-input-field w-full px-2 py-1.5 rounded-md text-xs text-right font-mono font-bold" value="${item.price || 0}" min="0" step="50" data-index="${index}" title="Rate (₹)">
+          <input type="number" class="item-price-input invoice-input-field w-full px-2 py-1.5 rounded-md text-xs text-right font-bold tabular-nums" value="${item.price || 0}" min="0" step="50" data-index="${index}" title="Rate (₹)">
         </div>
         <div class="col-span-1 flex justify-center">
           <button type="button" class="item-delete-btn text-red-500 hover:text-red-700 hover:bg-red-50 p-1 rounded-md transition-colors cursor-pointer" data-index="${index}" title="Delete Item">
@@ -1232,11 +1232,11 @@ function initInvoiceGenerator() {
         const tr = document.createElement('tr');
         tr.className = 'border-b border-slate-200 text-black';
         tr.innerHTML = `
-          <td class="py-1.5 px-2 text-center font-mono font-bold text-black text-[11px]">${String(i + 1).padStart(2, '0')}</td>
+          <td class="py-1.5 px-2 text-center font-bold text-black text-[11px] tabular-nums">${String(i + 1).padStart(2, '0')}</td>
           <td class="py-1.5 px-2 font-bold text-black text-[11px] leading-snug">${item.desc ? item.desc : '<span class="text-slate-400 font-normal italic">Service / Part description</span>'}</td>
-          <td class="py-1.5 px-2 text-center font-mono font-bold text-black text-[11px]">${item.qty || 1}</td>
-          <td class="py-1.5 px-2 text-right font-mono font-bold text-black text-[11px]">${formatCurrency(item.price || 0)}</td>
-          <td class="py-1.5 px-2 text-right font-mono font-black text-black text-[11px]">${formatCurrency(itemTotal)}</td>
+          <td class="py-1.5 px-2 text-center font-bold text-black text-[11px] tabular-nums">${item.qty || 1}</td>
+          <td class="py-1.5 px-2 text-right font-bold text-black text-[11px] tabular-nums">${formatCurrency(item.price || 0)}</td>
+          <td class="py-1.5 px-2 text-right font-black text-black text-[11px] tabular-nums">${formatCurrency(itemTotal)}</td>
         `;
         prevItemsBody.appendChild(tr);
       });

@@ -1271,6 +1271,14 @@ button {
 /* ==========================================================================
    DIGITAL INVOICE & ESTIMATION GENERATOR MODULE (Single A4 Standard)
    ========================================================================== */
+/* Standard Font Enforcement for Entire Invoice Section & Printable Sheet */
+#invoice-generator,
+#invoice-generator *,
+#printable-invoice-paper,
+#printable-invoice-paper * {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+}
+
 .invoice-builder-card {
   background: #ffffff !important;
   border: 1.5px solid #cbd5e1 !important;
@@ -1284,7 +1292,6 @@ button {
   color: #000000 !important;
   font-weight: 600 !important;
   font-size: 13px !important;
-  font-family: 'Plus Jakarta Sans', sans-serif !important;
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03) !important;
   transition: all 0.15s ease-in-out !important;
 }
@@ -1336,7 +1343,6 @@ button {
 .invoice-paper-sheet {
   background: #ffffff !important;
   color: #000000 !important;
-  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
   border: 1.5px solid #0f172a !important;
   box-shadow: 0 15px 40px -10px rgba(15, 23, 42, 0.18), 0 0 0 1px rgba(15, 23, 42, 0.06) !important;
   width: 100%;
@@ -1365,6 +1371,11 @@ button {
 .invoice-paper-sheet .bg-slate-900 *,
 .invoice-paper-sheet .bg-slate-950 * {
   color: #ffffff !important;
+}
+
+.invoice-paper-sheet table,
+.invoice-paper-sheet .tabular-nums {
+  font-variant-numeric: tabular-nums;
 }
 
 .invoice-stamp {
