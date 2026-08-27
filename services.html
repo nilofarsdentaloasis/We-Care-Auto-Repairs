@@ -895,187 +895,204 @@
     </section>
 
     <!-- ==========================================================================
-         DIGITAL INVOICE & BILL GENERATOR MODULE (Executive Studio Suite)
+         DIGITAL INVOICE & BILL GENERATOR MODULE (Single A4 Page & Streamlined)
          ========================================================================== -->
-    <section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-[#f1f5f9] relative z-20 border-t-2 border-b-2 border-slate-300" id="invoice-generator">
+    <section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-[#f8fafc] relative z-20 border-t-2 border-b-2 border-slate-300" id="invoice-generator">
       <div class="max-w-container-max mx-auto">
         
         <!-- Section Header -->
-        <div class="text-center max-w-3xl mx-auto mb-12">
+        <div class="text-center max-w-3xl mx-auto mb-8 md:mb-10">
           <div class="inline-flex items-center space-x-2 bg-amber-100 border border-amber-300 px-4 py-1.5 rounded-full mb-3 shadow-sm">
             <span class="material-symbols-outlined text-amber-900 text-[18px]">receipt_long</span>
-            <span class="font-label-caps text-xs text-amber-950 uppercase tracking-widest font-black">Official Billing & Estimation System</span>
+            <span class="font-label-caps text-xs text-amber-950 uppercase tracking-widest font-black">Official Billing & Estimation Studio</span>
           </div>
-          <h2 class="font-display-lg text-3xl md:text-5xl text-slate-950 mb-4 leading-tight font-black">
-            Generate Invoice & Service Bill
+          <h2 class="font-display-lg text-3xl md:text-5xl text-slate-950 mb-3 leading-tight font-black">
+            Instant Invoice & Service Bill
           </h2>
           <p class="font-body-md text-slate-600 text-sm md:text-base leading-relaxed">
-            Create an instant itemized repair bill or estimation, download an official printable PDF document, and dispatch the bill directly to the customer's WhatsApp in 1 click.
+            Generate dealership-standard single-page A4 bills & estimates. Download crisp PDF documents or send directly to customer WhatsApp in 1 click.
           </p>
+
+          <!-- Mobile View Switcher (Visible on Mobile/Tablet screens only) -->
+          <div class="lg:hidden flex items-center justify-center mt-5">
+            <div class="inline-flex p-1 bg-slate-200 rounded-xl border border-slate-300 shadow-inner">
+              <button type="button" id="mobile-view-form-btn" class="px-4 py-2 rounded-lg text-xs font-bold font-['Plus_Jakarta_Sans',sans-serif] transition-all bg-amber-500 text-slate-950 shadow-sm flex items-center space-x-1.5 cursor-pointer">
+                <span class="material-symbols-outlined text-[16px]">edit_note</span>
+                <span>1. Edit Bill</span>
+              </button>
+              <button type="button" id="mobile-view-preview-btn" class="px-4 py-2 rounded-lg text-xs font-bold font-['Plus_Jakarta_Sans',sans-serif] transition-all text-slate-700 hover:text-slate-950 flex items-center space-x-1.5 cursor-pointer">
+                <span class="material-symbols-outlined text-[16px]">description</span>
+                <span>2. View A4 Preview</span>
+              </button>
+            </div>
+          </div>
         </div>
 
-        <!-- Main Builder & Preview Grid (Side by Side) -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <!-- Main Builder & Preview Grid (Side by Side on Desktop, Stacked on Mobile) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
           
-          <!-- LEFT COLUMN: Interactive Invoice Builder Form & Stored Invoices Tabs (5 cols) -->
-          <div class="lg:col-span-6 xl:col-span-5 invoice-builder-card rounded-2xl md:rounded-3xl p-5 md:p-7 space-y-5 text-slate-900">
+          <!-- LEFT COLUMN: Simplified Invoice Builder (5 cols) -->
+          <div id="col-invoice-builder" class="lg:col-span-6 xl:col-span-5 invoice-builder-card rounded-2xl md:rounded-3xl p-4 sm:p-6 space-y-4 text-slate-900">
             
-            <!-- Navigation Tabs: Editor vs Stored Invoices -->
-            <div class="flex items-center justify-between border-b-2 border-slate-100 pb-3">
+            <!-- Navigation Tabs: Editor vs Stored History -->
+            <div class="flex items-center justify-between border-b border-slate-200 pb-3">
               <div class="flex space-x-2">
-                <button type="button" id="tab-btn-editor" class="px-4 py-2 rounded-xl text-xs font-['Plus_Jakarta_Sans',sans-serif] font-black transition-all bg-amber-500 hover:bg-amber-400 text-slate-950 cursor-pointer flex items-center space-x-1.5 shadow-sm">
+                <button type="button" id="tab-btn-editor" class="px-3.5 py-1.5 rounded-xl text-xs font-['Plus_Jakarta_Sans',sans-serif] font-black transition-all bg-amber-500 hover:bg-amber-400 text-slate-950 cursor-pointer flex items-center space-x-1.5 shadow-sm">
                   <span class="material-symbols-outlined text-[16px]">edit_document</span>
                   <span>Invoice Editor</span>
                 </button>
-                <button type="button" id="tab-btn-history" class="px-4 py-2 rounded-xl text-xs font-['Plus_Jakarta_Sans',sans-serif] font-bold transition-all bg-slate-100 hover:bg-slate-200 text-slate-800 cursor-pointer flex items-center space-x-1.5 border border-slate-300">
+                <button type="button" id="tab-btn-history" class="px-3.5 py-1.5 rounded-xl text-xs font-['Plus_Jakarta_Sans',sans-serif] font-bold transition-all bg-slate-100 hover:bg-slate-200 text-slate-800 cursor-pointer flex items-center space-x-1.5 border border-slate-300">
                   <span class="material-symbols-outlined text-[16px]">folder_open</span>
-                  <span>Saved History (<span id="saved-invoices-badge" class="font-black text-amber-700">0</span>)</span>
+                  <span>Saved (<span id="saved-invoices-badge" class="font-black text-amber-700">0</span>)</span>
                 </button>
               </div>
 
-              <button id="btn-reset-invoice" class="text-xs text-slate-500 hover:text-amber-800 font-bold flex items-center space-x-1 transition-colors cursor-pointer" type="button" title="Clear all fields to blank template">
+              <button id="btn-reset-invoice" class="text-xs text-slate-500 hover:text-red-700 font-bold flex items-center space-x-1 transition-colors cursor-pointer" type="button" title="Start a fresh blank invoice">
                 <span class="material-symbols-outlined text-[15px]">restart_alt</span>
-                <span class="hidden sm:inline">Clear / New Bill</span>
+                <span>Reset</span>
               </button>
             </div>
 
             <!-- TAB 1: INVOICE EDITOR FORM -->
-            <div id="panel-invoice-editor" class="space-y-5">
+            <div id="panel-invoice-editor" class="space-y-4">
               
               <!-- Customer & Vehicle Info Grid -->
-              <div class="space-y-3.5">
-                <span class="text-xs font-mono text-amber-800 uppercase font-black tracking-wider block">1. Customer & Vehicle Details</span>
+              <div class="space-y-2.5">
+                <div class="flex items-center justify-between">
+                  <span class="text-[11px] font-mono text-amber-900 uppercase font-black tracking-wider flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[14px]">person</span> Customer & Vehicle
+                  </span>
+                </div>
                 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                   <div>
-                    <label class="block text-xs text-slate-800 font-bold mb-1">Customer Full Name *</label>
-                    <input type="text" id="inv-cust-name" class="invoice-input-field w-full px-3.5 py-2.5 rounded-xl text-sm" placeholder="Enter Customer Full Name" value="">
+                    <label class="block text-[11px] text-slate-700 font-bold mb-0.5">Customer Name *</label>
+                    <input type="text" id="inv-cust-name" class="invoice-input-field w-full px-3 py-2 rounded-lg text-xs" placeholder="e.g. Rahul Sharma" value="">
                   </div>
                   <div>
-                    <label class="block text-xs text-slate-800 font-bold mb-1">WhatsApp Mobile No. *</label>
+                    <label class="block text-[11px] text-slate-700 font-bold mb-0.5">WhatsApp Mobile No. *</label>
                     <div class="relative">
-                      <span class="absolute left-3.5 top-2.5 text-xs text-slate-700 font-mono font-black z-10 select-none">+91</span>
-                      <input type="tel" id="inv-cust-phone" class="invoice-input-field w-full pl-12 pr-3.5 py-2.5 rounded-xl text-sm font-mono font-bold" placeholder="Enter 10-digit WhatsApp No." value="">
+                      <span class="absolute left-3 top-2 text-xs text-slate-600 font-mono font-bold z-10 select-none">+91</span>
+                      <input type="tel" id="inv-cust-phone" class="invoice-input-field w-full pl-11 pr-3 py-2 rounded-lg text-xs font-mono font-bold" placeholder="9876543210" value="">
                     </div>
                   </div>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                   <div>
-                    <label class="block text-xs text-slate-800 font-bold mb-1">Vehicle Model & Make *</label>
-                    <input type="text" id="inv-car-model" class="invoice-input-field w-full px-3.5 py-2.5 rounded-xl text-sm" placeholder="e.g. Mahindra Scorpio-N, BMW 320d" value="">
+                    <label class="block text-[11px] text-slate-700 font-bold mb-0.5">Vehicle Model & Make *</label>
+                    <input type="text" id="inv-car-model" class="invoice-input-field w-full px-3 py-2 rounded-lg text-xs" placeholder="e.g. BMW 320d / Scorpio-N" value="">
                   </div>
                   <div>
-                    <label class="block text-xs text-slate-800 font-bold mb-1">Vehicle Plate / Reg. No.</label>
-                    <input type="text" id="inv-car-reg" class="invoice-input-field w-full px-3.5 py-2.5 rounded-xl text-sm uppercase font-mono font-black" placeholder="e.g. MH 14 AB 1234" value="">
+                    <label class="block text-[11px] text-slate-700 font-bold mb-0.5">Vehicle Reg. No.</label>
+                    <input type="text" id="inv-car-reg" class="invoice-input-field w-full px-3 py-2 rounded-lg text-xs uppercase font-mono font-bold" placeholder="e.g. MH 14 AB 1234" value="">
                   </div>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div class="grid grid-cols-3 gap-2">
                   <div>
-                    <label class="block text-xs text-slate-800 font-bold mb-1">Invoice / Job Card #</label>
-                    <input type="text" id="inv-number" class="invoice-input-field w-full px-3.5 py-2.5 rounded-xl text-sm font-mono font-black" value="WCAR-2026-8492">
+                    <label class="block text-[11px] text-slate-700 font-bold mb-0.5">Invoice #</label>
+                    <input type="text" id="inv-number" class="invoice-input-field w-full px-2.5 py-2 rounded-lg text-xs font-mono font-bold" value="WCAR-2026-8492">
                   </div>
                   <div>
-                    <label class="block text-xs text-slate-800 font-bold mb-1">Invoice Date</label>
-                    <input type="date" id="inv-date" class="invoice-input-field w-full px-3.5 py-2.5 rounded-xl text-sm font-mono font-bold">
-                  </div>
-                </div>
-              </div>
-
-              <!-- Quick-Add Popular Services Shortcuts -->
-              <div class="space-y-2 pt-2 border-t-2 border-slate-100">
-                <span class="text-xs font-mono text-amber-800 uppercase font-black tracking-wider block">2. 1-Click Popular Services</span>
-                <div class="flex flex-wrap gap-1.5">
-                  <button type="button" class="preset-item-btn text-xs font-bold bg-slate-100 hover:bg-amber-500 hover:text-slate-950 text-slate-800 px-3 py-1.5 rounded-lg border border-slate-300 transition-all cursor-pointer shadow-sm" data-desc="Synthetic Engine Oil (5W-40) & OEM Filter" data-price="4500">
-                    + Synthetic Oil (₹4,500)
-                  </button>
-                  <button type="button" class="preset-item-btn text-xs font-bold bg-slate-100 hover:bg-amber-500 hover:text-slate-950 text-slate-800 px-3 py-1.5 rounded-lg border border-slate-300 transition-all cursor-pointer shadow-sm" data-desc="60-Point Electronic Laser Chassis & Safety Audit" data-price="1200">
-                    + Laser Audit (₹1,200)
-                  </button>
-                  <button type="button" class="preset-item-btn text-xs font-bold bg-slate-100 hover:bg-amber-500 hover:text-slate-950 text-slate-800 px-3 py-1.5 rounded-lg border border-slate-300 transition-all cursor-pointer shadow-sm" data-desc="Front Brake Pads Replacement (OEM Factory Spec)" data-price="3800">
-                    + Front Brake Pads (₹3,800)
-                  </button>
-                  <button type="button" class="preset-item-btn text-xs font-bold bg-slate-100 hover:bg-amber-500 hover:text-slate-950 text-slate-800 px-3 py-1.5 rounded-lg border border-slate-300 transition-all cursor-pointer shadow-sm" data-desc="OBD-II Computer ECU Diagnostic Full Scan" data-price="999">
-                    + ECU Scan (₹999)
-                  </button>
-                  <button type="button" class="preset-item-btn text-xs font-bold bg-slate-100 hover:bg-amber-500 hover:text-slate-950 text-slate-800 px-3 py-1.5 rounded-lg border border-slate-300 transition-all cursor-pointer shadow-sm" data-desc="Ceramic 9H Shield Coating & Detail Polish" data-price="8500">
-                    + Ceramic Coating (₹8,500)
-                  </button>
-                  <button type="button" class="preset-item-btn text-xs font-bold bg-slate-100 hover:bg-amber-500 hover:text-slate-950 text-slate-800 px-3 py-1.5 rounded-lg border border-slate-300 transition-all cursor-pointer shadow-sm" data-desc="Suspension Bushes & Link Rod Replacement" data-price="5500">
-                    + Suspension Work (₹5,500)
-                  </button>
-                </div>
-              </div>
-
-              <!-- Dynamic Line Items Table Builder -->
-              <div class="space-y-3 pt-2 border-t-2 border-slate-100">
-                <div class="flex items-center justify-between">
-                  <span class="text-xs font-mono text-amber-800 uppercase font-black tracking-wider block">3. Itemized Services & Spares</span>
-                  <button type="button" id="btn-add-line-item" class="text-xs font-black text-amber-800 hover:text-amber-950 flex items-center space-x-1 cursor-pointer">
-                    <span class="material-symbols-outlined text-[16px]">add_circle</span>
-                    <span>Add Line Item</span>
-                  </button>
-                </div>
-
-                <!-- Dynamic Rows Container -->
-                <div id="invoice-items-list" class="space-y-2.5 max-h-[300px] overflow-y-auto pr-1">
-                  <!-- Rows injected dynamically via JS -->
-                </div>
-              </div>
-
-              <!-- Taxes, Discount & Payment Status -->
-              <div class="space-y-3 pt-2 border-t-2 border-slate-100">
-                <span class="text-xs font-mono text-amber-800 uppercase font-black tracking-wider block">4. Financials & Guarantee</span>
-                
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  <div>
-                    <label class="block text-xs text-slate-800 font-bold mb-1">GST Tax Rate</label>
-                    <select id="inv-tax-rate" class="invoice-input-field w-full px-3 py-2.5 rounded-xl text-xs font-bold">
-                      <option value="0">0% (Tax Exempt / Estimate)</option>
-                      <option value="5">5% GST (2.5% CGST + 2.5% SGST)</option>
-                      <option value="12">12% GST (6% CGST + 6% SGST)</option>
-                      <option value="18" selected>18% GST (9% CGST + 9% SGST)</option>
-                    </select>
+                    <label class="block text-[11px] text-slate-700 font-bold mb-0.5">Date</label>
+                    <input type="date" id="inv-date" class="invoice-input-field w-full px-2.5 py-2 rounded-lg text-xs font-mono font-bold">
                   </div>
                   <div>
-                    <label class="block text-xs text-slate-800 font-bold mb-1">Discount (₹)</label>
-                    <input type="number" id="inv-discount" class="invoice-input-field w-full px-3 py-2.5 rounded-xl text-xs font-mono font-bold" placeholder="0" value="0" min="0">
-                  </div>
-                  <div>
-                    <label class="block text-xs text-slate-800 font-bold mb-1">Payment Status</label>
-                    <select id="inv-pay-status" class="invoice-input-field w-full px-3 py-2.5 rounded-xl text-xs font-black">
+                    <label class="block text-[11px] text-slate-700 font-bold mb-0.5">Payment</label>
+                    <select id="inv-pay-status" class="invoice-input-field w-full px-2 py-2 rounded-lg text-xs font-bold">
                       <option value="PAID" selected>PAID</option>
                       <option value="PENDING">PENDING</option>
                       <option value="50% ADVANCE">50% ADVANCE</option>
                     </select>
                   </div>
                 </div>
+              </div>
 
-                <div>
-                  <label class="block text-xs text-slate-800 font-bold mb-1">Workshop Warranty Period</label>
-                  <select id="inv-warranty" class="invoice-input-field w-full px-3 py-2.5 rounded-xl text-xs font-bold">
-                    <option value="12-Month / 10,000 KM Official Workshop Warranty" selected>12-Month / 10,000 KM Official Warranty</option>
-                    <option value="6-Month / 5,000 KM Official Workshop Warranty">6-Month / 5,000 KM Warranty</option>
-                    <option value="3-Month Limited Parts & Service Warranty">3-Month Limited Parts Warranty</option>
-                    <option value="Official OEM Manufacturer Warranty on Spares">Manufacturer Warranty Only</option>
-                    <option value="Estimate Quote / No Warranty Applicable">No Warranty (Estimate)</option>
-                  </select>
+              <!-- Quick-Add Popular Services Chips -->
+              <div class="space-y-1.5 pt-2.5 border-t border-slate-200">
+                <span class="text-[11px] font-mono text-amber-900 uppercase font-black tracking-wider block">1-Click Quick Add Services</span>
+                <div class="flex flex-wrap gap-1.5">
+                  <button type="button" class="preset-item-btn text-[11px] font-bold bg-slate-100 hover:bg-amber-500 hover:text-slate-950 text-slate-800 px-2.5 py-1 rounded-md border border-slate-300 transition-all cursor-pointer shadow-2xs" data-desc="Synthetic Engine Oil (5W-40) & OEM Filter" data-price="4500">
+                    + Synthetic Oil (₹4.5k)
+                  </button>
+                  <button type="button" class="preset-item-btn text-[11px] font-bold bg-slate-100 hover:bg-amber-500 hover:text-slate-950 text-slate-800 px-2.5 py-1 rounded-md border border-slate-300 transition-all cursor-pointer shadow-2xs" data-desc="60-Point Laser Chassis & Safety Audit" data-price="1200">
+                    + Laser Audit (₹1.2k)
+                  </button>
+                  <button type="button" class="preset-item-btn text-[11px] font-bold bg-slate-100 hover:bg-amber-500 hover:text-slate-950 text-slate-800 px-2.5 py-1 rounded-md border border-slate-300 transition-all cursor-pointer shadow-2xs" data-desc="Front Brake Pads Replacement (OEM Spec)" data-price="3800">
+                    + Brake Pads (₹3.8k)
+                  </button>
+                  <button type="button" class="preset-item-btn text-[11px] font-bold bg-slate-100 hover:bg-amber-500 hover:text-slate-950 text-slate-800 px-2.5 py-1 rounded-md border border-slate-300 transition-all cursor-pointer shadow-2xs" data-desc="OBD-II Computer ECU Diagnostic Full Scan" data-price="999">
+                    + ECU Scan (₹999)
+                  </button>
+                  <button type="button" class="preset-item-btn text-[11px] font-bold bg-slate-100 hover:bg-amber-500 hover:text-slate-950 text-slate-800 px-2.5 py-1 rounded-md border border-slate-300 transition-all cursor-pointer shadow-2xs" data-desc="Ceramic 9H Shield Coating & Detail Polish" data-price="8500">
+                    + Ceramic 9H (₹8.5k)
+                  </button>
+                  <button type="button" class="preset-item-btn text-[11px] font-bold bg-slate-100 hover:bg-amber-500 hover:text-slate-950 text-slate-800 px-2.5 py-1 rounded-md border border-slate-300 transition-all cursor-pointer shadow-2xs" data-desc="Suspension Bushes & Link Rod Replacement" data-price="5500">
+                    + Suspension (₹5.5k)
+                  </button>
+                </div>
+              </div>
+
+              <!-- Dynamic Line Items Builder -->
+              <div class="space-y-2 pt-2.5 border-t border-slate-200">
+                <div class="flex items-center justify-between">
+                  <span class="text-[11px] font-mono text-amber-900 uppercase font-black tracking-wider flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[14px]">format_list_bulleted</span> Itemized Services & Parts
+                  </span>
+                  <button type="button" id="btn-add-line-item" class="text-xs font-black text-amber-800 hover:text-amber-950 flex items-center space-x-1 cursor-pointer bg-amber-100 hover:bg-amber-200 px-2.5 py-1 rounded-md transition-colors">
+                    <span class="material-symbols-outlined text-[15px]">add_circle</span>
+                    <span>Add Item</span>
+                  </button>
+                </div>
+
+                <!-- Dynamic Rows Container -->
+                <div id="invoice-items-list" class="space-y-2 max-h-[260px] overflow-y-auto pr-1">
+                  <!-- Rows injected dynamically via JS -->
+                </div>
+              </div>
+
+              <!-- Financials, Taxes & Warranty -->
+              <div class="space-y-2.5 pt-2.5 border-t border-slate-200">
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                  <div>
+                    <label class="block text-[11px] text-slate-700 font-bold mb-0.5">GST Rate</label>
+                    <select id="inv-tax-rate" class="invoice-input-field w-full px-2.5 py-2 rounded-lg text-xs font-bold">
+                      <option value="0">0% (Estimate / Exempt)</option>
+                      <option value="5">5% GST</option>
+                      <option value="12">12% GST</option>
+                      <option value="18" selected>18% GST</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-[11px] text-slate-700 font-bold mb-0.5">Discount (₹)</label>
+                    <input type="number" id="inv-discount" class="invoice-input-field w-full px-2.5 py-2 rounded-lg text-xs font-mono font-bold" placeholder="0" value="0" min="0">
+                  </div>
+                  <div class="col-span-2 sm:col-span-1">
+                    <label class="block text-[11px] text-slate-700 font-bold mb-0.5">Warranty Note</label>
+                    <select id="inv-warranty" class="invoice-input-field w-full px-2 py-2 rounded-lg text-xs font-bold">
+                      <option value="12-Month / 10,000 KM Official Workshop Warranty" selected>12-Month / 10,000 KM Warranty</option>
+                      <option value="6-Month / 5,000 KM Official Workshop Warranty">6-Month / 5,000 KM Warranty</option>
+                      <option value="3-Month Limited Parts & Service Warranty">3-Month Parts Warranty</option>
+                      <option value="Official OEM Manufacturer Warranty on Spares">OEM Manufacturer Warranty</option>
+                      <option value="Estimate Quote / No Warranty Applicable">No Warranty (Estimate)</option>
+                    </select>
+                  </div>
                 </div>
               </div>
 
               <!-- Action Buttons Toolbar -->
-              <div class="pt-4 border-t-2 border-slate-100 space-y-2.5">
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                  
-                  <!-- Download PDF Button -->
-                  <button type="button" id="btn-download-pdf" class="w-full bg-slate-950 hover:bg-slate-800 text-white font-['Plus_Jakarta_Sans',sans-serif] font-black text-xs uppercase tracking-wider py-3.5 px-4 rounded-xl flex items-center justify-center space-x-2 transition-all shadow-md hover:scale-[1.02] active:scale-95 cursor-pointer">
-                    <span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
-                    <span>Download PDF Bill</span>
+              <div class="pt-3 border-t border-slate-200 space-y-2">
+                <!-- Primary Action Row -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <!-- Download Single A4 PDF Button -->
+                  <button type="button" id="btn-download-pdf" class="w-full bg-slate-950 hover:bg-slate-800 text-white font-['Plus_Jakarta_Sans',sans-serif] font-black text-xs uppercase tracking-wider py-3 px-3 rounded-xl flex items-center justify-center space-x-2 transition-all shadow-md hover:scale-[1.01] active:scale-98 cursor-pointer">
+                    <span class="material-symbols-outlined text-[17px]">picture_as_pdf</span>
+                    <span>Download A4 PDF</span>
                   </button>
 
-                  <!-- Send via WhatsApp Button -->
-                  <button type="button" id="btn-send-whatsapp" class="w-full bg-[#25D366] hover:bg-[#20ba59] text-white font-['Plus_Jakarta_Sans',sans-serif] font-black text-xs uppercase tracking-wider py-3.5 px-4 rounded-xl flex items-center justify-center space-x-2 transition-all shadow-md hover:scale-[1.02] active:scale-95 cursor-pointer">
+                  <!-- Send to WhatsApp Button -->
+                  <button type="button" id="btn-send-whatsapp" class="w-full bg-[#25D366] hover:bg-[#20ba59] text-white font-['Plus_Jakarta_Sans',sans-serif] font-black text-xs uppercase tracking-wider py-3 px-3 rounded-xl flex items-center justify-center space-x-2 transition-all shadow-md hover:scale-[1.01] active:scale-98 cursor-pointer">
                     <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
                       <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.04 14.69 2 12.04 2ZM12.04 20.15C10.56 20.15 9.11 19.76 7.85 19.01L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.8 13.47 3.8 11.91C3.8 7.37 7.5 3.67 12.04 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15ZM16.56 14.41C16.31 14.29 15.09 13.69 14.86 13.61C14.64 13.52 14.47 13.48 14.31 13.73C14.14 13.97 13.67 14.53 13.52 14.69C13.38 14.86 13.23 14.88 12.98 14.76C12.74 14.64 11.95 14.38 11.02 13.55C10.29 12.9 9.8 12.1 9.68 11.85C9.55 11.61 9.66 11.47 9.79 11.35C9.9 11.24 10.03 11.07 10.15 10.93C10.28 10.78 10.32 10.68 10.4 10.51C10.48 10.35 10.44 10.21 10.38 10.08C10.32 9.96 9.83 8.76 9.63 8.26C9.43 7.78 9.23 7.84 9.08 7.83C8.94 7.83 8.77 7.83 8.61 7.83C8.44 7.83 8.18 7.89 7.95 8.14C7.72 8.38 7.08 8.98 7.08 10.21C7.08 11.44 7.97 12.62 8.1 12.79C8.22 12.96 9.86 15.48 12.36 16.56C12.96 16.82 13.42 16.97 13.78 17.09C14.38 17.28 14.93 17.25 15.36 17.19C15.84 17.12 16.84 16.58 17.05 16C17.25 15.41 17.25 14.91 17.19 14.8C17.13 14.7 16.98 14.64 16.73 14.52L16.56 14.41Z"/>
                     </svg>
@@ -1083,15 +1100,13 @@
                   </button>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                  <!-- Save to Storage Button -->
-                  <button type="button" id="btn-save-invoice" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-['Plus_Jakarta_Sans',sans-serif] font-black text-xs py-3 px-3 rounded-xl flex items-center justify-center space-x-1.5 transition-colors shadow-sm cursor-pointer">
+                <!-- Secondary Action Row -->
+                <div class="grid grid-cols-2 gap-2">
+                  <button type="button" id="btn-save-invoice" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-['Plus_Jakarta_Sans',sans-serif] font-bold text-xs py-2.5 px-2.5 rounded-xl flex items-center justify-center space-x-1.5 transition-colors shadow-2xs cursor-pointer">
                     <span class="material-symbols-outlined text-[16px]">save</span>
-                    <span>Save to History</span>
+                    <span>Save Bill</span>
                   </button>
-
-                  <!-- Print Direct Button -->
-                  <button type="button" id="btn-print-invoice" class="w-full bg-white hover:bg-slate-100 text-slate-800 font-['Plus_Jakarta_Sans',sans-serif] font-bold text-xs py-3 px-3 rounded-xl flex items-center justify-center space-x-1.5 transition-colors border-2 border-slate-300 cursor-pointer">
+                  <button type="button" id="btn-print-invoice" class="bg-white hover:bg-slate-100 text-slate-800 font-['Plus_Jakarta_Sans',sans-serif] font-bold text-xs py-2.5 px-2.5 rounded-xl flex items-center justify-center space-x-1.5 transition-colors border border-slate-300 shadow-2xs cursor-pointer">
                     <span class="material-symbols-outlined text-[16px]">print</span>
                     <span>Print Direct</span>
                   </button>
@@ -1100,172 +1115,174 @@
 
             </div>
 
-            <!-- TAB 2: STORED INVOICES HISTORY PANEL (Hidden by default) -->
-            <div id="panel-invoice-history" class="hidden space-y-4">
-              <div class="flex items-center justify-between border-b-2 border-slate-100 pb-2">
-                <span class="text-xs font-mono text-amber-800 uppercase font-black tracking-wider">Stored Workshop Invoices</span>
+            <!-- TAB 2: STORED INVOICES HISTORY PANEL -->
+            <div id="panel-invoice-history" class="hidden space-y-3">
+              <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+                <span class="text-xs font-mono text-amber-900 uppercase font-black tracking-wider">Stored Workshop Invoices</span>
                 <button type="button" id="btn-clear-all-history" class="text-xs text-red-600 hover:text-red-800 font-bold cursor-pointer transition-colors">
-                  Clear All History
+                  Clear All
                 </button>
               </div>
 
               <!-- Search filter -->
-              <input type="text" id="search-saved-invoices" class="invoice-input-field w-full px-3.5 py-2.5 rounded-xl text-xs font-bold" placeholder="Search by customer name, car model, or invoice #...">
+              <input type="text" id="search-saved-invoices" class="invoice-input-field w-full px-3 py-2 rounded-lg text-xs font-bold" placeholder="Search by customer, car, or invoice #...">
 
               <!-- Stored List Container -->
-              <div id="saved-invoices-list" class="space-y-2.5 max-h-[460px] overflow-y-auto pr-1">
+              <div id="saved-invoices-list" class="space-y-2 max-h-[420px] overflow-y-auto pr-1">
                 <!-- Stored invoice cards rendered dynamically by JS -->
               </div>
             </div>
 
           </div>
 
-          <!-- RIGHT COLUMN: Professional Dealership A4 Invoice Preview (7 cols) -->
-          <div class="lg:col-span-6 xl:col-span-7 flex flex-col items-center">
+          <!-- RIGHT COLUMN: Professional Dealership Single-Page A4 Invoice Preview (7 cols) -->
+          <div id="col-invoice-preview" class="lg:col-span-6 xl:col-span-7 flex flex-col items-center w-full">
             
-            <div class="w-full flex items-center justify-between mb-3 px-2 text-xs text-slate-600">
+            <div class="w-full flex items-center justify-between mb-2.5 px-1 text-xs text-slate-600">
               <span class="flex items-center space-x-1.5 font-mono">
                 <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span class="font-black text-slate-900">LIVE A4 TAX INVOICE PREVIEW</span>
+                <span class="font-black text-slate-900">LIVE A4 INVOICE (1-PAGE FIT)</span>
               </span>
-              <span class="font-mono text-xs text-amber-800 font-black">CRISP SOLID BLACK PRINT CONTRAST</span>
+              <span class="font-mono text-[11px] text-amber-900 font-bold hidden sm:inline">HIGH CONTRAST DEALERSHIP STANDARD</span>
             </div>
 
-            <!-- The Rendered Printable Document Element (Dealership Standard) -->
-            <div id="printable-invoice-paper" class="invoice-paper-sheet w-full rounded-2xl p-6 sm:p-8 md:p-9 transition-all duration-300 select-text border-2 border-slate-900 shadow-2xl">
+            <!-- Responsive Wrapper for Mobile/Desktop A4 View -->
+            <div class="invoice-sheet-viewport w-full overflow-x-auto pb-2 rounded-2xl">
               
-              <!-- TOP HEADER: Real Metallic Logo + Workshop Meta + Invoice Box -->
-              <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-5 border-b-2 border-slate-950 gap-4">
+              <!-- The Calibrated Single-Page A4 Printable Element -->
+              <div id="printable-invoice-paper" class="invoice-paper-sheet mx-auto transition-all duration-200 select-text">
                 
-                <!-- Left: Exclusive Invoice Logo Badge & Workshop Details -->
-                <div class="flex items-center space-x-4">
-                  <img src="assets/invoice-logo.png" alt="We Care Auto Repairs" class="h-20 sm:h-24 md:h-28 w-auto object-contain shrink-0 filter drop-shadow-sm">
-                  <div class="border-l-2 border-slate-950 pl-4 hidden sm:block">
-                    <h3 class="text-base sm:text-lg font-black tracking-tight text-black uppercase leading-tight">WE CARE AUTO REPAIR</h3>
-                    <p class="text-xs font-black text-black mt-0.5">Multi-Brand Luxury & Mechanical Diagnostics Atelier</p>
-                    <p class="text-[11px] text-black font-bold leading-tight mt-1">
-                      Gat No 1079, Newali Wasti, Chikhali, Pune, Maharashtra 411062<br>
-                      <strong>Phone:</strong> +91 7757030387 | <strong>GSTIN:</strong> 27AABCU9603R1ZM
+                <!-- 1. TOP HEADER: Dealership Logo + Workshop Info + Tax Invoice Box -->
+                <div class="inv-header flex flex-row justify-between items-start pb-3 border-b-2 border-slate-950 gap-3">
+                  
+                  <!-- Left: Dealership Identity & Address -->
+                  <div class="flex items-center space-x-3 min-w-0">
+                    <img src="assets/invoice-logo.png" alt="We Care Auto Repairs" class="h-11 sm:h-12 w-auto object-contain shrink-0 filter drop-shadow-2xs">
+                    <div class="border-l border-slate-950 pl-3 leading-tight min-w-0">
+                      <h3 class="text-sm sm:text-base font-black tracking-tight text-black uppercase leading-tight">WE CARE AUTO REPAIR</h3>
+                      <p class="text-[10px] font-bold text-slate-900 leading-tight">Multi-Brand Luxury & Mechanical Diagnostics</p>
+                      <p class="text-[9px] sm:text-[10px] text-slate-800 leading-tight mt-0.5">
+                        Gat No 1079, Newali Wasti, Chikhali, Pune 411062<br>
+                        <strong>Phone:</strong> +91 7757030387 | <strong>GSTIN:</strong> 27AABCU9603R1ZM
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Right: Invoice Metadata Box -->
+                  <div class="text-right shrink-0 bg-slate-50 p-2 sm:p-2.5 rounded-lg border border-slate-950">
+                    <span class="text-[10px] font-mono font-black uppercase tracking-wider text-amber-900 block">TAX INVOICE / BILL</span>
+                    <span id="prev-inv-num" class="text-xs sm:text-sm font-mono font-black text-black block mt-0.5">WCAR-2026-8492</span>
+                    <span id="prev-inv-date" class="text-[10px] text-slate-800 font-bold block">Date: —</span>
+                    <div class="mt-1">
+                      <span id="prev-inv-status" class="inline-block px-2.5 py-0.5 rounded-full text-[9px] font-black tracking-wider uppercase bg-emerald-100 text-emerald-950 border border-emerald-500">
+                        PAID
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 2. CLIENT & VEHICLE COMPACT DATA MATRIX (2 Balanced Cards) -->
+                <div class="grid grid-cols-2 gap-2.5 py-2.5 border-b border-slate-950 text-[11px] leading-tight">
+                  <!-- Billed To Customer -->
+                  <div class="bg-slate-50/90 p-2 rounded-lg border border-slate-900 space-y-0.5">
+                    <span class="text-[9px] font-mono font-black text-slate-900 uppercase tracking-wider block border-b border-slate-300 pb-0.5">BILLED TO CUSTOMER:</span>
+                    <p id="prev-cust-name" class="font-black text-black text-xs pt-0.5 truncate">—</p>
+                    <p id="prev-cust-phone" class="font-mono font-bold text-slate-800 text-[10px]">—</p>
+                    <p class="text-[9px] text-slate-700">Place of Supply: Chikhali, Pune (Maharashtra - 27)</p>
+                  </div>
+
+                  <!-- Vehicle & Order Record -->
+                  <div class="bg-slate-50/90 p-2 rounded-lg border border-slate-900 space-y-0.5">
+                    <span class="text-[9px] font-mono font-black text-slate-900 uppercase tracking-wider block border-b border-slate-300 pb-0.5">VEHICLE & WORK ORDER:</span>
+                    <p id="prev-car-model" class="font-black text-black text-xs pt-0.5 truncate">—</p>
+                    <p id="prev-car-reg" class="font-mono font-bold text-slate-800 uppercase text-[10px]">—</p>
+                    <p class="text-[9px] text-slate-700">Lead Engineer: <strong class="text-black font-bold">Sohail Mulani</strong></p>
+                  </div>
+                </div>
+
+                <!-- 3. ITEMIZED SERVICES TABLE (Crisp High-Contrast Grid) -->
+                <div class="py-2.5">
+                  <table class="w-full text-left text-xs border-collapse">
+                    <thead>
+                      <tr class="bg-slate-950 text-white font-mono uppercase text-[10px]">
+                        <th class="py-1.5 px-2 w-8 text-center rounded-l text-white font-black">#</th>
+                        <th class="py-1.5 px-2 text-white font-black">Service / Genuine Spares Description</th>
+                        <th class="py-1.5 px-2 text-center w-12 text-white font-black">Qty</th>
+                        <th class="py-1.5 px-2 text-right w-20 text-white font-black">Rate (₹)</th>
+                        <th class="py-1.5 px-2 text-right w-24 rounded-r text-white font-black">Amount (₹)</th>
+                      </tr>
+                    </thead>
+                    <tbody id="prev-items-body" class="divide-y divide-slate-200 text-black text-[11px]">
+                      <!-- Dynamic rows injected with solid black text by JS -->
+                    </tbody>
+                  </table>
+                </div>
+
+                <!-- 4. FINANCIAL SUMMARY & PAYMENT INSTRUCTIONS -->
+                <div class="pt-2 border-t border-slate-950 grid grid-cols-12 gap-2.5 items-start">
+                  
+                  <!-- Left: Amount in Words & Payment Instructions (7 cols) -->
+                  <div class="col-span-7 space-y-1.5 text-[10px]">
+                    <div class="bg-slate-50 p-2 rounded-lg border border-slate-900">
+                      <span class="text-[9px] font-mono font-black text-slate-900 uppercase tracking-wider block">AMOUNT IN WORDS (INR):</span>
+                      <p id="prev-words-amount" class="text-[11px] font-black text-black italic leading-tight mt-0.5">
+                        Rupees Zero Only
+                      </p>
+                    </div>
+
+                    <div class="p-2 rounded-lg border border-slate-900 bg-amber-50/60 text-[10px] text-slate-900 space-y-0.5 leading-tight">
+                      <span class="font-black text-black block text-[10px]">Digital Payment Settlement:</span>
+                      <p>UPI ID: <strong class="font-mono text-black font-black">7757030387@upi</strong> | GPay/PhonePe: <strong class="font-mono text-black font-black">+91 7757030387</strong></p>
+                      <p class="text-[9px] text-slate-700">Cash, Cards & Bank Wire transfers accepted at workshop counter.</p>
+                    </div>
+                  </div>
+
+                  <!-- Right: Financial Breakdown & Grand Total (5 cols) -->
+                  <div class="col-span-5 space-y-1 text-xs font-mono">
+                    <div class="flex justify-between text-black py-0.5 text-[11px]">
+                      <span class="font-bold text-slate-700">Subtotal:</span>
+                      <span id="prev-subtotal" class="font-black text-black">₹0</span>
+                    </div>
+
+                    <div class="flex justify-between text-black py-0.5 text-[11px]" id="prev-tax-row">
+                      <span id="prev-tax-label" class="font-bold text-slate-700">GST (18%):</span>
+                      <span id="prev-tax-amount" class="font-black text-black">₹0</span>
+                    </div>
+
+                    <div class="flex justify-between text-emerald-800 py-0.5 text-[11px]" id="prev-discount-row">
+                      <span class="font-bold">Discount:</span>
+                      <span id="prev-discount-amount" class="font-black text-emerald-800">-₹0</span>
+                    </div>
+
+                    <div class="flex justify-between items-center p-2 rounded-lg bg-slate-950 text-white mt-1 border border-slate-900 shadow-2xs">
+                      <span class="text-[10px] sm:text-xs font-black uppercase tracking-tight text-white">Total Payable:</span>
+                      <span id="prev-grand-total" class="text-base sm:text-lg font-black text-amber-400 font-mono">₹0</span>
+                    </div>
+                  </div>
+
+                </div>
+
+                <!-- 5. TERMS, WARRANTY & OFFICIAL AUTHENTICATION FOOTER -->
+                <div class="mt-3 pt-2 border-t border-slate-950 grid grid-cols-2 gap-2.5 items-end text-[10px]">
+                  <div class="space-y-0.5 leading-tight">
+                    <span class="font-black text-black block text-[10px]">Workshop Warranty & Quality Guarantee:</span>
+                    <p id="prev-warranty-term" class="text-[10px] leading-tight font-black text-amber-900">
+                      12-Month / 10,000 KM Official Workshop Warranty
+                    </p>
+                    <p class="text-[9px] text-slate-700 leading-tight">
+                      • 100% Genuine OEM Spares • Multi-Point Pre-Delivery Handover Inspection Audited
                     </p>
                   </div>
-                </div>
 
-                <!-- Right: Invoice Metadata Box -->
-                <div class="text-left sm:text-right shrink-0 bg-slate-100 p-3.5 rounded-xl border-2 border-slate-900 w-full sm:w-auto">
-                  <span class="text-xs font-mono font-black uppercase tracking-wider text-amber-800 block">TAX INVOICE / BILL</span>
-                  <span id="prev-inv-num" class="text-base font-mono font-black text-black block mt-0.5">WCAR-2026-8492</span>
-                  <span id="prev-inv-date" class="text-xs text-black font-black block mt-0.5">Date: —</span>
-                  <div class="mt-1.5">
-                    <span id="prev-inv-status" class="inline-block px-3 py-0.5 rounded-full text-[10px] font-black tracking-wider uppercase bg-emerald-200 text-emerald-950 border border-emerald-500">
-                      PAID
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Balanced 2-Card Details Box (Customer & Vehicle Record) -->
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 py-4 border-b-2 border-slate-900 text-xs">
-                
-                <!-- Billed To Customer -->
-                <div class="bg-slate-50 p-3.5 rounded-xl border-2 border-slate-900 space-y-1">
-                  <span class="text-[11px] font-black font-mono text-black uppercase tracking-wider block border-b-2 border-slate-900 pb-1">BILLED TO CUSTOMER:</span>
-                  <p id="prev-cust-name" class="text-sm font-black text-black pt-1">—</p>
-                  <p id="prev-cust-phone" class="text-black font-mono font-black text-xs">—</p>
-                  <p class="text-[11px] text-black font-bold">Place of Supply: Chikhali, Pune (State: Maharashtra - 27)</p>
-                </div>
-
-                <!-- Vehicle Record -->
-                <div class="bg-slate-50 p-3.5 rounded-xl border-2 border-slate-900 space-y-1">
-                  <span class="text-[11px] font-black font-mono text-black uppercase tracking-wider block border-b-2 border-slate-900 pb-1">VEHICLE & WORK ORDER:</span>
-                  <p id="prev-car-model" class="text-sm font-black text-black pt-1">—</p>
-                  <p id="prev-car-reg" class="text-black font-mono font-black uppercase tracking-wider text-xs">—</p>
-                  <p class="text-[11px] text-black font-bold">Service Advisor: <strong class="text-black">Sohail Mulani (Lead Engineer)</strong></p>
-                </div>
-              </div>
-
-              <!-- Itemized Table (Solid Black Professional Borders & Typography) -->
-              <div class="py-4">
-                <table class="w-full text-left text-xs border-collapse">
-                  <thead>
-                    <tr class="bg-slate-950 text-white font-mono uppercase text-xs">
-                      <th class="py-3 px-2.5 w-10 text-center rounded-l-lg text-white font-black">#</th>
-                      <th class="py-3 px-3 text-white font-black">Service / Genuine Part Description</th>
-                      <th class="py-3 px-3 text-center w-14 text-white font-black">Qty</th>
-                      <th class="py-3 px-3 text-right w-28 text-white font-black">Rate (₹)</th>
-                      <th class="py-3 px-3 text-right w-32 rounded-r-lg text-white font-black">Amount (₹)</th>
-                    </tr>
-                  </thead>
-                  <tbody id="prev-items-body" class="divide-y-2 divide-slate-200 text-black">
-                    <!-- Dynamic preview rows injected with solid black text by JS -->
-                  </tbody>
-                </table>
-              </div>
-
-              <!-- Financials Summary & Amount in Words Grid -->
-              <div class="pt-4 border-t-2 border-slate-950 grid grid-cols-1 sm:grid-cols-12 gap-4 items-start">
-                
-                <!-- Left: Amount in Words & Payment Instructions (7 cols) -->
-                <div class="sm:col-span-7 space-y-2 text-xs">
-                  <div class="bg-slate-100 p-3.5 rounded-xl border-2 border-slate-900">
-                    <span class="text-[11px] font-black font-mono text-black uppercase tracking-wider block mb-0.5">AMOUNT IN WORDS (INR):</span>
-                    <p id="prev-words-amount" class="text-xs font-black text-black italic leading-tight">
-                      Rupees Zero Only
-                    </p>
-                  </div>
-
-                  <div class="p-3 rounded-xl border-2 border-slate-900 bg-amber-50/50 text-[11px] text-black font-bold space-y-0.5">
-                    <span class="font-black text-black block text-xs">Payment Mode / Digital Settlement:</span>
-                    <p>UPI ID: <strong class="font-mono text-black font-black">7757030387@upi</strong> | GPay / PhonePe: <strong class="font-mono text-black font-black">+91 7757030387</strong></p>
-                    <p>Cash, Bank Transfer & Card Swipes accepted at workshop counter.</p>
+                  <div class="text-right flex flex-col items-end">
+                    <div class="inline-block px-2.5 py-0.5 text-[9px] font-mono font-black invoice-stamp rounded mb-1">
+                      WE CARE AUDITED & SEALED
+                    </div>
+                    <span class="text-black font-black text-xs leading-tight">Sohail Mulani</span>
+                    <span class="text-[9px] text-slate-800 font-bold leading-tight">Lead Workshop Engineer / Signatory</span>
                   </div>
                 </div>
 
-                <!-- Right: Calculation Breakdown (5 cols) -->
-                <div class="sm:col-span-5 space-y-1.5 text-xs font-mono">
-                  <div class="flex justify-between text-black py-0.5">
-                    <span class="font-bold">Subtotal:</span>
-                    <span id="prev-subtotal" class="font-black text-sm text-black">₹0</span>
-                  </div>
-
-                  <div class="flex justify-between text-black py-0.5" id="prev-tax-row">
-                    <span id="prev-tax-label" class="font-bold">GST (18%):</span>
-                    <span id="prev-tax-amount" class="font-black text-sm text-black">₹0</span>
-                  </div>
-
-                  <div class="flex justify-between text-emerald-800 py-0.5" id="prev-discount-row">
-                    <span class="font-bold">Special Discount:</span>
-                    <span id="prev-discount-amount" class="font-black text-sm text-emerald-800">-₹0</span>
-                  </div>
-
-                  <div class="flex justify-between items-center pt-2 border-t-2 border-slate-950 font-sans mt-2 bg-slate-950 text-white p-3 rounded-xl border-2 border-slate-900">
-                    <span class="text-xs sm:text-sm font-black uppercase tracking-tight text-white">Total Payable:</span>
-                    <span id="prev-grand-total" class="text-lg sm:text-xl font-black text-amber-400 font-mono">₹0</span>
-                  </div>
-                </div>
-
-              </div>
-
-              <!-- Warranty Note, Terms & Official Stamp -->
-              <div class="mt-6 pt-4 border-t-2 border-slate-900 grid grid-cols-1 sm:grid-cols-2 gap-4 items-end text-[11px]">
-                <div class="space-y-1">
-                  <span class="font-black text-black block text-xs">Official Warranty & Workshop Terms:</span>
-                  <p id="prev-warranty-term" class="text-xs leading-relaxed font-black text-amber-800">
-                    12-Month / 10,000 KM Official Workshop Warranty
-                  </p>
-                  <ul class="text-[10px] text-black font-bold list-disc pl-4 space-y-0.5">
-                    <li>All parts fitted are 100% Genuine OEM with manufacturer warranty.</li>
-                    <li>Vehicle inspected & road-tested before delivery handover.</li>
-                    <li>Digital service trail and photos stored in We Care records.</li>
-                  </ul>
-                </div>
-
-                <div class="text-left sm:text-right flex flex-col sm:items-end">
-                  <div class="inline-block px-3 py-1 text-[10px] font-mono font-black invoice-stamp rounded mb-2">
-                    WE CARE AUDITED & SEALED
-                  </div>
-                  <span class="text-black font-black text-sm">Sohail Mulani</span>
-                  <span class="text-[11px] text-black font-black">Authorized Signatory / Lead Engineer</span>
-                </div>
               </div>
 
             </div>

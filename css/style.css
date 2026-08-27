@@ -1269,31 +1269,31 @@ button {
 }
 
 /* ==========================================================================
-   DIGITAL INVOICE & ESTIMATION GENERATOR MODULE (Executive Studio Suite)
+   DIGITAL INVOICE & ESTIMATION GENERATOR MODULE (Single A4 Standard)
    ========================================================================== */
 .invoice-builder-card {
   background: #ffffff !important;
-  border: 2px solid #cbd5e1 !important;
-  box-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(15, 23, 42, 0.05) !important;
+  border: 1.5px solid #cbd5e1 !important;
+  box-shadow: 0 12px 32px -8px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(15, 23, 42, 0.04) !important;
 }
 
-/* High-Contrast Crisp Input Fields with Bold Black Typed Text */
+/* Crisp Input Fields with High-Contrast Text */
 .invoice-input-field {
   background-color: #f8fafc !important;
-  border: 2px solid #cbd5e1 !important;
+  border: 1.5px solid #cbd5e1 !important;
   color: #000000 !important;
-  font-weight: 700 !important;
-  font-size: 14px !important;
+  font-weight: 600 !important;
+  font-size: 13px !important;
   font-family: 'Plus Jakarta Sans', sans-serif !important;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04) !important;
-  transition: all 0.2s ease-in-out !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03) !important;
+  transition: all 0.15s ease-in-out !important;
 }
 
 .invoice-input-field:focus {
   background-color: #ffffff !important;
   border-color: #d97706 !important;
   color: #000000 !important;
-  box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.2), inset 0 1px 2px rgba(0, 0, 0, 0.04) !important;
+  box-shadow: 0 0 0 2.5px rgba(217, 119, 6, 0.2), inset 0 1px 2px rgba(0, 0, 0, 0.03) !important;
   outline: none !important;
 }
 
@@ -1305,24 +1305,46 @@ button {
 .invoice-input-field option {
   background-color: #ffffff !important;
   color: #000000 !important;
-  font-weight: 700 !important;
-  padding: 8px 12px !important;
+  font-weight: 600 !important;
+  padding: 6px 10px !important;
 }
 
-/* Ensure all input, select, textarea elements in invoice generator have solid black typed text */
 #invoice-generator input,
 #invoice-generator select,
 #invoice-generator textarea {
   color: #000000 !important;
 }
 
-/* Authentic Printable White Invoice Paper Sheet (Dealership Standard) */
+/* Mobile viewport wrapper for A4 Paper Preview */
+.invoice-sheet-viewport {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+.invoice-sheet-viewport::-webkit-scrollbar {
+  height: 5px;
+}
+
+.invoice-sheet-viewport::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+/* Single A4 Dealership Invoice Paper Sheet */
 .invoice-paper-sheet {
   background: #ffffff !important;
   color: #000000 !important;
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
-  border: 2px solid #0f172a !important;
-  box-shadow: 0 25px 60px -15px rgba(15, 23, 42, 0.2), 0 0 0 1px rgba(15, 23, 42, 0.05) !important;
+  border: 1.5px solid #0f172a !important;
+  box-shadow: 0 15px 40px -10px rgba(15, 23, 42, 0.18), 0 0 0 1px rgba(15, 23, 42, 0.06) !important;
+  width: 100%;
+  max-width: 680px;
+  padding: 16px 20px !important;
+  box-sizing: border-box !important;
+  border-radius: 12px;
+  line-height: 1.35 !important;
 }
 
 .invoice-paper-sheet * {
@@ -1339,57 +1361,86 @@ button {
   background-color: #0f172a !important;
   color: #ffffff !important;
 }
+
 .invoice-paper-sheet .bg-slate-900 *,
 .invoice-paper-sheet .bg-slate-950 * {
   color: #ffffff !important;
 }
 
-.invoice-paper-sheet .inv-text-black {
-  color: #000000 !important;
-  font-weight: 800 !important;
-}
-
-.invoice-paper-sheet .inv-text-slate {
-  color: #0f172a !important;
-  font-weight: 600 !important;
-}
-
-.invoice-paper-sheet .inv-text-amber {
-  color: #92400e !important;
-  font-weight: 800 !important;
-}
-
 .invoice-stamp {
-  border: 2.5px dashed #b45309 !important;
+  border: 2px dashed #b45309 !important;
   color: #92400e !important;
   font-weight: 900 !important;
-  transform: rotate(-3deg);
+  transform: rotate(-2deg);
   background: rgba(245, 158, 11, 0.08) !important;
+  letter-spacing: 0.5px;
 }
 
-/* Dedicated Print Stylesheet */
+/* On mobile screens, ensure the A4 sheet maintains clean min-width */
+@media (max-width: 640px) {
+  .invoice-paper-sheet {
+    min-width: 520px;
+    padding: 14px 16px !important;
+  }
+}
+
+/* ==========================================================================
+   STRICT SINGLE-PAGE A4 PRINT STYLESHEET
+   ========================================================================== */
+@page {
+  size: A4 portrait;
+  margin: 6mm 8mm;
+}
+
 @media print {
+  html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    height: 100% !important;
+    overflow: hidden !important;
+  }
+
   body * {
     visibility: hidden;
   }
-  #printable-invoice-paper, #printable-invoice-paper * {
+
+  #printable-invoice-paper,
+  #printable-invoice-paper * {
     visibility: visible;
   }
+
   #printable-invoice-paper {
-    position: absolute;
-    left: 0;
-    top: 0;
+    position: fixed !important;
+    left: 0 !important;
+    top: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
+    min-width: 100% !important;
+    height: auto !important;
+    max-height: 282mm !important;
     margin: 0 !important;
-    padding: 12mm !important;
+    padding: 0 !important;
     box-shadow: none !important;
     border: none !important;
+    border-radius: 0 !important;
     background: #ffffff !important;
     color: #000000 !important;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
+
+  .invoice-sheet-viewport {
+    overflow: visible !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
   .no-print {
     display: none !important;
   }

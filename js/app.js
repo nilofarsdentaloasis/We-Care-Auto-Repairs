@@ -730,7 +730,7 @@ function initFeaturedProjectCarousel() {
   startTimer();
 }
 
-// 8. Digital Invoice & Service Bill Generator Engine (Persistence & Dealership Standard)
+// 8. Digital Invoice & Service Bill Generator Engine (Single A4 Page Standard)
 function initInvoiceGenerator() {
   const section = document.getElementById('invoice-generator');
   if (!section) return;
@@ -746,6 +746,12 @@ function initInvoiceGenerator() {
   const savedListContainer = document.getElementById('saved-invoices-list');
   const searchHistoryInput = document.getElementById('search-saved-invoices');
   const clearAllHistoryBtn = document.getElementById('btn-clear-all-history');
+
+  // Mobile View Switchers
+  const mobileViewFormBtn = document.getElementById('mobile-view-form-btn');
+  const mobileViewPreviewBtn = document.getElementById('mobile-view-preview-btn');
+  const colInvoiceBuilder = document.getElementById('col-invoice-builder');
+  const colInvoicePreview = document.getElementById('col-invoice-preview');
 
   // Form Inputs
   const custNameInput = document.getElementById('inv-cust-name');
@@ -789,12 +795,12 @@ function initInvoiceGenerator() {
   const prevWarrantyTerm = document.getElementById('prev-warranty-term');
   const printableSheet = document.getElementById('printable-invoice-paper');
 
-  // Default Items State (Empty by default)
+  // Default Items State (Initial blank item)
   let lineItems = [
     { desc: '', qty: 1, price: 0 }
   ];
 
-  // Set today's date
+  // Set today's date if empty
   if (invDateInput && !invDateInput.value) {
     const today = new Date().toISOString().split('T')[0];
     invDateInput.value = today;
@@ -858,6 +864,25 @@ function initInvoiceGenerator() {
     return res.trim() + ' Only';
   }
 
+  // Mobile View Switcher Event Handlers
+  if (mobileViewFormBtn && mobileViewPreviewBtn) {
+    mobileViewFormBtn.addEventListener('click', () => {
+      mobileViewFormBtn.className = 'px-4 py-2 rounded-lg text-xs font-bold font-[\'Plus_Jakarta_Sans\',sans-serif] transition-all bg-amber-500 text-slate-950 shadow-sm flex items-center space-x-1.5 cursor-pointer';
+      mobileViewPreviewBtn.className = 'px-4 py-2 rounded-lg text-xs font-bold font-[\'Plus_Jakarta_Sans\',sans-serif] transition-all text-slate-700 hover:text-slate-950 flex items-center space-x-1.5 cursor-pointer';
+      if (colInvoiceBuilder) {
+        colInvoiceBuilder.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+
+    mobileViewPreviewBtn.addEventListener('click', () => {
+      mobileViewPreviewBtn.className = 'px-4 py-2 rounded-lg text-xs font-bold font-[\'Plus_Jakarta_Sans\',sans-serif] transition-all bg-amber-500 text-slate-950 shadow-sm flex items-center space-x-1.5 cursor-pointer';
+      mobileViewFormBtn.className = 'px-4 py-2 rounded-lg text-xs font-bold font-[\'Plus_Jakarta_Sans\',sans-serif] transition-all text-slate-700 hover:text-slate-950 flex items-center space-x-1.5 cursor-pointer';
+      if (colInvoicePreview) {
+        colInvoicePreview.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  }
+
   // ==========================================
   // STORAGE & HISTORY SYSTEM (localStorage)
   // ==========================================
@@ -880,7 +905,7 @@ function initInvoiceGenerator() {
     const taxRate = taxRateSelect ? parseFloat(taxRateSelect.value) || 0 : 18;
     const discount = discountInput ? Math.max(0, parseFloat(discountInput.value) || 0) : 0;
     const payStatus = payStatusSelect ? payStatusSelect.value : 'PAID';
-    const warrantyTerm = warrantySelect ? warrantySelect.value : '12-Month / 10,000 KM Warranty';
+    const warrantyTerm = warrantySelect ? warrantySelect.value : '12-Month / 10,000 KM Official Workshop Warranty';
     const grandTotal = prevGrandTotal ? prevGrandTotal.textContent : '₹0';
 
     const invoiceRecord = {
@@ -916,14 +941,12 @@ function initInvoiceGenerator() {
     updateHistoryBadge();
     renderSavedInvoicesList();
 
-    if (showToast) {
-      if (saveInvoiceBtn) {
-        const originalText = saveInvoiceBtn.innerHTML;
-        saveInvoiceBtn.innerHTML = `<span class="material-symbols-outlined text-[16px] text-emerald-800">check_circle</span><span class="text-emerald-950 font-black">Saved to Records!</span>`;
-        setTimeout(() => {
-          saveInvoiceBtn.innerHTML = originalText;
-        }, 1800);
-      }
+    if (showToast && saveInvoiceBtn) {
+      const originalText = saveInvoiceBtn.innerHTML;
+      saveInvoiceBtn.innerHTML = `<span class="material-symbols-outlined text-[16px] text-emerald-800">check_circle</span><span class="text-emerald-950 font-black">Saved!</span>`;
+      setTimeout(() => {
+        saveInvoiceBtn.innerHTML = originalText;
+      }, 1800);
     }
   }
 
@@ -987,43 +1010,43 @@ function initInvoiceGenerator() {
 
     if (!filtered.length) {
       savedListContainer.innerHTML = `
-        <div class="text-center py-8 px-4 bg-slate-50 rounded-xl border-2 border-dashed border-slate-200 text-slate-500">
-          <span class="material-symbols-outlined text-3xl text-slate-400 mb-1">receipt_long</span>
+        <div class="text-center py-6 px-3 bg-slate-50 rounded-xl border border-dashed border-slate-300 text-slate-500">
+          <span class="material-symbols-outlined text-2xl text-slate-400 mb-0.5">receipt_long</span>
           <p class="text-xs font-bold text-slate-700">${query ? 'No matching invoices found.' : 'No saved invoices yet.'}</p>
-          <p class="text-[11px] text-slate-500 mt-1">Generated bills will be saved here automatically.</p>
+          <p class="text-[10px] text-slate-500 mt-0.5">Saved bills appear here.</p>
         </div>
       `;
       return;
     }
 
     savedListContainer.innerHTML = filtered.map(inv => `
-      <div class="p-3.5 bg-slate-50 rounded-xl border-2 border-slate-200 hover:border-amber-500 transition-all space-y-2 shadow-sm">
+      <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 hover:border-amber-500 transition-all space-y-1.5 shadow-2xs">
         <div class="flex items-start justify-between">
           <div>
-            <div class="flex items-center space-x-2">
+            <div class="flex items-center space-x-1.5">
               <span class="font-mono text-xs font-black text-slate-900">${inv.id}</span>
-              <span class="text-[10px] font-black px-2 py-0.5 rounded-full ${inv.payStatus === 'PAID' ? 'bg-emerald-100 text-emerald-900 border border-emerald-400' : 'bg-amber-100 text-amber-900 border border-amber-400'}">${inv.payStatus || 'PAID'}</span>
+              <span class="text-[9px] font-black px-1.5 py-0.5 rounded-full ${inv.payStatus === 'PAID' ? 'bg-emerald-100 text-emerald-900 border border-emerald-400' : 'bg-amber-100 text-amber-900 border border-amber-400'}">${inv.payStatus || 'PAID'}</span>
             </div>
-            <p class="text-xs font-black text-slate-950 mt-1">${inv.custName || 'Customer'} <span class="font-bold text-slate-600">(${inv.carModel || 'Car'})</span></p>
-            <p class="text-[11px] font-mono text-slate-600">${inv.carReg || 'No Reg'} • Date: ${formatDateDisplay(inv.date)}</p>
+            <p class="text-xs font-black text-slate-950 mt-0.5">${inv.custName || 'Customer'} <span class="font-bold text-slate-600">(${inv.carModel || 'Car'})</span></p>
+            <p class="text-[10px] font-mono text-slate-600">${inv.carReg || 'No Reg'} • ${formatDateDisplay(inv.date)}</p>
           </div>
           <div class="text-right">
-            <span class="font-mono font-black text-base text-amber-800 block">${inv.grandTotal || '₹0'}</span>
-            <span class="text-[11px] text-slate-600 font-mono font-bold">${(inv.lineItems || []).length} Item(s)</span>
+            <span class="font-mono font-black text-sm text-amber-900 block">${inv.grandTotal || '₹0'}</span>
+            <span class="text-[10px] text-slate-600 font-mono font-bold">${(inv.lineItems || []).length} Item(s)</span>
           </div>
         </div>
 
-        <div class="pt-2 border-t border-slate-200 flex items-center justify-between gap-1 text-[11px]">
-          <button type="button" class="btn-load-history px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-black transition-colors cursor-pointer shadow-sm" data-id="${inv.id}">
+        <div class="pt-1.5 border-t border-slate-200 flex items-center justify-between gap-1 text-[11px]">
+          <button type="button" class="btn-load-history px-2.5 py-1 rounded-md bg-amber-500 hover:bg-amber-400 text-slate-950 font-black transition-colors cursor-pointer text-xs shadow-2xs" data-id="${inv.id}">
             Load & Edit
           </button>
           
-          <div class="flex items-center space-x-1.5">
-            <button type="button" class="btn-whatsapp-history p-1.5 rounded-lg bg-[#25D366]/15 hover:bg-[#25D366] text-[#25D366] hover:text-white transition-colors cursor-pointer border border-[#25D366]/30" data-id="${inv.id}" title="Send via WhatsApp">
-              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.04 14.69 2 12.04 2ZM12.04 20.15C10.56 20.15 9.11 19.76 7.85 19.01L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.8 13.47 3.8 11.91C3.8 7.37 7.5 3.67 12.04 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15ZM16.56 14.41C16.31 14.29 15.09 13.69 14.86 13.61C14.64 13.52 14.47 13.48 14.31 13.73C14.14 13.97 13.67 14.53 13.52 14.69C13.38 14.86 13.23 14.88 12.98 14.76C12.74 14.64 11.95 14.38 11.02 13.55C10.29 12.9 9.8 12.1 9.68 11.85C9.55 11.61 9.66 11.47 9.79 11.35C9.9 11.24 10.03 11.07 10.15 10.93C10.28 10.78 10.32 10.68 10.4 10.51C10.48 10.35 10.44 10.21 10.38 10.08C10.32 9.96 9.83 8.76 9.63 8.26C9.43 7.78 9.23 7.84 9.08 7.83C8.94 7.83 8.77 7.83 8.61 7.83C8.44 7.83 8.18 7.89 7.95 8.14C7.72 8.38 7.08 8.98 7.08 10.21C7.08 11.44 7.97 12.62 8.1 12.79C8.22 12.96 9.86 15.48 12.36 16.56C12.96 16.82 13.42 16.97 13.78 17.09C14.38 17.28 14.93 17.25 15.36 17.19C15.84 17.12 16.84 16.58 17.05 16C17.25 15.41 17.25 14.91 17.19 14.8C17.13 14.7 16.98 14.64 16.73 14.52L16.56 14.41Z"/></svg>
+          <div class="flex items-center space-x-1">
+            <button type="button" class="btn-whatsapp-history p-1 rounded-md bg-[#25D366]/15 hover:bg-[#25D366] text-[#25D366] hover:text-white transition-colors cursor-pointer border border-[#25D366]/30" data-id="${inv.id}" title="Send via WhatsApp">
+              <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.04 14.69 2 12.04 2ZM12.04 20.15C10.56 20.15 9.11 19.76 7.85 19.01L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.8 13.47 3.8 11.91C3.8 7.37 7.5 3.67 12.04 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15ZM16.56 14.41C16.31 14.29 15.09 13.69 14.86 13.61C14.64 13.52 14.47 13.48 14.31 13.73C14.14 13.97 13.67 14.53 13.52 14.69C13.38 14.86 13.23 14.88 12.98 14.76C12.74 14.64 11.95 14.38 11.02 13.55C10.29 12.9 9.8 12.1 9.68 11.85C9.55 11.61 9.66 11.47 9.79 11.35C9.9 11.24 10.03 11.07 10.15 10.93C10.28 10.78 10.32 10.68 10.4 10.51C10.48 10.35 10.44 10.21 10.38 10.08C10.32 9.96 9.83 8.76 9.63 8.26C9.43 7.78 9.23 7.84 9.08 7.83C8.94 7.83 8.77 7.83 8.61 7.83C8.44 7.83 8.18 7.89 7.95 8.14C7.72 8.38 7.08 8.98 7.08 10.21C7.08 11.44 7.97 12.62 8.1 12.79C8.22 12.96 9.86 15.48 12.36 16.56C12.96 16.82 13.42 16.97 13.78 17.09C14.38 17.28 14.93 17.25 15.36 17.19C15.84 17.12 16.84 16.58 17.05 16C17.25 15.41 17.25 14.91 17.19 14.8C17.13 14.7 16.98 14.64 16.73 14.52L16.56 14.41Z"/></svg>
             </button>
-            <button type="button" class="btn-delete-history p-1.5 rounded-lg bg-red-100 hover:bg-red-500 text-red-600 hover:text-white transition-colors cursor-pointer border border-red-300" data-id="${inv.id}" title="Delete Invoice">
-              <span class="material-symbols-outlined text-[16px]">delete</span>
+            <button type="button" class="btn-delete-history p-1 rounded-md bg-red-100 hover:bg-red-500 text-red-600 hover:text-white transition-colors cursor-pointer border border-red-200" data-id="${inv.id}" title="Delete Invoice">
+              <span class="material-symbols-outlined text-[15px]">delete</span>
             </button>
           </div>
         </div>
@@ -1055,19 +1078,19 @@ function initInvoiceGenerator() {
   function switchTab(tab) {
     if (tab === 'editor') {
       if (tabBtnEditor) {
-        tabBtnEditor.className = 'px-4 py-2 rounded-xl text-xs font-[\'Plus_Jakarta_Sans\',sans-serif] font-black transition-all bg-amber-500 hover:bg-amber-400 text-slate-950 cursor-pointer flex items-center space-x-1.5 shadow-sm';
+        tabBtnEditor.className = 'px-3.5 py-1.5 rounded-xl text-xs font-[\'Plus_Jakarta_Sans\',sans-serif] font-black transition-all bg-amber-500 hover:bg-amber-400 text-slate-950 cursor-pointer flex items-center space-x-1.5 shadow-sm';
       }
       if (tabBtnHistory) {
-        tabBtnHistory.className = 'px-4 py-2 rounded-xl text-xs font-[\'Plus_Jakarta_Sans\',sans-serif] font-bold transition-all bg-slate-100 hover:bg-slate-200 text-slate-800 cursor-pointer flex items-center space-x-1.5 border border-slate-300';
+        tabBtnHistory.className = 'px-3.5 py-1.5 rounded-xl text-xs font-[\'Plus_Jakarta_Sans\',sans-serif] font-bold transition-all bg-slate-100 hover:bg-slate-200 text-slate-800 cursor-pointer flex items-center space-x-1.5 border border-slate-300';
       }
       if (panelEditor) panelEditor.classList.remove('hidden');
       if (panelHistory) panelHistory.classList.add('hidden');
     } else {
       if (tabBtnEditor) {
-        tabBtnEditor.className = 'px-4 py-2 rounded-xl text-xs font-[\'Plus_Jakarta_Sans\',sans-serif] font-bold transition-all bg-slate-100 hover:bg-slate-200 text-slate-800 cursor-pointer flex items-center space-x-1.5 border border-slate-300';
+        tabBtnEditor.className = 'px-3.5 py-1.5 rounded-xl text-xs font-[\'Plus_Jakarta_Sans\',sans-serif] font-bold transition-all bg-slate-100 hover:bg-slate-200 text-slate-800 cursor-pointer flex items-center space-x-1.5 border border-slate-300';
       }
       if (tabBtnHistory) {
-        tabBtnHistory.className = 'px-4 py-2 rounded-xl text-xs font-[\'Plus_Jakarta_Sans\',sans-serif] font-black transition-all bg-amber-500 hover:bg-amber-400 text-slate-950 cursor-pointer flex items-center space-x-1.5 shadow-sm';
+        tabBtnHistory.className = 'px-3.5 py-1.5 rounded-xl text-xs font-[\'Plus_Jakarta_Sans\',sans-serif] font-black transition-all bg-amber-500 hover:bg-amber-400 text-slate-950 cursor-pointer flex items-center space-x-1.5 shadow-sm';
       }
       if (panelEditor) panelEditor.classList.add('hidden');
       if (panelHistory) panelHistory.classList.remove('hidden');
@@ -1104,20 +1127,20 @@ function initInvoiceGenerator() {
 
     lineItems.forEach((item, index) => {
       const row = document.createElement('div');
-      row.className = 'grid grid-cols-12 gap-2 items-center bg-slate-50 p-2.5 rounded-xl border-2 border-slate-200 shadow-sm';
+      row.className = 'grid grid-cols-12 gap-1.5 items-center bg-slate-50 p-2 rounded-lg border border-slate-200 shadow-2xs';
       row.innerHTML = `
         <div class="col-span-6 sm:col-span-7">
-          <input type="text" class="item-desc-input invoice-input-field w-full px-3 py-2 rounded-lg text-xs font-bold" value="${item.desc || ''}" placeholder="Service / Part description..." data-index="${index}">
+          <input type="text" class="item-desc-input invoice-input-field w-full px-2.5 py-1.5 rounded-md text-xs font-bold" value="${item.desc || ''}" placeholder="Service / Part description..." data-index="${index}">
         </div>
         <div class="col-span-2 sm:col-span-2">
-          <input type="number" class="item-qty-input invoice-input-field w-full px-2 py-2 rounded-lg text-xs text-center font-mono font-black" value="${item.qty || 1}" min="1" step="1" data-index="${index}" title="Qty">
+          <input type="number" class="item-qty-input invoice-input-field w-full px-1.5 py-1.5 rounded-md text-xs text-center font-mono font-bold" value="${item.qty || 1}" min="1" step="1" data-index="${index}" title="Qty">
         </div>
         <div class="col-span-3 sm:col-span-2">
-          <input type="number" class="item-price-input invoice-input-field w-full px-2.5 py-2 rounded-lg text-xs text-right font-mono font-black" value="${item.price || 0}" min="0" step="50" data-index="${index}" title="Price (₹)">
+          <input type="number" class="item-price-input invoice-input-field w-full px-2 py-1.5 rounded-md text-xs text-right font-mono font-bold" value="${item.price || 0}" min="0" step="50" data-index="${index}" title="Rate (₹)">
         </div>
         <div class="col-span-1 flex justify-center">
-          <button type="button" class="item-delete-btn text-red-500 hover:text-red-700 hover:bg-red-50 p-1.5 rounded-lg transition-colors cursor-pointer" data-index="${index}" title="Delete Item">
-            <span class="material-symbols-outlined text-[18px]">delete</span>
+          <button type="button" class="item-delete-btn text-red-500 hover:text-red-700 hover:bg-red-50 p-1 rounded-md transition-colors cursor-pointer" data-index="${index}" title="Delete Item">
+            <span class="material-symbols-outlined text-[16px]">delete</span>
           </button>
         </div>
       `;
@@ -1157,7 +1180,7 @@ function initInvoiceGenerator() {
           renderItemRows();
           updateLivePreview();
         } else {
-          // If only 1 row, just clear it
+          // If only 1 row, reset it
           lineItems[0] = { desc: '', qty: 1, price: 0 };
           renderItemRows();
           updateLivePreview();
@@ -1166,9 +1189,9 @@ function initInvoiceGenerator() {
     });
   }
 
-  // Update Preview Document with Solid Black Text & Crisp Alignment
+  // Update Preview Document with Solid Black Text & Strict Single A4 Proportions
   function updateLivePreview() {
-    // 1. Customer & Vehicle Metadata (Empty-safe with neat placeholders)
+    // 1. Customer & Vehicle Metadata
     const custName = custNameInput ? custNameInput.value.trim() : '';
     const custPhone = custPhoneInput ? custPhoneInput.value.trim() : '';
     const carModel = carModelInput ? carModelInput.value.trim() : '';
@@ -1189,15 +1212,15 @@ function initInvoiceGenerator() {
     if (prevInvStatus) {
       prevInvStatus.textContent = payStatus;
       if (payStatus === 'PAID') {
-        prevInvStatus.className = 'inline-block px-3 py-0.5 rounded-full text-[10px] font-black tracking-wider uppercase bg-emerald-100 text-emerald-900 border border-emerald-400';
+        prevInvStatus.className = 'inline-block px-2.5 py-0.5 rounded-full text-[9px] font-black tracking-wider uppercase bg-emerald-100 text-emerald-950 border border-emerald-500';
       } else if (payStatus === 'PENDING') {
-        prevInvStatus.className = 'inline-block px-3 py-0.5 rounded-full text-[10px] font-black tracking-wider uppercase bg-amber-100 text-amber-900 border border-amber-400';
+        prevInvStatus.className = 'inline-block px-2.5 py-0.5 rounded-full text-[9px] font-black tracking-wider uppercase bg-amber-100 text-amber-950 border border-amber-500';
       } else {
-        prevInvStatus.className = 'inline-block px-3 py-0.5 rounded-full text-[10px] font-black tracking-wider uppercase bg-blue-100 text-blue-900 border border-blue-400';
+        prevInvStatus.className = 'inline-block px-2.5 py-0.5 rounded-full text-[9px] font-black tracking-wider uppercase bg-blue-100 text-blue-950 border border-blue-500';
       }
     }
 
-    // 2. Build Item Table Rows with Solid Black Typography
+    // 2. Build Item Table Rows with High-Contrast Typography
     if (prevItemsBody) {
       prevItemsBody.innerHTML = '';
       let subtotal = 0;
@@ -1207,13 +1230,13 @@ function initInvoiceGenerator() {
         subtotal += itemTotal;
 
         const tr = document.createElement('tr');
-        tr.className = 'border-b-2 border-slate-200 text-black';
+        tr.className = 'border-b border-slate-200 text-black';
         tr.innerHTML = `
-          <td class="py-3 px-2.5 text-center font-mono font-black text-black text-xs">${String(i + 1).padStart(2, '0')}</td>
-          <td class="py-3 px-3 font-bold text-black text-xs leading-snug">${item.desc ? item.desc : '<span class="text-slate-400 font-normal italic">Service / Part description</span>'}</td>
-          <td class="py-3 px-3 text-center font-mono font-black text-black text-xs">${item.qty || 1}</td>
-          <td class="py-3 px-3 text-right font-mono font-bold text-black text-xs">${formatCurrency(item.price || 0)}</td>
-          <td class="py-3 px-3 text-right font-mono font-black text-black text-xs">${formatCurrency(itemTotal)}</td>
+          <td class="py-1.5 px-2 text-center font-mono font-bold text-black text-[11px]">${String(i + 1).padStart(2, '0')}</td>
+          <td class="py-1.5 px-2 font-bold text-black text-[11px] leading-snug">${item.desc ? item.desc : '<span class="text-slate-400 font-normal italic">Service / Part description</span>'}</td>
+          <td class="py-1.5 px-2 text-center font-mono font-bold text-black text-[11px]">${item.qty || 1}</td>
+          <td class="py-1.5 px-2 text-right font-mono font-bold text-black text-[11px]">${formatCurrency(item.price || 0)}</td>
+          <td class="py-1.5 px-2 text-right font-mono font-black text-black text-[11px]">${formatCurrency(itemTotal)}</td>
         `;
         prevItemsBody.appendChild(tr);
       });
@@ -1328,7 +1351,7 @@ function initInvoiceGenerator() {
     if (el) el.addEventListener('change', updateLivePreview);
   });
 
-  // PDF Export Handler via html2pdf with auto-save
+  // Single A4 PDF Export Handler via html2pdf
   if (downloadPdfBtn) {
     downloadPdfBtn.addEventListener('click', async (e) => {
       e.preventDefault();
@@ -1338,7 +1361,7 @@ function initInvoiceGenerator() {
       saveCurrentInvoice(false);
 
       const originalBtnHtml = downloadPdfBtn.innerHTML;
-      downloadPdfBtn.innerHTML = `<span class="material-symbols-outlined text-[18px] animate-spin">sync</span><span>Generating PDF...</span>`;
+      downloadPdfBtn.innerHTML = `<span class="material-symbols-outlined text-[17px] animate-spin">sync</span><span>Creating A4 PDF...</span>`;
       downloadPdfBtn.disabled = true;
 
       const invNum = invNumberInput ? invNumberInput.value.trim() : 'WCAR-BILL';
@@ -1347,11 +1370,22 @@ function initInvoiceGenerator() {
 
       if (window.html2pdf) {
         const opt = {
-          margin: [8, 8, 8, 8],
+          margin: [6, 8, 6, 8],
           filename: filename,
           image: { type: 'jpeg', quality: 0.98 },
-          html2canvas: { scale: 2, useCORS: true, letterRendering: true, scrollY: 0 },
-          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+          html2canvas: {
+            scale: 2,
+            useCORS: true,
+            letterRendering: true,
+            scrollY: 0,
+            scrollX: 0
+          },
+          jsPDF: {
+            unit: 'mm',
+            format: 'a4',
+            orientation: 'portrait'
+          },
+          pagebreak: { mode: ['avoid-all', 'css'] }
         };
 
         try {
@@ -1401,8 +1435,10 @@ function initInvoiceGenerator() {
       // Build Itemized Text
       let itemsSummary = '';
       lineItems.forEach((it, idx) => {
-        const itemTot = formatCurrency((it.qty || 1) * (it.price || 0));
-        itemsSummary += `• ${it.desc} (${it.qty}x) — *${itemTot}*\n`;
+        if (it.desc || it.price) {
+          const itemTot = formatCurrency((it.qty || 1) * (it.price || 0));
+          itemsSummary += `• ${it.desc || 'Service Item'} (${it.qty || 1}x) — *${itemTot}*\n`;
+        }
       });
 
       const message = 
@@ -1415,8 +1451,7 @@ function initInvoiceGenerator() {
 📌 *Status:* ${payStatus}
 
 🔧 *ITEMIZED SERVICES & SPARES:*
-${itemsSummary}
-━━━━━━━━━━━━━━━━━━━━━━
+${itemsSummary || '• Comprehensive Vehicle Inspection & Service\n'}━━━━━━━━━━━━━━━━━━━━━━
 💵 *Subtotal:* ${subtotal}
 💰 *GRAND TOTAL:* *${grandTotal}*
 📝 *Amount in Words:* ${inWords}
@@ -1432,7 +1467,7 @@ _Thank you for choosing We Care Auto Repair for your vehicle service!_`;
     });
   }
 
-  // Print Invoice direct
+  // Print Invoice direct (1-Page A4)
   if (printInvoiceBtn) {
     printInvoiceBtn.addEventListener('click', (e) => {
       e.preventDefault();
