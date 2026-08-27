@@ -55,15 +55,22 @@ try {
             $response.AddHeader("Access-Control-Allow-Origin", "*")
             $response.AddHeader("Cache-Control", "no-cache")
 
-            $bytes = [System.IO.File]::ReadAllBytes($localFilePath)
-            $response.ContentLength64 = $bytes.Length
-            $response.OutputStream.Write($bytes, 0, $bytes.Length)
+            if ($request.HttpMethod -ne "HEAD") {
+                $bytes = [System.IO.File]::ReadAllBytes($localFilePath)
+                $response.ContentLength64 = $bytes.Length
+                $response.OutputStream.Write($bytes, 0, $bytes.Length)
+            } else {
+                $bytes = [System.IO.File]::ReadAllBytes($localFilePath)
+                $response.ContentLength64 = $bytes.Length
+            }
         } else {
             $response.StatusCode = 404
             $errBytes = [System.Text.Encoding]::UTF8.GetBytes("404 Not Found")
             $response.OutputStream.Write($errBytes, 0, $errBytes.Length)
         }
         $response.OutputStream.Close()
+    } catch {
+        # Continue server loop on connection reset
     }
 } finally {
     $listener.Stop()

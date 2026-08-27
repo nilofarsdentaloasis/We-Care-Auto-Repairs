@@ -134,9 +134,36 @@
       border-bottom: 1px solid rgba(255, 255, 255, 0.12);
       box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.55);
     }
+
+    /* Fixed 40% Opacity Full Page Background */
+    .page-bg-fixed {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .page-bg-fixed img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: 0.40; /* 40% Opacity requested */
+      filter: brightness(0.85) contrast(1.1);
+    }
   </style>
 </head>
-<body class="bg-background text-on-background font-body-md antialiased selection:bg-tertiary selection:text-on-tertiary">
+<body class="bg-background text-on-background font-body-md antialiased selection:bg-tertiary selection:text-on-tertiary relative min-h-screen">
+
+  <!-- Full-Page Automotive Background with 40% Opacity -->
+  <div class="page-bg-fixed" aria-hidden="true">
+    <img src="assets/contact-bg.jpg" alt="We Care Auto Repair Workshop Background"/>
+    <div class="absolute inset-0 bg-gradient-to-b from-[#131313]/60 via-transparent to-[#131313]/80 pointer-events-none"></div>
+  </div>
 
   <!-- TopNavBar (Shared Component) -->
   <nav class="fixed top-0 w-full glass-header z-50 transition-all duration-300" id="topNav">
@@ -192,7 +219,7 @@
     </div>
   </nav>
 
-  <main class="pt-[110px]">
+  <main class="pt-[110px] relative z-10">
     <!-- Contact Header -->
     <section class="py-10 md:py-14 px-margin-mobile md:px-margin-desktop text-center relative overflow-hidden">
       <div class="max-w-3xl mx-auto">
@@ -207,13 +234,13 @@
     </section>
 
     <!-- Contact Grid: Info & Form -->
-    <section class="pb-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+    <section class="pb-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto relative z-10">
       <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
         
         <!-- Left: Workshop Details -->
         <div class="md:col-span-5 flex flex-col justify-between space-y-8">
           <div>
-            <div class="inline-flex items-center space-x-2 bg-tertiary/15 border border-tertiary/30 px-3.5 py-1 rounded-full mb-3">
+            <div class="inline-flex items-center space-x-2 bg-tertiary/15 border border-tertiary/30 px-3.5 py-1 rounded-full mb-3 backdrop-blur-sm">
               <span class="material-symbols-outlined text-tertiary text-[16px]">location_on</span>
               <span class="font-label-caps text-xs text-tertiary uppercase tracking-widest font-bold">Chikhali, Pune</span>
             </div>
@@ -224,7 +251,7 @@
             
             <div class="space-y-4 text-on-surface-variant font-body-md">
               <!-- Location Card -->
-              <div class="flex items-start space-x-4 bg-surface-container-low p-5 rounded-xl shimmer-border">
+              <div class="flex items-start space-x-4 bg-[#1a1a1c]/80 backdrop-blur-xl p-5 rounded-xl shimmer-border hover:border-tertiary/40 transition-all duration-300 shadow-lg">
                 <span class="material-symbols-outlined text-tertiary text-2xl mt-1 shrink-0">pin_drop</span>
                 <div>
                   <h4 class="text-primary font-semibold mb-1">Workshop Address</h4>
@@ -238,14 +265,14 @@
               </div>
 
               <!-- Phone Card -->
-              <div class="flex items-start space-x-4 bg-surface-container-low p-5 rounded-xl shimmer-border">
+              <div class="flex items-start space-x-4 bg-[#1a1a1c]/80 backdrop-blur-xl p-5 rounded-xl shimmer-border hover:border-tertiary/40 transition-all duration-300 shadow-lg">
                 <span class="material-symbols-outlined text-tertiary text-2xl mt-1 shrink-0">call</span>
                 <div>
                   <h4 class="text-primary font-semibold mb-1">Call & WhatsApp Directly</h4>
                   <p class="text-sm font-mono text-tertiary font-bold mb-1">+91 7757030387</p>
                   <p class="text-xs text-on-surface-variant">Sohail Mulani (Founder & Head Technician)</p>
                   <div class="mt-2 flex gap-2">
-                    <a href="tel:+917757030387" class="bg-surface-container hover:bg-tertiary hover:text-on-tertiary text-xs font-label-caps uppercase px-3 py-1.5 rounded-md border border-tertiary/30 transition-colors inline-flex items-center space-x-1">
+                    <a href="tel:+917757030387" class="bg-surface-container/90 hover:bg-tertiary hover:text-on-tertiary text-xs font-label-caps uppercase px-3 py-1.5 rounded-md border border-tertiary/30 transition-colors inline-flex items-center space-x-1">
                       <span class="material-symbols-outlined text-[14px]">call</span>
                       <span>Call Now</span>
                     </a>
@@ -257,7 +284,7 @@
               </div>
 
               <!-- Hours Card -->
-              <div class="flex items-start space-x-4 bg-surface-container-low p-5 rounded-xl shimmer-border">
+              <div class="flex items-start space-x-4 bg-[#1a1a1c]/80 backdrop-blur-xl p-5 rounded-xl shimmer-border hover:border-tertiary/40 transition-all duration-300 shadow-lg">
                 <span class="material-symbols-outlined text-tertiary text-2xl mt-1 shrink-0">schedule</span>
                 <div>
                   <h4 class="text-primary font-semibold mb-1">Working Hours</h4>
@@ -267,7 +294,7 @@
             </div>
           </div>
 
-          <div class="bg-surface-container p-6 rounded-xl shimmer-border">
+          <div class="bg-[#202022]/85 backdrop-blur-xl p-6 rounded-xl shimmer-border border-l-4 border-l-tertiary shadow-lg">
             <h4 class="font-headline-md text-lg text-primary mb-1">Emergency Breakdown & Towing</h4>
             <p class="text-xs font-body-md text-on-surface-variant mb-2">
               Need immediate car towing or roadside assistance in Pune / PCMC?
@@ -280,7 +307,7 @@
         </div>
 
         <!-- Right: Appointment Booking Form -->
-        <div class="md:col-span-7 bg-surface-container-low p-8 md:p-12 rounded-2xl shimmer-border">
+        <div class="md:col-span-7 bg-[#1a1a1c]/85 backdrop-blur-xl p-8 md:p-12 rounded-2xl shimmer-border shadow-2xl">
           <h3 class="font-headline-md text-2xl text-primary mb-2">Book Your Service</h3>
           <p class="font-body-md text-on-surface-variant text-sm mb-8">
             Fill out the form below and Sohail Mulani will call or WhatsApp you directly to confirm your booking.
@@ -290,28 +317,28 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label class="block font-label-caps text-xs text-on-surface-variant uppercase tracking-wider mb-2">Your Name</label>
-                <input type="text" required placeholder="e.g. Rahul Sharma" class="w-full bg-surface-container border border-outline-variant/30 rounded-lg p-3 text-sm text-primary focus:outline-none focus:border-tertiary transition-colors">
+                <input type="text" required placeholder="e.g. Rahul Sharma" class="w-full bg-[#121213]/80 backdrop-blur-sm border border-outline-variant/40 rounded-lg p-3 text-sm text-primary focus:outline-none focus:border-tertiary focus:ring-1 focus:ring-tertiary/50 transition-all">
               </div>
               <div>
                 <label class="block font-label-caps text-xs text-on-surface-variant uppercase tracking-wider mb-2">Phone Number</label>
-                <input type="tel" required placeholder="+91 98765 43210" class="w-full bg-surface-container border border-outline-variant/30 rounded-lg p-3 text-sm text-primary focus:outline-none focus:border-tertiary transition-colors">
+                <input type="tel" required placeholder="+91 98765 43210" class="w-full bg-[#121213]/80 backdrop-blur-sm border border-outline-variant/40 rounded-lg p-3 text-sm text-primary focus:outline-none focus:border-tertiary focus:ring-1 focus:ring-tertiary/50 transition-all">
               </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label class="block font-label-caps text-xs text-on-surface-variant uppercase tracking-wider mb-2">Email Address (Optional)</label>
-                <input type="email" placeholder="yourname@gmail.com" class="w-full bg-surface-container border border-outline-variant/30 rounded-lg p-3 text-sm text-primary focus:outline-none focus:border-tertiary transition-colors">
+                <input type="email" placeholder="yourname@gmail.com" class="w-full bg-[#121213]/80 backdrop-blur-sm border border-outline-variant/40 rounded-lg p-3 text-sm text-primary focus:outline-none focus:border-tertiary focus:ring-1 focus:ring-tertiary/50 transition-all">
               </div>
               <div>
                 <label class="block font-label-caps text-xs text-on-surface-variant uppercase tracking-wider mb-2">Car Model & Year</label>
-                <input type="text" required placeholder="e.g. Creta / Swift / XUV700 / BMW 3-Series" class="w-full bg-surface-container border border-outline-variant/30 rounded-lg p-3 text-sm text-primary focus:outline-none focus:border-tertiary transition-colors">
+                <input type="text" required placeholder="e.g. Creta / Swift / XUV700 / BMW 3-Series" class="w-full bg-[#121213]/80 backdrop-blur-sm border border-outline-variant/40 rounded-lg p-3 text-sm text-primary focus:outline-none focus:border-tertiary focus:ring-1 focus:ring-tertiary/50 transition-all">
               </div>
             </div>
 
             <div>
               <label class="block font-label-caps text-xs text-on-surface-variant uppercase tracking-wider mb-2">Service Required</label>
-              <select class="w-full bg-surface-container border border-outline-variant/30 rounded-lg p-3 text-sm text-primary focus:outline-none focus:border-tertiary transition-colors">
+              <select class="w-full bg-[#121213]/80 backdrop-blur-sm border border-outline-variant/40 rounded-lg p-3 text-sm text-primary focus:outline-none focus:border-tertiary focus:ring-1 focus:ring-tertiary/50 transition-all">
                 <option>Periodic Car Maintenance & Oil Service</option>
                 <option>Mechanical Repair (Engine / Gearbox / Suspension / Steering)</option>
                 <option>Computer Scanning & Electrical Troubleshooting</option>
@@ -324,10 +351,10 @@
 
             <div>
               <label class="block font-label-caps text-xs text-on-surface-variant uppercase tracking-wider mb-2">Details or Car Symptoms</label>
-              <textarea rows="4" placeholder="Describe what issue your car has (e.g. strange noise, check engine light, brake sound) or what upgrade you want..." class="w-full bg-surface-container border border-outline-variant/30 rounded-lg p-3 text-sm text-primary focus:outline-none focus:border-tertiary transition-colors"></textarea>
+              <textarea rows="4" placeholder="Describe what issue your car has (e.g. strange noise, check engine light, brake sound) or what upgrade you want..." class="w-full bg-[#121213]/80 backdrop-blur-sm border border-outline-variant/40 rounded-lg p-3 text-sm text-primary focus:outline-none focus:border-tertiary focus:ring-1 focus:ring-tertiary/50 transition-all"></textarea>
             </div>
 
-            <button type="submit" class="w-full bg-tertiary text-on-tertiary py-4 rounded-full font-label-caps text-label-caps uppercase btn-hover flex items-center justify-center space-x-2 font-semibold">
+            <button type="submit" class="w-full bg-tertiary text-on-tertiary py-4 rounded-full font-label-caps text-label-caps uppercase btn-hover flex items-center justify-center space-x-2 font-semibold shadow-lg shadow-tertiary/20">
               <span>Book Appointment Now</span>
               <span class="material-symbols-outlined text-[18px]">send</span>
             </button>
@@ -339,7 +366,7 @@
   </main>
 
   <!-- Footer (Shared Component) -->
-  <footer class="w-full py-section-gap border-t border-outline-variant/10 bg-surface-dim dark:bg-surface-dim relative z-10">
+  <footer class="w-full py-section-gap border-t border-outline-variant/20 bg-surface-dim/95 backdrop-blur-xl dark:bg-surface-dim/95 relative z-10">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
       <div class="col-span-1 md:col-span-2 flex flex-col justify-between mb-stack-lg md:mb-0">
         <div>
