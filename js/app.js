@@ -249,255 +249,112 @@ function initNavbarScroll() {
   }, { passive: true });
 }
 
-// 6. Redesigned Service Workflow: Luxury Automotive HUD Stepper Engine
+// 6. Sleek Minimalist Chronological Process Ribbon Engine
 function initTimelineRibbonEngine() {
   const section = document.getElementById('how-we-work');
   if (!section) return;
 
-  const stepBtns = section.querySelectorAll('.workflow-step-btn[data-step], .timeline-card[data-step]');
-  const prevBtn = document.getElementById('workflow-prev-btn');
-  const nextBtn = document.getElementById('workflow-next-btn');
-  const indicatorEl = document.getElementById('workflow-step-indicator');
+  const cards = section.querySelectorAll('.timeline-card[data-step]');
   const progressBar = document.getElementById('timeline-progress-bar');
   const badgeEl = document.getElementById('detail-step-badge');
   const timeEl = document.getElementById('detail-time-tag');
-  const protocolEl = document.getElementById('detail-protocol-tag');
   const titleEl = document.getElementById('detail-title');
   const descEl = document.getElementById('detail-desc');
   const g1 = document.getElementById('detail-guarantee-1');
   const g2 = document.getElementById('detail-guarantee-2');
   const g3 = document.getElementById('detail-guarantee-3');
-  const sub1 = document.getElementById('detail-sub-1');
-  const sub2 = document.getElementById('detail-sub-2');
-  const sub3 = document.getElementById('detail-sub-3');
-  const hudStatusTitle = document.getElementById('hud-status-title');
-  const hudModuleCode = document.getElementById('hud-module-code');
-  const hudDynamicContent = document.getElementById('hud-dynamic-content');
-  const hudFooterNote = document.getElementById('hud-footer-note');
 
-  if (!stepBtns.length) return;
-
-  const totalSteps = 5;
-  let currentStep = 1;
-  let autoTimer = null;
-  let isPaused = false;
+  if (!cards.length) return;
 
   const stepDetails = {
     1: {
-      badge: 'PHASE 01 // INTAKE & OPTICAL AUDIT',
+      badge: 'STEP 01 OF 05',
       time: 'Est. Time: 15–30 Mins',
-      protocol: 'Tool: Laser Micro-Scanner',
       title: '1. Comprehensive Laser Inspection & Underbody Audit',
-      desc: 'When your car arrives at our Chikhali atelier, Sohail Mulani and senior diagnostic engineers conduct an exhaustive 60-point electronic scan covering brake rotor depth, suspension arm play, tire tread micrometer mapping, and underbody chassis integrity.',
-      g1: '±0.01mm Precision', sub1: 'Calibrated laser depth mapping',
-      g2: 'WhatsApp 4K Report', sub2: 'Live photo & video evidence',
-      g3: 'Zero Guesswork', sub3: 'Evidence-based assessment',
-      hudStatus: 'OPTICAL SCAN // CALIBRATED',
-      hudCode: 'MOD-01: AUDIT',
-      hudItems: [
-        { label: 'Brake Rotor Wear', val: '28.4 mm [NOMINAL]', color: 'text-amber-300' },
-        { label: 'Chassis Laser Alignment', val: '0.02° [PERFECT]', color: 'text-emerald-400' },
-        { label: 'Tire Tread Depth', val: '6.8 mm [HEALTHY]', color: 'text-amber-300' },
-        { label: 'Battery Health (CCA)', val: '98% [640 CCA]', color: 'text-emerald-400' }
-      ],
-      hudFooter: '60-Point Audit Complete',
+      desc: 'When your car arrives at our Chikhali workshop, Sohail Mulani and our senior diagnostic technicians perform a rigorous 60-point checkup covering brakes, suspension, tire tread depth, battery health, and electronic modules.',
+      g1: 'Calibrated Laser Measurements',
+      g2: 'WhatsApp Photo Report',
+      g3: 'Zero Guesswork Guarantee',
       progress: '20%'
     },
     2: {
-      badge: 'PHASE 02 // ELECTRONIC DIAGNOSTICS',
+      badge: 'STEP 02 OF 05',
       time: 'Est. Time: 20–40 Mins',
-      protocol: 'Tool: OEM OBD-II Protocol Scanner',
       title: '2. ECU & Optical Computer Diagnosis',
-      desc: 'We connect dealer-level OBD-II scanning terminals to decode every electronic control module (Engine ECM, Transmission TCM, ABS/ESP, Airbags, BCM). We pinpoint exact root sensor faults and CAN-bus telemetry without trial-and-error.',
-      g1: 'OEM Bus Protocol', sub1: 'Direct CAN-Bus communication',
-      g2: 'Live Telemetry Readout', sub2: 'Millivolt sensor precision',
-      g3: 'Clear DTC Report', sub3: 'Root cause pinpointed',
-      hudStatus: 'OBD-II CAN-BUS // CONNECTED',
-      hudCode: 'MOD-02: ECU',
-      hudItems: [
-        { label: 'ECM Module (Engine)', val: 'ONLINE [0 DTC FAULTS]', color: 'text-emerald-400' },
-        { label: 'TCM Module (Gearbox)', val: 'SYNCHRONIZED [NORMAL]', color: 'text-emerald-400' },
-        { label: 'ABS / ESP Dynamic Bus', val: 'RESPONSE: 12ms [PASS]', color: 'text-emerald-400' },
-        { label: 'Fuel Rail Pressure', val: '350 Bar [CALIBRATED]', color: 'text-amber-300' }
-      ],
-      hudFooter: '100% Computerized Telemetry',
+      desc: 'We plug in official dealer-level OBD-II diagnostic scanners to decode all electronic control modules (ECU, ABS, Airbags, BCM). We identify exact root causes and sensor voltage faults without blind trial-and-error.',
+      g1: 'OEM OBD-II Bus Protocol',
+      g2: 'Sensor Telemetry Readout',
+      g3: 'Clear Diagnostic Report',
       progress: '40%'
     },
     3: {
-      badge: 'PHASE 03 // TRANSPARENT QUOTATION',
+      badge: 'STEP 03 OF 05',
       time: 'Est. Time: 10–15 Mins',
-      protocol: 'Tool: Digital WhatsApp ERP',
       title: '3. Itemized Digital Estimate & Customer Approval',
-      desc: 'We generate an itemized price quotation listing genuine OEM part serial numbers, exact labor charges, and guaranteed completion time. Delivered straight to your WhatsApp — work begins strictly after your approval.',
-      g1: '100% Upfront Pricing', sub1: 'Zero hidden fees or surprises',
-      g2: 'OEM Part Numbers', sub2: 'Manufacturer verifiable',
-      g3: 'One-Tap Approval', sub3: 'Complete control in your hands',
-      hudStatus: 'QUOTE ERP // DISPATCHED',
-      hudCode: 'MOD-03: ESTIMATE',
-      hudItems: [
-        { label: 'OEM Spare Parts Serial', val: 'VERIFIED [100% GENUINE]', color: 'text-emerald-400' },
-        { label: 'Labor & Calibration', val: 'FIXED PRICE [ITEMIZED]', color: 'text-amber-300' },
-        { label: 'Estimated Delivery', val: 'TODAY BY 6:00 PM', color: 'text-amber-300' },
-        { label: 'Approval Status', val: 'PENDING CLIENT 1-TAP', color: 'text-emerald-400' }
-      ],
-      hudFooter: 'Zero-Surprise Guarantee',
+      desc: 'We generate an itemized price quotation listing genuine OEM part serial numbers, labor costs, and realistic delivery times. We send it directly to your WhatsApp and only proceed once you give your 100% approval.',
+      g1: '100% Transparent Pricing',
+      g2: 'Genuine OEM Part Numbers',
+      g3: 'Strict Zero-Surprise Policy',
       progress: '60%'
     },
     4: {
-      badge: 'PHASE 04 // PRECISION ASSEMBLY',
+      badge: 'STEP 04 OF 05',
       time: 'Est. Time: Same-Day / As Quoted',
-      protocol: 'Tool: Digital Torque Wrenches & OEM Jigs',
       title: '4. Master Atelier Repair & Torque Calibration',
-      desc: 'Our master technicians execute precision mechanical repairs and tuning using only original factory spare parts. Every fastener is torqued strictly to factory NM specifications with ongoing WhatsApp photo updates.',
-      g1: 'Digital Torque Specs', sub1: 'Exact factory Nm calibration',
-      g2: 'Live WhatsApp Trail', sub2: 'Step-by-step progress snaps',
-      g3: 'Original Factory Spares', sub3: 'Zero counterfeit policy',
-      hudStatus: 'ATELIER ASSEMBLY // ACTIVE',
-      hudCode: 'MOD-04: REPAIR',
-      hudItems: [
-        { label: 'Digital Torque Setting', val: '140 Nm [CALIBRATED LOCK]', color: 'text-emerald-400' },
-        { label: 'Fluid Flush Protocol', val: 'DOT 4 / 5W-40 SYNTHETIC', color: 'text-amber-300' },
-        { label: 'Filter Replacement', val: 'OEM MICRO-SYNTHETIC [NEW]', color: 'text-emerald-400' },
-        { label: 'WhatsApp Media Log', val: '8 PHOTOS SENT TO OWNER', color: 'text-amber-300' }
-      ],
-      hudFooter: 'Master Mechanic Certified',
+      desc: 'Our master mechanics install original factory spare parts, torquing every bolt to manufacturer specifications using calibrated digital torque wrenches. We send continuous photo and video progress updates to your WhatsApp.',
+      g1: 'Digital Torque Calibration',
+      g2: 'WhatsApp Live Photo Trail',
+      g3: '100% Genuine Spare Parts',
       progress: '80%'
     },
     5: {
-      badge: 'PHASE 05 // ROAD TEST & WARRANTY',
+      badge: 'STEP 05 OF 05',
       time: 'Est. Time: 30–45 Mins',
-      protocol: 'Tool: Dynamic Road Test & Dyno Log',
       title: '5. High-Speed Road Test, Foam Wash & Warranty Handover',
-      desc: 'We conduct dynamic road and acceleration testing to verify throttle response, braking distance, and suspension silence. Your car receives a complimentary high-pressure foam wash before handover with an official 12-Month warranty.',
-      g1: 'Dynamic Road Test', sub1: 'High-speed vibration audit',
-      g2: 'Complimentary Wash', sub2: 'Showroom gloss finish',
-      g3: '12-Month Warranty', sub3: '10,000 KM comprehensive cover',
-      hudStatus: 'ROAD TEST PASSED // READY',
-      hudCode: 'MOD-05: COMPLETE',
-      hudItems: [
-        { label: 'Dynamic Brake Test', val: '100-0 KM/H [EXCELLENT]', color: 'text-emerald-400' },
-        { label: 'Suspension Acoustic Audit', val: '0 NOISE DETECTED [PASS]', color: 'text-emerald-400' },
-        { label: 'Ceramic Foam Wash', val: 'COMPLETED [SHOWROOM GLOSS]', color: 'text-emerald-400' },
-        { label: 'Warranty Certificate', val: '12-MO / 10,000 KM ACTIVE', color: 'text-amber-300' }
-      ],
-      hudFooter: 'Handover Ready with Certificate',
+      desc: 'We conduct a high-speed dynamic road test to verify power delivery, braking responsiveness, and suspension silence. Your car receives a complimentary foam wash before delivery with an official 12-Month service warranty.',
+      g1: 'Dynamic Road & Brake Test',
+      g2: 'Complimentary Foam Wash',
+      g3: '12-Month / 10,000 KM Warranty',
       progress: '100%'
     }
   };
 
-  function renderHudItems(items) {
-    if (!items || !items.length) return '';
-    return items.map(item => `
-      <div class="bg-surface-container-lowest/80 p-3.5 rounded-xl border border-white/5 flex items-center justify-between transition-all duration-300 hover:border-tertiary/20">
-        <span class="text-slate-400">${item.label}</span>
-        <span class="${item.color} font-bold">${item.val}</span>
-      </div>
-    `).join('');
-  }
-
   function selectStep(stepNum, playAudio = true) {
     const data = stepDetails[stepNum];
     if (!data) return;
-    currentStep = stepNum;
 
-    // Update active button classes
-    stepBtns.forEach(btn => {
-      const step = parseInt(btn.getAttribute('data-step'), 10);
-      const numBadge = btn.querySelector('.workflow-step-num');
-      const textSpan = btn.querySelector('span.text-slate-300, span.text-primary');
-      const phaseSpan = btn.querySelector('span.text-tertiary, span.text-tertiary\\/70');
-      
-      if (step === stepNum) {
-        btn.classList.add('active-step', 'active-card');
-        if (textSpan) {
-          textSpan.classList.remove('text-slate-300');
-          textSpan.classList.add('text-primary');
-        }
-        if (phaseSpan) {
-          phaseSpan.classList.remove('text-tertiary/70');
-          phaseSpan.classList.add('text-tertiary');
-        }
+    cards.forEach(card => {
+      const cardStep = parseInt(card.getAttribute('data-step'), 10);
+      const node = card.querySelector('.timeline-node');
+      if (cardStep === stepNum) {
+        card.classList.add('active-card');
+        if (node) node.classList.add('active-node');
       } else {
-        btn.classList.remove('active-step', 'active-card');
-        if (textSpan) {
-          textSpan.classList.remove('text-primary');
-          textSpan.classList.add('text-slate-300');
-        }
-        if (phaseSpan) {
-          phaseSpan.classList.remove('text-tertiary');
-          phaseSpan.classList.add('text-tertiary/70');
-        }
+        card.classList.remove('active-card');
+        if (node) node.classList.remove('active-node');
       }
     });
 
     if (progressBar) progressBar.style.width = data.progress;
-    if (indicatorEl) indicatorEl.textContent = `STEP 0${stepNum} / 05`;
     if (badgeEl) badgeEl.textContent = data.badge;
-    if (timeEl) timeEl.innerHTML = `<span class="material-symbols-outlined text-[15px] text-tertiary">schedule</span> <span>${data.time}</span>`;
-    if (protocolEl) protocolEl.innerHTML = `<span class="material-symbols-outlined text-[15px] text-tertiary">precision_manufacturing</span> <span>${data.protocol}</span>`;
+    if (timeEl) timeEl.innerHTML = `<span class="material-symbols-outlined text-[14px] text-tertiary">schedule</span> <span>${data.time}</span>`;
     if (titleEl) titleEl.textContent = data.title;
     if (descEl) descEl.textContent = data.desc;
     if (g1) g1.textContent = data.g1;
     if (g2) g2.textContent = data.g2;
     if (g3) g3.textContent = data.g3;
-    if (sub1) sub1.textContent = data.sub1;
-    if (sub2) sub2.textContent = data.sub2;
-    if (sub3) sub3.textContent = data.sub3;
-
-    if (hudStatusTitle) hudStatusTitle.textContent = data.hudStatus;
-    if (hudModuleCode) hudModuleCode.textContent = data.hudCode;
-    if (hudDynamicContent) hudDynamicContent.innerHTML = renderHudItems(data.hudItems);
-    if (hudFooterNote) hudFooterNote.textContent = data.hudFooter;
 
     if (playAudio && window.WebAudioFX) {
       window.WebAudioFX.playClick();
     }
   }
 
-  // Event Listeners for Step Buttons
-  stepBtns.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const step = parseInt(btn.getAttribute('data-step'), 10);
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      const step = parseInt(card.getAttribute('data-step'), 10);
       selectStep(step, true);
-      isPaused = true;
     });
   });
-
-  // Prev / Next Navigation Controls
-  if (prevBtn) {
-    prevBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      let nextStep = currentStep - 1;
-      if (nextStep < 1) nextStep = totalSteps;
-      selectStep(nextStep, true);
-      isPaused = true;
-    });
-  }
-
-  if (nextBtn) {
-    nextBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      let nextStep = currentStep + 1;
-      if (nextStep > totalSteps) nextStep = 1;
-      selectStep(nextStep, true);
-      isPaused = true;
-    });
-  }
-
-  // Smooth Auto-Cycle (Rotates every 4.5 seconds unless user hovers)
-  section.addEventListener('mouseenter', () => { isPaused = true; });
-  section.addEventListener('mouseleave', () => { isPaused = false; });
-
-  autoTimer = setInterval(() => {
-    if (isPaused) return;
-    let nextStep = currentStep + 1;
-    if (nextStep > totalSteps) nextStep = 1;
-    selectStep(nextStep, false);
-  }, 4500);
-
-  // Initialize at step 1
-  selectStep(1, false);
 }
 
 // 7. Featured Projects 3D Round Turntable Horizontal Carousel (Seamless Infinite 2s Loop)
