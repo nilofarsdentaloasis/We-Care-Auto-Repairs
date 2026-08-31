@@ -1,0 +1,19 @@
+# Robots.txt for We Care Auto Repair
+# https://wecareautorepair.com
+
+User-agent: *
+Allow: /
+Allow: /index.html
+Allow: /services.html
+Allow: /about.html
+Allow: /contact.html
+Allow: /assets/
+Allow: /css/
+Allow: /js/
+
+# Disallow private invoicing studio
+Disallow: /invoice.html
+Disallow: /*invoice.html*
+
+# XML Sitemap Location
+Sitemap: https://wecareautorepairs.com/sitemap.xml
