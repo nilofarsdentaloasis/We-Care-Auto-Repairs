@@ -726,128 +726,215 @@
     <!-- ==========================================================================
          SERVICE PROCESS SECTION
          ========================================================================== -->
-    <section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-surface-dim border-t border-outline-variant/10" id="service-workflow">
+    <section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-surface-dim border-t border-outline-variant/10 overflow-hidden" id="service-workflow">
       <div class="max-w-container-max mx-auto">
         <div class="text-center max-w-3xl mx-auto mb-16">
-          <div class="inline-flex items-center space-x-2 bg-surface-container-high border border-tertiary/20 px-3.5 py-1.5 rounded-full mb-4">
+          <div class="inline-flex items-center space-x-2 bg-surface-container-high/90 border border-tertiary/20 px-3.5 py-1.5 rounded-full mb-4 shadow-sm">
             <span class="material-symbols-outlined text-tertiary text-[18px]">account_tree</span>
             <span class="font-label-caps text-xs text-tertiary uppercase tracking-widest font-semibold">Service Process</span>
           </div>
-          <h2 class="font-display-lg text-3xl md:text-5xl text-primary mb-4 leading-tight">
+          <h2 class="font-display-lg text-3xl md:text-5xl text-primary mb-4 leading-tight font-bold">
             How We Service Your Car in 5 Easy Steps
           </h2>
           <p class="font-body-md text-on-surface-variant text-base md:text-lg">
-            Every car goes through our clear 5-step process so you always know what is happening.
+            A transparent 5-step process designed for precision craftsmanship, clear communication, and zero surprise bills.
           </p>
         </div>
 
-        <div class="relative">
-          <!-- Horizontal Animated Progress Connector Rail (Desktop & Tablet) -->
-          <div class="hidden md:block absolute top-1/2 left-8 right-8 -translate-y-1/2 h-1 bg-surface-container-high rounded-full z-0 overflow-hidden">
-            <div class="h-full bg-tertiary transition-all duration-500 w-[60%]"></div>
-          </div>
+        <!-- 5 Steps Connected Flow Grid -->
+        <div class="relative mb-12">
+          <!-- Top Horizontal Connection Line (Desktop) -->
+          <div class="hidden lg:block absolute top-10 left-12 right-12 h-0.5 bg-gradient-to-r from-tertiary/20 via-tertiary/60 to-tertiary/20 z-0"></div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 relative z-10">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5 relative z-10">
+            
             <!-- Step 1 -->
-            <div class="timeline-card rounded-2xl p-5 border border-outline-variant/20 flex flex-col justify-between group">
+            <div class="bg-surface-container/80 hover:bg-surface-container backdrop-blur-md rounded-2xl p-6 border border-outline-variant/20 hover:border-tertiary/50 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_12px_30px_rgba(0,0,0,0.4)] flex flex-col justify-between group">
               <div>
-                <div class="flex items-center justify-between mb-4">
-                  <div class="timeline-node w-11 h-11 rounded-full border-2 border-outline-variant/30 flex items-center justify-center font-mono font-bold text-xs text-primary transition-all">
+                <div class="flex items-center justify-between mb-5">
+                  <span class="w-10 h-10 rounded-xl bg-tertiary/15 border border-tertiary/40 flex items-center justify-center font-mono font-bold text-sm text-tertiary group-hover:bg-tertiary group-hover:text-surface-dim transition-all shadow-sm">
                     01
+                  </span>
+                  <div class="w-10 h-10 rounded-xl bg-surface-container-high border border-outline-variant/15 flex items-center justify-center text-tertiary group-hover:scale-110 transition-transform">
+                    <span class="material-symbols-outlined text-[22px]">fact_check</span>
                   </div>
-                  <span class="material-symbols-outlined text-tertiary text-[22px]">search</span>
                 </div>
-                <span class="font-mono text-[10px] text-tertiary font-bold tracking-wider uppercase block mb-1">INTAKE AUDIT</span>
-                <h3 class="font-headline-md text-base font-bold text-primary mb-2 group-hover:text-tertiary transition-colors">1. Laser Inspection</h3>
-                <p class="font-body-md text-on-surface-variant text-xs leading-relaxed">
-                  360° laser chassis scan, electronic brake rotor depth audit, and underbody frame inspection.
+
+                <span class="font-mono text-[10px] text-tertiary/90 font-bold tracking-wider uppercase block mb-1.5">INTAKE AUDIT</span>
+                <h3 class="font-headline-md text-base md:text-lg font-bold text-primary mb-2 group-hover:text-tertiary transition-colors">
+                  1. Multi-Point Check
+                </h3>
+                <p class="font-body-md text-xs text-on-surface-variant leading-relaxed mb-4">
+                  Comprehensive 60-point intake inspection covering engine, brakes, suspension, tire depth, fluids, and battery health.
                 </p>
               </div>
-              <div class="mt-4 pt-3 border-t border-outline-variant/10">
-                <span class="text-[10px] font-mono font-bold text-tertiary/80 uppercase tracking-wider block">±0.01mm Precision</span>
+
+              <div class="pt-3 border-t border-outline-variant/10 flex items-center justify-between">
+                <span class="text-[11px] font-mono font-semibold text-tertiary/90 bg-tertiary/10 border border-tertiary/20 px-2.5 py-0.5 rounded-full inline-flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[13px]">check</span> 60-Point Audit
+                </span>
+                <span class="text-[10px] text-on-surface-variant font-mono">15–30 Mins</span>
               </div>
             </div>
 
             <!-- Step 2 -->
-            <div class="timeline-card rounded-2xl p-5 border border-outline-variant/20 flex flex-col justify-between group">
+            <div class="bg-surface-container/80 hover:bg-surface-container backdrop-blur-md rounded-2xl p-6 border border-outline-variant/20 hover:border-tertiary/50 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_12px_30px_rgba(0,0,0,0.4)] flex flex-col justify-between group">
               <div>
-                <div class="flex items-center justify-between mb-4">
-                  <div class="timeline-node w-11 h-11 rounded-full border-2 border-outline-variant/30 flex items-center justify-center font-mono font-bold text-xs text-primary transition-all">
+                <div class="flex items-center justify-between mb-5">
+                  <span class="w-10 h-10 rounded-xl bg-tertiary/15 border border-tertiary/40 flex items-center justify-center font-mono font-bold text-sm text-tertiary group-hover:bg-tertiary group-hover:text-surface-dim transition-all shadow-sm">
                     02
+                  </span>
+                  <div class="w-10 h-10 rounded-xl bg-surface-container-high border border-outline-variant/15 flex items-center justify-center text-tertiary group-hover:scale-110 transition-transform">
+                    <span class="material-symbols-outlined text-[22px]">memory</span>
                   </div>
-                  <span class="material-symbols-outlined text-tertiary text-[22px]">memory</span>
                 </div>
-                <span class="font-mono text-[10px] text-tertiary font-bold tracking-wider uppercase block mb-1">OBD-II SCAN</span>
-                <h3 class="font-headline-md text-base font-bold text-primary mb-2 group-hover:text-tertiary transition-colors">2. ECU Diagnosis</h3>
-                <p class="font-body-md text-on-surface-variant text-xs leading-relaxed">
-                  Dealer-grade computer scan decoding all ECU modules and live sensor telemetry without guesswork.
+
+                <span class="font-mono text-[10px] text-tertiary/90 font-bold tracking-wider uppercase block mb-1.5">OBD-II SCAN</span>
+                <h3 class="font-headline-md text-base md:text-lg font-bold text-primary mb-2 group-hover:text-tertiary transition-colors">
+                  2. Computer Scan
+                </h3>
+                <p class="font-body-md text-xs text-on-surface-variant leading-relaxed mb-4">
+                  Dealer-grade scanners decode ECU modules and live sensor telemetry to pinpoint exact root causes with zero guesswork.
                 </p>
               </div>
-              <div class="mt-4 pt-3 border-t border-outline-variant/10">
-                <span class="text-[10px] font-mono font-bold text-tertiary/80 uppercase tracking-wider block">OBD-II Deep Scan</span>
+
+              <div class="pt-3 border-t border-outline-variant/10 flex items-center justify-between">
+                <span class="text-[11px] font-mono font-semibold text-tertiary/90 bg-tertiary/10 border border-tertiary/20 px-2.5 py-0.5 rounded-full inline-flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[13px]">check</span> ECU Deep Scan
+                </span>
+                <span class="text-[10px] text-on-surface-variant font-mono">20–30 Mins</span>
               </div>
             </div>
 
             <!-- Step 3 -->
-            <div class="timeline-card rounded-2xl p-5 border border-outline-variant/20 flex flex-col justify-between group">
+            <div class="bg-surface-container/80 hover:bg-surface-container backdrop-blur-md rounded-2xl p-6 border border-outline-variant/20 hover:border-tertiary/50 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_12px_30px_rgba(0,0,0,0.4)] flex flex-col justify-between group">
               <div>
-                <div class="flex items-center justify-between mb-4">
-                  <div class="timeline-node w-11 h-11 rounded-full border-2 border-outline-variant/30 flex items-center justify-center font-mono font-bold text-xs text-primary transition-all">
+                <div class="flex items-center justify-between mb-5">
+                  <span class="w-10 h-10 rounded-xl bg-tertiary/15 border border-tertiary/40 flex items-center justify-center font-mono font-bold text-sm text-tertiary group-hover:bg-tertiary group-hover:text-surface-dim transition-all shadow-sm">
                     03
+                  </span>
+                  <div class="w-10 h-10 rounded-xl bg-surface-container-high border border-outline-variant/15 flex items-center justify-center text-tertiary group-hover:scale-110 transition-transform">
+                    <span class="material-symbols-outlined text-[22px]">receipt_long</span>
                   </div>
-                  <span class="material-symbols-outlined text-tertiary text-[22px]">receipt_long</span>
                 </div>
-                <span class="font-mono text-[10px] text-tertiary font-bold tracking-wider uppercase block mb-1">TRANSPARENT</span>
-                <h3 class="font-headline-md text-base font-bold text-primary mb-2 group-hover:text-tertiary transition-colors">3. Clear Estimate</h3>
-                <p class="font-body-md text-on-surface-variant text-xs leading-relaxed">
-                  Itemized digital quote with genuine OEM part serial numbers sent via WhatsApp before work starts.
+
+                <span class="font-mono text-[10px] text-tertiary/90 font-bold tracking-wider uppercase block mb-1.5">TRANSPARENT</span>
+                <h3 class="font-headline-md text-base md:text-lg font-bold text-primary mb-2 group-hover:text-tertiary transition-colors">
+                  3. Digital Estimate
+                </h3>
+                <p class="font-body-md text-xs text-on-surface-variant leading-relaxed mb-4">
+                  Itemized price estimate with genuine part numbers sent to your WhatsApp. Work starts only after your written approval.
                 </p>
               </div>
-              <div class="mt-4 pt-3 border-t border-outline-variant/10">
-                <span class="text-[10px] font-mono font-bold text-tertiary/80 uppercase tracking-wider block">100% Transparent</span>
+
+              <div class="pt-3 border-t border-outline-variant/10 flex items-center justify-between">
+                <span class="text-[11px] font-mono font-semibold text-tertiary/90 bg-tertiary/10 border border-tertiary/20 px-2.5 py-0.5 rounded-full inline-flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[13px]">check</span> Zero Surprises
+                </span>
+                <span class="text-[10px] text-on-surface-variant font-mono">WhatsApp Approval</span>
               </div>
             </div>
 
             <!-- Step 4 -->
-            <div class="timeline-card rounded-2xl p-5 border border-outline-variant/20 flex flex-col justify-between group">
+            <div class="bg-surface-container/80 hover:bg-surface-container backdrop-blur-md rounded-2xl p-6 border border-outline-variant/20 hover:border-tertiary/50 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_12px_30px_rgba(0,0,0,0.4)] flex flex-col justify-between group">
               <div>
-                <div class="flex items-center justify-between mb-4">
-                  <div class="timeline-node w-11 h-11 rounded-full border-2 border-outline-variant/30 flex items-center justify-center font-mono font-bold text-xs text-primary transition-all">
+                <div class="flex items-center justify-between mb-5">
+                  <span class="w-10 h-10 rounded-xl bg-tertiary/15 border border-tertiary/40 flex items-center justify-center font-mono font-bold text-sm text-tertiary group-hover:bg-tertiary group-hover:text-surface-dim transition-all shadow-sm">
                     04
+                  </span>
+                  <div class="w-10 h-10 rounded-xl bg-surface-container-high border border-outline-variant/15 flex items-center justify-center text-tertiary group-hover:scale-110 transition-transform">
+                    <span class="material-symbols-outlined text-[22px]">precision_manufacturing</span>
                   </div>
-                  <span class="material-symbols-outlined text-tertiary text-[22px]">precision_manufacturing</span>
                 </div>
-                <span class="font-mono text-[10px] text-tertiary font-bold tracking-wider uppercase block mb-1">OEM FACTORY</span>
-                <h3 class="font-headline-md text-base font-bold text-primary mb-2 group-hover:text-tertiary transition-colors">4. Master Repair</h3>
-                <p class="font-body-md text-on-surface-variant text-xs leading-relaxed">
-                  Precision assembly using 100% genuine parts, digital torque wrenches, and live photo updates.
+
+                <span class="font-mono text-[10px] text-tertiary/90 font-bold tracking-wider uppercase block mb-1.5">OEM FACTORY</span>
+                <h3 class="font-headline-md text-base md:text-lg font-bold text-primary mb-2 group-hover:text-tertiary transition-colors">
+                  4. Master Repair
+                </h3>
+                <p class="font-body-md text-xs text-on-surface-variant leading-relaxed mb-4">
+                  Master mechanics install 100% genuine parts using calibrated tools, sending you live photo & video WhatsApp updates.
                 </p>
               </div>
-              <div class="mt-4 pt-3 border-t border-outline-variant/10">
-                <span class="text-[10px] font-mono font-bold text-tertiary/80 uppercase tracking-wider block">OEM Factory Spec</span>
+
+              <div class="pt-3 border-t border-outline-variant/10 flex items-center justify-between">
+                <span class="text-[11px] font-mono font-semibold text-tertiary/90 bg-tertiary/10 border border-tertiary/20 px-2.5 py-0.5 rounded-full inline-flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[13px]">check</span> 100% Genuine
+                </span>
+                <span class="text-[10px] text-on-surface-variant font-mono">Live Updates</span>
               </div>
             </div>
 
             <!-- Step 5 -->
-            <div class="timeline-card rounded-2xl p-5 border border-outline-variant/20 flex flex-col justify-between group">
+            <div class="bg-surface-container/80 hover:bg-surface-container backdrop-blur-md rounded-2xl p-6 border border-outline-variant/20 hover:border-tertiary/50 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_12px_30px_rgba(0,0,0,0.4)] flex flex-col justify-between group">
               <div>
-                <div class="flex items-center justify-between mb-4">
-                  <div class="timeline-node w-11 h-11 rounded-full border-2 border-outline-variant/30 flex items-center justify-center font-mono font-bold text-xs text-primary transition-all">
+                <div class="flex items-center justify-between mb-5">
+                  <span class="w-10 h-10 rounded-xl bg-tertiary/15 border border-tertiary/40 flex items-center justify-center font-mono font-bold text-sm text-tertiary group-hover:bg-tertiary group-hover:text-surface-dim transition-all shadow-sm">
                     05
+                  </span>
+                  <div class="w-10 h-10 rounded-xl bg-surface-container-high border border-outline-variant/15 flex items-center justify-center text-tertiary group-hover:scale-110 transition-transform">
+                    <span class="material-symbols-outlined text-[22px]">verified</span>
                   </div>
-                  <span class="material-symbols-outlined text-tertiary text-[22px]">workspace_premium</span>
                 </div>
-                <span class="font-mono text-[10px] text-tertiary font-bold tracking-wider uppercase block mb-1">WARRANTY</span>
-                <h3 class="font-headline-md text-base font-bold text-primary mb-2 group-hover:text-tertiary transition-colors">5. Road & Delivery</h3>
-                <p class="font-body-md text-on-surface-variant text-xs leading-relaxed">
-                  Road and dyno calibration, premium foam wash, and 12-Month / 10,000 KM warranty handover.
+
+                <span class="font-mono text-[10px] text-tertiary/90 font-bold tracking-wider uppercase block mb-1.5">WARRANTY</span>
+                <h3 class="font-headline-md text-base md:text-lg font-bold text-primary mb-2 group-hover:text-tertiary transition-colors">
+                  5. Test & Handover
+                </h3>
+                <p class="font-body-md text-xs text-on-surface-variant leading-relaxed mb-4">
+                  High-speed road test, complimentary foam wash, and 12-Month / 10,000 KM warranty certificate handover.
                 </p>
               </div>
-              <div class="mt-4 pt-3 border-t border-outline-variant/10">
-                <span class="text-[10px] font-mono font-bold text-tertiary/80 uppercase tracking-wider block">12-Mo Warranty</span>
+
+              <div class="pt-3 border-t border-outline-variant/10 flex items-center justify-between">
+                <span class="text-[11px] font-mono font-semibold text-tertiary/90 bg-tertiary/10 border border-tertiary/20 px-2.5 py-0.5 rounded-full inline-flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[13px]">check</span> 12-Mo Warranty
+                </span>
+                <span class="text-[10px] text-on-surface-variant font-mono">Free Foam Wash</span>
               </div>
             </div>
 
+          </div>
+        </div>
+
+        <!-- Reassurance Trust Ribbon -->
+        <div class="bg-surface-container-low/80 backdrop-blur-md border border-outline-variant/20 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 w-full md:w-auto flex-1">
+            <div class="flex items-center space-x-3.5">
+              <div class="w-11 h-11 rounded-xl bg-tertiary/10 border border-tertiary/30 flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-tertiary text-[22px]">chat</span>
+              </div>
+              <div>
+                <span class="text-sm font-semibold text-primary block">Live WhatsApp Updates</span>
+                <span class="text-xs text-on-surface-variant">Photos & videos sent at every step</span>
+              </div>
+            </div>
+
+            <div class="flex items-center space-x-3.5">
+              <div class="w-11 h-11 rounded-xl bg-tertiary/10 border border-tertiary/30 flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-tertiary text-[22px]">verified_user</span>
+              </div>
+              <div>
+                <span class="text-sm font-semibold text-primary block">Zero Hidden Charges</span>
+                <span class="text-xs text-on-surface-variant">You approve every single replacement</span>
+              </div>
+            </div>
+
+            <div class="flex items-center space-x-3.5">
+              <div class="w-11 h-11 rounded-xl bg-tertiary/10 border border-tertiary/30 flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-tertiary text-[22px]">shield</span>
+              </div>
+              <div>
+                <span class="text-sm font-semibold text-primary block">Workshop Warranty</span>
+                <span class="text-xs text-on-surface-variant">12-Month / 10,000 KM coverage</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="shrink-0 w-full md:w-auto">
+            <a href="https://wa.me/919175551980?text=Hi%20Sohail%2C%20I%20would%20like%20to%20book%20a%20car%20inspection%20service." target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center space-x-2 w-full md:w-auto bg-gradient-to-r from-tertiary to-tertiary-fixed text-on-tertiary-fixed font-bold px-6 py-3.5 rounded-xl hover:shadow-[0_0_22px_rgba(233,195,73,0.4)] hover:scale-105 active:scale-95 transition-all text-sm">
+              <span class="material-symbols-outlined text-[20px]">calendar_month</span>
+              <span>Book Car Inspection</span>
+            </a>
           </div>
         </div>
       </div>
