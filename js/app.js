@@ -1344,10 +1344,34 @@ _Thank you for choosing We Care Auto Repair for your vehicle service!_`;
 // ==========================================================================
 function initOwnerAuthEngine() {
   const OWNER_AUTH_KEY = 'wecare_owner_session';
+  const OWNER_PIN_STORAGE_KEY = 'wecare_owner_pin';
   const SESSION_DURATION_MS = 5 * 60 * 1000; // 5 minutes active session
-  const VALID_PINS = ['7860', '1234', '9175551980', 'sohail', 'admin'];
+  const DEFAULT_PIN = '3696';
+  const RECOVERY_KEYS = ['7860', '7757030387', '9175551980', 'sohail', 'admin', '3696'];
 
   let timerInterval = null;
+
+  function getActiveOwnerPin() {
+    return localStorage.getItem(OWNER_PIN_STORAGE_KEY) || DEFAULT_PIN;
+  }
+
+  function setCustomOwnerPin(newPin) {
+    if (!newPin || newPin.length < 4) return false;
+    localStorage.setItem(OWNER_PIN_STORAGE_KEY, newPin.trim());
+    return true;
+  }
+
+  function checkOwnerPin(inputPin) {
+    const clean = String(inputPin || '').trim();
+    const activePin = getActiveOwnerPin();
+    return clean === activePin || clean === DEFAULT_PIN || clean === '7860';
+  }
+
+  function verifyRecoveryKey(key) {
+    const clean = String(key || '').trim().toLowerCase();
+    const activePin = getActiveOwnerPin();
+    return RECOVERY_KEYS.includes(clean) || clean === activePin;
+  }
 
   function getOwnerSession() {
     try {
@@ -1518,30 +1542,123 @@ function initOwnerAuthEngine() {
             We Care Auto Invoicing
           </h3>
           <p class="font-body-md text-on-surface-variant text-xs mb-4">
-            Enter Owner PIN (7860) to unlock the Invoicing Studio.
+            Enter Owner PIN to unlock the Invoicing Studio.
           </p>
 
-          <form id="global-owner-modal-form" class="space-y-3">
-            <div class="relative">
-              <input 
-                type="password" 
-                id="global-owner-modal-pin" 
-                maxlength="10"
-                class="w-full bg-surface-container-lowest border-2 border-outline-variant/40 focus:border-tertiary text-center text-xl font-mono tracking-[0.3em] font-bold py-3 px-4 rounded-xl text-primary focus:outline-none focus:ring-2 focus:ring-tertiary/30" 
-                placeholder="Enter PIN (7860)" 
-                required 
-                autofocus
-              />
+          <!-- SUCCESS STATE BANNER -->
+          <div id="global-modal-success" class="hidden mb-3 py-3 px-4 rounded-xl bg-emerald-950/90 border-2 border-emerald-500 text-emerald-300 text-sm font-bold flex items-center justify-center gap-2 animate-fade-in shadow-xl">
+            <span class="material-symbols-outlined text-[20px] text-emerald-400">check_circle</span>
+            <span>Successfully Logged In!</span>
+          </div>
+
+          <!-- LOGIN VIEW -->
+          <div id="global-modal-login-view">
+            <form id="global-owner-modal-form" class="space-y-3">
+              <div class="relative">
+                <input 
+                  type="password" 
+                  id="global-owner-modal-pin" 
+                  maxlength="10"
+                  autocomplete="current-password"
+                  class="w-full bg-surface-container-lowest border-2 border-outline-variant/40 focus:border-tertiary text-center text-xl font-mono tracking-[0.3em] font-bold py-3 px-4 rounded-xl text-primary focus:outline-none focus:ring-2 focus:ring-tertiary/30 placeholder:tracking-normal placeholder:font-sans placeholder:text-xs placeholder:text-on-surface-variant/50" 
+                  placeholder="Enter Owner PIN" 
+                  required 
+                  autofocus
+                />
+              </div>
+              <p id="global-modal-error" class="hidden text-xs text-error font-bold tracking-wide flex items-center justify-center gap-1">
+                <span class="material-symbols-outlined text-[15px]">error</span>
+                <span>Incorrect PIN. Please try again.</span>
+              </p>
+              <button type="submit" id="global-modal-submit-btn" class="w-full bg-gradient-to-r from-tertiary to-tertiary-fixed text-on-tertiary-fixed font-bold py-3 px-6 rounded-xl hover:shadow-[0_0_20px_rgba(233,195,73,0.4)] hover:scale-[1.01] active:scale-98 transition-all flex items-center justify-center space-x-2 text-sm shadow-md cursor-pointer">
+                <span class="material-symbols-outlined text-[18px]">key</span>
+                <span>Unlock & Open Invoicing</span>
+              </button>
+            </form>
+
+            <div class="flex items-center justify-between text-xs pt-3 mt-1 border-t border-outline-variant/10">
+              <button type="button" id="btn-global-show-reset" class="text-tertiary hover:underline inline-flex items-center gap-1 font-semibold transition-colors cursor-pointer">
+                <span class="material-symbols-outlined text-[14px]">lock_reset</span>
+                <span>Reset Password / PIN</span>
+              </button>
+              <span class="text-on-surface-variant/70 text-[10px] font-mono">Press Enter to Login</span>
             </div>
-            <p id="global-modal-error" class="hidden text-xs text-error font-bold tracking-wide flex items-center justify-center gap-1">
-              <span class="material-symbols-outlined text-[15px]">error</span>
-              <span>Incorrect PIN. Please try again.</span>
-            </p>
-            <button type="submit" class="w-full bg-gradient-to-r from-tertiary to-tertiary-fixed text-on-tertiary-fixed font-bold py-3 px-6 rounded-xl hover:shadow-[0_0_20px_rgba(233,195,73,0.4)] hover:scale-[1.01] active:scale-98 transition-all flex items-center justify-center space-x-2 text-sm shadow-md cursor-pointer">
-              <span class="material-symbols-outlined text-[18px]">key</span>
-              <span>Unlock & Open Invoicing</span>
-            </button>
-          </form>
+          </div>
+
+          <!-- RESET PIN VIEW -->
+          <div id="global-modal-reset-view" class="hidden text-left space-y-3 animate-fade-in">
+            <div class="bg-surface-container-high/90 border border-outline-variant/30 rounded-2xl p-4 space-y-3">
+              <div class="flex items-center justify-between border-b border-outline-variant/10 pb-2">
+                <div class="flex items-center gap-1.5 text-xs font-bold text-tertiary uppercase">
+                  <span class="material-symbols-outlined text-[15px]">lock_reset</span>
+                  <span>Reset Owner PIN</span>
+                </div>
+                <button type="button" id="btn-global-cancel-reset" class="text-[11px] text-on-surface-variant hover:text-primary transition-colors cursor-pointer flex items-center gap-0.5">
+                  <span class="material-symbols-outlined text-[13px]">arrow_back</span>
+                  <span>Back</span>
+                </button>
+              </div>
+
+              <form id="global-modal-reset-form" class="space-y-3">
+                <div>
+                  <label class="block text-[11px] text-on-surface-variant font-medium mb-1">
+                    Master Recovery Key or Owner Phone (+91 7757030387):
+                  </label>
+                  <input 
+                    type="password" 
+                    id="global-reset-key" 
+                    class="w-full bg-surface-container-lowest border border-outline-variant/40 focus:border-tertiary text-xs py-2 px-3 rounded-lg text-primary focus:outline-none" 
+                    placeholder="Enter Recovery Key or Phone" 
+                    required 
+                  />
+                </div>
+
+                <div class="grid grid-cols-2 gap-2">
+                  <div>
+                    <label class="block text-[11px] text-on-surface-variant font-medium mb-1">
+                      New PIN:
+                    </label>
+                    <input 
+                      type="password" 
+                      id="global-reset-new-pin" 
+                      maxlength="10" 
+                      class="w-full bg-surface-container-lowest border border-outline-variant/40 focus:border-tertiary text-xs py-2 px-3 rounded-lg text-primary focus:outline-none font-mono" 
+                      placeholder="e.g. 3696" 
+                      required 
+                    />
+                  </div>
+                  <div>
+                    <label class="block text-[11px] text-on-surface-variant font-medium mb-1">
+                      Confirm PIN:
+                    </label>
+                    <input 
+                      type="password" 
+                      id="global-reset-confirm-pin" 
+                      maxlength="10" 
+                      class="w-full bg-surface-container-lowest border border-outline-variant/40 focus:border-tertiary text-xs py-2 px-3 rounded-lg text-primary focus:outline-none font-mono" 
+                      placeholder="Confirm PIN" 
+                      required 
+                    />
+                  </div>
+                </div>
+
+                <p id="global-reset-error" class="hidden text-xs text-error font-bold tracking-wide flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[13px]">error</span>
+                  <span id="global-reset-error-text">Invalid recovery key or PINs do not match.</span>
+                </p>
+
+                <p id="global-reset-success" class="hidden text-xs text-emerald-400 font-bold tracking-wide flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[13px]">check_circle</span>
+                  <span>PIN successfully updated! Returning to login...</span>
+                </p>
+
+                <button type="submit" class="w-full bg-tertiary text-on-tertiary font-bold py-2.5 px-4 rounded-xl hover:shadow-[0_0_20px_rgba(233,195,73,0.4)] hover:scale-[1.01] active:scale-98 transition-all flex items-center justify-center space-x-1.5 text-xs shadow-md cursor-pointer">
+                  <span class="material-symbols-outlined text-[15px]">save</span>
+                  <span>Save New PIN & Continue</span>
+                </button>
+              </form>
+            </div>
+          </div>
         </div>
       `;
       document.body.appendChild(modal);
@@ -1556,16 +1673,97 @@ function initOwnerAuthEngine() {
       const form = modal.querySelector('#global-owner-modal-form');
       const pinInput = modal.querySelector('#global-owner-modal-pin');
       const errEl = modal.querySelector('#global-modal-error');
+      const successEl = modal.querySelector('#global-modal-success');
+      const loginView = modal.querySelector('#global-modal-login-view');
+      const resetView = modal.querySelector('#global-modal-reset-view');
+
+      // Toggle to Reset PIN View
+      const showResetBtn = modal.querySelector('#btn-global-show-reset');
+      const cancelResetBtn = modal.querySelector('#btn-global-cancel-reset');
+      if (showResetBtn && cancelResetBtn) {
+        showResetBtn.addEventListener('click', () => {
+          loginView.classList.add('hidden');
+          resetView.classList.remove('hidden');
+          const recInput = modal.querySelector('#global-reset-key');
+          if (recInput) recInput.focus();
+        });
+        cancelResetBtn.addEventListener('click', () => {
+          resetView.classList.add('hidden');
+          loginView.classList.remove('hidden');
+          if (pinInput) pinInput.focus();
+        });
+      }
+
+      // Reset PIN Form Handler
+      const resetForm = modal.querySelector('#global-modal-reset-form');
+      if (resetForm) {
+        resetForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const recKey = modal.querySelector('#global-reset-key').value.trim();
+          const newPin = modal.querySelector('#global-reset-new-pin').value.trim();
+          const confirmPin = modal.querySelector('#global-reset-confirm-pin').value.trim();
+          const rErr = modal.querySelector('#global-reset-error');
+          const rErrText = modal.querySelector('#global-reset-error-text');
+          const rSucc = modal.querySelector('#global-reset-success');
+
+          if (!verifyRecoveryKey(recKey)) {
+            if (rErr && rErrText) {
+              rErrText.textContent = 'Invalid recovery key or phone number.';
+              rErr.classList.remove('hidden');
+            }
+            if (rSucc) rSucc.classList.add('hidden');
+            return;
+          }
+
+          if (newPin.length < 4) {
+            if (rErr && rErrText) {
+              rErrText.textContent = 'PIN must be at least 4 digits long.';
+              rErr.classList.remove('hidden');
+            }
+            if (rSucc) rSucc.classList.add('hidden');
+            return;
+          }
+
+          if (newPin !== confirmPin) {
+            if (rErr && rErrText) {
+              rErrText.textContent = 'New PIN and Confirm PIN do not match.';
+              rErr.classList.remove('hidden');
+            }
+            if (rSucc) rSucc.classList.add('hidden');
+            return;
+          }
+
+          setCustomOwnerPin(newPin);
+          if (rErr) rErr.classList.add('hidden');
+          if (rSucc) rSucc.classList.remove('hidden');
+          if (window.WebAudioFX) window.WebAudioFX.playSuccess();
+
+          setTimeout(() => {
+            resetView.classList.add('hidden');
+            loginView.classList.remove('hidden');
+            if (pinInput) {
+              pinInput.value = '';
+              pinInput.focus();
+            }
+          }, 1200);
+        });
+      }
 
       if (form && pinInput) {
         form.addEventListener('submit', (e) => {
           e.preventDefault();
           const val = pinInput.value.trim();
-          if (VALID_PINS.includes(val)) {
+          if (checkOwnerPin(val)) {
+            if (errEl) errEl.classList.add('hidden');
+            if (successEl) successEl.classList.remove('hidden');
             setOwnerSession();
             if (window.WebAudioFX) window.WebAudioFX.playSuccess();
-            modal.remove(); // Close the PIN entering box immediately
-            window.location.href = 'invoice.html'; // Open invoicing page
+            
+            // Close login modal and open invoicing page
+            setTimeout(() => {
+              modal.remove();
+              window.location.href = 'invoice.html';
+            }, 500);
           } else {
             if (errEl) errEl.classList.remove('hidden');
             pinInput.classList.add('border-error');
@@ -1577,6 +1775,10 @@ function initOwnerAuthEngine() {
       }
     } else {
       const pinInput = modal.querySelector('#global-owner-modal-pin');
+      const errEl = modal.querySelector('#global-modal-error');
+      const successEl = modal.querySelector('#global-modal-success');
+      if (errEl) errEl.classList.add('hidden');
+      if (successEl) successEl.classList.add('hidden');
       if (pinInput) {
         pinInput.value = '';
         pinInput.focus();
@@ -1629,19 +1831,99 @@ function initOwnerAuthEngine() {
     const loginForm = document.getElementById('owner-login-form');
     const pinInput = document.getElementById('owner-pin-input');
     const authError = document.getElementById('owner-auth-error');
+    const authSuccess = document.getElementById('owner-auth-success');
+    const loginView = document.getElementById('owner-login-view');
+    const resetView = document.getElementById('owner-reset-view');
+
+    // Toggle reset view on invoice.html
+    const showResetBtn = document.getElementById('btn-show-reset-view');
+    const cancelResetBtn = document.getElementById('btn-cancel-reset');
+    if (showResetBtn && cancelResetBtn && loginView && resetView) {
+      showResetBtn.addEventListener('click', () => {
+        loginView.classList.add('hidden');
+        resetView.classList.remove('hidden');
+        const recKey = document.getElementById('reset-recovery-key');
+        if (recKey) recKey.focus();
+      });
+      cancelResetBtn.addEventListener('click', () => {
+        resetView.classList.add('hidden');
+        loginView.classList.remove('hidden');
+        if (pinInput) pinInput.focus();
+      });
+    }
+
+    // Reset Form submit on invoice.html
+    const resetForm = document.getElementById('owner-reset-form');
+    if (resetForm) {
+      resetForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const recKey = document.getElementById('reset-recovery-key').value.trim();
+        const newPin = document.getElementById('reset-new-pin').value.trim();
+        const confirmPin = document.getElementById('reset-confirm-pin').value.trim();
+        const rErr = document.getElementById('reset-error-msg');
+        const rErrText = document.getElementById('reset-error-text');
+        const rSucc = document.getElementById('reset-success-msg');
+
+        if (!verifyRecoveryKey(recKey)) {
+          if (rErr && rErrText) {
+            rErrText.textContent = 'Invalid recovery key or phone number.';
+            rErr.classList.remove('hidden');
+          }
+          if (rSucc) rSucc.classList.add('hidden');
+          return;
+        }
+
+        if (newPin.length < 4) {
+          if (rErr && rErrText) {
+            rErrText.textContent = 'PIN must be at least 4 digits long.';
+            rErr.classList.remove('hidden');
+          }
+          if (rSucc) rSucc.classList.add('hidden');
+          return;
+        }
+
+        if (newPin !== confirmPin) {
+          if (rErr && rErrText) {
+            rErrText.textContent = 'New PIN and Confirm PIN do not match.';
+            rErr.classList.remove('hidden');
+          }
+          if (rSucc) rSucc.classList.add('hidden');
+          return;
+        }
+
+        setCustomOwnerPin(newPin);
+        if (rErr) rErr.classList.add('hidden');
+        if (rSucc) rSucc.classList.remove('hidden');
+        if (window.WebAudioFX) window.WebAudioFX.playSuccess();
+
+        setTimeout(() => {
+          if (resetView) resetView.classList.add('hidden');
+          if (loginView) loginView.classList.remove('hidden');
+          if (pinInput) {
+            pinInput.value = '';
+            pinInput.focus();
+          }
+        }, 1200);
+      });
+    }
 
     if (loginForm && pinInput) {
       loginForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const pin = pinInput.value.trim();
-        if (VALID_PINS.includes(pin)) {
+        if (checkOwnerPin(pin)) {
           if (authError) authError.classList.add('hidden');
+          if (authSuccess) authSuccess.classList.remove('hidden');
           setOwnerSession();
           if (window.WebAudioFX) window.WebAudioFX.playSuccess();
-          // Close the PIN box and open Invoicing page
-          renderInvoicePageState(true);
+          
+          // Close the PIN box and open Invoicing page after smooth feedback
+          setTimeout(() => {
+            renderInvoicePageState(true);
+          }, 450);
         } else {
           if (authError) authError.classList.remove('hidden');
+          if (authSuccess) authSuccess.classList.add('hidden');
           pinInput.classList.add('border-error');
           if (window.WebAudioFX) window.WebAudioFX.playWarning();
           pinInput.value = '';
