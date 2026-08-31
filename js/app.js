@@ -1339,6 +1339,373 @@ _Thank you for choosing We Care Auto Repair for your vehicle service!_`;
   updateHistoryBadge();
 }
 
+// ==========================================================================
+// 8. OWNER AUTHENTICATION & 5-MINUTE SESSION ENGINE
+// ==========================================================================
+function initOwnerAuthEngine() {
+  const OWNER_AUTH_KEY = 'wecare_owner_session';
+  const SESSION_DURATION_MS = 5 * 60 * 1000; // 5 minutes active session
+  const VALID_PINS = ['7860', '1234', '9175551980', 'sohail', 'admin'];
+
+  let timerInterval = null;
+
+  function getOwnerSession() {
+    try {
+      const raw = localStorage.getItem(OWNER_AUTH_KEY);
+      if (!raw) return null;
+      const session = JSON.parse(raw);
+      const elapsed = Date.now() - (session.timestamp || 0);
+      if (elapsed > SESSION_DURATION_MS) {
+        localStorage.removeItem(OWNER_AUTH_KEY);
+        return null;
+      }
+      return session;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function setOwnerSession() {
+    try {
+      localStorage.setItem(OWNER_AUTH_KEY, JSON.stringify({
+        loggedIn: true,
+        timestamp: Date.now()
+      }));
+    } catch (e) {
+      console.warn('Session save error:', e);
+    }
+    updateNavCapsule(true);
+  }
+
+  function clearOwnerSession() {
+    localStorage.removeItem(OWNER_AUTH_KEY);
+    if (timerInterval) clearInterval(timerInterval);
+    updateNavCapsule(false);
+  }
+
+  function extendOwnerSession() {
+    const session = getOwnerSession();
+    if (session) {
+      session.timestamp = Date.now();
+      localStorage.setItem(OWNER_AUTH_KEY, JSON.stringify(session));
+      updateTimerDisplay();
+      if (window.WebAudioFX) window.WebAudioFX.playSuccess();
+    }
+  }
+
+  function getRemainingSeconds() {
+    const session = getOwnerSession();
+    if (!session) return 0;
+    const elapsed = Date.now() - (session.timestamp || 0);
+    const remainingMs = Math.max(0, SESSION_DURATION_MS - elapsed);
+    return Math.floor(remainingMs / 1000);
+  }
+
+  function formatTime(seconds) {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+  }
+
+  function updateTimerDisplay() {
+    const displayEl = document.getElementById('session-timer-display');
+    if (!displayEl) return;
+    const remaining = getRemainingSeconds();
+    displayEl.textContent = formatTime(remaining);
+  }
+
+  function startSessionCountdown(onExpire) {
+    if (timerInterval) clearInterval(timerInterval);
+    updateTimerDisplay();
+    timerInterval = setInterval(() => {
+      const remaining = getRemainingSeconds();
+      updateTimerDisplay();
+      if (remaining <= 0) {
+        clearInterval(timerInterval);
+        clearOwnerSession();
+        if (typeof onExpire === 'function') onExpire();
+      }
+    }, 1000);
+  }
+
+  // Update navigation capsules across all pages to show/hide 5th link
+  function updateNavCapsule(isLoggedIn) {
+    const isInvoicePage = window.location.pathname.includes('invoice.html');
+
+    // Desktop nav capsule
+    const desktopCapsule = document.querySelector('nav .max-w-container-max .hidden.md\\:flex.absolute') || document.getElementById('desktopNavCapsule');
+    if (desktopCapsule && !isInvoicePage) {
+      let invLink = desktopCapsule.querySelector('.invoicing-nav-link');
+      if (isLoggedIn) {
+        if (!invLink) {
+          invLink = document.createElement('a');
+          invLink.className = 'invoicing-nav-link text-tertiary font-body-md text-sm font-semibold tracking-wide flex items-center gap-1 hover:scale-105 duration-200 animate-fade-in';
+          invLink.href = 'invoice.html';
+          invLink.innerHTML = `
+            <span class="material-symbols-outlined text-[15px]">receipt_long</span>
+            <span>Invoicing</span>
+            <span class="bg-tertiary text-on-tertiary text-[9px] font-bold px-1.5 py-0.2 rounded-full uppercase ml-0.5">Owner</span>
+          `;
+          desktopCapsule.appendChild(invLink);
+        }
+      } else if (invLink) {
+        invLink.remove();
+      }
+    }
+
+    // Mobile nav drawer
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (mobileMenu && !isInvoicePage) {
+      const linksContainer = mobileMenu.querySelector('.flex-col');
+      if (linksContainer) {
+        let mobileInvLink = linksContainer.querySelector('.mobile-invoicing-nav-link');
+        if (isLoggedIn) {
+          if (!mobileInvLink) {
+            mobileInvLink = document.createElement('a');
+            mobileInvLink.className = 'mobile-invoicing-nav-link text-tertiary font-bold flex items-center justify-between py-2 border-b border-outline-variant/10 animate-fade-in';
+            mobileInvLink.href = 'invoice.html';
+            mobileInvLink.innerHTML = `
+              <span class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-[18px]">receipt_long</span>
+                <span>Invoicing Studio (Owner)</span>
+              </span>
+              <span class="bg-tertiary text-on-tertiary text-[9px] font-bold px-2 py-0.5 rounded-full uppercase">Active</span>
+            `;
+            // Insert before appointment button
+            const lastBtn = linksContainer.querySelector('a:last-child');
+            if (lastBtn) {
+              linksContainer.insertBefore(mobileInvLink, lastBtn);
+            } else {
+              linksContainer.appendChild(mobileInvLink);
+            }
+          }
+        } else if (mobileInvLink) {
+          mobileInvLink.remove();
+        }
+      }
+    }
+  }
+
+  // Inject or get Global Owner Login Modal for any page
+  function openOwnerLoginModal() {
+    const session = getOwnerSession();
+    if (session) {
+      window.location.href = 'invoice.html';
+      return;
+    }
+
+    let modal = document.getElementById('global-owner-login-modal');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.id = 'global-owner-login-modal';
+      modal.className = 'fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md transition-opacity duration-300';
+      modal.innerHTML = `
+        <div class="max-w-md w-full bg-surface-container/98 border border-tertiary/40 rounded-3xl p-6 sm:p-8 text-center relative shadow-[0_20px_60px_rgba(0,0,0,0.9),0_0_30px_rgba(233,195,73,0.2)] text-primary">
+          <button type="button" id="btn-close-global-modal" class="absolute right-4 top-4 text-on-surface-variant hover:text-primary transition-colors p-1.5 rounded-full hover:bg-surface-bright cursor-pointer">
+            <span class="material-symbols-outlined text-[20px]">close</span>
+          </button>
+          
+          <div class="w-14 h-14 rounded-2xl bg-tertiary/15 border border-tertiary/40 flex items-center justify-center mx-auto text-tertiary mb-3 shadow-[0_0_15px_rgba(233,195,73,0.3)]">
+            <span class="material-symbols-outlined text-[28px]">admin_panel_settings</span>
+          </div>
+
+          <span class="px-3 py-0.5 rounded-full bg-tertiary/10 border border-tertiary/25 text-tertiary font-mono text-[10px] font-bold uppercase tracking-widest inline-block mb-1.5">
+            Owner Portal
+          </span>
+          <h3 class="font-display-lg text-xl sm:text-2xl font-bold text-primary mb-1">
+            We Care Auto Invoicing
+          </h3>
+          <p class="font-body-md text-on-surface-variant text-xs mb-4">
+            Enter Owner PIN (7860) to unlock the 5th Invoicing page.
+          </p>
+
+          <form id="global-owner-modal-form" class="space-y-3">
+            <div class="relative">
+              <input 
+                type="password" 
+                id="global-owner-modal-pin" 
+                maxlength="10"
+                class="w-full bg-surface-container-lowest border-2 border-outline-variant/40 focus:border-tertiary text-center text-xl font-mono tracking-[0.3em] font-bold py-3 px-4 rounded-xl text-primary focus:outline-none focus:ring-2 focus:ring-tertiary/30" 
+                placeholder="Enter PIN (7860)" 
+                required 
+                autofocus
+              />
+            </div>
+            <p id="global-modal-error" class="hidden text-xs text-error font-bold tracking-wide flex items-center justify-center gap-1">
+              <span class="material-symbols-outlined text-[15px]">error</span>
+              <span>Incorrect PIN. Please try again.</span>
+            </p>
+            <button type="submit" class="w-full bg-gradient-to-r from-tertiary to-tertiary-fixed text-on-tertiary-fixed font-bold py-3 px-6 rounded-xl hover:shadow-[0_0_20px_rgba(233,195,73,0.4)] hover:scale-[1.01] active:scale-98 transition-all flex items-center justify-center space-x-2 text-sm shadow-md cursor-pointer">
+              <span class="material-symbols-outlined text-[18px]">key</span>
+              <span>Unlock & Open Invoicing</span>
+            </button>
+          </form>
+        </div>
+      `;
+      document.body.appendChild(modal);
+
+      const closeBtn = modal.querySelector('#btn-close-global-modal');
+      if (closeBtn) closeBtn.addEventListener('click', () => modal.remove());
+
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.remove();
+      });
+
+      const form = modal.querySelector('#global-owner-modal-form');
+      const pinInput = modal.querySelector('#global-owner-modal-pin');
+      const errEl = modal.querySelector('#global-modal-error');
+
+      if (form && pinInput) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const val = pinInput.value.trim();
+          if (VALID_PINS.includes(val)) {
+            setOwnerSession();
+            if (window.WebAudioFX) window.WebAudioFX.playSuccess();
+            modal.remove();
+            window.location.href = 'invoice.html';
+          } else {
+            if (errEl) errEl.classList.remove('hidden');
+            pinInput.classList.add('border-error');
+            if (window.WebAudioFX) window.WebAudioFX.playWarning();
+            pinInput.value = '';
+            pinInput.focus();
+          }
+        });
+      }
+    } else {
+      const pinInput = modal.querySelector('#global-owner-modal-pin');
+      if (pinInput) {
+        pinInput.value = '';
+        pinInput.focus();
+      }
+    }
+  }
+
+  // Setup footer trigger buttons on all pages
+  document.querySelectorAll('.btn-open-owner-modal, #btn-owner-admin-login').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      openOwnerLoginModal();
+    });
+  });
+
+  // Handle invoice.html specific page controls
+  const authGate = document.getElementById('owner-auth-gate');
+  const studioWorkspace = document.getElementById('owner-studio-workspace');
+
+  if (authGate && studioWorkspace) {
+    const isAuth = getOwnerSession() !== null;
+
+    function renderInvoicePageState(authenticated) {
+      if (authenticated) {
+        authGate.classList.add('hidden');
+        studioWorkspace.classList.remove('hidden');
+        startSessionCountdown(() => {
+          renderInvoicePageState(false);
+          alert('Owner session expired after 5 minutes of active session. Invoicing locked.');
+        });
+        initInvoiceGenerator();
+      } else {
+        studioWorkspace.classList.add('hidden');
+        authGate.classList.remove('hidden');
+        if (timerInterval) clearInterval(timerInterval);
+        const pinInput = document.getElementById('owner-pin-input');
+        if (pinInput) {
+          pinInput.value = '';
+          pinInput.focus();
+        }
+      }
+    }
+
+    renderInvoicePageState(isAuth);
+
+    // Form submit on invoice.html
+    const loginForm = document.getElementById('owner-login-form');
+    const pinInput = document.getElementById('owner-pin-input');
+    const authError = document.getElementById('owner-auth-error');
+
+    if (loginForm && pinInput) {
+      loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const pin = pinInput.value.trim();
+        if (VALID_PINS.includes(pin)) {
+          if (authError) authError.classList.add('hidden');
+          setOwnerSession();
+          if (window.WebAudioFX) window.WebAudioFX.playSuccess();
+          renderInvoicePageState(true);
+        } else {
+          if (authError) authError.classList.remove('hidden');
+          pinInput.classList.add('border-error');
+          if (window.WebAudioFX) window.WebAudioFX.playWarning();
+          pinInput.value = '';
+          pinInput.focus();
+        }
+      });
+
+      // Keypad buttons
+      document.querySelectorAll('.pin-key-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (pinInput.value.length < 8) {
+            pinInput.value += btn.textContent.trim();
+            if (window.WebAudioFX) window.WebAudioFX.playClick();
+          }
+        });
+      });
+
+      const clearBtn = document.getElementById('pin-clear-btn');
+      if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+          pinInput.value = '';
+          if (authError) authError.classList.add('hidden');
+        });
+      }
+
+      const backspaceBtn = document.getElementById('pin-backspace-btn');
+      if (backspaceBtn) {
+        backspaceBtn.addEventListener('click', () => {
+          pinInput.value = pinInput.value.slice(0, -1);
+          if (window.WebAudioFX) window.WebAudioFX.playClick();
+        });
+      }
+
+      const toggleVisBtn = document.getElementById('btn-toggle-pin-visibility');
+      const toggleIcon = document.getElementById('pin-toggle-icon');
+      if (toggleVisBtn && toggleIcon) {
+        toggleVisBtn.addEventListener('click', () => {
+          const isPass = pinInput.type === 'password';
+          pinInput.type = isPass ? 'text' : 'password';
+          toggleIcon.textContent = isPass ? 'visibility_off' : 'visibility';
+        });
+      }
+    }
+
+    // Session buttons on invoice.html
+    const extendBtn = document.getElementById('btn-extend-session');
+    if (extendBtn) {
+      extendBtn.addEventListener('click', () => {
+        extendOwnerSession();
+      });
+    }
+
+    const lockBtn = document.getElementById('btn-lock-session');
+    const headerLogout = document.getElementById('btn-header-owner-logout');
+    const mobileLogout = document.getElementById('btn-mobile-owner-logout');
+
+    [lockBtn, headerLogout, mobileLogout].forEach(b => {
+      if (b) {
+        b.addEventListener('click', () => {
+          clearOwnerSession();
+          renderInvoicePageState(false);
+        });
+      }
+    });
+  }
+
+  // Initial update of nav capsule on page load
+  updateNavCapsule(getOwnerSession() !== null);
+}
+
 // Global initialization on DOM ready
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize canvas scrolly engine
@@ -1360,8 +1727,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavbarScroll();
   initTimelineRibbonEngine();
   initFeaturedProjectCarousel();
-  initInvoiceGenerator();
+  initOwnerAuthEngine();
 });
+
 
 
 

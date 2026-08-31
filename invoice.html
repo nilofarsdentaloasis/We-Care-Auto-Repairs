@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Owner Invoicing & Billing Studio | We Care Auto Repairs</title>
+  
+  <!-- Tailwind CSS & Plugins -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Geist:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;600&family=Libre+Caslon+Text:wght@400;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  
+  <!-- html2pdf for single-page high-res PDF generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <!-- External Stylesheets -->
+  <link rel="stylesheet" href="css/style.css"/>
+
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-primary": "#313030",
+            "surface-container": "#202020",
+            "on-primary-container": "#7e7d7d",
+            "surface-bright": "#393939",
+            "on-surface": "#e5e2e1",
+            "surface-dim": "#131313",
+            "secondary-container": "#484949",
+            "inverse-primary": "#5f5e5e",
+            "background": "#131313",
+            "on-tertiary-fixed": "#241a00",
+            "on-primary-fixed-variant": "#474646",
+            "primary-fixed": "#e5e2e1",
+            "inverse-surface": "#e5e2e1",
+            "error-container": "#93000a",
+            "secondary-fixed-dim": "#c6c6c6",
+            "on-tertiary": "#3c2f00",
+            "on-primary-fixed": "#1c1b1b",
+            "secondary-fixed": "#e3e2e2",
+            "tertiary-fixed-dim": "#e9c349",
+            "surface-container-low": "#1b1b1c",
+            "outline-variant": "#444748",
+            "on-secondary-container": "#b8b8b8",
+            "surface-variant": "#353535",
+            "surface-container-highest": "#353535",
+            "on-secondary-fixed": "#1a1c1c",
+            "tertiary": "#e9c349",
+            "surface": "#131313",
+            "on-error-container": "#ffdad6",
+            "tertiary-container": "#181100",
+            "on-surface-variant": "#c4c7c7",
+            "on-tertiary-fixed-variant": "#574500",
+            "surface-container-lowest": "#0e0e0e",
+            "on-background": "#e5e2e1",
+            "secondary": "#c6c6c6",
+            "on-secondary": "#2f3131",
+            "error": "#ffb4ab",
+            "primary-fixed-dim": "#c8c6c5",
+            "surface-container-high": "#2a2a2a",
+            "on-error": "#690005",
+            "on-tertiary-container": "#987a00",
+            "inverse-on-surface": "#303030",
+            "primary-container": "#121212",
+            "tertiary-fixed": "#ffe088",
+            "primary": "#c8c6c5",
+            "surface-tint": "#c8c6c5",
+            "on-secondary-fixed-variant": "#464747",
+            "outline": "#8e9192"
+          },
+          borderRadius: {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          spacing: {
+            "stack-lg": "32px",
+            "margin-desktop": "64px",
+            "gutter": "24px",
+            "container-max": "1280px",
+            "section-gap": "56px",
+            "stack-md": "16px",
+            "stack-sm": "8px",
+            "margin-mobile": "20px"
+          },
+          fontFamily: {
+            "headline-lg": ["Libre Caslon Text"],
+            "body-lg": ["Hanken Grotesk"],
+            "display-lg": ["Libre Caslon Text"],
+            "headline-md": ["Libre Caslon Text"],
+            "stats-number": ["Geist"],
+            "label-caps": ["Geist"],
+            "body-md": ["Hanken Grotesk"],
+            "headline-lg-mobile": ["Libre Caslon Text"]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased selection:bg-tertiary selection:text-on-tertiary min-h-screen flex flex-col justify-between">
+
+  <!-- TopNavBar (Shared Component) -->
+  <nav class="fixed top-0 w-full glass-header z-50 transition-all duration-300" id="topNav">
+    <div class="relative flex justify-between items-center px-margin-mobile md:px-margin-desktop py-stack-md md:py-2.5 max-w-container-max mx-auto">
+      <a class="inline-flex items-center shrink-0 group z-10" href="index.html" aria-label="We Care Auto Repairs">
+        <img src="assets/logo.png" alt="We Care Auto Repairs" class="h-12 md:h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105"/>
+      </a>
+      
+      <!-- Desktop Navigation Menu (5 Pages Capsule for Owner) -->
+      <div id="desktopNavCapsule" class="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center bg-[#1f1f22]/95 backdrop-blur-xl border border-white/15 px-6 py-2 rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.1)] space-x-6 z-10">
+        <a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-sm hover:scale-105 duration-200 tracking-wide" href="index.html">Home</a>
+        <a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-sm hover:scale-105 duration-200 tracking-wide" href="services.html">Services</a>
+        <a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-sm hover:scale-105 duration-200 tracking-wide" href="about.html">About Us</a>
+        <a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-sm hover:scale-105 duration-200 tracking-wide" href="contact.html">Contact Us</a>
+        <a class="text-tertiary border-b-2 border-tertiary pb-0.5 font-body-md text-sm font-semibold tracking-wide flex items-center gap-1" href="invoice.html">
+          <span class="material-symbols-outlined text-[15px]">receipt_long</span>
+          <span>Invoicing</span>
+          <span class="bg-tertiary text-on-tertiary text-[9px] font-bold px-1.5 py-0.2 rounded-full uppercase ml-0.5">Owner</span>
+        </a>
+      </div>
+      
+      <div class="hidden md:flex items-center space-x-3 z-10">
+        <button id="btn-header-owner-logout" class="bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/30 hover:border-tertiary/50 px-4 py-2 rounded-full font-label-caps text-xs uppercase transition-all flex items-center space-x-1.5 cursor-pointer">
+          <span class="material-symbols-outlined text-[16px] text-tertiary">lock</span>
+          <span>Lock Session</span>
+        </button>
+      </div>
+
+      <!-- Mobile Hamburger Toggle Button -->
+      <div class="md:hidden flex items-center space-x-2 z-10">
+        <button class="text-primary p-2 focus:outline-none flex items-center justify-center rounded-lg bg-surface-container hover:bg-surface-bright transition-colors" id="mobileMenuBtn" aria-label="Toggle Navigation">
+          <span class="material-symbols-outlined text-[24px]" id="mobileMenuIcon">menu</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Menu Drawer -->
+    <div class="md:hidden hidden bg-surface-dim/98 backdrop-blur-2xl border-b border-outline-variant/20 px-6 py-6 transition-all duration-300 shadow-2xl" id="mobileMenu">
+      <div class="flex flex-col space-y-4 font-body-md">
+        <a class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-between py-2 border-b border-outline-variant/10" href="index.html">
+          <span>Home</span>
+          <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+        </a>
+        <a class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-between py-2 border-b border-outline-variant/10" href="services.html">
+          <span>Services</span>
+          <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+        </a>
+        <a class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-between py-2 border-b border-outline-variant/10" href="about.html">
+          <span>About Us</span>
+          <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+        </a>
+        <a class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-between py-2 border-b border-outline-variant/10" href="contact.html">
+          <span>Contact Us</span>
+          <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+        </a>
+        <a class="text-tertiary font-bold flex items-center justify-between py-2 border-b border-outline-variant/10" href="invoice.html">
+          <span class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-[18px]">receipt_long</span>
+            <span>Invoicing Studio (Owner)</span>
+          </span>
+          <span class="bg-tertiary text-on-tertiary text-[9px] font-bold px-2 py-0.5 rounded-full uppercase">Active</span>
+        </a>
+        <button id="btn-mobile-owner-logout" class="w-full bg-surface-container-high hover:bg-surface-bright text-on-surface py-2.5 px-4 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center space-x-2 transition-all border border-outline-variant/20">
+          <span class="material-symbols-outlined text-[16px] text-tertiary">lock</span>
+          <span>Lock / Exit Invoicing</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="pt-24 md:pt-28 flex-1">
+
+    <!-- ==========================================================================
+         SECURITY GATE: OWNER AUTHENTICATION MODAL / SCREEN (SHOWN WHEN LOGGED OUT)
+         ========================================================================== -->
+    <section id="owner-auth-gate" class="min-h-[70vh] flex items-center justify-center px-4 py-12">
+      <div class="max-w-md w-full bg-surface-container/95 backdrop-blur-2xl border border-tertiary/30 rounded-3xl p-6 sm:p-8 shadow-[0_15px_50px_rgba(0,0,0,0.8),0_0_30px_rgba(233,195,73,0.15)] text-center relative overflow-hidden transition-all duration-300">
+        
+        <!-- Ambient top glow -->
+        <div class="absolute -top-12 left-1/2 -translate-x-1/2 w-40 h-40 bg-tertiary/20 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="relative z-10 space-y-5">
+          <!-- Shield Icon Badge -->
+          <div class="w-16 h-16 rounded-2xl bg-tertiary/15 border border-tertiary/40 flex items-center justify-center mx-auto text-tertiary shadow-[0_0_20px_rgba(233,195,73,0.3)]">
+            <span class="material-symbols-outlined text-[32px]">admin_panel_settings</span>
+          </div>
+
+          <div>
+            <span class="px-3 py-1 rounded-full bg-tertiary/10 border border-tertiary/25 text-tertiary font-mono text-[10px] font-bold uppercase tracking-widest inline-block mb-2">
+              Owner Access Only
+            </span>
+            <h1 class="font-display-lg text-2xl sm:text-3xl text-primary font-bold">
+              We Care Invoicing Studio
+            </h1>
+            <p class="font-body-md text-on-surface-variant text-xs sm:text-sm mt-1.5">
+              Please enter your Owner PIN to unlock the official dealership billing system.
+            </p>
+          </div>
+
+          <!-- PIN Form -->
+          <form id="owner-login-form" class="space-y-4 pt-2">
+            <div class="relative">
+              <input 
+                type="password" 
+                id="owner-pin-input" 
+                maxlength="10" 
+                autocomplete="current-password"
+                class="w-full bg-surface-container-lowest border-2 border-outline-variant/40 focus:border-tertiary text-center text-2xl font-mono tracking-[0.4em] font-bold py-3.5 px-4 rounded-xl text-primary focus:outline-none focus:ring-2 focus:ring-tertiary/30 transition-all placeholder:tracking-normal placeholder:text-xs placeholder:font-sans placeholder:text-on-surface-variant/50" 
+                placeholder="Enter PIN (e.g. 7860)" 
+                required 
+                autofocus
+              />
+              <button type="button" id="btn-toggle-pin-visibility" class="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary transition-colors p-1" title="Show / Hide PIN">
+                <span class="material-symbols-outlined text-[20px]" id="pin-toggle-icon">visibility</span>
+              </button>
+            </div>
+
+            <!-- Error message container -->
+            <p id="owner-auth-error" class="hidden text-xs text-error font-bold tracking-wide flex items-center justify-center gap-1">
+              <span class="material-symbols-outlined text-[16px]">error</span>
+              <span>Incorrect PIN. Please try again.</span>
+            </p>
+
+            <!-- Quick Number Keypad -->
+            <div class="grid grid-cols-3 gap-2 pt-1 font-mono">
+              <button type="button" class="pin-key-btn bg-surface-container-high hover:bg-surface-bright active:scale-95 text-primary text-lg font-bold py-2.5 rounded-xl border border-outline-variant/15 transition-all">1</button>
+              <button type="button" class="pin-key-btn bg-surface-container-high hover:bg-surface-bright active:scale-95 text-primary text-lg font-bold py-2.5 rounded-xl border border-outline-variant/15 transition-all">2</button>
+              <button type="button" class="pin-key-btn bg-surface-container-high hover:bg-surface-bright active:scale-95 text-primary text-lg font-bold py-2.5 rounded-xl border border-outline-variant/15 transition-all">3</button>
+              <button type="button" class="pin-key-btn bg-surface-container-high hover:bg-surface-bright active:scale-95 text-primary text-lg font-bold py-2.5 rounded-xl border border-outline-variant/15 transition-all">4</button>
+              <button type="button" class="pin-key-btn bg-surface-container-high hover:bg-surface-bright active:scale-95 text-primary text-lg font-bold py-2.5 rounded-xl border border-outline-variant/15 transition-all">5</button>
+              <button type="button" class="pin-key-btn bg-surface-container-high hover:bg-surface-bright active:scale-95 text-primary text-lg font-bold py-2.5 rounded-xl border border-outline-variant/15 transition-all">6</button>
+              <button type="button" class="pin-key-btn bg-surface-container-high hover:bg-surface-bright active:scale-95 text-primary text-lg font-bold py-2.5 rounded-xl border border-outline-variant/15 transition-all">7</button>
+              <button type="button" class="pin-key-btn bg-surface-container-high hover:bg-surface-bright active:scale-95 text-primary text-lg font-bold py-2.5 rounded-xl border border-outline-variant/15 transition-all">8</button>
+              <button type="button" class="pin-key-btn bg-surface-container-high hover:bg-surface-bright active:scale-95 text-primary text-lg font-bold py-2.5 rounded-xl border border-outline-variant/15 transition-all">9</button>
+              <button type="button" id="pin-clear-btn" class="bg-surface-container-high hover:bg-surface-bright text-xs text-on-surface-variant font-bold py-2.5 rounded-xl border border-outline-variant/15 transition-all uppercase">C</button>
+              <button type="button" class="pin-key-btn bg-surface-container-high hover:bg-surface-bright active:scale-95 text-primary text-lg font-bold py-2.5 rounded-xl border border-outline-variant/15 transition-all">0</button>
+              <button type="button" id="pin-backspace-btn" class="bg-surface-container-high hover:bg-surface-bright text-primary flex items-center justify-center py-2.5 rounded-xl border border-outline-variant/15 transition-all">
+                <span class="material-symbols-outlined text-[18px]">backspace</span>
+              </button>
+            </div>
+
+            <button type="submit" class="w-full bg-gradient-to-r from-tertiary to-tertiary-fixed text-on-tertiary-fixed font-bold py-3.5 px-6 rounded-xl hover:shadow-[0_0_25px_rgba(233,195,73,0.4)] hover:scale-[1.01] active:scale-98 transition-all flex items-center justify-center space-x-2 text-sm shadow-md cursor-pointer mt-2">
+              <span class="material-symbols-outlined text-[18px]">key</span>
+              <span>Unlock Invoicing Studio</span>
+            </button>
+          </form>
+
+          <div class="pt-3 border-t border-outline-variant/15 text-[11px] text-on-surface-variant flex items-center justify-between">
+            <span>Owner: <strong class="text-primary font-semibold">Sohail Mulani</strong></span>
+            <span class="text-tertiary/90 font-mono">Auto-locks in 5 mins</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         INVOICING STUDIO: AUTHENTICATED OWNER WORKSPACE (SINGLE A4 SUITE)
+         ========================================================================== -->
+    <div id="owner-studio-workspace" class="hidden">
+      
+      <!-- Top Session HUD Bar -->
+      <div class="bg-surface-container-high/90 border-b border-tertiary/25 px-margin-mobile md:px-margin-desktop py-2.5 text-xs text-on-surface flex flex-wrap items-center justify-between gap-3 shadow-md">
+        <div class="flex items-center space-x-3">
+          <span class="flex items-center space-x-1.5 text-tertiary font-bold">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>Owner Portal Active: Sohail Mulani</span>
+          </span>
+          <span class="hidden sm:inline text-outline">•</span>
+          <span class="hidden sm:flex items-center gap-1 font-mono text-on-surface-variant">
+            <span class="material-symbols-outlined text-[15px] text-tertiary">timer</span>
+            <span>Session Auto-Locks in: <strong id="session-timer-display" class="text-tertiary font-bold">05:00</strong></span>
+          </span>
+        </div>
+
+        <div class="flex items-center space-x-2">
+          <button type="button" id="btn-extend-session" class="bg-surface-container hover:bg-surface-bright text-tertiary border border-tertiary/30 hover:border-tertiary px-3 py-1 rounded-lg text-xs font-mono font-bold transition-colors flex items-center space-x-1 cursor-pointer" title="Add 5 more minutes of active session">
+            <span class="material-symbols-outlined text-[14px]">update</span>
+            <span>Extend (+5m)</span>
+          </button>
+          <button type="button" id="btn-lock-session" class="bg-red-950/60 hover:bg-red-900 text-red-200 border border-red-800 px-3 py-1 rounded-lg text-xs font-bold transition-colors flex items-center space-x-1 cursor-pointer">
+            <span class="material-symbols-outlined text-[14px]">lock</span>
+            <span>Logout</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- INVOICE GENERATOR SECTION -->
+      <section class="py-6 md:py-8 px-margin-mobile md:px-margin-desktop bg-[#f8fafc] text-slate-900 border-b-2 border-slate-300" id="invoice-generator">
+        <div class="max-w-container-max mx-auto">
+          
+          <!-- Section Header -->
+          <div class="text-center max-w-3xl mx-auto mb-6 md:mb-8">
+            <div class="inline-flex items-center space-x-2 bg-amber-100 border border-amber-300 px-4 py-1.5 rounded-full mb-3 shadow-sm">
+              <span class="material-symbols-outlined text-amber-900 text-[18px]">receipt_long</span>
+              <span class="text-xs text-amber-950 uppercase tracking-widest font-black">Official Dealership Billing & Estimation Studio</span>
+            </div>
+            <h2 class="text-3xl md:text-4xl text-slate-950 mb-2 leading-tight font-black tracking-tight">
+              Single-Page A4 Invoice Generator
+            </h2>
+            <p class="text-slate-600 text-xs md:text-sm leading-relaxed">
+              Create official 1-page A4 bills & estimates. Export pixel-perfect PDFs, send instant WhatsApp bills, and maintain local workshop records.
+            </p>
+
+            <!-- Mobile View Switcher (Visible on Mobile/Tablet screens only) -->
+            <div class="lg:hidden flex items-center justify-center mt-4">
+              <div class="inline-flex p-1 bg-slate-200 rounded-xl border border-slate-300 shadow-inner">
+                <button type="button" id="mobile-view-form-btn" class="px-4 py-2 rounded-lg text-xs font-bold transition-all bg-amber-500 text-slate-950 shadow-sm flex items-center space-x-1.5 cursor-pointer">
+                  <span class="material-symbols-outlined text-[16px]">edit_note</span>
+                  <span>1. Edit Bill</span>
+                </button>
+                <button type="button" id="mobile-view-preview-btn" class="px-4 py-2 rounded-lg text-xs font-bold transition-all text-slate-700 hover:text-slate-950 flex items-center space-x-1.5 cursor-pointer">
+                  <span class="material-symbols-outlined text-[16px]">description</span>
+                  <span>2. View A4 Preview</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Main Builder & Preview Grid (Side by Side on Desktop, Stacked on Mobile) -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+            
+            <!-- LEFT COLUMN: Simplified Invoice Builder (5 cols) -->
+            <div id="col-invoice-builder" class="lg:col-span-6 xl:col-span-5 invoice-builder-card rounded-2xl md:rounded-3xl p-4 sm:p-6 space-y-4 text-slate-900 shadow-xl border border-slate-200">
+              
+              <!-- Navigation Tabs: Editor vs Stored History -->
+              <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                <div class="flex space-x-2">
+                  <button type="button" id="tab-btn-editor" class="px-3.5 py-1.5 rounded-xl text-xs font-black transition-all bg-amber-500 hover:bg-amber-400 text-slate-950 cursor-pointer flex items-center space-x-1.5 shadow-sm">
+                    <span class="material-symbols-outlined text-[16px]">edit_document</span>
+                    <span>Invoice Editor</span>
+                  </button>
+                  <button type="button" id="tab-btn-history" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all bg-slate-100 hover:bg-slate-200 text-slate-800 cursor-pointer flex items-center space-x-1.5 border border-slate-300">
+                    <span class="material-symbols-outlined text-[16px]">folder_open</span>
+                    <span>Saved (<span id="saved-invoices-badge" class="font-black text-amber-700">0</span>)</span>
+                  </button>
+                </div>
+
+                <button id="btn-reset-invoice" class="text-xs text-slate-500 hover:text-red-700 font-bold flex items-center space-x-1 transition-colors cursor-pointer" type="button" title="Start a fresh blank invoice">
+                  <span class="material-symbols-outlined text-[15px]">restart_alt</span>
+                  <span>Reset</span>
+                </button>
+              </div>
+
+              <!-- TAB 1: INVOICE EDITOR FORM -->
+              <div id="panel-invoice-editor" class="space-y-4">
+                
+                <!-- Customer & Vehicle Info Grid -->
+                <div class="space-y-2.5">
+                  <div class="flex items-center justify-between">
+                    <span class="text-[11px] text-amber-900 uppercase font-black tracking-wider flex items-center gap-1">
+                      <span class="material-symbols-outlined text-[14px]">person</span> Customer & Vehicle Details
+                    </span>
+                  </div>
+                  
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                    <div>
+                      <label class="block text-[11px] text-slate-700 font-bold mb-0.5">Customer Name *</label>
+                      <input type="text" id="inv-cust-name" class="invoice-input-field w-full px-3 py-2 rounded-lg text-xs" placeholder="e.g. Rahul Sharma" value="">
+                    </div>
+                    <div>
+                      <label class="block text-[11px] text-slate-700 font-bold mb-0.5">WhatsApp Mobile No. *</label>
+                      <div class="relative">
+                        <span class="absolute left-3 top-2 text-xs text-slate-600 font-bold z-10 select-none">+91</span>
+                        <input type="tel" id="inv-cust-phone" class="invoice-input-field w-full pl-11 pr-3 py-2 rounded-lg text-xs font-bold" placeholder="9876543210" value="">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                    <div>
+                      <label class="block text-[11px] text-slate-700 font-bold mb-0.5">Vehicle Model & Make *</label>
+                      <input type="text" id="inv-car-model" class="invoice-input-field w-full px-3 py-2 rounded-lg text-xs" placeholder="e.g. BMW 320d / Thar 4x4" value="">
+                    </div>
+                    <div>
+                      <label class="block text-[11px] text-slate-700 font-bold mb-0.5">Vehicle Reg. No.</label>
+                      <input type="text" id="inv-car-reg" class="invoice-input-field w-full px-3 py-2 rounded-lg text-xs uppercase font-bold" placeholder="e.g. MH 14 AB 1234" value="">
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-3 gap-2">
+                    <div>
+                      <label class="block text-[11px] text-slate-700 font-bold mb-0.5">Invoice #</label>
+                      <input type="text" id="inv-number" class="invoice-input-field w-full px-2.5 py-2 rounded-lg text-xs font-bold" value="WCAR-2026-8492">
+                    </div>
+                    <div>
+                      <label class="block text-[11px] text-slate-700 font-bold mb-0.5">Date</label>
+                      <input type="date" id="inv-date" class="invoice-input-field w-full px-2.5 py-2 rounded-lg text-xs font-bold">
+                    </div>
+                    <div>
+                      <label class="block text-[11px] text-slate-700 font-bold mb-0.5">Payment Status</label>
+                      <select id="inv-pay-status" class="invoice-input-field w-full px-2 py-2 rounded-lg text-xs font-bold">
+                        <option value="PAID" selected>PAID</option>
+                        <option value="PENDING">PENDING</option>
+                        <option value="50% ADVANCE">50% ADVANCE</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Quick-Add Popular Services Chips -->
+                <div class="space-y-1.5 pt-2.5 border-t border-slate-200">
+                  <span class="text-[11px] text-amber-900 uppercase font-black tracking-wider block">1-Click Quick Add Services</span>
+                  <div class="flex flex-wrap gap-1.5">
+                    <button type="button" class="preset-item-btn text-[11px] font-bold bg-slate-100 hover:bg-amber-500 hover:text-slate-950 text-slate-800 px-2.5 py-1 rounded-md border border-slate-300 transition-all cursor-pointer shadow-2xs" data-desc="Synthetic Engine Oil (5W-40) & OEM Filter" data-price="4500">
+                      + Synthetic Oil (₹4.5k)
+                    </button>
+                    <button type="button" class="preset-item-btn text-[11px] font-bold bg-slate-100 hover:bg-amber-500 hover:text-slate-950 text-slate-800 px-2.5 py-1 rounded-md border border-slate-300 transition-all cursor-pointer shadow-2xs" data-desc="60-Point Laser Chassis & Safety Audit" data-price="1200">
+                      + Laser Audit (₹1.2k)
+                    </button>
+                    <button type="button" class="preset-item-btn text-[11px] font-bold bg-slate-100 hover:bg-amber-500 hover:text-slate-950 text-slate-800 px-2.5 py-1 rounded-md border border-slate-300 transition-all cursor-pointer shadow-2xs" data-desc="Front Brake Pads Replacement (OEM Spec)" data-price="3800">
+                      + Brake Pads (₹3.8k)
+                    </button>
+                    <button type="button" class="preset-item-btn text-[11px] font-bold bg-slate-100 hover:bg-amber-500 hover:text-slate-950 text-slate-800 px-2.5 py-1 rounded-md border border-slate-300 transition-all cursor-pointer shadow-2xs" data-desc="OBD-II Computer ECU Diagnostic Full Scan" data-price="999">
+                      + ECU Scan (₹999)
+                    </button>
+                    <button type="button" class="preset-item-btn text-[11px] font-bold bg-slate-100 hover:bg-amber-500 hover:text-slate-950 text-slate-800 px-2.5 py-1 rounded-md border border-slate-300 transition-all cursor-pointer shadow-2xs" data-desc="Ceramic 9H Shield Coating & Detail Polish" data-price="8500">
+                      + Ceramic 9H (₹8.5k)
+                    </button>
+                    <button type="button" class="preset-item-btn text-[11px] font-bold bg-slate-100 hover:bg-amber-500 hover:text-slate-950 text-slate-800 px-2.5 py-1 rounded-md border border-slate-300 transition-all cursor-pointer shadow-2xs" data-desc="Suspension Bushes & Link Rod Replacement" data-price="5500">
+                      + Suspension (₹5.5k)
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Dynamic Line Items Builder -->
+                <div class="space-y-2 pt-2.5 border-t border-slate-200">
+                  <div class="flex items-center justify-between">
+                    <span class="text-[11px] text-amber-900 uppercase font-black tracking-wider flex items-center gap-1">
+                      <span class="material-symbols-outlined text-[14px]">format_list_bulleted</span> Itemized Services & Parts
+                    </span>
+                    <button type="button" id="btn-add-line-item" class="text-xs font-black text-amber-800 hover:text-amber-950 flex items-center space-x-1 cursor-pointer bg-amber-100 hover:bg-amber-200 px-2.5 py-1 rounded-md transition-colors">
+                      <span class="material-symbols-outlined text-[15px]">add_circle</span>
+                      <span>Add Item</span>
+                    </button>
+                  </div>
+
+                  <!-- Dynamic Rows Container -->
+                  <div id="invoice-items-list" class="space-y-2 max-h-[260px] overflow-y-auto pr-1">
+                    <!-- Rows injected dynamically via JS -->
+                  </div>
+                </div>
+
+                <!-- Financials, Taxes & Warranty -->
+                <div class="space-y-2.5 pt-2.5 border-t border-slate-200">
+                  <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                    <div>
+                      <label class="block text-[11px] text-slate-700 font-bold mb-0.5">GST Rate</label>
+                      <select id="inv-tax-rate" class="invoice-input-field w-full px-2.5 py-2 rounded-lg text-xs font-bold">
+                        <option value="0">0% (Estimate / Exempt)</option>
+                        <option value="5">5% GST</option>
+                        <option value="12">12% GST</option>
+                        <option value="18" selected>18% GST</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block text-[11px] text-slate-700 font-bold mb-0.5">Discount (₹)</label>
+                      <input type="number" id="inv-discount" class="invoice-input-field w-full px-2.5 py-2 rounded-lg text-xs font-bold" placeholder="0" value="0" min="0">
+                    </div>
+                    <div class="col-span-2 sm:col-span-1">
+                      <label class="block text-[11px] text-slate-700 font-bold mb-0.5">Warranty Note</label>
+                      <select id="inv-warranty" class="invoice-input-field w-full px-2 py-2 rounded-lg text-xs font-bold">
+                        <option value="12-Month / 10,000 KM Official Workshop Warranty" selected>12-Month / 10,000 KM Warranty</option>
+                        <option value="6-Month / 5,000 KM Official Workshop Warranty">6-Month / 5,000 KM Warranty</option>
+                        <option value="3-Month Limited Parts & Service Warranty">3-Month Parts Warranty</option>
+                        <option value="Official OEM Manufacturer Warranty on Spares">OEM Manufacturer Warranty</option>
+                        <option value="Estimate Quote / No Warranty Applicable">No Warranty (Estimate)</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Action Buttons Toolbar -->
+                <div class="pt-3 border-t border-slate-200 space-y-2">
+                  <!-- Primary Action Row -->
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <!-- Download Single A4 PDF Button -->
+                    <button type="button" id="btn-download-pdf" class="w-full bg-slate-950 hover:bg-slate-800 text-white font-black text-xs uppercase tracking-wider py-3 px-3 rounded-xl flex items-center justify-center space-x-2 transition-all shadow-md hover:scale-[1.01] active:scale-98 cursor-pointer">
+                      <span class="material-symbols-outlined text-[17px]">picture_as_pdf</span>
+                      <span>Download A4 PDF</span>
+                    </button>
+
+                    <!-- Send to WhatsApp Button -->
+                    <button type="button" id="btn-send-whatsapp" class="w-full bg-[#25D366] hover:bg-[#20ba59] text-white font-black text-xs uppercase tracking-wider py-3 px-3 rounded-xl flex items-center justify-center space-x-2 transition-all shadow-md hover:scale-[1.01] active:scale-98 cursor-pointer">
+                      <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                        <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.04 14.69 2 12.04 2ZM12.04 20.15C10.56 20.15 9.11 19.76 7.85 19.01L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.8 13.47 3.8 11.91C3.8 7.37 7.5 3.67 12.04 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15ZM16.56 14.41C16.31 14.29 15.09 13.69 14.86 13.61C14.64 13.52 14.47 13.48 14.31 13.73C14.14 13.97 13.67 14.53 13.52 14.69C13.38 14.86 13.23 14.88 12.98 14.76C12.74 14.64 11.95 14.38 11.02 13.55C10.29 12.9 9.8 12.1 9.68 11.85C9.55 11.61 9.66 11.47 9.79 11.35C9.9 11.24 10.03 11.07 10.15 10.93C10.28 10.78 10.32 10.68 10.4 10.51C10.48 10.35 10.44 10.21 10.38 10.08C10.32 9.96 9.83 8.76 9.63 8.26C9.43 7.78 9.23 7.84 9.08 7.83C8.94 7.83 8.77 7.83 8.61 7.83C8.44 7.83 8.18 7.89 7.95 8.14C7.72 8.38 7.08 8.98 7.08 10.21C7.08 11.44 7.97 12.62 8.1 12.79C8.22 12.96 9.86 15.48 12.36 16.56C12.96 16.82 13.42 16.97 13.78 17.09C14.38 17.28 14.93 17.25 15.36 17.19C15.84 17.12 16.84 16.58 17.05 16C17.25 15.41 17.25 14.91 17.19 14.8C17.13 14.7 16.98 14.64 16.73 14.52L16.56 14.41Z"/>
+                      </svg>
+                      <span>Send to WhatsApp</span>
+                    </button>
+                  </div>
+
+                  <!-- Secondary Action Row -->
+                  <div class="grid grid-cols-2 gap-2">
+                    <button type="button" id="btn-save-invoice" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs py-2.5 px-2.5 rounded-xl flex items-center justify-center space-x-1.5 transition-colors shadow-2xs cursor-pointer">
+                      <span class="material-symbols-outlined text-[16px]">save</span>
+                      <span>Save Bill</span>
+                    </button>
+                    <button type="button" id="btn-print-invoice" class="bg-white hover:bg-slate-100 text-slate-800 font-bold text-xs py-2.5 px-2.5 rounded-xl flex items-center justify-center space-x-1.5 transition-colors border border-slate-300 shadow-2xs cursor-pointer">
+                      <span class="material-symbols-outlined text-[16px]">print</span>
+                      <span>Print Direct</span>
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- TAB 2: STORED INVOICES HISTORY PANEL -->
+              <div id="panel-invoice-history" class="hidden space-y-3">
+                <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+                  <span class="text-xs text-amber-900 uppercase font-black tracking-wider">Stored Workshop Invoices</span>
+                  <button type="button" id="btn-clear-all-history" class="text-xs text-red-600 hover:text-red-800 font-bold cursor-pointer transition-colors">
+                    Clear All
+                  </button>
+                </div>
+
+                <!-- Search filter -->
+                <input type="text" id="search-saved-invoices" class="invoice-input-field w-full px-3 py-2 rounded-lg text-xs font-bold" placeholder="Search by customer, car, or invoice #...">
+
+                <!-- Stored List Container -->
+                <div id="saved-invoices-list" class="space-y-2 max-h-[420px] overflow-y-auto pr-1">
+                  <!-- Stored invoice cards rendered dynamically by JS -->
+                </div>
+              </div>
+
+            </div>
+
+            <!-- RIGHT COLUMN: Professional Dealership Single-Page A4 Invoice Preview (7 cols) -->
+            <div id="col-invoice-preview" class="lg:col-span-6 xl:col-span-7 flex flex-col items-center w-full">
+              
+              <div class="w-full flex items-center justify-between mb-2.5 px-1 text-xs text-slate-600">
+                <span class="flex items-center space-x-1.5">
+                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                  <span class="font-black text-slate-900">LIVE A4 INVOICE (1-PAGE FIT)</span>
+                </span>
+                <span class="text-[11px] text-amber-900 font-bold hidden sm:inline">HIGH CONTRAST DEALERSHIP STANDARD</span>
+              </div>
+
+              <!-- Responsive Wrapper for Mobile/Desktop A4 View -->
+              <div class="invoice-sheet-viewport w-full overflow-x-auto pb-2 rounded-2xl">
+                
+                <!-- The Calibrated Single-Page A4 Printable Element -->
+                <div id="printable-invoice-paper" class="invoice-paper-sheet mx-auto transition-all duration-200 select-text shadow-2xl">
+                  
+                  <!-- 1. TOP HEADER: Dealership Logo + Workshop Info + Tax Invoice Box -->
+                  <div class="inv-header flex flex-row justify-between items-start pb-3 border-b-2 border-slate-950 gap-3">
+                    
+                    <!-- Left: Dealership Identity & Address -->
+                    <div class="flex items-center space-x-3 min-w-0">
+                      <img src="assets/invoice-logo.png" alt="We Care Auto Repairs" class="h-11 sm:h-12 w-auto object-contain shrink-0 filter drop-shadow-2xs">
+                      <div class="border-l border-slate-950 pl-3 leading-tight min-w-0">
+                        <h3 class="text-sm sm:text-base font-black tracking-tight text-black uppercase leading-tight">WE CARE AUTO REPAIR</h3>
+                        <p class="text-[10px] font-bold text-slate-900 leading-tight">Multi-Brand Luxury & Mechanical Diagnostics</p>
+                        <p class="text-[9px] sm:text-[10px] text-slate-800 leading-tight mt-0.5">
+                          Gat No 1079, Newali Wasti, Chikhali, Pune 411062<br>
+                          <strong>Phone:</strong> +91 7757030387 | <strong>GSTIN:</strong> 27AABCU9603R1ZM
+                        </p>
+                      </div>
+                    </div>
+
+                    <!-- Right: Invoice Metadata Box -->
+                    <div class="text-right shrink-0 bg-slate-50 p-2 sm:p-2.5 rounded-lg border border-slate-950">
+                      <span class="text-[10px] font-black uppercase tracking-wider text-amber-900 block">TAX INVOICE / BILL</span>
+                      <span id="prev-inv-num" class="text-xs sm:text-sm font-black text-black block mt-0.5 tabular-nums">WCAR-2026-8492</span>
+                      <span id="prev-inv-date" class="text-[10px] text-slate-800 font-bold block">Date: —</span>
+                      <div class="mt-1">
+                        <span id="prev-inv-status" class="inline-block px-2.5 py-0.5 rounded-full text-[9px] font-black tracking-wider uppercase bg-emerald-100 text-emerald-950 border border-emerald-500">
+                          PAID
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 2. CLIENT & VEHICLE COMPACT DATA MATRIX (2 Balanced Cards) -->
+                  <div class="grid grid-cols-2 gap-2.5 py-2.5 border-b border-slate-950 text-[11px] leading-tight">
+                    <!-- Billed To Customer -->
+                    <div class="bg-slate-50/90 p-2 rounded-lg border border-slate-900 space-y-0.5">
+                      <span class="text-[9px] font-black text-slate-900 uppercase tracking-wider block border-b border-slate-300 pb-0.5">BILLED TO CUSTOMER:</span>
+                      <p id="prev-cust-name" class="font-black text-black text-xs pt-0.5 truncate">—</p>
+                      <p id="prev-cust-phone" class="font-bold text-slate-800 text-[10px] tabular-nums">—</p>
+                      <p class="text-[9px] text-slate-700">Place of Supply: Chikhali, Pune (Maharashtra - 27)</p>
+                    </div>
+
+                    <!-- Vehicle & Order Record -->
+                    <div class="bg-slate-50/90 p-2 rounded-lg border border-slate-900 space-y-0.5">
+                      <span class="text-[9px] font-black text-slate-900 uppercase tracking-wider block border-b border-slate-300 pb-0.5">VEHICLE & WORK ORDER:</span>
+                      <p id="prev-car-model" class="font-black text-black text-xs pt-0.5 truncate">—</p>
+                      <p id="prev-car-reg" class="font-bold text-slate-800 uppercase text-[10px] tabular-nums">—</p>
+                      <p class="text-[9px] text-slate-700">Lead Engineer: <strong class="text-black font-bold">Sohail Mulani</strong></p>
+                    </div>
+                  </div>
+
+                  <!-- 3. ITEMIZED SERVICES TABLE (Crisp High-Contrast Grid) -->
+                  <div class="py-2.5">
+                    <table class="w-full text-left text-xs border-collapse">
+                      <thead>
+                        <tr class="bg-slate-950 text-white uppercase text-[10px]">
+                          <th class="py-1.5 px-2 w-8 text-center rounded-l text-white font-black">#</th>
+                          <th class="py-1.5 px-2 text-white font-black">Service / Genuine Spares Description</th>
+                          <th class="py-1.5 px-2 text-center w-12 text-white font-black">Qty</th>
+                          <th class="py-1.5 px-2 text-right w-20 text-white font-black">Rate (₹)</th>
+                          <th class="py-1.5 px-2 text-right w-24 rounded-r text-white font-black">Amount (₹)</th>
+                        </tr>
+                      </thead>
+                      <tbody id="prev-items-body" class="divide-y divide-slate-200 text-black text-[11px]">
+                        <!-- Dynamic rows injected with solid black text by JS -->
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <!-- 4. FINANCIAL SUMMARY & PAYMENT INSTRUCTIONS -->
+                  <div class="pt-2 border-t border-slate-950 grid grid-cols-12 gap-2.5 items-start">
+                    
+                    <!-- Left: Amount in Words & Payment Instructions (7 cols) -->
+                    <div class="col-span-7 space-y-1.5 text-[10px]">
+                      <div class="bg-slate-50 p-2 rounded-lg border border-slate-900">
+                        <span class="text-[9px] font-black text-slate-900 uppercase tracking-wider block">AMOUNT IN WORDS (INR):</span>
+                        <p id="prev-words-amount" class="text-[11px] font-black text-black italic leading-tight mt-0.5">
+                          Rupees Zero Only
+                        </p>
+                      </div>
+
+                      <div class="p-2 rounded-lg border border-slate-900 bg-amber-50/60 text-[10px] text-slate-900 space-y-0.5 leading-tight">
+                        <span class="font-black text-black block text-[10px]">Digital Payment Settlement:</span>
+                        <p>UPI ID: <strong class="text-black font-black">7757030387@upi</strong> | GPay/PhonePe: <strong class="text-black font-black">+91 7757030387</strong></p>
+                        <p class="text-[9px] text-slate-700">Cash, Cards & Bank Wire transfers accepted at workshop counter.</p>
+                      </div>
+                    </div>
+
+                    <!-- Right: Financial Breakdown & Grand Total (5 cols) -->
+                    <div class="col-span-5 space-y-1 text-xs tabular-nums">
+                      <div class="flex justify-between text-black py-0.5 text-[11px]">
+                        <span class="font-bold text-slate-700">Subtotal:</span>
+                        <span id="prev-subtotal" class="font-black text-black">₹0</span>
+                      </div>
+
+                      <div class="flex justify-between text-black py-0.5 text-[11px]" id="prev-tax-row">
+                        <span id="prev-tax-label" class="font-bold text-slate-700">GST (18%):</span>
+                        <span id="prev-tax-amount" class="font-black text-black">₹0</span>
+                      </div>
+
+                      <div class="flex justify-between text-emerald-800 py-0.5 text-[11px]" id="prev-discount-row">
+                        <span class="font-bold">Discount:</span>
+                        <span id="prev-discount-amount" class="font-black text-emerald-800">-₹0</span>
+                      </div>
+
+                      <div class="flex justify-between items-center p-2 rounded-lg bg-slate-950 text-white mt-1 border border-slate-900 shadow-2xs">
+                        <span class="text-[10px] sm:text-xs font-black uppercase tracking-tight text-white">Total Payable:</span>
+                        <span id="prev-grand-total" class="text-base sm:text-lg font-black text-amber-400">₹0</span>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <!-- 5. TERMS, WARRANTY & OFFICIAL AUTHENTICATION FOOTER -->
+                  <div class="mt-3 pt-2 border-t border-slate-950 grid grid-cols-2 gap-2.5 items-end text-[10px]">
+                    <div class="space-y-0.5 leading-tight">
+                      <span class="font-black text-black block text-[10px]">Workshop Warranty & Quality Guarantee:</span>
+                      <p id="prev-warranty-term" class="text-[10px] leading-tight font-black text-amber-900">
+                        12-Month / 10,000 KM Official Workshop Warranty
+                      </p>
+                      <p class="text-[9px] text-slate-700 leading-tight">
+                        • 100% Genuine OEM Spares • Multi-Point Pre-Delivery Handover Inspection Audited
+                      </p>
+                    </div>
+
+                    <div class="text-right flex flex-col items-end">
+                      <div class="inline-block px-2.5 py-0.5 text-[9px] font-black invoice-stamp rounded mb-1">
+                        WE CARE AUDITED & SEALED
+                      </div>
+                      <span class="text-black font-black text-xs leading-tight">Sohail Mulani</span>
+                      <span class="text-[9px] text-slate-800 font-bold leading-tight">Lead Workshop Engineer / Signatory</span>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- Footer (Shared Component Across All Pages) -->
+  <footer class="w-full py-section-gap border-t border-outline-variant/10 bg-surface-dim dark:bg-surface-dim relative z-10">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+      <div class="col-span-1 md:col-span-2 flex flex-col justify-between mb-stack-lg md:mb-0">
+        <div>
+          <a class="inline-block mb-stack-sm group" href="index.html" aria-label="We Care Auto Repairs">
+            <img src="assets/logo.png" alt="We Care Auto Repairs" class="h-16 md:h-20 w-auto object-contain transition-transform duration-300 group-hover:scale-105"/>
+          </a>
+          <p class="font-body-md text-body-md text-on-surface-variant max-w-sm mb-stack-lg">
+            We Care Auto Repair — Founded by Sohail Mulani in Chikhali, Pune. Dedicated to quality car repair, computer diagnostics, and friendly service.
+          </p>
+        </div>
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-4 border-t border-outline-variant/10 text-xs text-on-surface-variant">
+          <p class="font-body-md">
+            © 2026 We Care Auto Repairs. All Rights Reserved.
+          </p>
+          <button type="button" class="btn-open-owner-modal inline-flex items-center space-x-1.5 text-on-surface-variant hover:text-tertiary transition-colors cursor-pointer group" title="Owner Admin Portal">
+            <span class="material-symbols-outlined text-[16px] text-tertiary/70 group-hover:text-tertiary group-hover:rotate-12 transition-transform">admin_panel_settings</span>
+            <span>Owner Portal</span>
+          </button>
+        </div>
+      </div>
+      <div class="col-span-1 flex flex-col space-y-stack-sm">
+        <span class="font-label-caps text-label-caps text-primary uppercase mb-stack-sm">Quick Links</span>
+        <a class="font-body-md text-body-md text-on-surface-variant hover:text-tertiary transition-colors" href="index.html">Home</a>
+        <a class="font-body-md text-body-md text-on-surface-variant hover:text-tertiary transition-colors" href="services.html">Services</a>
+        <a class="font-body-md text-body-md text-on-surface-variant hover:text-tertiary transition-colors" href="about.html">About Us</a>
+        <a class="font-body-md text-body-md text-on-surface-variant hover:text-tertiary transition-colors" href="contact.html">Contact Us</a>
+        <a class="font-body-md text-body-md text-tertiary font-semibold flex items-center gap-1" href="invoice.html">
+          <span class="material-symbols-outlined text-[15px]">receipt_long</span> Invoicing Studio
+        </a>
+      </div>
+      <div class="col-span-1 flex flex-col space-y-stack-sm">
+        <span class="font-label-caps text-label-caps text-primary uppercase mb-stack-sm">Workshop Location</span>
+        <p class="font-body-md text-sm text-on-surface-variant leading-relaxed">
+          <strong class="text-primary font-semibold">We Care Auto Repair</strong><br>
+          Gat No 1079, Newali Wasti,<br>
+          Next to Burds International School,<br>
+          Opp Rajdhani Sweets, Chikhali,<br>
+          Pune, Maharashtra 411062<br>
+          <span class="text-tertiary font-semibold block mt-1">Direct: +91 7757030387</span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+</body>
+</html>
