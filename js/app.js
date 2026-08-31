@@ -1351,12 +1351,13 @@ function initOwnerAuthEngine() {
 
   function getOwnerSession() {
     try {
-      const raw = localStorage.getItem(OWNER_AUTH_KEY);
+      // Use sessionStorage so any new tab/visitor starts logged out by default
+      const raw = sessionStorage.getItem(OWNER_AUTH_KEY);
       if (!raw) return null;
       const session = JSON.parse(raw);
       const elapsed = Date.now() - (session.timestamp || 0);
       if (elapsed > SESSION_DURATION_MS) {
-        localStorage.removeItem(OWNER_AUTH_KEY);
+        sessionStorage.removeItem(OWNER_AUTH_KEY);
         return null;
       }
       return session;
@@ -1367,7 +1368,7 @@ function initOwnerAuthEngine() {
 
   function setOwnerSession() {
     try {
-      localStorage.setItem(OWNER_AUTH_KEY, JSON.stringify({
+      sessionStorage.setItem(OWNER_AUTH_KEY, JSON.stringify({
         loggedIn: true,
         timestamp: Date.now()
       }));
@@ -1378,7 +1379,8 @@ function initOwnerAuthEngine() {
   }
 
   function clearOwnerSession() {
-    localStorage.removeItem(OWNER_AUTH_KEY);
+    sessionStorage.removeItem(OWNER_AUTH_KEY);
+    localStorage.removeItem(OWNER_AUTH_KEY); // Clean any legacy keys
     if (timerInterval) clearInterval(timerInterval);
     updateNavCapsule(false);
   }
@@ -1387,7 +1389,7 @@ function initOwnerAuthEngine() {
     const session = getOwnerSession();
     if (session) {
       session.timestamp = Date.now();
-      localStorage.setItem(OWNER_AUTH_KEY, JSON.stringify(session));
+      sessionStorage.setItem(OWNER_AUTH_KEY, JSON.stringify(session));
       updateTimerDisplay();
       if (window.WebAudioFX) window.WebAudioFX.playSuccess();
     }
@@ -1516,7 +1518,7 @@ function initOwnerAuthEngine() {
             We Care Auto Invoicing
           </h3>
           <p class="font-body-md text-on-surface-variant text-xs mb-4">
-            Enter Owner PIN (7860) to unlock the 5th Invoicing page.
+            Enter Owner PIN (7860) to unlock the Invoicing Studio.
           </p>
 
           <form id="global-owner-modal-form" class="space-y-3">
@@ -1562,8 +1564,8 @@ function initOwnerAuthEngine() {
           if (VALID_PINS.includes(val)) {
             setOwnerSession();
             if (window.WebAudioFX) window.WebAudioFX.playSuccess();
-            modal.remove();
-            window.location.href = 'invoice.html';
+            modal.remove(); // Close the PIN entering box immediately
+            window.location.href = 'invoice.html'; // Open invoicing page
           } else {
             if (errEl) errEl.classList.remove('hidden');
             pinInput.classList.add('border-error');
@@ -1599,14 +1601,17 @@ function initOwnerAuthEngine() {
 
     function renderInvoicePageState(authenticated) {
       if (authenticated) {
+        // Close PIN entering box and open the invoicing workspace
         authGate.classList.add('hidden');
         studioWorkspace.classList.remove('hidden');
         startSessionCountdown(() => {
-          renderInvoicePageState(false);
-          alert('Owner session expired after 5 minutes of active session. Invoicing locked.');
+          clearOwnerSession();
+          studioWorkspace.classList.add('hidden');
+          window.location.href = 'index.html'; // Make invoice page disappear on expiry
         });
         initInvoiceGenerator();
       } else {
+        // Default locked state
         studioWorkspace.classList.add('hidden');
         authGate.classList.remove('hidden');
         if (timerInterval) clearInterval(timerInterval);
@@ -1633,6 +1638,7 @@ function initOwnerAuthEngine() {
           if (authError) authError.classList.add('hidden');
           setOwnerSession();
           if (window.WebAudioFX) window.WebAudioFX.playSuccess();
+          // Close the PIN box and open Invoicing page
           renderInvoicePageState(true);
         } else {
           if (authError) authError.classList.remove('hidden');
@@ -1680,7 +1686,7 @@ function initOwnerAuthEngine() {
       }
     }
 
-    // Session buttons on invoice.html
+    // Session extend button on invoice.html
     const extendBtn = document.getElementById('btn-extend-session');
     if (extendBtn) {
       extendBtn.addEventListener('click', () => {
@@ -1688,15 +1694,18 @@ function initOwnerAuthEngine() {
       });
     }
 
+    // LOG OUT BUTTONS: Clears session, hides workspace, and redirects to index.html (making invoice page disappear)
     const lockBtn = document.getElementById('btn-lock-session');
     const headerLogout = document.getElementById('btn-header-owner-logout');
     const mobileLogout = document.getElementById('btn-mobile-owner-logout');
 
     [lockBtn, headerLogout, mobileLogout].forEach(b => {
       if (b) {
-        b.addEventListener('click', () => {
+        b.addEventListener('click', (e) => {
+          e.preventDefault();
           clearOwnerSession();
-          renderInvoicePageState(false);
+          studioWorkspace.classList.add('hidden'); // Immediately make invoice studio disappear
+          window.location.href = 'index.html'; // Exit back to Home page
         });
       }
     });
