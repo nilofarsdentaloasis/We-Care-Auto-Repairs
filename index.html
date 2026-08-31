@@ -1931,10 +1931,27 @@
     </section>
 
     <!-- 6. CUSTOMER REVIEWS -->
-    <section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-background relative z-20 border-t border-outline-variant/10" id="reviews">
-      <div class="max-w-container-max mx-auto">
+    <section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-background relative z-20 border-t border-outline-variant/10 overflow-hidden" id="reviews">
+      <!-- Background Video (HD Resolution, Preserved Frame Size) -->
+      <div class="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
+        <video
+          autoplay
+          loop
+          muted
+          playsinline
+          preload="auto"
+          class="w-full h-full object-cover object-center"
+        >
+          <source src="7006123-uhd_4096_2160_25fps.mp4" type="video/mp4" />
+        </video>
+        <!-- Atmospheric Dimming Overlays to preserve HD clarity and contrast for review text -->
+        <div class="absolute inset-0 bg-background/80 backdrop-blur-[1px]"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background"></div>
+      </div>
+
+      <div class="max-w-container-max mx-auto relative z-10">
         <div class="text-center max-w-3xl mx-auto mb-16">
-          <div class="inline-flex items-center space-x-2 bg-surface-container-high border border-tertiary/20 px-3.5 py-1.5 rounded-full mb-4">
+          <div class="inline-flex items-center space-x-2 bg-surface-container-high/90 backdrop-blur-sm border border-tertiary/20 px-3.5 py-1.5 rounded-full mb-4 shadow-sm">
             <span class="material-symbols-outlined text-tertiary text-[18px]">rate_review</span>
             <span class="font-label-caps text-xs text-tertiary uppercase tracking-widest font-semibold">Customer Reviews</span>
           </div>
@@ -1948,7 +1965,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <!-- Review 1 -->
-          <div class="bg-surface-container rounded-2xl p-8 shimmer-border glow-hover transition-all duration-300 flex flex-col justify-between">
+          <div class="bg-surface-container/90 backdrop-blur-md rounded-2xl p-8 shimmer-border glow-hover transition-all duration-300 flex flex-col justify-between border border-outline-variant/20 shadow-xl">
             <div>
               <div class="flex text-tertiary mb-4 space-x-1">
                 <span class="material-symbols-outlined text-[20px] fill-current">star</span>
@@ -1971,7 +1988,7 @@
           </div>
 
           <!-- Review 2 -->
-          <div class="bg-surface-container rounded-2xl p-8 shimmer-border glow-hover transition-all duration-300 flex flex-col justify-between">
+          <div class="bg-surface-container/90 backdrop-blur-md rounded-2xl p-8 shimmer-border glow-hover transition-all duration-300 flex flex-col justify-between border border-outline-variant/20 shadow-xl">
             <div>
               <div class="flex text-tertiary mb-4 space-x-1">
                 <span class="material-symbols-outlined text-[20px] fill-current">star</span>
@@ -1994,7 +2011,7 @@
           </div>
 
           <!-- Review 3 -->
-          <div class="bg-surface-container rounded-2xl p-8 shimmer-border glow-hover transition-all duration-300 flex flex-col justify-between">
+          <div class="bg-surface-container/90 backdrop-blur-md rounded-2xl p-8 shimmer-border glow-hover transition-all duration-300 flex flex-col justify-between border border-outline-variant/20 shadow-xl">
             <div>
               <div class="flex text-tertiary mb-4 space-x-1">
                 <span class="material-symbols-outlined text-[20px] fill-current">star</span>
