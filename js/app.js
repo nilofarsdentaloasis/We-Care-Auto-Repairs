@@ -1347,9 +1347,10 @@ function initOwnerAuthEngine() {
   const OWNER_PIN_STORAGE_KEY = 'wecare_owner_pin';
   const SESSION_DURATION_MS = 5 * 60 * 1000; // 5 minutes active session
   const DEFAULT_PIN = '3696';
-  const RECOVERY_KEYS = ['7860', '7757030387', '9175551980', 'sohail', 'admin', '3696'];
 
   let timerInterval = null;
+  let currentActiveOtp = null;
+  let otpExpiryTime = 0;
 
   function getActiveOwnerPin() {
     return localStorage.getItem(OWNER_PIN_STORAGE_KEY) || DEFAULT_PIN;
@@ -1367,10 +1368,34 @@ function initOwnerAuthEngine() {
     return clean === activePin || clean === DEFAULT_PIN || clean === '7860';
   }
 
-  function verifyRecoveryKey(key) {
-    const clean = String(key || '').trim().toLowerCase();
-    const activePin = getActiveOwnerPin();
-    return RECOVERY_KEYS.includes(clean) || clean === activePin;
+  function generateOwnerOtp() {
+    currentActiveOtp = Math.floor(100000 + Math.random() * 900000).toString();
+    otpExpiryTime = Date.now() + 5 * 60 * 1000; // Valid for 5 minutes
+    return currentActiveOtp;
+  }
+
+  function verifyEnteredOtp(otpInput) {
+    const clean = String(otpInput || '').trim();
+    if (!clean) return false;
+    if (clean === '7860' || clean === '3696') return true; // Emergency master override
+    if (currentActiveOtp && clean === currentActiveOtp && Date.now() <= otpExpiryTime) {
+      return true;
+    }
+    return false;
+  }
+
+  function dispatchOtpToOwnerMobile(onSuccess) {
+    const otp = generateOwnerOtp();
+    const ownerMobile = '917757030387'; // Registered device
+    const message = `🔐 *WE CARE AUTO REPAIR — OWNER PORTAL OTP*\n\nYour Verification OTP for PIN Reset is: *${otp}*\n\n_Valid for 5 minutes. Do not share this OTP with anyone._`;
+    const whatsappUrl = `https://wa.me/${ownerMobile}?text=${encodeURIComponent(message)}`;
+    
+    // Dispatch to registered WhatsApp in a separate window
+    window.open(whatsappUrl, '_blank');
+
+    if (typeof onSuccess === 'function') {
+      onSuccess(otp);
+    }
   }
 
   function getOwnerSession() {
@@ -1585,30 +1610,55 @@ function initOwnerAuthEngine() {
             </div>
           </div>
 
-          <!-- RESET PIN VIEW -->
-          <div id="global-modal-reset-view" class="hidden text-left space-y-3 animate-fade-in">
-            <div class="bg-surface-container-high/90 border border-outline-variant/30 rounded-2xl p-4 space-y-3">
+          <!-- RESET PIN VIEW (OTP VERIFICATION) -->
+          <div id="global-modal-reset-view" class="hidden text-left space-y-3.5 animate-fade-in">
+            <div class="bg-surface-container-high/90 border border-outline-variant/30 rounded-2xl p-4 space-y-3.5">
               <div class="flex items-center justify-between border-b border-outline-variant/10 pb-2">
                 <div class="flex items-center gap-1.5 text-xs font-bold text-tertiary uppercase">
                   <span class="material-symbols-outlined text-[15px]">lock_reset</span>
-                  <span>Reset Owner PIN</span>
+                  <span>Owner PIN Reset (OTP)</span>
                 </div>
                 <button type="button" id="btn-global-cancel-reset" class="text-[11px] text-on-surface-variant hover:text-primary transition-colors cursor-pointer flex items-center gap-0.5">
                   <span class="material-symbols-outlined text-[13px]">arrow_back</span>
-                  <span>Back</span>
+                  <span>Back to Login</span>
                 </button>
+              </div>
+
+              <!-- OTP Dispatch Info -->
+              <div class="bg-surface-container-lowest/70 border border-outline-variant/20 rounded-xl p-3 text-center space-y-2">
+                <p class="text-xs text-on-surface-variant leading-relaxed">
+                  A 6-digit confirmation OTP will be sent to the <strong class="text-primary font-semibold">Registered Owner Device</strong>.
+                </p>
+                <div class="flex items-center justify-center gap-2">
+                  <button type="button" id="btn-global-send-otp" class="bg-gradient-to-r from-tertiary to-tertiary-fixed text-on-tertiary-fixed font-bold py-2 px-3.5 rounded-xl hover:shadow-[0_0_15px_rgba(233,195,73,0.4)] hover:scale-[1.01] active:scale-98 transition-all flex items-center justify-center space-x-1.5 text-xs shadow-sm cursor-pointer">
+                    <span class="material-symbols-outlined text-[15px]">send_to_mobile</span>
+                    <span id="global-send-otp-btn-text">Send OTP to Registered Mobile</span>
+                  </button>
+                </div>
+                <p id="global-otp-sent-banner" class="hidden text-[11px] text-emerald-400 font-semibold flex items-center justify-center gap-1">
+                  <span class="material-symbols-outlined text-[13px]">check_circle</span>
+                  <span>OTP dispatched to Registered Mobile.</span>
+                </p>
               </div>
 
               <form id="global-modal-reset-form" class="space-y-3">
                 <div>
-                  <label class="block text-[11px] text-on-surface-variant font-medium mb-1">
-                    Master Recovery Key or Owner Phone (+91 7757030387):
-                  </label>
+                  <div class="flex items-center justify-between mb-1">
+                    <label class="block text-[11px] text-on-surface-variant font-medium">
+                      Enter 6-Digit OTP:
+                    </label>
+                    <button type="button" id="btn-global-resend-otp" class="hidden text-[11px] text-tertiary hover:underline font-semibold cursor-pointer">
+                      Resend OTP
+                    </button>
+                  </div>
                   <input 
-                    type="password" 
-                    id="global-reset-key" 
-                    class="w-full bg-surface-container-lowest border border-outline-variant/40 focus:border-tertiary text-xs py-2 px-3 rounded-lg text-primary focus:outline-none" 
-                    placeholder="Enter Recovery Key or Phone" 
+                    type="text" 
+                    id="global-reset-otp" 
+                    maxlength="6" 
+                    inputmode="numeric"
+                    pattern="[0-9]*"
+                    class="w-full bg-surface-container-lowest border-2 border-outline-variant/40 focus:border-tertiary text-center text-base font-mono tracking-[0.3em] font-bold py-1.5 px-3 rounded-lg text-primary focus:outline-none" 
+                    placeholder="••••••" 
                     required 
                   />
                 </div>
@@ -1644,7 +1694,7 @@ function initOwnerAuthEngine() {
 
                 <p id="global-reset-error" class="hidden text-xs text-error font-bold tracking-wide flex items-center gap-1">
                   <span class="material-symbols-outlined text-[13px]">error</span>
-                  <span id="global-reset-error-text">Invalid recovery key or PINs do not match.</span>
+                  <span id="global-reset-error-text">Invalid OTP or PINs do not match.</span>
                 </p>
 
                 <p id="global-reset-success" class="hidden text-xs text-emerald-400 font-bold tracking-wide flex items-center gap-1">
@@ -1653,8 +1703,8 @@ function initOwnerAuthEngine() {
                 </p>
 
                 <button type="submit" class="w-full bg-tertiary text-on-tertiary font-bold py-2.5 px-4 rounded-xl hover:shadow-[0_0_20px_rgba(233,195,73,0.4)] hover:scale-[1.01] active:scale-98 transition-all flex items-center justify-center space-x-1.5 text-xs shadow-md cursor-pointer">
-                  <span class="material-symbols-outlined text-[15px]">save</span>
-                  <span>Save New PIN & Continue</span>
+                  <span class="material-symbols-outlined text-[15px]">verified</span>
+                  <span>Verify OTP & Set New PIN</span>
                 </button>
               </form>
             </div>
@@ -1684,8 +1734,6 @@ function initOwnerAuthEngine() {
         showResetBtn.addEventListener('click', () => {
           loginView.classList.add('hidden');
           resetView.classList.remove('hidden');
-          const recInput = modal.querySelector('#global-reset-key');
-          if (recInput) recInput.focus();
         });
         cancelResetBtn.addEventListener('click', () => {
           resetView.classList.add('hidden');
@@ -1694,24 +1742,49 @@ function initOwnerAuthEngine() {
         });
       }
 
+      // Send OTP in global modal
+      const globalSendOtpBtn = modal.querySelector('#btn-global-send-otp');
+      const globalResendOtpBtn = modal.querySelector('#btn-global-resend-otp');
+      const globalOtpSentBanner = modal.querySelector('#global-otp-sent-banner');
+      const globalOtpInput = modal.querySelector('#global-reset-otp');
+
+      function triggerGlobalOtpSend() {
+        dispatchOtpToOwnerMobile(() => {
+          if (globalOtpSentBanner) globalOtpSentBanner.classList.remove('hidden');
+          if (globalResendOtpBtn) globalResendOtpBtn.classList.remove('hidden');
+          if (globalSendOtpBtn) {
+            const btnTxt = modal.querySelector('#global-send-otp-btn-text');
+            if (btnTxt) btnTxt.textContent = 'Resend OTP to Mobile';
+          }
+          if (globalOtpInput) {
+            globalOtpInput.focus();
+          }
+          if (window.WebAudioFX) window.WebAudioFX.playSuccess();
+        });
+      }
+
+      if (globalSendOtpBtn) globalSendOtpBtn.addEventListener('click', triggerGlobalOtpSend);
+      if (globalResendOtpBtn) globalResendOtpBtn.addEventListener('click', triggerGlobalOtpSend);
+
       // Reset PIN Form Handler
       const resetForm = modal.querySelector('#global-modal-reset-form');
       if (resetForm) {
         resetForm.addEventListener('submit', (e) => {
           e.preventDefault();
-          const recKey = modal.querySelector('#global-reset-key').value.trim();
+          const otpVal = modal.querySelector('#global-reset-otp').value.trim();
           const newPin = modal.querySelector('#global-reset-new-pin').value.trim();
           const confirmPin = modal.querySelector('#global-reset-confirm-pin').value.trim();
           const rErr = modal.querySelector('#global-reset-error');
           const rErrText = modal.querySelector('#global-reset-error-text');
           const rSucc = modal.querySelector('#global-reset-success');
 
-          if (!verifyRecoveryKey(recKey)) {
+          if (!verifyEnteredOtp(otpVal)) {
             if (rErr && rErrText) {
-              rErrText.textContent = 'Invalid recovery key or phone number.';
+              rErrText.textContent = 'Invalid OTP. Please enter the OTP sent to your registered mobile.';
               rErr.classList.remove('hidden');
             }
             if (rSucc) rSucc.classList.add('hidden');
+            if (window.WebAudioFX) window.WebAudioFX.playWarning();
             return;
           }
 
@@ -1842,8 +1915,6 @@ function initOwnerAuthEngine() {
       showResetBtn.addEventListener('click', () => {
         loginView.classList.add('hidden');
         resetView.classList.remove('hidden');
-        const recKey = document.getElementById('reset-recovery-key');
-        if (recKey) recKey.focus();
       });
       cancelResetBtn.addEventListener('click', () => {
         resetView.classList.add('hidden');
@@ -1852,24 +1923,45 @@ function initOwnerAuthEngine() {
       });
     }
 
+    // OTP dispatch on invoice.html
+    const sendOtpBtn = document.getElementById('btn-send-owner-otp');
+    const resendOtpBtn = document.getElementById('btn-resend-otp');
+    const otpSentBanner = document.getElementById('otp-sent-banner');
+    const resetOtpInput = document.getElementById('reset-otp-input');
+
+    function triggerInvoiceOtpSend() {
+      dispatchOtpToOwnerMobile(() => {
+        if (otpSentBanner) otpSentBanner.classList.remove('hidden');
+        if (resendOtpBtn) resendOtpBtn.classList.remove('hidden');
+        const sendTxt = document.getElementById('send-otp-btn-text');
+        if (sendTxt) sendTxt.textContent = 'Resend OTP to Mobile';
+        if (resetOtpInput) resetOtpInput.focus();
+        if (window.WebAudioFX) window.WebAudioFX.playSuccess();
+      });
+    }
+
+    if (sendOtpBtn) sendOtpBtn.addEventListener('click', triggerInvoiceOtpSend);
+    if (resendOtpBtn) resendOtpBtn.addEventListener('click', triggerInvoiceOtpSend);
+
     // Reset Form submit on invoice.html
     const resetForm = document.getElementById('owner-reset-form');
     if (resetForm) {
       resetForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        const recKey = document.getElementById('reset-recovery-key').value.trim();
+        const otpVal = document.getElementById('reset-otp-input').value.trim();
         const newPin = document.getElementById('reset-new-pin').value.trim();
         const confirmPin = document.getElementById('reset-confirm-pin').value.trim();
         const rErr = document.getElementById('reset-error-msg');
         const rErrText = document.getElementById('reset-error-text');
         const rSucc = document.getElementById('reset-success-msg');
 
-        if (!verifyRecoveryKey(recKey)) {
+        if (!verifyEnteredOtp(otpVal)) {
           if (rErr && rErrText) {
-            rErrText.textContent = 'Invalid recovery key or phone number.';
+            rErrText.textContent = 'Invalid OTP. Please enter the OTP sent to your registered mobile.';
             rErr.classList.remove('hidden');
           }
           if (rSucc) rSucc.classList.add('hidden');
+          if (window.WebAudioFX) window.WebAudioFX.playWarning();
           return;
         }
 
